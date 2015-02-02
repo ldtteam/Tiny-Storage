@@ -1,5 +1,35 @@
 package com.timthebrick.tinystorage.proxy;
 
-public class ClientProxy extends CommonProxy{
+import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
+
+import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
+import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
+import com.timthebrick.tinystorage.init.ModBlocks;
+import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
+
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+
+public class ClientProxy extends CommonProxy {
+
+	public void initRenderingAndTextures() {
+		RenderIDs.tinyChest = RenderingRegistry.getNextAvailableRenderId();
+
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChest), new ItemRendererTinyChest());
+
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyChest.class, new TileEntityRendererTinyChest());
+	}
+
+	@Override
+	public ClientProxy getClientProxy() {
+		return this;
+	}
+
+	@Override
+	public void registerKeybindings() {
+		
+	}
 
 }
