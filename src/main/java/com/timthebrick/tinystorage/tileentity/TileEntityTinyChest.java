@@ -1,12 +1,15 @@
 package com.timthebrick.tinystorage.tileentity;
 
 import com.timthebrick.tinystorage.init.ModBlocks;
+import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
+import com.timthebrick.tinystorage.reference.Names;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityTinyChest extends TileEntityTinyStorage implements IInventory {
@@ -17,9 +20,16 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
 
-	public TileEntityTinyChest() {
+	public TileEntityTinyChest(int metaData) {
 		super();
-		inventory = new ItemStack[9];
+		this.state = (byte) metaData;
+		if (metaData == 0) {
+			inventory = new ItemStack[ContainerTinyChest.SMALL_INVENTORY_SIZE];
+		} else if (metaData == 1) {
+			inventory = new ItemStack[ContainerTinyChest.MEDIUM_INVENTORY_SIZE];
+		} else if (metaData == 2) {
+			inventory = new ItemStack[ContainerTinyChest.LARGE_INVENTORY_SIZE];
+		}
 	}
 
 	@Override
@@ -70,12 +80,12 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 
 	@Override
 	public String getInventoryName() {
-		return null;
+		return this.hasCustomName() ? this.getCustomName() : Names.Containers.TINY_CHEST;
 	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
-		return false;
+		return this.hasCustomName();
 	}
 
 	@Override
@@ -84,20 +94,20 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+	public boolean isUseableByPlayer(EntityPlayer player) {
 		return true;
 	}
 
 	@Override
 	public void openInventory() {
 		++numPlayersUsing;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChest, 1, numPlayersUsing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChestStone, 1, numPlayersUsing);
 	}
 
 	@Override
 	public void closeInventory() {
 		--numPlayersUsing;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChest, 1, numPlayersUsing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChestStone, 1, numPlayersUsing);
 	}
 
 	@Override
@@ -110,7 +120,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 		super.updateEntity();
 
 		if (++ticksSinceSync % 20 * 4 == 0) {
-			worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChest, 1, numPlayersUsing);
+			worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChestStone, 1, numPlayersUsing);
 		}
 
 		prevLidAngle = lidAngle;

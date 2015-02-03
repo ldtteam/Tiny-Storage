@@ -26,7 +26,13 @@ public class TileEntityRendererTinyChest extends TileEntitySpecialRenderer {
 				direction = tileEntityTinyChest.getOrientation();
 			}
 
-			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest.png"));
+			if (tileEntityTinyChest.getState() == 0) {
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_SMALL.png"));
+			} else if (tileEntityTinyChest.getState() == 1) {
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_MEDIUM.png"));
+			} else if (tileEntityTinyChest.getState() == 2) {
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_LARGE.png"));
+			}
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);

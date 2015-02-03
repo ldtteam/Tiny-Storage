@@ -32,19 +32,11 @@ public class TinyStorage {
 	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
 	public static IProxy proxy;
 
-	public static CreativeTabs creativeTab;
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
 		PacketHandler.init();
 		
-		creativeTab = new CreativeTabs("TinyStorage") {
-			public Item getTabIconItem() {
-				return (new ItemStack(Blocks.chest).getItem());
-			}
-		};
-
 		ModBlocks.init();
 	}
 

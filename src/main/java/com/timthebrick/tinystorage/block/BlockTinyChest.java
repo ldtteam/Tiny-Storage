@@ -1,22 +1,19 @@
 package com.timthebrick.tinystorage.block;
 
+import java.util.List;
 import java.util.Random;
-
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -24,17 +21,42 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockTinyChest extends BlockContainer {
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestLarge;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestMedium;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestSmall;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class BlockTinyChest extends BlockContainer implements ITileEntityProvider{
+
+	private String textureName;
 
 	public BlockTinyChest() {
 		super(Material.rock);
+		this.setHardness(2.5f);
 		this.setBlockName("blockTinyChest");
-		this.setCreativeTab(TinyStorage.creativeTab);
+		this.setCreativeTab(TabTinyStorage.creativeTab);
+		this.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileEntityTinyChest();
+	public TileEntity createNewTileEntity(World world, int metaData) {
+		if (metaData == 0) {
+			return new TileEntityTinyChestSmall();
+		} else if (metaData == 1) {
+			return new TileEntityTinyChestMedium();
+		} else if (metaData == 2) {
+			return new TileEntityTinyChestLarge();
+		}
+		return null;
 	}
 
 	@Override
@@ -54,7 +76,6 @@ public class BlockTinyChest extends BlockContainer {
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
-			System.out.println("Huh");
 			return true;
 		} else {
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
@@ -105,7 +126,9 @@ public class BlockTinyChest extends BlockContainer {
 	protected void dropInventory(World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 
-		if (!(tileEntity instanceof IInventory)) { return; }
+		if (!(tileEntity instanceof IInventory)) {
+			return;
+		}
 
 		IInventory inventory = (IInventory) tileEntity;
 
@@ -134,9 +157,21 @@ public class BlockTinyChest extends BlockContainer {
 			}
 		}
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockTinyChest");
+	}
+
+	@Override
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+		for (int meta = 0; meta < 3; meta++) {
+			list.add(new ItemStack(item, 1, meta));
+		}
+	}
+
+	@Override
+	public int damageDropped(int metaData) {
+		return metaData;
 	}
 }

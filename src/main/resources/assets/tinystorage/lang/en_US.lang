@@ -1,0 +1,10 @@
+#Blocks
+tile.blockTinyChest.name=Tiny Chest
+
+#Containers
+container.tinystorage:tinyChest=Tiny Chest
+
+#Tooltips
+tooltip.tinystorage:tinyChestPrefix.small=Small
+tooltip.tinystorage:tinyChestPrefix.medium=Medium
+tooltip.tinystorage:tinyChestPrefix.large=Large

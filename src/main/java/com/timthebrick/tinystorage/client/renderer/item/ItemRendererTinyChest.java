@@ -56,7 +56,13 @@ public class ItemRendererTinyChest implements IItemRenderer {
 	}
 
 	private void renderTinyChest(float x, float y, float z, int metaData) {
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest.png"));
+		if (metaData == 0) {
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_SMALL.png"));
+		} else if (metaData == 1) {
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_MEDIUM.png"));
+		} else if (metaData == 2) {
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_LARGE.png"));
+		}
 
 		GL11.glPushMatrix(); // start
 		GL11.glTranslatef(x, y, z); // size
