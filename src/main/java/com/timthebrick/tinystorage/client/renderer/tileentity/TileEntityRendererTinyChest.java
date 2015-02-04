@@ -38,7 +38,16 @@ public class TileEntityRendererTinyChest extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glTranslatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
-			GL11.glScalef(1.0F, -1.0F, -1.0F);
+			//GL11.glScalef(1.0F, -1.0F, -1.0F);
+			if (tileEntityTinyChest.getState() == 0) {
+				GL11.glScalef(0.5F, -0.5F, -0.5F);
+				GL11.glTranslatef(0.5F, 1F, 0.5F);
+			} else if (tileEntityTinyChest.getState() == 1) {
+				GL11.glScalef(0.75F, -0.75F, -0.75F);
+				GL11.glTranslatef(0.16F, 0.325F, 0.16F);
+			} else if (tileEntityTinyChest.getState() == 2) {
+				GL11.glScalef(1.0F, -1.0F, -1.0F);
+			}
 			GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 			short angle = 0;
 

@@ -17,7 +17,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -37,14 +39,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTinyChest extends BlockContainer implements ITileEntityProvider{
 
-	private String textureName;
-
-	public BlockTinyChest() {
-		super(Material.rock);
+	public BlockTinyChest(Material mat) {
+		super(mat);
 		this.setHardness(2.5f);
 		this.setBlockName("blockTinyChest");
 		this.setCreativeTab(TabTinyStorage.creativeTab);
-		this.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
+		//this.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
 	}
 
 	@Override
@@ -58,6 +58,37 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 		}
 		return null;
 	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+		setBlockBoundsBasedOnState(world, x, y, z);
+		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+		setBlockBoundsBasedOnState(world, x, y, z);
+		return super.getSelectedBoundingBoxFromPool(world, x, y, z);
+	}
+
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+		updateChestBounds(world.getBlockMetadata(x, y, z));
+	}
+
+	public void updateChestBounds(int meta) {
+		float f = 0.125F;
+		if (meta == 0){
+			setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.5f, 0.8f);
+		}
+		if (meta == 1){
+			setBlockBounds(0.125f, 0.0f, 0.125f, 1F-0.125f, 0.75f, 1F-0.125f);
+		}
+		if (meta == 2){
+			setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
+		}
+	}	
 
 	@Override
 	public boolean renderAsNormalBlock() {
@@ -81,7 +112,6 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
 				player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
 			}
-
 			return true;
 		}
 	}
