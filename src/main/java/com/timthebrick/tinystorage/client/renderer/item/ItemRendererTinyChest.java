@@ -40,7 +40,7 @@ public class ItemRendererTinyChest implements IItemRenderer {
 		// Translating
 		float transX = 0F, transY = 0F, transZ = 0F;
 
-		// Bind texture, scale and translate
+		// Bind texture, scale
 		if (itemStack.getItemDamage() == 0) {
 			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_SMALL.png"));
 			scale = 0.5F;
@@ -52,22 +52,45 @@ public class ItemRendererTinyChest implements IItemRenderer {
 			scale = 1F;
 		}
 
+		// Translate and render
 		switch (itemRenderType) {
 		case ENTITY: {
-			renderTinyChest(0.5F, 0.5F, 0.5F, scale);
+			renderTinyChest(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
 			break;
 		}
 		case EQUIPPED: {
-
-			renderTinyChest(0.9F, -1.0F, -1.2F, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transX = 0.3F;
+				transY = -0.6F;
+				transZ = -0.9F;
+			}
+			renderTinyChest(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON: {
-			renderTinyChest(1.0F, 1.0F, 1.0F, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transX = -0.15F;
+				transY = -3F;
+				transZ = -2.5F;
+			} else if (itemStack.getItemDamage() == 1) {
+				transX = -0.15F;
+				transY = -2.4F;
+				transZ = -2F;
+			} else if (itemStack.getItemDamage() == 2) {
+				transX = -0.15F;
+				transY = -2.2F;
+				transZ = -2F;
+			}
+			renderTinyChest(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
 			break;
 		}
 		case INVENTORY: {
-			renderTinyChest(0.0F, -0.075F, 0.0F, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transY = 1F;
+			} else if (itemStack.getItemDamage() == 1) {
+				transY = 0.35F;
+			}
+			renderTinyChest(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
 			break;
 		}
 		default:
