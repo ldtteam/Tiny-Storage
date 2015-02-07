@@ -3,7 +3,9 @@ package com.timthebrick.tinystorage.init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
+import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
+import com.timthebrick.tinystorage.item.ItemBlockFilterChest;
 import com.timthebrick.tinystorage.item.ItemBlockTinyChest;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
@@ -19,6 +21,8 @@ public class ModBlocks {
 	public static Block blockTinyChestBirchLog = new BlockTinyChest(Material.wood, "BirchLog");
 	public static Block blockTinyChestJungleLog = new BlockTinyChest(Material.wood, "JungleLog");
 	public static Block blockTinyChestSpruceLog = new BlockTinyChest(Material.wood, "SpruceLog");
+	
+	public static Block blockFilterChestStone = new BlockFilterChest(Material.rock, "Stone");
 
 	public static void init() {
 		GameRegistry.registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");
@@ -27,6 +31,8 @@ public class ModBlocks {
 		GameRegistry.registerBlock(blockTinyChestBirchLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "BirchLog");
 		GameRegistry.registerBlock(blockTinyChestJungleLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "JungleLog");
 		GameRegistry.registerBlock(blockTinyChestSpruceLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "SpruceLog");
+		
+		GameRegistry.registerBlock(blockFilterChestStone, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "Stone");
 	}
 
 }
