@@ -3,10 +3,12 @@ package com.timthebrick.tinystorage.proxy;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -25,7 +27,10 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestJungleLog), new ItemRendererTinyChest("JungleLog"));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestSpruceLog), new ItemRendererTinyChest("SpruceLog"));
 		
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockFilterChestStone), new ItemRendererFilterChest("Stone"));
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyChest.class, new TileEntityRendererTinyChest());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFilterChest.class, new TileEntityRendererTinyChest());
 	}
 
 	@Override

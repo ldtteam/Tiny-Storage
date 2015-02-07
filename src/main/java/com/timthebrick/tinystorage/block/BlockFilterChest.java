@@ -42,7 +42,7 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 
 	protected String textureName;
 
-	protected BlockFilterChest(Material mat, String textureName) {
+	public BlockFilterChest(Material mat, String textureName) {
 		super(mat);
 		this.setHardness(2.5f);
 		this.setBlockName("blockFilterChest" + textureName);
