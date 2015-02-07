@@ -4,6 +4,7 @@ public class Names {
 
 	public static final class Blocks {
 		public static final String TINY_CHEST = "tinyChest";
+		public static final String FILTER_CHEST = "filterChest";
 	}
 
 	public static final class NBT {
@@ -21,6 +22,7 @@ public class Names {
 		public static final String VANILLA_INVENTORY = "container.inventory";
 		public static final String VANILLA_CRAFTING = "container.crafting";
 		public static final String TINY_CHEST = "container.tinystorage:" + Blocks.TINY_CHEST;
+		public static final String FILTER_CHEST = "container.tinystorage:" + Blocks.FILTER_CHEST;
 	}
 
 }

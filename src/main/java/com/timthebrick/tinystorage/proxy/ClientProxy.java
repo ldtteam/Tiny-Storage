@@ -16,6 +16,7 @@ public class ClientProxy extends CommonProxy {
 
 	public void initRenderingAndTextures() {
 		RenderIDs.tinyChest = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.filterChest = RenderingRegistry.getNextAvailableRenderId();
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestStone), new ItemRendererTinyChest("Stone"));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestOakLog), new ItemRendererTinyChest("OakLog"));
