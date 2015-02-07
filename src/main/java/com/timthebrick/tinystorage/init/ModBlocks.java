@@ -14,7 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModBlocks {
 
 	public static Block blockTinyChestStone = new BlockTinyChest(Material.rock, "Stone");
-	public static Block blockTinyChestOakLog = new BlockTinyChest(Material.rock, "OakLog");
+	public static Block blockTinyChestOakLog = new BlockTinyChest(Material.wood, "OakLog");
 
 	public static void init() {
 		GameRegistry.registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");

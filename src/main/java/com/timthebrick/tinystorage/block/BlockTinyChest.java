@@ -82,7 +82,7 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 	public void updateChestBounds(int meta) {
 		float f = 0.125F;
 		if (meta == 0) {
-			setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.5f, 0.8f);
+			setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.51f, 0.8f);
 		}
 		if (meta == 1) {
 			setBlockBounds(0.125f, 0.0f, 0.125f, 1F - 0.125f, 0.75f, 1F - 0.125f);
