@@ -49,7 +49,7 @@ public class ItemRendererTinyChest implements IItemRenderer {
 			scale = 1F;
 		}
 		
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName));
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + ".png"));
 
 		// Translate and render
 		switch (itemRenderType) {
