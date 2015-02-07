@@ -44,7 +44,7 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 	public BlockTinyChest(Material mat, String textureName) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockTinyChest");
+		this.setBlockName("blockTinyChest" + textureName);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 		this.textureName = textureName;
 	}

@@ -41,16 +41,15 @@ public class ItemRendererTinyChest implements IItemRenderer {
 		float transX = 0F, transY = 0F, transZ = 0F;
 
 		// Bind texture, scale
-		if (itemStack.getItemDamage() == 0) {
-			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_SMALL.png"));
+		if (itemStack.getItemDamage() == 0) {		
 			scale = 0.5F;
-		} else if (itemStack.getItemDamage() == 1) {
-			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_MEDIUM.png"));
+		} else if (itemStack.getItemDamage() == 1) {			
 			scale = 0.75F;
-		} else if (itemStack.getItemDamage() == 2) {
-			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_LARGE.png"));
+		} else if (itemStack.getItemDamage() == 2) {			
 			scale = 1F;
 		}
+		
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName));
 
 		// Translate and render
 		switch (itemRenderType) {

@@ -38,14 +38,8 @@ public class TileEntityRendererTinyChest extends TileEntitySpecialRenderer {
 			if (block instanceof BlockTinyChest) {
 				textureName = ((BlockTinyChest) block).getTextureName();
 			}
-
-			if (tileEntityTinyChest.getState() == 0) {
-				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_SMALL.png"));
-			} else if (tileEntityTinyChest.getState() == 1) {
-				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_MEDIUM.png"));
-			} else if (tileEntityTinyChest.getState() == 2) {
-				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_LARGE.png"));
-			}
+			
+			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName));
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
