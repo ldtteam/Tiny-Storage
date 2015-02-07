@@ -37,14 +37,16 @@ import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockTinyChest extends BlockContainer implements ITileEntityProvider{
+public class BlockTinyChest extends BlockContainer implements ITileEntityProvider {
+	
+	private String textureName;
 
-	public BlockTinyChest(Material mat) {
+	public BlockTinyChest(Material mat, String textureName) {
 		super(mat);
 		this.setHardness(2.5f);
 		this.setBlockName("blockTinyChest");
 		this.setCreativeTab(TabTinyStorage.creativeTab);
-		//this.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
+		this.textureName = textureName;
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 		}
 		return null;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		setBlockBoundsBasedOnState(world, x, y, z);
@@ -79,16 +81,16 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 
 	public void updateChestBounds(int meta) {
 		float f = 0.125F;
-		if (meta == 0){
+		if (meta == 0) {
 			setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.5f, 0.8f);
 		}
-		if (meta == 1){
-			setBlockBounds(0.125f, 0.0f, 0.125f, 1F-0.125f, 0.75f, 1F-0.125f);
+		if (meta == 1) {
+			setBlockBounds(0.125f, 0.0f, 0.125f, 1F - 0.125f, 0.75f, 1F - 0.125f);
 		}
-		if (meta == 2){
+		if (meta == 2) {
 			setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
 		}
-	}	
+	}
 
 	@Override
 	public boolean renderAsNormalBlock() {
@@ -203,5 +205,10 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 	@Override
 	public int damageDropped(int metaData) {
 		return metaData;
+	}
+	
+	@Override
+	public String getTextureName() {
+		return textureName;
 	}
 }

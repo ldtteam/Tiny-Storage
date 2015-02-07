@@ -13,10 +13,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(References.MOD_ID)
 public class ModBlocks {
 
-	public static Block blockTinyChestStone = new BlockTinyChest(Material.rock);
+	public static Block blockTinyChestStone = new BlockTinyChest(Material.rock, "Stone");
+	public static Block blockTinyChestOakLog = new BlockTinyChest(Material.rock, "OakLog");
 
 	public static void init() {
-		GameRegistry.registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST);
+		GameRegistry.registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");
+		GameRegistry.registerBlock(blockTinyChestOakLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "OakLog");
 	}
 
 }

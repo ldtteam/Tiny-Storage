@@ -1,14 +1,19 @@
 package com.timthebrick.tinystorage.client.renderer.tileentity;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
@@ -21,24 +26,32 @@ public class TileEntityRendererTinyChest extends TileEntitySpecialRenderer {
 		if (tileEntity instanceof TileEntityTinyChest) {
 			TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) tileEntity;
 			ForgeDirection direction = null;
+			String textureName = "";
 
 			if (tileEntityTinyChest.getWorldObj() != null) {
 				direction = tileEntityTinyChest.getOrientation();
 			}
 
+			World world = tileEntityTinyChest.getWorldObj();
+			Block block = world.getBlock(tileEntityTinyChest.xCoord, tileEntityTinyChest.yCoord, tileEntityTinyChest.zCoord);
+
+			if (block instanceof BlockTinyChest) {
+				textureName = ((BlockTinyChest) block).getTextureName();
+			}
+
 			if (tileEntityTinyChest.getState() == 0) {
-				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_SMALL.png"));
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_SMALL.png"));
 			} else if (tileEntityTinyChest.getState() == 1) {
-				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_MEDIUM.png"));
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_MEDIUM.png"));
 			} else if (tileEntityTinyChest.getState() == 2) {
-				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChestStone_LARGE.png"));
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + "_LARGE.png"));
 			}
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glTranslatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
-			//GL11.glScalef(1.0F, -1.0F, -1.0F);
+			// GL11.glScalef(1.0F, -1.0F, -1.0F);
 			if (tileEntityTinyChest.getState() == 0) {
 				GL11.glScalef(0.5F, -0.5F, -0.5F);
 				GL11.glTranslatef(0.5F, 1F, 0.5F);
