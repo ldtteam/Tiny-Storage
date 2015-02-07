@@ -39,7 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTinyChest extends BlockContainer implements ITileEntityProvider {
 	
-	private String textureName;
+	protected String textureName;
 
 	public BlockTinyChest(Material mat, String textureName) {
 		super(mat);
