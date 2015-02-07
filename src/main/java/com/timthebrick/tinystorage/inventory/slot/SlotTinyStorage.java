@@ -25,5 +25,7 @@ public class SlotTinyStorage extends Slot {
 			return false;
 		}
 	}
+	
+	
 
 }
