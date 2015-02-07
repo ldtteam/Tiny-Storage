@@ -54,7 +54,7 @@ public class ItemRendererFilterChest implements IItemRenderer{
 		// Translate and render
 		switch (itemRenderType) {
 		case ENTITY: {
-			renderTinyChest(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
+			renderFilterChest(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
 			break;
 		}
 		case EQUIPPED: {
@@ -63,7 +63,7 @@ public class ItemRendererFilterChest implements IItemRenderer{
 				transY = -0.6F;
 				transZ = -0.9F;
 			}
-			renderTinyChest(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
+			renderFilterChest(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON: {
@@ -80,7 +80,7 @@ public class ItemRendererFilterChest implements IItemRenderer{
 				transY = -2.2F;
 				transZ = -2F;
 			}
-			renderTinyChest(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
+			renderFilterChest(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
 			break;
 		}
 		case INVENTORY: {
@@ -89,7 +89,7 @@ public class ItemRendererFilterChest implements IItemRenderer{
 			} else if (itemStack.getItemDamage() == 1) {
 				transY = 0.35F;
 			}
-			renderTinyChest(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
+			renderFilterChest(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
 			break;
 		}
 		default:
@@ -97,7 +97,7 @@ public class ItemRendererFilterChest implements IItemRenderer{
 		}
 	}
 
-	private void renderTinyChest(float x, float y, float z, float scale) {
+	private void renderFilterChest(float x, float y, float z, float scale) {
 		GL11.glPushMatrix(); // start
 		GL11.glScalef(scale, -scale, -scale);
 		GL11.glTranslatef(x, y, z);
