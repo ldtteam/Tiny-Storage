@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
@@ -43,6 +44,10 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 
 	protected BlockFilterChest(Material mat, String textureName) {
 		super(mat);
+		this.setHardness(2.5f);
+		this.setBlockName("blockFilterChest" + textureName);
+		this.setCreativeTab(TabTinyStorage.creativeTab);
+		this.textureName = textureName;
 	}
 
 	@Override
