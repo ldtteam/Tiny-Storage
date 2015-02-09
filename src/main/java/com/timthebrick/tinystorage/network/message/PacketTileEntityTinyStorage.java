@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.network.message;
 
-import net.minecraft.tileentity.TileEntity;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.tileentity.TileEntity;
 
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 
@@ -10,15 +10,15 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageTileEntityTinyStorage implements IMessage, IMessageHandler<MessageTileEntityTinyStorage, IMessage> {
+public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<PacketTileEntityTinyStorage, IMessage> {
 	public int x, y, z;
 	public byte orientation, state;
 	public String customName, owner;
 
-	public MessageTileEntityTinyStorage() {
+	public PacketTileEntityTinyStorage() {
 	}
 
-	public MessageTileEntityTinyStorage(TileEntityTinyStorage tileEntity) {
+	public PacketTileEntityTinyStorage(TileEntityTinyStorage tileEntity) {
 		this.x = tileEntity.xCoord;
 		this.y = tileEntity.yCoord;
 		this.z = tileEntity.zCoord;
@@ -55,7 +55,7 @@ public class MessageTileEntityTinyStorage implements IMessage, IMessageHandler<M
 	}
 
 	@Override
-	public IMessage onMessage(MessageTileEntityTinyStorage message, MessageContext ctx) {
+	public IMessage onMessage(PacketTileEntityTinyStorage message, MessageContext ctx) {
 		TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
 
 		if (tileEntity instanceof TileEntityTinyStorage) {
@@ -70,7 +70,7 @@ public class MessageTileEntityTinyStorage implements IMessage, IMessageHandler<M
 
 	@Override
 	public String toString() {
-		return String.format("MessageTileEntityTinyStorage - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s", x, y, z, orientation, state, customName, owner);
+		return String.format("PacketTileEntityTinyStorage - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s", x, y, z, orientation, state, customName, owner);
 	}
 
 }
