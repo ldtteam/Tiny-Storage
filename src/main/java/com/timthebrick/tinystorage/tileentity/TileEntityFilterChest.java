@@ -100,13 +100,13 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements IInv
 	@Override
 	public void openInventory() {
 		++numPlayersUsing;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChestStone, 1, numPlayersUsing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 	}
 
 	@Override
 	public void closeInventory() {
 		--numPlayersUsing;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChestStone, 1, numPlayersUsing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements IInv
 		super.updateEntity();
 
 		if (++ticksSinceSync % 20 * 4 == 0) {
-			worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.blockTinyChestStone, 1, numPlayersUsing);
+			worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 		}
 
 		prevLidAngle = lidAngle;

@@ -1,7 +1,12 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -12,8 +17,8 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 
-public class GuiFilterChest extends GuiContainer{
-	
+public class GuiFilterChest extends GuiContainer {
+
 	private TileEntityFilterChest tileEntity;
 
 	public GuiFilterChest(InventoryPlayer inventoryPlayer, TileEntityFilterChest tileEntity) {

@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.network.PacketHandler;
-import com.timthebrick.tinystorage.network.message.MessageTileEntityTinyStorage;
+import com.timthebrick.tinystorage.network.message.PacketTileEntityTinyStorage;
 import com.timthebrick.tinystorage.reference.Names;
 
 public class TileEntityTinyStorage extends TileEntity {
@@ -128,7 +128,7 @@ public class TileEntityTinyStorage extends TileEntity {
 
 	@Override
 	public Packet getDescriptionPacket() {
-		return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEntityTinyStorage(this));
+		return PacketHandler.INSTANCE.getPacketFrom(new PacketTileEntityTinyStorage(this));
 	}
 
 }
