@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.inventory;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 
-import com.timthebrick.tinystorage.inventory.slot.SlotFakeItem;
+import com.timthebrick.tinystorage.inventory.slot.SlotFilter;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 
 public class ContainerFilterChest extends ContainerTinyStorage {
@@ -43,7 +43,7 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 
 		// Add chest slots to inventory
 		if (this.tileEntity.getState() == 0) {
-			this.addSlotToContainer(new SlotFakeItem(tileEntity, 0, 8, 20));
+			this.addSlotToContainer(new SlotFilter(tileEntity, 0, 8, 20));
 		} else if (this.tileEntity.getState() == 1) {
 
 		} else if (this.tileEntity.getState() == 2) {

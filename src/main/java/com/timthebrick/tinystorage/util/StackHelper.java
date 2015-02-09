@@ -14,7 +14,6 @@ public class StackHelper {
 	protected StackHelper() {
 	}
 
-	/* STACK MERGING */
 	/**
 	 * Checks if two ItemStacks are identical enough to be merged
 	 *
