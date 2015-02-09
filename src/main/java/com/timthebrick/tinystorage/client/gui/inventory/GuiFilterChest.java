@@ -13,6 +13,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.inventory.ContainerFilterChest;
+import com.timthebrick.tinystorage.inventory.slot.SlotRestrictedInput;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
@@ -40,6 +41,21 @@ public class GuiFilterChest extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
+		if (tileEntity.getState() == 0) {
+			this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiFilterChestSmall.png"));
+		} else if (tileEntity.getState() == 1) {
+			this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiFilterChestMedium.png"));
+		} else if (tileEntity.getState() == 2) {
+			this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiFilterChestLarge.png"));
+		}
+		for(int i = 0; i < inventorySlots.inventorySlots.size(); i++){
+			Slot slot = i < 0 ? null : (Slot) this.inventorySlots.inventorySlots.get(i);
+			if(slot instanceof SlotRestrictedInput){
+				if(((SlotRestrictedInput)slot).containsInvalidStack()){
+					drawTexturedModalRect(slot.xDisplayPosition, slot.yDisplayPosition, 176, 0, 16, 16);
+				}
+			}
+		}
 	}
 
 	@Override
