@@ -5,6 +5,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
+import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
@@ -30,7 +31,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockFilterChestStone), new ItemRendererFilterChest("Stone"));
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyChest.class, new TileEntityRendererTinyChest());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFilterChest.class, new TileEntityRendererTinyChest());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFilterChest.class, new TileEntityRendererFilterChest());
 	}
 
 	@Override
