@@ -1,9 +1,13 @@
 package com.timthebrick.tinystorage.inventory;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
+import com.timthebrick.tinystorage.inventory.slot.IFakeItemSlot;
 import com.timthebrick.tinystorage.inventory.slot.SlotFilter;
+import com.timthebrick.tinystorage.inventory.slot.SlotRestrictedInput;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 
 public class ContainerFilterChest extends ContainerTinyStorage {
@@ -27,6 +31,7 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 	private int chestInventoryColumns;
 
 	public ContainerFilterChest(InventoryPlayer inventoryPlayer, TileEntityFilterChest tileEntity) {
+
 		this.tileEntity = tileEntity;
 		tileEntity.openInventory();
 
@@ -44,6 +49,9 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 		// Add chest slots to inventory
 		if (this.tileEntity.getState() == 0) {
 			this.addSlotToContainer(new SlotFilter(tileEntity, 0, 8, 20));
+			for (int x = 1; x < 8; x++) {
+				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, x, 26 + (18 * x), 20));
+			}
 		} else if (this.tileEntity.getState() == 1) {
 
 		} else if (this.tileEntity.getState() == 2) {
@@ -73,5 +81,27 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 				this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 145));
 			}
 		}
+	}
+
+	@Override
+	public ItemStack slotClick(int slotNum, int mouseButton, int modifier, EntityPlayer player) {
+		super.slotClick(slotNum, mouseButton, modifier, player);
+		if (tileEntity.getState() == 0) {
+			if (slotNum == 0) {
+				ItemStack filterStack;
+				filterStack = ((Slot) this.getSlot(0)).getStack();
+				for (int i = 1; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(filterStack);
+					}
+				}
+			}
+		} else if (tileEntity.getState() == 1) {
+
+		} else if (tileEntity.getState() == 2) {
+
+		}
+		return null;
 	}
 }
