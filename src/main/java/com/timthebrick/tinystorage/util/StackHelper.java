@@ -2,7 +2,6 @@ package com.timthebrick.tinystorage.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import codechicken.nei.ItemList;
 /**
  * 
  * @author TimtheBrick
