@@ -21,7 +21,7 @@ public class SlotRestrictedInput extends SlotTinyStorage {
 
 	@Override
 	public boolean isItemValid(ItemStack testStack) {
-		return StackHelper.isMatchingItem(testStack, filterStack);
+		return StackHelper.isMatchingItem(testStack, filterStack, true, false);
 	}
 
 	public boolean containsInvalidStack() {
@@ -30,7 +30,7 @@ public class SlotRestrictedInput extends SlotTinyStorage {
 		} else if (filterStack == null && this.getStack() != null) {
 			return true;
 		} else if (filterStack != null && this.getStack() != null) {
-			return !(StackHelper.isMatchingItem(this.getStack(), filterStack));
+			return !(StackHelper.isMatchingItem(this.getStack(), filterStack, true, false));
 		} else {
 			return false;
 		}
