@@ -55,17 +55,66 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 			this.addSlotToContainer(new SlotFilter(tileEntity, 0, 8, 20));
 			for (int x = 1; x < 8; x++) {
 				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, x, 26 + (18 * x), 20));
-				if(this.tileEntity.getStackInSlot(0) != null){
+				if (this.tileEntity.getStackInSlot(0) != null) {
 					Slot slot = this.getSlot(x);
-					if(slot != null && slot instanceof SlotRestrictedInput){
-						((SlotRestrictedInput)slot).setFilterStack(this.tileEntity.getStackInSlot(0));
+					if (slot != null && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(0));
 					}
 				}
 			}
 		} else if (this.tileEntity.getState() == 1) {
-
+			for (int y = 0; y < 2; y++) {
+				this.addSlotToContainer(new SlotFilter(tileEntity, y, 8, 20 + (18 * y)));
+			}
+			for (int x = 1; x < 8; x++) {
+				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, 1 + x, 26 + (18 * x), 20));
+				if (this.tileEntity.getStackInSlot(0) != null) {
+					Slot slot = this.getSlot(1+x);
+					if (slot != null && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(0));
+					}
+				}
+			}
+			for (int x = 1; x < 8; x++) {
+				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, 8 + x, 26 + (18 * x), 38));
+				if (this.tileEntity.getStackInSlot(1) != null) {
+					Slot slot = this.getSlot(8 + x);
+					if (slot != null && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(1));
+					}
+				}
+			}
 		} else if (this.tileEntity.getState() == 2) {
-
+			for (int y = 0; y < 3; y++) {
+				this.addSlotToContainer(new SlotFilter(tileEntity, y, 8, 20 + (18 * y)));
+			}
+			for (int x = 1; x < 8; x++) {
+				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, 2 + x, 26 + (18 * x), 20));
+				if (this.tileEntity.getStackInSlot(0) != null) {
+					Slot slot = this.getSlot(2 + x);
+					if (slot != null && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(0));
+					}
+				}
+			}
+			for (int x = 1; x < 8; x++) {
+				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, 9 + x, 26 + (18 * x), 38));
+				if (this.tileEntity.getStackInSlot(1) != null) {
+					Slot slot = this.getSlot(9 + x);
+					if (slot != null && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(1));
+					}
+				}
+			}
+			for (int x = 1; x < 8; x++) {
+				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, 16 + x, 26 + (18 * x), 56));
+				if (this.tileEntity.getStackInSlot(2) != null) {
+					Slot slot = this.getSlot(16 + x);
+					if (slot != null && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(2));
+					}
+				}
+			}
 		}
 
 		// Add player inventory to inventory
@@ -108,9 +157,54 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 				}
 			}
 		} else if (tileEntity.getState() == 1) {
-
+			if (slotNum == 0) {
+				ItemStack filterStack;
+				filterStack = ((Slot) this.getSlot(0)).getStack();
+				for (int i = 2; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (i <= 8 && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(filterStack);
+					}
+				}
+			} else if (slotNum == 1) {
+				ItemStack filterStack;
+				filterStack = ((Slot) this.getSlot(1)).getStack();
+				for (int i = 2; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (i > 8 && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(filterStack);
+					}
+				}
+			}
 		} else if (tileEntity.getState() == 2) {
-
+			if (slotNum == 0) {
+				ItemStack filterStack;
+				filterStack = ((Slot) this.getSlot(0)).getStack();
+				for (int i = 0; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (i <= 9 && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(filterStack);
+					}
+				}
+			} else if (slotNum == 1) {
+				ItemStack filterStack;
+				filterStack = ((Slot) this.getSlot(1)).getStack();
+				for (int i = 0; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (i > 9 && i <= 16 && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(filterStack);
+					}
+				}
+			} else if (slotNum == 2) {
+				ItemStack filterStack;
+				filterStack = ((Slot) this.getSlot(2)).getStack();
+				for (int i = 0; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (i > 16 && slot instanceof SlotRestrictedInput) {
+						((SlotRestrictedInput) slot).setFilterStack(filterStack);
+					}
+				}
+			}
 		}
 		return null;
 	}
@@ -149,5 +243,37 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 				}
 			}
 		}
+	}
+
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex) {
+		ItemStack newItemStack = null;
+		Slot slot = (Slot) inventorySlots.get(slotIndex);
+		if (slot != null && slot instanceof IFakeItemSlot) {
+			// super.slotClickFakeItem(slotIndex, mouseButton, modifier,
+			// entityPlayer);
+			System.out.println("Hey!");
+			return null;
+		}
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemStack = slot.getStack();
+			newItemStack = itemStack.copy();
+
+			if (slotIndex < chestInventoryRows * chestInventoryColumns) {
+				if (!this.mergeItemStack(itemStack, chestInventoryRows * chestInventoryColumns, inventorySlots.size(), false)) {
+					return null;
+				}
+			} else if (!this.mergeItemStack(itemStack, 0 + this.tileEntity.getState(), chestInventoryRows * chestInventoryColumns, false)) {
+				return null;
+			}
+
+			if (itemStack.stackSize == 0) {
+				slot.putStack(null);
+			} else {
+				slot.onSlotChanged();
+			}
+		}
+
+		return newItemStack;
 	}
 }

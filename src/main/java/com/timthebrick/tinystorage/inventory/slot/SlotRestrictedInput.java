@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.inventory.slot;
 
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.util.StackHelper;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -20,11 +21,7 @@ public class SlotRestrictedInput extends SlotTinyStorage {
 
 	@Override
 	public boolean isItemValid(ItemStack testStack) {
-		if (filterStack != null) {
-			return (testStack.getItem() == filterStack.getItem());
-		} else {
-			return false;
-		}
+		return StackHelper.isMatchingItem(testStack, filterStack);
 	}
 
 	public boolean containsInvalidStack() {
@@ -33,7 +30,7 @@ public class SlotRestrictedInput extends SlotTinyStorage {
 		} else if (filterStack == null && this.getStack() != null) {
 			return true;
 		} else if (filterStack != null && this.getStack() != null) {
-			return (filterStack.getItem() != this.getStack().getItem());
+			return !(StackHelper.isMatchingItem(this.getStack(), filterStack));
 		} else {
 			return false;
 		}
