@@ -30,7 +30,7 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements IInv
 			inventory = new ItemStack[ContainerFilterChest.LARGE_INVENTORY_SIZE];
 		}
 	}
-
+	
 	@Override
 	public int getSizeInventory() {
 		return inventory.length;

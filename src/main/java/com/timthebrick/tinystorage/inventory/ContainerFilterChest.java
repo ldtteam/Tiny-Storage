@@ -1,9 +1,13 @@
 package com.timthebrick.tinystorage.inventory;
 
+import java.util.Random;
+
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import com.timthebrick.tinystorage.inventory.slot.IFakeItemSlot;
 import com.timthebrick.tinystorage.inventory.slot.SlotFilter;
@@ -51,6 +55,12 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 			this.addSlotToContainer(new SlotFilter(tileEntity, 0, 8, 20));
 			for (int x = 1; x < 8; x++) {
 				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, x, 26 + (18 * x), 20));
+				if(this.tileEntity.getStackInSlot(0) != null){
+					Slot slot = this.getSlot(x);
+					if(slot != null && slot instanceof SlotRestrictedInput){
+						((SlotRestrictedInput)slot).setFilterStack(this.tileEntity.getStackInSlot(0));
+					}
+				}
 			}
 		} else if (this.tileEntity.getState() == 1) {
 
@@ -103,5 +113,41 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 
 		}
 		return null;
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer player) {
+		super.onContainerClosed(player);
+		tileEntity.closeInventory();
+		if (!tileEntity.getWorldObj().isRemote) {
+			if (tileEntity.numPlayersUsing == 0) {
+				for (int i = 0; i < this.inventorySlots.size(); i++) {
+					Slot slot = i < 0 ? null : (Slot) this.inventorySlots.get(i);
+					if (slot instanceof SlotRestrictedInput) {
+						if (((SlotRestrictedInput) slot).containsInvalidStack()) {
+							ItemStack stack = slot.getStack();
+							Random rand = new Random();
+
+							float dX = rand.nextFloat() * 0.35F;
+							float dY = rand.nextFloat() * 0.5F + 0.1F;
+							float dZ = rand.nextFloat() * 0.35F;
+
+							EntityItem entityItem = new EntityItem(tileEntity.getWorldObj(), tileEntity.xCoord + dX, tileEntity.yCoord + dY, tileEntity.zCoord + dZ, stack.copy());
+
+							if (stack.hasTagCompound()) {
+								entityItem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+							}
+
+							float factor = 0.05F;
+							entityItem.motionX = rand.nextGaussian() * factor;
+							entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+							entityItem.motionZ = rand.nextGaussian() * factor;
+							tileEntity.getWorldObj().spawnEntityInWorld(entityItem);
+							slot.putStack(null);
+						}
+					}
+				}
+			}
+		}
 	}
 }
