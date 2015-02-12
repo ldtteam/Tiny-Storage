@@ -4,6 +4,7 @@ import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.inventory.ContainerFilterChest;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.util.StackHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -30,7 +31,7 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements IInv
 			inventory = new ItemStack[ContainerFilterChest.LARGE_INVENTORY_SIZE];
 		}
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return inventory.length;
@@ -111,7 +112,37 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements IInv
 
 	@Override
 	public boolean isItemValidForSlot(int slotID, ItemStack stack) {
-		return true;
+		if (this.getState() == 0) {
+			if (slotID == 0) {
+				return false;
+			} else {
+				return StackHelper.isMatchingItem(stack, getStackInSlot(0), true, true);
+			}
+		} else if (this.getState() == 1) {
+			if (slotID == 0 || slotID == 1) {
+				return false;
+			} else {
+				if (slotID > 1 && slotID <= 8) {
+					return StackHelper.isMatchingItem(stack, getStackInSlot(0), true, true);
+				} else {
+					return StackHelper.isMatchingItem(stack, getStackInSlot(1), true, true);
+				}
+			}
+		} else if (this.getState() == 2) {
+			if (slotID == 0 || slotID == 1 || slotID == 2) {
+				return false;
+			} else {
+				if (slotID > 2 && slotID <= 9) {
+					return StackHelper.isMatchingItem(stack, getStackInSlot(0), true, true);
+				} else if (slotID > 9 && slotID <= 16 ){
+					return StackHelper.isMatchingItem(stack, getStackInSlot(1), true, true);
+				}else{
+					return StackHelper.isMatchingItem(stack, getStackInSlot(2), true, true);
+				}
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override

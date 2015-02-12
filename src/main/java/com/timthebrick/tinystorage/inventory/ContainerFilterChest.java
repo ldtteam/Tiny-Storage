@@ -69,7 +69,7 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 			for (int x = 1; x < 8; x++) {
 				this.addSlotToContainer(new SlotRestrictedInput(tileEntity, 1 + x, 26 + (18 * x), 20));
 				if (this.tileEntity.getStackInSlot(0) != null) {
-					Slot slot = this.getSlot(1+x);
+					Slot slot = this.getSlot(1 + x);
 					if (slot != null && slot instanceof SlotRestrictedInput) {
 						((SlotRestrictedInput) slot).setFilterStack(this.tileEntity.getStackInSlot(0));
 					}
@@ -250,9 +250,6 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 		ItemStack newItemStack = null;
 		Slot slot = (Slot) inventorySlots.get(slotIndex);
 		if (slot != null && slot instanceof IFakeItemSlot) {
-			// super.slotClickFakeItem(slotIndex, mouseButton, modifier,
-			// entityPlayer);
-			System.out.println("Hey!");
 			return null;
 		}
 		if (slot != null && slot.getHasStack()) {
@@ -263,7 +260,7 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 				if (!this.mergeItemStack(itemStack, chestInventoryRows * chestInventoryColumns, inventorySlots.size(), false)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(itemStack, 0 + this.tileEntity.getState(), chestInventoryRows * chestInventoryColumns, false)) {
+			} else if (!this.mergeItemStack(itemStack, 0 + this.tileEntity.getState() + 1, chestInventoryRows * chestInventoryColumns, false)) {
 				return null;
 			}
 
