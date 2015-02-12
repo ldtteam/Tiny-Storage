@@ -37,7 +37,7 @@ public class TileEntityRendererFilterChest extends TileEntitySpecialRenderer {
 				textureName = ((BlockFilterChest) block).getTextureName();
 			}
 
-			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/filterChest" + textureName + ".png"));
+			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/filterChest" + textureName + ".png"));
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);

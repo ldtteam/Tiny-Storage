@@ -12,12 +12,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -28,17 +30,19 @@ import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTinyChest extends BlockContainer implements ITileEntityProvider {
-	
+
 	protected String textureName;
 
 	public BlockTinyChest(Material mat, String textureName) {
@@ -206,7 +210,7 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 	public int damageDropped(int metaData) {
 		return metaData;
 	}
-	
+
 	@Override
 	public String getTextureName() {
 		return textureName;

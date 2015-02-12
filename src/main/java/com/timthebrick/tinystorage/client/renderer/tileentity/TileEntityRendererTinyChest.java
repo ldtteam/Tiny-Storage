@@ -39,7 +39,7 @@ public class TileEntityRendererTinyChest extends TileEntitySpecialRenderer {
 				textureName = ((BlockTinyChest) block).getTextureName();
 			}
 			
-			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/tinyChest" + textureName + ".png"));
+			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/tinyChest" + textureName + ".png"));
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
