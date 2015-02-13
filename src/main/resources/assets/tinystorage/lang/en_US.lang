@@ -4,6 +4,7 @@ tile.blockTinyChestStone.name=Tiny Chest
 #Containers
 container.tinystorage:tinyChest=Tiny Chest
 container.tinystorage:filterChest=Filter Chest
+container.tinystorage:draw=Chest of Draws
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small

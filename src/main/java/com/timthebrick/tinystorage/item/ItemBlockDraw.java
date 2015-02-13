@@ -9,5 +9,4 @@ public class ItemBlockDraw extends ItemBlock {
 		super(block);
 	}
 
-
 }

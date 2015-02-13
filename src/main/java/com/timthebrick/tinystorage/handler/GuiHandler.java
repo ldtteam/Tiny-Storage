@@ -3,11 +3,14 @@ package com.timthebrick.tinystorage.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import com.timthebrick.tinystorage.client.gui.inventory.GuiDraw;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiFilterChest;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyChest;
+import com.timthebrick.tinystorage.inventory.ContainerDraw;
 import com.timthebrick.tinystorage.inventory.ContainerFilterChest;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
@@ -23,6 +26,9 @@ public class GuiHandler implements IGuiHandler {
 		}else if (id == GUIs.FILTER_CHEST.ordinal()){
 			TileEntityFilterChest tileEntityFilterChest = (TileEntityFilterChest)world.getTileEntity(x, y, z);
 			return new ContainerFilterChest(entityPlayer.inventory, tileEntityFilterChest);
+		}else if (id == GUIs.DRAW.ordinal()){
+			TileEntityDraw tileEntityDraw = (TileEntityDraw)world.getTileEntity(x, y, z);
+			return new ContainerDraw(entityPlayer.inventory, tileEntityDraw);
 		}
 		return null;
 	}
@@ -35,6 +41,9 @@ public class GuiHandler implements IGuiHandler {
 		}else if (id == GUIs.FILTER_CHEST.ordinal()){
 			TileEntityFilterChest tileEntityFilterChest = (TileEntityFilterChest)world.getTileEntity(x, y, z);
 			return new GuiFilterChest(entityPlayer.inventory, tileEntityFilterChest);
+		}else if (id == GUIs.DRAW.ordinal()){
+			TileEntityDraw tileEntityDraw = (TileEntityDraw)world.getTileEntity(x, y, z);
+			return new GuiDraw(entityPlayer.inventory, tileEntityDraw);
 		}
 		return null;
 	}

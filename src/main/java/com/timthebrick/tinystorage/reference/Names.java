@@ -24,6 +24,7 @@ public class Names {
 		public static final String VANILLA_CRAFTING = "container.crafting";
 		public static final String TINY_CHEST = "container.tinystorage:" + Blocks.TINY_CHEST;
 		public static final String FILTER_CHEST = "container.tinystorage:" + Blocks.FILTER_CHEST;
+		public static final String DRAW = "container.tinystorage:" + Blocks.DRAW;
 	}
 
 }

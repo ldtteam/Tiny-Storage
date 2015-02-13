@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.tileentity;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.inventory.ContainerDraw;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.util.SoundHelper;
@@ -21,7 +22,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements IInventory 
 
 	public TileEntityDraw() {
 		super();
-		inventory = new ItemStack[0];
+		inventory = new ItemStack[ContainerDraw.INVENTORY_SIZE];
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements IInventory 
 
 	@Override
 	public String getInventoryName() {
-		return this.hasCustomName() ? this.getCustomName() : Names.Containers.TINY_CHEST;
+		return this.hasCustomName() ? this.getCustomName() : Names.Containers.DRAW;
 	}
 
 	@Override
@@ -112,22 +113,20 @@ public class TileEntityDraw extends TileEntityTinyStorage implements IInventory 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		
+
 		if (++ticksSinceSync % 20 * 4 == 0) {
 			worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 		}
-		
+
 		double adjustedXCoord, adjustedZCoord;
-		
-		if (numPlayersUsing >= 0 && playSoundEvent){
+
+		if (numPlayersUsing >= 0 && playSoundEvent) {
 			adjustedXCoord = xCoord + 0.5D;
 			adjustedZCoord = zCoord + 0.5D;
 			SoundHelper.playSoundAt(Minecraft.getMinecraft().thePlayer, "drawOpen", 1.5F, 0.5F, 3F);
 			playSoundEvent = false;
 		}
-			
-		
-		
+
 	}
 
 	@Override

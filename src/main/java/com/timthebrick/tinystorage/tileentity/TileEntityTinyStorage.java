@@ -60,12 +60,12 @@ public class TileEntityTinyStorage extends TileEntity {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	
-	public String getTextureName(){
+
+	public String getTextureName() {
 		return textureName;
 	}
-	
-	public void setCustomTextureName(String textureName){
+
+	public void setCustomTextureName(String textureName) {
 		this.textureName = textureName;
 	}
 
@@ -88,7 +88,7 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (nbtTagCompound.hasKey(Names.NBT.OWNER)) {
 			this.owner = nbtTagCompound.getString(Names.NBT.OWNER);
 		}
-		
+
 		if (nbtTagCompound.hasKey(Names.NBT.TEXTURE_NAME)) {
 			this.textureName = nbtTagCompound.getString(Names.NBT.TEXTURE_NAME);
 		}
@@ -108,7 +108,7 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (this.hasOwner()) {
 			nbtTagCompound.setString(Names.NBT.OWNER, owner);
 		}
-		
+
 		if (this.hasCustomTextureName()) {
 			nbtTagCompound.setString(Names.NBT.TEXTURE_NAME, textureName);
 		}
@@ -121,8 +121,8 @@ public class TileEntityTinyStorage extends TileEntity {
 	public boolean hasOwner() {
 		return owner != null && owner.length() > 0;
 	}
-	
-	public boolean hasCustomTextureName(){
+
+	public boolean hasCustomTextureName() {
 		return textureName != null && textureName.length() > 0;
 	}
 
