@@ -5,6 +5,7 @@ public class Names {
 	public static final class Blocks {
 		public static final String TINY_CHEST = "tinyChest";
 		public static final String FILTER_CHEST = "filterChest";
+		public static final String DRAW = "draw";
 	}
 
 	public static final class NBT {

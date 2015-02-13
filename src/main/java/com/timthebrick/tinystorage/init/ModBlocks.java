@@ -3,8 +3,10 @@ package com.timthebrick.tinystorage.init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
+import com.timthebrick.tinystorage.block.BlockDraw;
 import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
+import com.timthebrick.tinystorage.item.ItemBlockDraw;
 import com.timthebrick.tinystorage.item.ItemBlockFilterChest;
 import com.timthebrick.tinystorage.item.ItemBlockTinyChest;
 import com.timthebrick.tinystorage.reference.Names;
@@ -38,6 +40,8 @@ public class ModBlocks {
 	public static Block blockFilterChestBirchPlank = new BlockFilterChest(Material.wood, "BirchPlank");
 	public static Block blockFilterChestJunglePlank = new BlockFilterChest(Material.wood, "JunglePlank");
 	public static Block blockFilterChestSprucePlank = new BlockFilterChest(Material.wood, "SprucePlank");
+	
+	public static Block blockDrawOakLog = new BlockDraw(Material.wood, "OakLog");
 
 	public static void init() {
 		GameRegistry.registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");
@@ -63,6 +67,8 @@ public class ModBlocks {
 		GameRegistry.registerBlock(blockFilterChestBirchPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchPlank");
 		GameRegistry.registerBlock(blockFilterChestJunglePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "JunglePlank");
 		GameRegistry.registerBlock(blockFilterChestSprucePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SprucePlank");
+		
+		GameRegistry.registerBlock(blockDrawOakLog, ItemBlockDraw.class, Names.Blocks.DRAW + "OakLog");
 	}
 
 }
