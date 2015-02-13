@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.handler.ConfigurationHandler;
 import com.timthebrick.tinystorage.handler.GuiHandler;
 import com.timthebrick.tinystorage.init.ModBlocks;
@@ -34,23 +35,28 @@ public class TinyStorage {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		TinyStorageLog.info("Starting pre init");
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
 		PacketHandler.init();
 		
 		ModBlocks.init();
+		TinyStorageLog.info("Finished pre init");
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		TinyStorageLog.info("Starting init");
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 		TileEntities.init();
 		proxy.initRenderingAndTextures();
 		proxy.registerEventHandlers();
+		TinyStorageLog.info("Finished init");
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-
+		TinyStorageLog.info("Starting post init");
+		TinyStorageLog.info("Finished post init");
 	}
 
 }
