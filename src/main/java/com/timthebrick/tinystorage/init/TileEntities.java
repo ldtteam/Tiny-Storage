@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.init;
 
+import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
@@ -23,6 +24,8 @@ public class TileEntities {
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestSmall.class, "blockFilterChestSmall", "tileEntityFilterChestSmall");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestMedium.class, "blockFilterChestMedium", "tileEntityFilterChestMedium");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestLarge.class, "blockFilterChestLarge", "tileEntityFilterChestLarge");
+		
+		GameRegistry.registerTileEntity(TileEntityDraw.class, "tileEntityDraw");
 	}
 
 }

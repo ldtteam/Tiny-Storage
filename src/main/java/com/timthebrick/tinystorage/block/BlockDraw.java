@@ -26,10 +26,10 @@ public class BlockDraw extends BlockContainer {
 
 	protected String textureName;
 
-	protected BlockDraw(Material mat, String textureName) {
+	public BlockDraw(Material mat, String textureName) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockTinyChest" + textureName);
+		this.setBlockName("blockDraw" + textureName);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 		this.textureName = textureName;
 	}
@@ -51,7 +51,7 @@ public class BlockDraw extends BlockContainer {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.tinyChest;
+		return RenderIDs.draw;
 	}
 
 	@Override
