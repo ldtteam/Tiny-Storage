@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.network;
 
+import com.timthebrick.tinystorage.network.message.MessageSoundEvent;
 import com.timthebrick.tinystorage.network.message.PacketTileEntityTinyStorage;
 import com.timthebrick.tinystorage.reference.References;
 
@@ -13,6 +14,7 @@ public class PacketHandler {
 
 	public static void init() {
 		INSTANCE.registerMessage(PacketTileEntityTinyStorage.class, PacketTileEntityTinyStorage.class, 0, Side.CLIENT);
+		INSTANCE.registerMessage(MessageSoundEvent.class, MessageSoundEvent.class, 1, Side.CLIENT);
 	}
 
 }

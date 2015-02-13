@@ -6,16 +6,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 public abstract class CommonProxy implements IProxy {
 
-	public void registerRenders() {
-
-	}
-
 	public void registerEventHandlers() {
 		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
 	}
-
-	public void initRenderingAndTextures() {
-
-	}
-
+	
 }

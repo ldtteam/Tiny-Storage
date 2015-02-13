@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,10 +17,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
+import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 
 public class BlockDraw extends BlockContainer {
@@ -52,6 +56,18 @@ public class BlockDraw extends BlockContainer {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.draw;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+			return true;
+		} else {
+			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
+				((TileEntityDraw)world.getTileEntity(x, y, z)).openInventory();
+			}
+			return true;
+		}
 	}
 
 	@Override

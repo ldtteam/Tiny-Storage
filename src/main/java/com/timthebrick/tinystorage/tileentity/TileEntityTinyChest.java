@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.tileentity;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.reference.Sounds;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -130,6 +131,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 		if (numPlayersUsing > 0 && lidAngle == 0.0F) {
 			adjustedXCoord = xCoord + 0.5D;
 			adjustedZCoord = zCoord + 0.5D;
+			 worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.CHEST_OPEN, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
 		if (numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
@@ -148,6 +150,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 			if (lidAngle < 0.5F && var8 >= 0.5F) {
 				adjustedXCoord = xCoord + 0.5D;
 				adjustedZCoord = zCoord + 0.5D;
+				worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.CHEST_CLOSE, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
 			if (lidAngle < 0.0F) {
