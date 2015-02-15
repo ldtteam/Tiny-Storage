@@ -9,6 +9,8 @@ import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.handler.ConfigurationHandler;
 import com.timthebrick.tinystorage.handler.GuiHandler;
 import com.timthebrick.tinystorage.init.ModBlocks;
+import com.timthebrick.tinystorage.init.ModItems;
+import com.timthebrick.tinystorage.init.Recipes;
 import com.timthebrick.tinystorage.init.TileEntities;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.proxy.CommonProxy;
@@ -40,6 +42,7 @@ public class TinyStorage {
 		PacketHandler.init();
 		
 		ModBlocks.init();
+		ModItems.init();
 		TinyStorageLog.info("Finished pre init");
 	}
 
@@ -50,6 +53,7 @@ public class TinyStorage {
 		TileEntities.init();
 		proxy.initRenderingAndTextures();
 		proxy.registerEventHandlers();
+		Recipes.init();
 		TinyStorageLog.info("Finished init");
 	}
 

@@ -7,6 +7,10 @@ public class Names {
 		public static final String FILTER_CHEST = "filterChest";
 		public static final String DRAW = "draw";
 	}
+	
+	public static final class Items{
+		public static final String STORAGE_UPGRADE = "storageUpgrade";
+	}
 
 	public static final class NBT {
 		public static final String ITEMS = "Items";

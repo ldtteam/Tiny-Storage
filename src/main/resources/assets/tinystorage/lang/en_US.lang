@@ -10,6 +10,11 @@ container.tinystorage:draw=Chest of Draws
 tooltip.tinystorage:tinyChestPrefix.small=Small
 tooltip.tinystorage:tinyChestPrefix.medium=Medium
 tooltip.tinystorage:tinyChestPrefix.large=Large
+
 tooltip.tinystorage:filterChestPrefix.small=Small
 tooltip.tinystorage:filterChestPrefix.medium=Medium
 tooltip.tinystorage:filterChestPrefix.large=Large
+
+tooltip.tinystorage:storageUpgradePrefix.small=Tier 1
+tooltip.tinystorage:storageUpgradePrefix.medium=Tier 2
+tooltip.tinystorage:storageUpgradePrefix.large=Tier 3
