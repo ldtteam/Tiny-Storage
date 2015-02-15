@@ -9,7 +9,7 @@ public class Names {
 	}
 	
 	public static final class Items{
-		public static final String STORAGE_UPGRADE = "storageUpgrade";
+		public static final String STORAGE_COMPONENT = "storageComponent";
 		public static final String CHEST_FILTER = "chestFilter";
 	}
 

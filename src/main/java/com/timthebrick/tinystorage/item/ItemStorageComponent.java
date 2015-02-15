@@ -16,14 +16,14 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 
-public class ItemStorageUpgrade extends Item {
+public class ItemStorageComponent extends Item {
 
 	public static final String[] nameSuffix = new String[] { "Small", "Medium", "Large" };
 	private IIcon[] icons;
 
-	public ItemStorageUpgrade() {
+	public ItemStorageComponent() {
 		super();
-		this.setUnlocalizedName("storageUpgrade");
+		this.setUnlocalizedName("storageComponent");
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
@@ -40,11 +40,11 @@ public class ItemStorageUpgrade extends Item {
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageUpgradePrefix.small"));
+			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.small"));
 		} else if (metaData == 1) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageUpgradePrefix.medium"));
+			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.medium"));
 		} else if (metaData == 2) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageUpgradePrefix.large"));
+			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.large"));
 		}
 	}
 
@@ -58,7 +58,7 @@ public class ItemStorageUpgrade extends Item {
 	public void registerIcons(IIconRegister register) {
 		this.icons = new IIcon[nameSuffix.length];
 		for (int i = 0; i < icons.length; i++) {
-			this.icons[i] = register.registerIcon((References.MOD_ID.toLowerCase() + ":storageUpgrade" + nameSuffix[i]));
+			this.icons[i] = register.registerIcon((References.MOD_ID.toLowerCase() + ":storageComponent" + nameSuffix[i]));
 		}
 	}
 
