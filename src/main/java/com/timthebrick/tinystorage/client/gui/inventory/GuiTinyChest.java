@@ -33,7 +33,11 @@ public class GuiTinyChest extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
+		if (tileEntity.hasOwner()) {
+			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + tileEntity.getOwner(), 8, 6, 4210752);
+		} else {
+			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
+		}
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
 	}
 

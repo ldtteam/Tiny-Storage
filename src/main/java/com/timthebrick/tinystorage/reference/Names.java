@@ -4,6 +4,7 @@ public class Names {
 
 	public static final class Blocks {
 		public static final String TINY_CHEST = "tinyChest";
+		public static final String TINY_CHEST_LOCKED = "tinyChestLocked";
 		public static final String FILTER_CHEST = "filterChest";
 		public static final String DRAW = "draw";
 	}
@@ -20,6 +21,7 @@ public class Names {
 		public static final String STATE = "teState";
 		public static final String CUSTOM_NAME = "CustomName";
 		public static final String DIRECTION = "teDirection";
+		public static final String UNIQUE_OWNER = "uniqueOwner";
 		public static final String OWNER = "owner";
 		public static final String TEXTURE_NAME = "textureName";
 	}

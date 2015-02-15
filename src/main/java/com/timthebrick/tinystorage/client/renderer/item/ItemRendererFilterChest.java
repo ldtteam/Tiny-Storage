@@ -49,7 +49,7 @@ public class ItemRendererFilterChest implements IItemRenderer{
 			scale = 1F;
 		}
 		
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/filterChest" + textureName + ".png"));
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/filterChest" + textureName + ".png"));
 
 		// Translate and render
 		switch (itemRenderType) {
