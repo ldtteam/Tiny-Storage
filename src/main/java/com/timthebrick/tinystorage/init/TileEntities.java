@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.init;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestLarge;
@@ -15,6 +16,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class TileEntities {
 
 	public static void init() {
+		TinyStorageLog.info("Initialising Tile Entities");
+		
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChest.class, "blockTinyChest", "tileEntityTinyChest");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChestSmall.class, "blockTinyChestSmall", "tileEntityTinyChestSmall");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChestMedium.class, "blockTinyChestMedium", "tileEntityTinyChestMedium");

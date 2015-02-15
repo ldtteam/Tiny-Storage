@@ -5,6 +5,7 @@ import java.io.File;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.reference.Messages;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.util.ConfigurationHelper;
@@ -18,6 +19,7 @@ public class ConfigurationHandler {
 	public static Configuration config;
 
 	public static void init(File configFile) {
+		TinyStorageLog.info("Initialising Configuration Handler");
 		if (config == null) {
 			config = new Configuration(configFile);
 			loadConfig();
