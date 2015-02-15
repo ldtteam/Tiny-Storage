@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.item;
+package com.timthebrick.tinystorage.item.block;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBlockFilterChest extends ItemBlock {
+public class ItemBlockTinyChest extends ItemBlock {
 
-	public ItemBlockFilterChest(Block block) {
+	public ItemBlockTinyChest(Block block) {
 		super(block);
 		this.setHasSubtypes(true);
 	}
@@ -27,11 +27,11 @@ public class ItemBlockFilterChest extends ItemBlock {
 		int metaData = itemStack.getItemDamage();
 
 		if (metaData == 0) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.small"));
+			list.add(StatCollector.translateToLocal("tooltip.tinystorage:tinyChestPrefix.small"));
 		} else if (metaData == 1) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.medium"));
+			list.add(StatCollector.translateToLocal("tooltip.tinystorage:tinyChestPrefix.medium"));
 		} else if (metaData == 2) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.large"));
+			list.add(StatCollector.translateToLocal("tooltip.tinystorage:tinyChestPrefix.large"));
 		}
 	}
 
