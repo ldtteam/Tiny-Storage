@@ -14,12 +14,14 @@ public class ModItems {
 	
 	public static Item itemStorageUpgrade = new ItemStorageComponent();
 	public static Item itemChestFilter = new ItemChestFilter();
+	public static Item itemChestLock = new ItemChestLock();
 	
 	public static void init(){
 		TinyStorageLog.info("Initialising Items");
 		
 		GameRegistry.registerItem(itemStorageUpgrade, Names.Items.STORAGE_COMPONENT);
 		GameRegistry.registerItem(itemChestFilter, Names.Items.CHEST_FILTER);
+		GameRegistry.registerItem(itemChestLock, Names.Items.CHEST_LOCK);
 	}
 
 }
