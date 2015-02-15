@@ -40,7 +40,6 @@ public class TinyStorage {
 		TinyStorageLog.info("Starting pre init");
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
 		PacketHandler.init();
-		
 		ModBlocks.init();
 		ModItems.init();
 		TinyStorageLog.info("Finished pre init");
