@@ -147,6 +147,23 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 	}
 
 	@Override
+	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
+		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
+			TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
+			if (tileEntity.hasUniqueOwner()) {
+				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+				} else {
+					return -1F;
+				}
+			} else {
+				return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+			}
+		}
+		return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+	}
+
+	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		dropInventory(world, x, y, z);
 		super.breakBlock(world, x, y, z, block, meta);
