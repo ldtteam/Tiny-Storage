@@ -13,11 +13,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModItems {
 	
 	public static Item itemStorageUpgrade = new ItemStorageUpgrade();
+	public static Item itemChestFilter = new ItemChestFilter();
 	
 	public static void init(){
 		TinyStorageLog.info("Initialising Items");
 		
 		GameRegistry.registerItem(itemStorageUpgrade, Names.Items.STORAGE_UPGRADE);
+		GameRegistry.registerItem(itemChestFilter, Names.Items.CHEST_FILTER);
 	}
 
 }

@@ -10,6 +10,7 @@ public class Names {
 	
 	public static final class Items{
 		public static final String STORAGE_UPGRADE = "storageUpgrade";
+		public static final String CHEST_FILTER = "chestFilter";
 	}
 
 	public static final class NBT {
