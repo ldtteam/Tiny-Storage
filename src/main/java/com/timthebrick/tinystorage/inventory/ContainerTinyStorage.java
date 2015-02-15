@@ -19,9 +19,6 @@ public class ContainerTinyStorage extends Container {
 	public boolean canInteractWith(EntityPlayer entityPlayer) {
 		return true;
 	}
-	/**
-	 * Thanks to Pahimar and the EE3 GitHub for the mergeItemStack method!
-	 */
 	@Override
 	protected boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
 		boolean slotFound = false;
