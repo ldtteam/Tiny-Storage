@@ -38,17 +38,29 @@ public class ModBlocks {
 	public static Block blockTinyChestJunglePlankLocked = new BlockTinyChest(Material.wood, "JunglePlank", true);
 	public static Block blockTinyChestSprucePlankLocked = new BlockTinyChest(Material.wood, "SprucePlank", true);
 
-	public static Block blockFilterChestStone = new BlockFilterChest(Material.rock, "Stone");
-	public static Block blockFilterChestOakLog = new BlockFilterChest(Material.wood, "OakLog");
-	public static Block blockFilterChestAcaciaLog = new BlockFilterChest(Material.wood, "AcaciaLog");
-	public static Block blockFilterChestBirchLog = new BlockFilterChest(Material.wood, "BirchLog");
-	public static Block blockFilterChestJungleLog = new BlockFilterChest(Material.wood, "JungleLog");
-	public static Block blockFilterChestSpruceLog = new BlockFilterChest(Material.wood, "SpruceLog");
-	public static Block blockFilterChestOakPlank = new BlockFilterChest(Material.wood, "OakPlank");
-	public static Block blockFilterChestAcaciaPlank = new BlockFilterChest(Material.wood, "AcaciaPlank");
-	public static Block blockFilterChestBirchPlank = new BlockFilterChest(Material.wood, "BirchPlank");
-	public static Block blockFilterChestJunglePlank = new BlockFilterChest(Material.wood, "JunglePlank");
-	public static Block blockFilterChestSprucePlank = new BlockFilterChest(Material.wood, "SprucePlank");
+	public static Block blockFilterChestStone = new BlockFilterChest(Material.rock, "Stone", false);
+	public static Block blockFilterChestOakLog = new BlockFilterChest(Material.wood, "OakLog", false);
+	public static Block blockFilterChestAcaciaLog = new BlockFilterChest(Material.wood, "AcaciaLog", false);
+	public static Block blockFilterChestBirchLog = new BlockFilterChest(Material.wood, "BirchLog", false);
+	public static Block blockFilterChestJungleLog = new BlockFilterChest(Material.wood, "JungleLog", false);
+	public static Block blockFilterChestSpruceLog = new BlockFilterChest(Material.wood, "SpruceLog", false);
+	public static Block blockFilterChestOakPlank = new BlockFilterChest(Material.wood, "OakPlank", false);
+	public static Block blockFilterChestAcaciaPlank = new BlockFilterChest(Material.wood, "AcaciaPlank", false);
+	public static Block blockFilterChestBirchPlank = new BlockFilterChest(Material.wood, "BirchPlank", false);
+	public static Block blockFilterChestJunglePlank = new BlockFilterChest(Material.wood, "JunglePlank", false);
+	public static Block blockFilterChestSprucePlank = new BlockFilterChest(Material.wood, "SprucePlank", false);
+	
+	public static Block blockFilterChestStoneLocked = new BlockFilterChest(Material.rock, "Stone", true);
+	public static Block blockFilterChestOakLogLocked = new BlockFilterChest(Material.wood, "OakLog", true);
+	public static Block blockFilterChestAcaciaLogLocked = new BlockFilterChest(Material.wood, "AcaciaLog", true);
+	public static Block blockFilterChestBirchLogLocked = new BlockFilterChest(Material.wood, "BirchLog", true);
+	public static Block blockFilterChestJungleLogLocked = new BlockFilterChest(Material.wood, "JungleLog", true);
+	public static Block blockFilterChestSpruceLogLocked = new BlockFilterChest(Material.wood, "SpruceLog", true);
+	public static Block blockFilterChestOakPlankLocked = new BlockFilterChest(Material.wood, "OakPlank", true);
+	public static Block blockFilterChestAcaciaPlankLocked = new BlockFilterChest(Material.wood, "AcaciaPlank", true);
+	public static Block blockFilterChestBirchPlankLocked = new BlockFilterChest(Material.wood, "BirchPlank", true);
+	public static Block blockFilterChestJunglePlankLocked = new BlockFilterChest(Material.wood, "JunglePlank", true);
+	public static Block blockFilterChestSprucePlankLocked = new BlockFilterChest(Material.wood, "SprucePlank", true);
 
 	public static Block blockDrawOakLog = new BlockDraw(Material.wood, "OakLog");
 
@@ -90,6 +102,18 @@ public class ModBlocks {
 		GameRegistry.registerBlock(blockFilterChestBirchPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchPlank");
 		GameRegistry.registerBlock(blockFilterChestJunglePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "JunglePlank");
 		GameRegistry.registerBlock(blockFilterChestSprucePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SprucePlank");
+		
+		GameRegistry.registerBlock(blockFilterChestStoneLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "Stone");
+		GameRegistry.registerBlock(blockFilterChestOakLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakLog");
+		GameRegistry.registerBlock(blockFilterChestAcaciaLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaLog");
+		GameRegistry.registerBlock(blockFilterChestBirchLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchLog");
+		GameRegistry.registerBlock(blockFilterChestJungleLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "JungleLog");
+		GameRegistry.registerBlock(blockFilterChestSpruceLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SpruceLog");
+		GameRegistry.registerBlock(blockFilterChestOakPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakPlank");
+		GameRegistry.registerBlock(blockFilterChestAcaciaPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaPlank");
+		GameRegistry.registerBlock(blockFilterChestBirchPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchPlank");
+		GameRegistry.registerBlock(blockFilterChestJunglePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "JunglePlank");
+		GameRegistry.registerBlock(blockFilterChestSprucePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SprucePlank");
 
 		GameRegistry.registerBlock(blockDrawOakLog, ItemBlockDraw.class, Names.Blocks.DRAW + "OakLog");
 	}

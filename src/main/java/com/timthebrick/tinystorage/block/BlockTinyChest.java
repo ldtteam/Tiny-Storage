@@ -51,14 +51,14 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 	public BlockTinyChest(Material mat, String textureName, boolean isLockable) {
 		super(mat);
 		this.setHardness(2.5f);
-		if (isLockable) {
-			this.setBlockName("blockTinyChest" + textureName);
-		} else {
-			this.setBlockName("blockTinyChestLocked" + textureName);
-		}
-		this.setCreativeTab(TabTinyStorage.creativeTab);
-		this.textureName = textureName;
 		this.isLockable = isLockable;
+		this.textureName = textureName;
+		if (!this.isLockable) {
+			this.setBlockName("blockTinyChest" + this.textureName);
+		} else {
+			this.setBlockName("blockTinyChestLocked" + this.textureName);
+		}
+		this.setCreativeTab(TabTinyStorage.creativeTab);	
 	}
 
 	@Override

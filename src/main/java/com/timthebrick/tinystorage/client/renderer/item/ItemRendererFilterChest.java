@@ -17,10 +17,12 @@ public class ItemRendererFilterChest implements IItemRenderer{
 	
 	private final ModelChest modelChest;
 	private String textureName;
+	private boolean isLocked;
 
-	public ItemRendererFilterChest(String textureName) {
+	public ItemRendererFilterChest(String textureName, boolean isLocked) {
 		modelChest = new ModelChest();
 		this.textureName = textureName;
+		this.isLocked = isLocked;
 	}
 
 	@Override
@@ -49,7 +51,11 @@ public class ItemRendererFilterChest implements IItemRenderer{
 			scale = 1F;
 		}
 		
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/filterChest" + textureName + ".png"));
+		if (!isLocked) {
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/filterChest" + textureName + ".png"));
+		} else {
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/filterChest" + textureName + ".png"));
+		}
 
 		// Translate and render
 		switch (itemRenderType) {

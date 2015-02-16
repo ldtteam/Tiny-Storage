@@ -6,6 +6,7 @@ public class Names {
 		public static final String TINY_CHEST = "tinyChest";
 		public static final String TINY_CHEST_LOCKED = "tinyChestLocked";
 		public static final String FILTER_CHEST = "filterChest";
+		public static final String FILTER_CHEST_LOCKED = "filterChestLocked";
 		public static final String DRAW = "draw";
 	}
 	
@@ -31,7 +32,9 @@ public class Names {
 		public static final String VANILLA_INVENTORY = "container.inventory";
 		public static final String VANILLA_CRAFTING = "container.crafting";
 		public static final String TINY_CHEST = "container.tinystorage:" + Blocks.TINY_CHEST;
+		public static final String TINY_CHEST_LOCKED = "container.tinystorage:" + Blocks.TINY_CHEST_LOCKED;
 		public static final String FILTER_CHEST = "container.tinystorage:" + Blocks.FILTER_CHEST;
+		public static final String FILTER_CHEST_LOCKED = "container.tinystorage:" + Blocks.FILTER_CHEST_LOCKED;
 		public static final String DRAW = "container.tinystorage:" + Blocks.DRAW;
 	}
 

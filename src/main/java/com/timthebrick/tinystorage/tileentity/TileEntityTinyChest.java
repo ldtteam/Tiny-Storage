@@ -81,7 +81,13 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 
 	@Override
 	public String getInventoryName() {
-		return this.hasCustomName() ? this.getCustomName() : Names.Containers.TINY_CHEST;
+		if (this.hasCustomName()) {
+			return this.getCustomName();
+		} else if (this.hasUniqueOwner()) {
+			return Names.Containers.TINY_CHEST_LOCKED;
+		} else {
+			return Names.Containers.TINY_CHEST;
+		}
 	}
 
 	@Override
@@ -102,7 +108,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 	@Override
 	public void openInventory() {
 		++numPlayersUsing;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord,this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 	}
 
 	@Override
@@ -131,7 +137,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 		if (numPlayersUsing > 0 && lidAngle == 0.0F) {
 			adjustedXCoord = xCoord + 0.5D;
 			adjustedZCoord = zCoord + 0.5D;
-			 worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.CHEST_OPEN, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.CHEST_OPEN, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
 		if (numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {

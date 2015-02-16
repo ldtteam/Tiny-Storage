@@ -24,8 +24,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
@@ -34,6 +36,7 @@ import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -41,13 +44,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockFilterChest extends BlockContainer implements ITileEntityProvider {
 
 	protected String textureName;
+	private boolean isLockable;
 
-	public BlockFilterChest(Material mat, String textureName) {
+	public BlockFilterChest(Material mat, String textureName, boolean isLockable) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockFilterChest" + textureName);
-		this.setCreativeTab(TabTinyStorage.creativeTab);
+		this.isLockable = isLockable;
 		this.textureName = textureName;
+		if (!this.isLockable) {
+			this.setBlockName("blockFilterChest" + this.textureName);
+		} else {
+			this.setBlockName("blockFilterChestLocked" + this.textureName);
+		}
+		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 
 	@Override
@@ -113,7 +122,15 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			return true;
 		} else {
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityFilterChest) {
-				player.openGui(TinyStorage.instance, GUIs.FILTER_CHEST.ordinal(), world, x, y, z);
+				if (((TileEntityFilterChest) world.getTileEntity(x, y, z)).hasUniqueOwner()) {
+					if (((TileEntityFilterChest) world.getTileEntity(x, y, z)).getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+						player.openGui(TinyStorage.instance, GUIs.FILTER_CHEST.ordinal(), world, x, y, z);
+					} else {
+						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+					}
+				} else {
+					player.openGui(TinyStorage.instance, GUIs.FILTER_CHEST.ordinal(), world, x, y, z);
+				}
 			}
 			return true;
 		}
@@ -124,6 +141,23 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 		super.onBlockEventReceived(world, x, y, z, eventId, eventData);
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		return tileentity != null && tileentity.receiveClientEvent(eventId, eventData);
+	}
+	
+	@Override
+	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
+		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
+			TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
+			if (tileEntity.hasUniqueOwner()) {
+				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+				} else {
+					return -1F;
+				}
+			} else {
+				return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+			}
+		}
+		return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 	}
 
 	@Override
@@ -146,6 +180,19 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 				direction = ForgeDirection.SOUTH.ordinal();
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
+			}
+			
+			if (this.isLockable) {
+				if (entityLiving instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) entityLiving;
+					((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
+					((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
+				} else {
+					TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
+					int meta = ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).getState();
+					world.setBlockToAir(x, y, z);
+					world.setBlock(x, y, z, Block.getBlockFromName(Names.Blocks.TINY_CHEST + textureName), meta, 3);
+				}
 			}
 
 			if (itemStack.hasDisplayName()) {
@@ -211,6 +258,10 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 	@Override
 	public String getTextureName() {
 		return textureName;
+	}
+
+	public boolean getIsLockable() {
+		return isLockable;
 	}
 
 }

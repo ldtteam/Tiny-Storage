@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import com.timthebrick.tinystorage.block.BlockFilterChest;
+import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 
@@ -34,10 +35,15 @@ public class TileEntityRendererFilterChest extends TileEntitySpecialRenderer {
 			Block block = world.getBlock(tileEntityFilterChest.xCoord, tileEntityFilterChest.yCoord, tileEntityFilterChest.zCoord);
 
 			if (block instanceof BlockFilterChest) {
-				textureName = ((BlockFilterChest) block).getTextureName();
+				BlockFilterChest blockChest = (BlockFilterChest) block;
+				if (!blockChest.getIsLockable()) {
+					textureName = blockChest.getTextureName();
+					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/filterChest" + textureName + ".png"));
+				} else {
+					textureName = blockChest.getTextureName();
+					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/filterChest" + textureName + ".png"));
+				}
 			}
-
-			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/filterChest" + textureName + ".png"));
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);

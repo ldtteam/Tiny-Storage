@@ -80,7 +80,13 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements IInv
 
 	@Override
 	public String getInventoryName() {
-		return this.hasCustomName() ? this.getCustomName() : Names.Containers.FILTER_CHEST;
+		if (this.hasCustomName()) {
+			return this.getCustomName();
+		} else if (this.hasUniqueOwner()) {
+			return Names.Containers.FILTER_CHEST;
+		} else {
+			return Names.Containers.FILTER_CHEST_LOCKED;
+		}
 	}
 
 	@Override
