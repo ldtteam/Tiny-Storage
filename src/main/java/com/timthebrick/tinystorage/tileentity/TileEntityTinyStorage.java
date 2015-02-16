@@ -249,6 +249,10 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (this.hasUniqueOwner()) {
 			nbtTagCompound.setString(Names.NBT.UNIQUE_OWNER, uniqueOwner);
 		}
+		
+		if(this.hasOwner()){
+			nbtTagCompound.setString(Names.NBT.OWNER, owner);
+		}
 
 		if (this.hasCustomTextureName()) {
 			nbtTagCompound.setString(Names.NBT.TEXTURE_NAME, textureName);
