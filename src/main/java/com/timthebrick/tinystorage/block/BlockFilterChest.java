@@ -142,7 +142,7 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		return tileentity != null && tileentity.receiveClientEvent(eventId, eventData);
 	}
-	
+
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
 		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
@@ -181,7 +181,7 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
 			}
-			
+
 			if (this.isLockable) {
 				if (entityLiving instanceof EntityPlayer) {
 					EntityPlayer player = (EntityPlayer) entityLiving;
@@ -210,30 +210,40 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			return;
 		}
 
-		IInventory inventory = (IInventory) tileEntity;
+		if (tileEntity instanceof TileEntityFilterChest) {
+			TileEntityFilterChest teChest = (TileEntityFilterChest) tileEntity;
 
-		for (int i = 0; i < inventory.getSizeInventory(); i++) {
-			ItemStack itemStack = inventory.getStackInSlot(i);
+			IInventory inventory = (IInventory) tileEntity;
 
-			if (itemStack != null && itemStack.stackSize > 0) {
-				Random rand = new Random();
+			for (int i = 0; i < inventory.getSizeInventory(); i++) {
+				if (teChest.getState() == 0 && i == 0)
+					continue;
+				if (teChest.getState() == 1 && i == 0 || i == 1)
+					continue;
+				if (teChest.getState() == 2 && i == 0 || i == 1 || i == 2)
+					continue;
+				ItemStack itemStack = inventory.getStackInSlot(i);
 
-				float dX = rand.nextFloat() * 0.8F + 0.1F;
-				float dY = rand.nextFloat() * 0.8F + 0.1F;
-				float dZ = rand.nextFloat() * 0.8F + 0.1F;
+				if (itemStack != null && itemStack.stackSize > 0) {
+					Random rand = new Random();
 
-				EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+					float dX = rand.nextFloat() * 0.8F + 0.1F;
+					float dY = rand.nextFloat() * 0.8F + 0.1F;
+					float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
-				if (itemStack.hasTagCompound()) {
-					entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+					EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+
+					if (itemStack.hasTagCompound()) {
+						entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+					}
+
+					float factor = 0.05F;
+					entityItem.motionX = rand.nextGaussian() * factor;
+					entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+					entityItem.motionZ = rand.nextGaussian() * factor;
+					world.spawnEntityInWorld(entityItem);
+					itemStack.stackSize = 0;
 				}
-
-				float factor = 0.05F;
-				entityItem.motionX = rand.nextGaussian() * factor;
-				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-				entityItem.motionZ = rand.nextGaussian() * factor;
-				world.spawnEntityInWorld(entityItem);
-				itemStack.stackSize = 0;
 			}
 		}
 	}
