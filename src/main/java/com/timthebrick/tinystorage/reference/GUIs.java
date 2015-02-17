@@ -4,6 +4,7 @@ public enum GUIs {
 	
 	TINY_CHEST,
 	FILTER_CHEST,
-	DRAW;
+	DRAW,
+	TRASH_CHEST;
 
 }
