@@ -9,20 +9,23 @@ import com.timthebrick.tinystorage.util.SoundHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class TileEntityDraw extends TileEntityTinyStorage implements IInventory {
+public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInventory {
 
 	public int numPlayersUsing;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
+	private int[] sides;
 	private boolean playSoundEvent;
 
 	public TileEntityDraw() {
 		super();
 		inventory = new ItemStack[ContainerDraw.INVENTORY_SIZE];
+		sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	}
 
 	@Override
@@ -166,6 +169,21 @@ public class TileEntityDraw extends TileEntityTinyStorage implements IInventory 
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+	}
+	
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return this.sides;
+	}
+
+	@Override
+	public boolean canInsertItem(int slotID, ItemStack stack, int blockSide) {
+		return this.isItemValidForSlot(slotID, stack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
+		return true;
 	}
 
 }

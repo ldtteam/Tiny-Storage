@@ -7,29 +7,34 @@ import com.timthebrick.tinystorage.reference.Sounds;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityTinyChest extends TileEntityTinyStorage implements IInventory {
+public class TileEntityTinyChest extends TileEntityTinyStorage implements ISidedInventory {
 
 	public float lidAngle;
 	public float prevLidAngle;
 	public int numPlayersUsing;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
+	private int[] sides;
 
 	public TileEntityTinyChest(int metaData) {
 		super();
 		this.state = (byte) metaData;
 		if (metaData == 0) {
 			inventory = new ItemStack[ContainerTinyChest.SMALL_INVENTORY_SIZE];
+			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 		} else if (metaData == 1) {
 			inventory = new ItemStack[ContainerTinyChest.MEDIUM_INVENTORY_SIZE];
+			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
 		} else if (metaData == 2) {
 			inventory = new ItemStack[ContainerTinyChest.LARGE_INVENTORY_SIZE];
+			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
 		}
 	}
 
@@ -202,6 +207,21 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements IInven
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return this.sides;
+	}
+
+	@Override
+	public boolean canInsertItem(int slotID, ItemStack stack, int blockSide) {
+		return this.isItemValidForSlot(slotID, stack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
+		return true;
 	}
 
 }
