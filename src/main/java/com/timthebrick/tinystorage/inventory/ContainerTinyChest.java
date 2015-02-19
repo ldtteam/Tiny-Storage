@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.timthebrick.tinystorage.inventory.slot.SlotTinyStorage;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
 public class ContainerTinyChest extends ContainerTinyStorage {
@@ -46,11 +47,11 @@ public class ContainerTinyChest extends ContainerTinyStorage {
 		for (int chestRowIndex = 0; chestRowIndex < chestInventoryRows; chestRowIndex++) {
 			for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
 				if (this.tileEntity.getState() == 0) {
-					this.addSlotToContainer(new Slot(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
+					this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
 				} else if (this.tileEntity.getState() == 1) {
-					this.addSlotToContainer(new Slot(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
+					this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
 				} else if (this.tileEntity.getState() == 2) {
-					this.addSlotToContainer(new Slot(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
+					this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
 				}
 			}
 		}
