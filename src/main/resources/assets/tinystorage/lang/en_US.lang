@@ -6,6 +6,7 @@ container.tinystorage:tinyChest=Tiny Chest
 container.tinystorage:tinyChestLocked=Locking Tiny Chest
 container.tinystorage:filterChest=Filter Chest
 container.tinystorage:draw=Chest of Draws
+container.tinystorage:trashChest=Trash Chest
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small

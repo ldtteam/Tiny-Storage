@@ -1,5 +1,8 @@
 package com.timthebrick.tinystorage.init;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -63,6 +66,7 @@ public class ModBlocks {
 	public static Block blockFilterChestSprucePlankLocked = new BlockFilterChest(Material.wood, "SprucePlank", true);
 
 	public static Block blockDrawOakLog = new BlockDraw(Material.wood, "OakLog");
+	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -116,6 +120,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(blockFilterChestSprucePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SprucePlank");
 
 		GameRegistry.registerBlock(blockDrawOakLog, ItemBlockDraw.class, Names.Blocks.DRAW + "OakLog");
+		GameRegistry.registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
 	}
 
 }
