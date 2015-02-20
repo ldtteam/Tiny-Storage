@@ -32,7 +32,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 @Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS)
 public class TinyStorage {
 
-	private boolean dumpUnlocalizedNames = true;
+	private boolean dumpUnlocalizedNames = false;
 
 	@Instance(References.MOD_ID)
 	public static TinyStorage instance;
