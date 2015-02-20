@@ -1,11 +1,14 @@
 package com.timthebrick.tinystorage;
 
+import java.io.File;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.core.UnlocalizedNameDump;
 import com.timthebrick.tinystorage.handler.ConfigurationHandler;
 import com.timthebrick.tinystorage.handler.GuiHandler;
 import com.timthebrick.tinystorage.init.ModBlocks;
@@ -26,8 +29,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS, dependencies = "after:ForgeMultipart")
+@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS)
 public class TinyStorage {
+
+	private boolean dumpUnlocalizedNames = true;
 
 	@Instance(References.MOD_ID)
 	public static TinyStorage instance;
@@ -42,6 +47,10 @@ public class TinyStorage {
 		PacketHandler.init();
 		ModBlocks.init();
 		ModItems.init();
+		if (dumpUnlocalizedNames) {
+			UnlocalizedNameDump.dumpBlockNames(new File(event.getModConfigurationDirectory(), References.MOD_ID + "_BlockUnlocalizedNames.txt"));
+			UnlocalizedNameDump.dumpItemNames(new File(event.getModConfigurationDirectory(), References.MOD_ID + "_ItemUnlocalizedNames.txt"));
+		}
 		TinyStorageLog.info("Finished pre init");
 	}
 

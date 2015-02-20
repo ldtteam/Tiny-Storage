@@ -1,5 +1,9 @@
 package com.timthebrick.tinystorage.init;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
@@ -11,6 +15,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(References.MOD_ID)
 public class ModItems {
+	public static List<Item> tinyStorageItems = new ArrayList<Item>();
 	
 	public static Item itemStorageUpgrade = new ItemStorageComponent();
 	public static Item itemChestFilter = new ItemChestFilter();
@@ -19,9 +24,19 @@ public class ModItems {
 	public static void init(){
 		TinyStorageLog.info("Initialising Items");
 		
-		GameRegistry.registerItem(itemStorageUpgrade, Names.Items.STORAGE_COMPONENT);
-		GameRegistry.registerItem(itemChestFilter, Names.Items.CHEST_FILTER);
-		GameRegistry.registerItem(itemChestLock, Names.Items.CHEST_LOCK);
+		registerItem(itemStorageUpgrade, Names.Items.STORAGE_COMPONENT);
+		registerItem(itemChestFilter, Names.Items.CHEST_FILTER);
+		registerItem(itemChestLock, Names.Items.CHEST_LOCK);
+	}
+	
+	private static void registerItem(Item item, String name){
+		TinyStorageLog.info("Attempting to register " + item.getUnlocalizedName());
+		try {
+			GameRegistry.registerItem(item, name);
+			tinyStorageItems.add(item);
+		} catch (Exception e) {
+			TinyStorageLog.error(e);
+		}
 	}
 
 }

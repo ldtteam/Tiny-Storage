@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemBlock;
 
 import com.timthebrick.tinystorage.block.*;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
@@ -16,6 +17,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(References.MOD_ID)
 public class ModBlocks {
+	public static List<Block> tinyStorageBlocks = new ArrayList<Block>();
 
 	public static Block blockTinyChestStone = new BlockTinyChest(Material.rock, "Stone", false);
 	public static Block blockTinyChestOakLog = new BlockTinyChest(Material.wood, "OakLog", false);
@@ -28,7 +30,7 @@ public class ModBlocks {
 	public static Block blockTinyChestBirchPlank = new BlockTinyChest(Material.wood, "BirchPlank", false);
 	public static Block blockTinyChestJunglePlank = new BlockTinyChest(Material.wood, "JunglePlank", false);
 	public static Block blockTinyChestSprucePlank = new BlockTinyChest(Material.wood, "SprucePlank", false);
-	
+
 	public static Block blockTinyChestStoneLocked = new BlockTinyChest(Material.rock, "Stone", true);
 	public static Block blockTinyChestOakLogLocked = new BlockTinyChest(Material.wood, "OakLog", true);
 	public static Block blockTinyChestAcaciaLogLocked = new BlockTinyChest(Material.wood, "AcaciaLog", true);
@@ -52,7 +54,7 @@ public class ModBlocks {
 	public static Block blockFilterChestBirchPlank = new BlockFilterChest(Material.wood, "BirchPlank", false);
 	public static Block blockFilterChestJunglePlank = new BlockFilterChest(Material.wood, "JunglePlank", false);
 	public static Block blockFilterChestSprucePlank = new BlockFilterChest(Material.wood, "SprucePlank", false);
-	
+
 	public static Block blockFilterChestStoneLocked = new BlockFilterChest(Material.rock, "Stone", true);
 	public static Block blockFilterChestOakLogLocked = new BlockFilterChest(Material.wood, "OakLog", true);
 	public static Block blockFilterChestAcaciaLogLocked = new BlockFilterChest(Material.wood, "AcaciaLog", true);
@@ -70,57 +72,99 @@ public class ModBlocks {
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
-		
-		GameRegistry.registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");
-		GameRegistry.registerBlock(blockTinyChestOakLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "OakLog");
-		GameRegistry.registerBlock(blockTinyChestAcaciaLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "AcaciaLog");
-		GameRegistry.registerBlock(blockTinyChestBirchLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "BirchLog");
-		GameRegistry.registerBlock(blockTinyChestJungleLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "JungleLog");
-		GameRegistry.registerBlock(blockTinyChestSpruceLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "SpruceLog");
-		GameRegistry.registerBlock(blockTinyChestOakPlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "OakPlank");
-		GameRegistry.registerBlock(blockTinyChestAcaciaPlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "AcaciaPlank");
-		GameRegistry.registerBlock(blockTinyChestBirchPlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "BirchPlank");
-		GameRegistry.registerBlock(blockTinyChestJunglePlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "JunglePlank");
-		GameRegistry.registerBlock(blockTinyChestSprucePlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "SprucePlank");
-		
-		GameRegistry.registerBlock(blockTinyChestStoneLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "Stone");
-		GameRegistry.registerBlock(blockTinyChestOakLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "OakLog");
-		GameRegistry.registerBlock(blockTinyChestAcaciaLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "AcaciaLog");
-		GameRegistry.registerBlock(blockTinyChestBirchLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "BirchLog");
-		GameRegistry.registerBlock(blockTinyChestJungleLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "JungleLog");
-		GameRegistry.registerBlock(blockTinyChestSpruceLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "SpruceLog");
-		GameRegistry.registerBlock(blockTinyChestOakPlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "OakPlank");
-		GameRegistry.registerBlock(blockTinyChestAcaciaPlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "AcaciaPlank");
-		GameRegistry.registerBlock(blockTinyChestBirchPlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "BirchPlank");
-		GameRegistry.registerBlock(blockTinyChestJunglePlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "JunglePlank");
-		GameRegistry.registerBlock(blockTinyChestSprucePlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "SprucePlank");
 
-		GameRegistry.registerBlock(blockFilterChestStone, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "Stone");
-		GameRegistry.registerBlock(blockFilterChestOakLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "OakLog");
-		GameRegistry.registerBlock(blockFilterChestAcaciaLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "AcaciaLog");
-		GameRegistry.registerBlock(blockFilterChestBirchLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchLog");
-		GameRegistry.registerBlock(blockFilterChestJungleLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "JungleLog");
-		GameRegistry.registerBlock(blockFilterChestSpruceLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SpruceLog");
-		GameRegistry.registerBlock(blockFilterChestOakPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "OakPlank");
-		GameRegistry.registerBlock(blockFilterChestAcaciaPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "AcaciaPlank");
-		GameRegistry.registerBlock(blockFilterChestBirchPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchPlank");
-		GameRegistry.registerBlock(blockFilterChestJunglePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "JunglePlank");
-		GameRegistry.registerBlock(blockFilterChestSprucePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SprucePlank");
-		
-		GameRegistry.registerBlock(blockFilterChestStoneLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "Stone");
-		GameRegistry.registerBlock(blockFilterChestOakLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakLog");
-		GameRegistry.registerBlock(blockFilterChestAcaciaLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaLog");
-		GameRegistry.registerBlock(blockFilterChestBirchLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchLog");
-		GameRegistry.registerBlock(blockFilterChestJungleLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "JungleLog");
-		GameRegistry.registerBlock(blockFilterChestSpruceLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SpruceLog");
-		GameRegistry.registerBlock(blockFilterChestOakPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakPlank");
-		GameRegistry.registerBlock(blockFilterChestAcaciaPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaPlank");
-		GameRegistry.registerBlock(blockFilterChestBirchPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchPlank");
-		GameRegistry.registerBlock(blockFilterChestJunglePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "JunglePlank");
-		GameRegistry.registerBlock(blockFilterChestSprucePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SprucePlank");
+		registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");
+		registerBlock(blockTinyChestOakLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "OakLog");
+		registerBlock(blockTinyChestAcaciaLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "AcaciaLog");
+		registerBlock(blockTinyChestBirchLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "BirchLog");
+		registerBlock(blockTinyChestJungleLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "JungleLog");
+		registerBlock(blockTinyChestSpruceLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "SpruceLog");
+		registerBlock(blockTinyChestOakPlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "OakPlank");
+		registerBlock(blockTinyChestAcaciaPlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "AcaciaPlank");
+		registerBlock(blockTinyChestBirchPlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "BirchPlank");
+		registerBlock(blockTinyChestJunglePlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "JunglePlank");
+		registerBlock(blockTinyChestSprucePlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "SprucePlank");
 
-		GameRegistry.registerBlock(blockDrawOakLog, ItemBlockDraw.class, Names.Blocks.DRAW + "OakLog");
-		GameRegistry.registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
+		registerBlock(blockTinyChestStoneLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "Stone");
+		registerBlock(blockTinyChestOakLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "OakLog");
+		registerBlock(blockTinyChestAcaciaLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "AcaciaLog");
+		registerBlock(blockTinyChestBirchLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "BirchLog");
+		registerBlock(blockTinyChestJungleLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "JungleLog");
+		registerBlock(blockTinyChestSpruceLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "SpruceLog");
+		registerBlock(blockTinyChestOakPlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "OakPlank");
+		registerBlock(blockTinyChestAcaciaPlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "AcaciaPlank");
+		registerBlock(blockTinyChestBirchPlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "BirchPlank");
+		registerBlock(blockTinyChestJunglePlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "JunglePlank");
+		registerBlock(blockTinyChestSprucePlankLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "SprucePlank");
+
+		registerBlock(blockFilterChestStone, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "Stone");
+		registerBlock(blockFilterChestOakLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "OakLog");
+		registerBlock(blockFilterChestAcaciaLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "AcaciaLog");
+		registerBlock(blockFilterChestBirchLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchLog");
+		registerBlock(blockFilterChestJungleLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "JungleLog");
+		registerBlock(blockFilterChestSpruceLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SpruceLog");
+		registerBlock(blockFilterChestOakPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "OakPlank");
+		registerBlock(blockFilterChestAcaciaPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "AcaciaPlank");
+		registerBlock(blockFilterChestBirchPlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchPlank");
+		registerBlock(blockFilterChestJunglePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "JunglePlank");
+		registerBlock(blockFilterChestSprucePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SprucePlank");
+
+		registerBlock(blockFilterChestStoneLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "Stone");
+		registerBlock(blockFilterChestOakLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakLog");
+		registerBlock(blockFilterChestAcaciaLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaLog");
+		registerBlock(blockFilterChestBirchLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchLog");
+		registerBlock(blockFilterChestJungleLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "JungleLog");
+		registerBlock(blockFilterChestSpruceLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SpruceLog");
+		registerBlock(blockFilterChestOakPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakPlank");
+		registerBlock(blockFilterChestAcaciaPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaPlank");
+		registerBlock(blockFilterChestBirchPlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchPlank");
+		registerBlock(blockFilterChestJunglePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "JunglePlank");
+		registerBlock(blockFilterChestSprucePlankLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "SprucePlank");
+
+		registerBlock(blockDrawOakLog, ItemBlockDraw.class, Names.Blocks.DRAW + "OakLog");
+		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
+	}
+
+	/**
+	 * Register a block with the world, with the specified item class and block
+	 * name
+	 * 
+	 * @param block
+	 *            The block to register
+	 * @param itemclass
+	 *            The item type to register with it : null registers a block
+	 *            without associated item.
+	 * @param name
+	 *            The mod-unique name to register it as, will get prefixed by
+	 *            your modid.
+	 */
+	private static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
+		TinyStorageLog.info("Attempting to register " + block.getUnlocalizedName());
+		try {
+			GameRegistry.registerBlock(block, itemclass, name);
+			tinyStorageBlocks.add(block);
+		} catch (Exception e) {
+			TinyStorageLog.error(e);
+		}
+	}
+
+	/**
+	 * Register a block with the specified mod specific name
+	 * 
+	 * @param block
+	 *            The block to register
+	 * @param name
+	 *            The mod-unique name to register it as, will get prefixed by
+	 *            your modid.
+	 */
+	private static void registerBlock(Block block, String name) {
+		TinyStorageLog.info("Attempting to register " + block.getUnlocalizedName());
+		try {
+			GameRegistry.registerBlock(block, name);
+			tinyStorageBlocks.add(block);
+		} catch (Exception e) {
+			TinyStorageLog.error(e);
+		}
 	}
 
 }

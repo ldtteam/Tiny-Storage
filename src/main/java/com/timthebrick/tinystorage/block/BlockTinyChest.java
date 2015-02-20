@@ -58,7 +58,7 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 		} else {
 			this.setBlockName("blockTinyChestLocked" + this.textureName);
 		}
-		this.setCreativeTab(TabTinyStorage.creativeTab);	
+		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 
 	@Override
