@@ -7,6 +7,12 @@ public class ItemBlockTrashChest extends ItemBlock {
 
 	public ItemBlockTrashChest(Block block) {
 		super(block);
+		this.setHasSubtypes(true);
+	}
+	
+	@Override
+	public int getMetadata(int meta) {
+		return meta;
 	}
 
 }

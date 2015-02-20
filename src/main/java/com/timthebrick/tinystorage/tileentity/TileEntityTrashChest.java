@@ -20,7 +20,9 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 	private ItemStack[] inventory;
 	private final int[] sides = { 0, 1 };
 
-	public TileEntityTrashChest() {
+	public TileEntityTrashChest(int metaData) {
+		super();
+		this.state = (byte) metaData;
 		inventory = new ItemStack[2];
 	}
 

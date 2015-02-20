@@ -52,26 +52,42 @@ public class ItemRendererTrashChest implements IItemRenderer {
 		// Translate and render
 		switch (itemRenderType) {
 		case ENTITY: {
-			renderTinyChest(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
+			renderTrashChest(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
 			break;
 		}
 		case EQUIPPED: {
-			transX = 0.3F;
-			transY = -0.6F;
-			transZ = -0.9F;
-			renderTinyChest(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transX = 0.3F;
+				transY = -0.6F;
+				transZ = -0.9F;
+			}
+			renderTrashChest(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON: {
-			transX = -0.15F;
-			transY = -3F;
-			transZ = -2.5F;
-			renderTinyChest(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transX = -0.15F;
+				transY = -3F;
+				transZ = -2.5F;
+			} else if (itemStack.getItemDamage() == 1) {
+				transX = -0.15F;
+				transY = -2.4F;
+				transZ = -2F;
+			} else if (itemStack.getItemDamage() == 2) {
+				transX = -0.15F;
+				transY = -2.2F;
+				transZ = -2F;
+			}
+			renderTrashChest(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
 			break;
 		}
 		case INVENTORY: {
-			transY = 1F;
-			renderTinyChest(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transY = 1F;
+			} else if (itemStack.getItemDamage() == 1) {
+				transY = 0.35F;
+			}
+			renderTrashChest(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
 			break;
 		}
 		default:
@@ -79,7 +95,7 @@ public class ItemRendererTrashChest implements IItemRenderer {
 		}
 	}
 
-	private void renderTinyChest(float x, float y, float z, float scale) {
+	private void renderTrashChest(float x, float y, float z, float scale) {
 		GL11.glPushMatrix(); // start
 		GL11.glScalef(scale, -scale, -scale);
 		GL11.glTranslatef(x, y, z);
