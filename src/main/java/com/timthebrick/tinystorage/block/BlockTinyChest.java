@@ -133,18 +133,20 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 					if (storageComponent.getItemDamage() == 0 && ((int) tileEntity.getState() + 1 <= 3)) {
 						if (tileEntity.hasUniqueOwner()) {
 							if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
-								world.setBlockMetadataWithNotify(x, y, z, (int) tileEntity.getState() + 1, 3);
 								tileEntity.updateTileEntity((int) tileEntity.getState() + 1);
+								world.setBlockMetadataWithNotify(x, y, z, (int) tileEntity.getState(), 3);
 								player.getCurrentEquippedItem().stackSize--;
 								tileEntity.markDirty();
+								world.markBlockForUpdate(x, y, z);
 							} else {
 								PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
 							}
 						} else {
-							world.setBlockMetadataWithNotify(x, y, z, (int) tileEntity.getState() + 1, 3);
 							tileEntity.updateTileEntity((int) tileEntity.getState() + 1);
+							world.setBlockMetadataWithNotify(x, y, z, (int) tileEntity.getState(), 3);
 							player.getCurrentEquippedItem().stackSize--;
 							tileEntity.markDirty();
+							world.markBlockForUpdate(x, y, z);
 						}
 					}
 				}
