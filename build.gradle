@@ -1,3 +1,6 @@
+import java.util.regex.Pattern
+import java.util.regex.Matcher
+
 buildscript {
     repositories {
         mavenCentral()
@@ -17,25 +20,59 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-1.5.51"
-group= "com.timthebrick.tinystorage" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "0.0.0"
+group = "com.timthebrick.tinystorage" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "TinyStorage"
 
 minecraft {
     version = "1.7.10-10.13.2.1291"
-    runDir = "eclipse"
+	runDir = "eclipse"
 }
 
 dependencies {
-    
+   
 }
 
-processResources
-{
+processResources {   
+    Matcher matcherVersion
+    
+    def configFile = file("config.xml")
+	def configText = configFile.getText()
+	
+	def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
+	def matcherDev = patternDev.matcher(configText)
+	matcherDev.find()
+	def isDev = Boolean.parseBoolean(matcherDev.group(1))
+    
+    if(isDev) {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		def dev = matcherVersion.group(4)
+		def devVersion = Integer.parseInt(matcherVersion.group(5))
+		
+		project.version = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
+	}
+	else {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		
+		project.version = major + "." + minor + "." + patch
+	}
+    
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-
+    
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
@@ -43,9 +80,253 @@ processResources
         // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+	
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
+
+task incrementPatch << {
+    String oldVersion
+    String newVersion
+    Matcher matcherVersion
+    
+	println(":incrementPatch - Incrementing Patch Version ...")
+	def configFile = file("config.xml")
+	def configText = configFile.getText()
+	
+	def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
+	def matcherDev = patternDev.matcher(configText)
+	matcherDev.find()
+	def isDev = Boolean.parseBoolean(matcherDev.group(1))
+    
+	if(isDev) {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		def dev = matcherVersion.group(4)
+		def devVersion = Integer.parseInt(matcherVersion.group(5))
+		
+		oldVersion = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
+        newVersion = major + "." + minor + "." + (patch + 1)
+	}
+	else {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		
+		oldVersion = major + "." + minor + "." + patch
+		newVersion = major + "." + minor + "." + (patch + 1)
+	}
+		
+	println(":incrementPatch - Current Version: " + oldVersion)
+	println(":incrementPatch - New Version:     " + newVersion)
+	project.version = newVersion
+    
+	def configVersion = matcherVersion.replaceAll("<version>"+ newVersion +"</version>")
+    matcherDev = patternDev.matcher(configVersion)
+    matcherDev.find()
+    def configIsDev = matcherDev.replaceAll("<isDev>false</isDev>")
+    configFile.write(configIsDev)  
+}
+
+task incrementMinor << {
+	String oldVersion
+    String newVersion
+    Matcher matcherVersion
+    
+	println(":incrementMinor - Incrementing Minor Version ...")
+	def configFile = file("config.xml")
+	def configText = configFile.getText()
+	
+	def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
+	def matcherDev = patternDev.matcher(configText)
+	matcherDev.find()
+	def isDev = Boolean.parseBoolean(matcherDev.group(1))
+    
+	if(isDev) {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		def dev = matcherVersion.group(4)
+		def devVersion = Integer.parseInt(matcherVersion.group(5))
+		
+		oldVersion = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
+        newVersion = major + "." + (minor + 1) + ".0"
+	}
+	else {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		
+		oldVersion = major + "." + minor + "." + patch
+		newVersion = major + "." + (minor + 1) + ".0"
+	}
+		
+	println(":incrementMinor - Current Version: " + oldVersion)
+	println(":incrementMinor - New Version:     " + newVersion)
+	project.version = newVersion
+    
+	def configVersion = matcherVersion.replaceAll("<version>"+ newVersion +"</version>")
+    matcherDev = patternDev.matcher(configVersion)
+    matcherDev.find()
+    def configIsDev = matcherDev.replaceAll("<isDev>false</isDev>")
+    configFile.write(configIsDev) 
+}
+
+task incrementMajor << {
+	String oldVersion
+    String newVersion
+    Matcher matcherVersion
+    
+	println(":incrementMajor - Incrementing Major Version ...")
+	def configFile = file("config.xml")
+	def configText = configFile.getText()
+	
+	def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
+	def matcherDev = patternDev.matcher(configText)
+	matcherDev.find()
+	def isDev = Boolean.parseBoolean(matcherDev.group(1))
+    
+	if(isDev) {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		def dev = matcherVersion.group(4)
+		def devVersion = Integer.parseInt(matcherVersion.group(5))
+		
+		oldVersion = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
+        newVersion = (major + 1) + ".0.0"
+	}
+	else {
+		def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		
+		oldVersion = major + "." + minor + "." + patch
+		newVersion = (major + 1) + ".0.0"
+	}
+		
+	println(":incrementMinor - Current Version: " + oldVersion)
+	println(":incrementMinor - New Version:     " + newVersion)
+	project.version = newVersion
+    
+	def configVersion = matcherVersion.replaceAll("<version>"+ newVersion +"</version>")
+    matcherDev = patternDev.matcher(configVersion)
+    matcherDev.find()
+    def configIsDev = matcherDev.replaceAll("<isDev>false</isDev>")
+    configFile.write(configIsDev) 
+}
+
+task setDevVersion << {
+    String oldVersion
+    String newVersion
+    Matcher matcherVersion
+    
+	def configFile = file("config.xml")
+    def configText = configFile.getText()
+    
+    def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
+	def matcherDev = patternDev.matcher(configText)
+	matcherDev.find()
+	def isDev = Boolean.parseBoolean(matcherDev.group(1))
+    
+	if(isDev) {
+        println(":setDevVersion - Incrementing Dev Version")
+        
+        def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
+		matcherVersion = pattern.matcher(configText)
+		matcherVersion.find()
+		
+		def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+		def dev = matcherVersion.group(4)
+		def devVersion = Integer.parseInt(matcherVersion.group(5))
+		
+		oldVersion = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
+        newVersion = major + "." + minor + "." + patch + "-" + dev + "." + (devVersion + 1)
+    }
+    else {
+        println(":setDevVersion - Setting to Dev Version")
+        
+        def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
+        matcherVersion = pattern.matcher(configText)
+        matcherVersion.find()
+        
+        def major = Integer.parseInt(matcherVersion.group(1))
+		def minor = Integer.parseInt(matcherVersion.group(2))
+		def patch = Integer.parseInt(matcherVersion.group(3))
+        
+        oldVersion = major + "." + minor + "." + patch
+        newVersion = major + "." + minor + "." + patch + "-dev.1"
+    }
+    
+    println(":incrementPatch - Current Version: " + oldVersion)
+	println(":incrementPatch - New Version:     " + newVersion)
+	project.version = newVersion
+	
+    def configVersion = matcherVersion.replaceAll("<version>"+ newVersion +"</version>")
+    matcherDev = patternDev.matcher(configVersion)
+    matcherDev.find()
+    def configIsDev = matcherDev.replaceAll("<isDev>true</isDev>")
+    configFile.write(configIsDev)   
+}
+
+task getModData << {
+	println(":getModData - Getting mod-related data from config")
+	def configFile = file("config.xml")
+	def configText = configFile.getText()
+    
+	def patternModid = Pattern.compile("<modid>(\\p{Print}+)</modid>")
+    def patternMcVersion = Pattern.compile("<mcversion>(\\p{Print}+)</mcversion>")
+	def patternGroup = Pattern.compile("<group>(\\p{Graph}+)</group>")
+    
+	def matcherModid = patternModid.matcher(configText)
+    def matcherMcVersion = patternMcVersion.matcher(configText)
+	def matcherGroup = patternGroup.matcher(configText)
+	matcherModid.find()
+    matcherMcVersion.find()
+	matcherGroup.find()
+	
+	def configModid = matcherModid.group(1)
+    def configMcVersion = matcherMcVersion.group(1)
+	def configGroup = matcherGroup.group(1)
+	
+	println(":getModData - ModID:      " + configModid)
+    println(":getModData - MC-Version: " + configMcVersion)
+	println(":getModData - Group:      " + configGroup)
+	
+	project.archivesBaseName = configModid + "-" + configMcVersion
+    println(project.archivesBaseName)
+	project.group = configGroup
+}
+
+build.mustRunAfter getModData
+
+build.dependsOn getModData
