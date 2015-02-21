@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 public class ItemStorageComponent extends Item {
 
@@ -30,6 +31,11 @@ public class ItemStorageComponent extends Item {
 	}
 
 	@Override
+	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
+		return true;
+	}
+
+	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < 3; i++) {
 			list.add(new ItemStack(item, 1, i));
@@ -41,9 +47,11 @@ public class ItemStorageComponent extends Item {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.small"));
-		} else if (metaData == 1) {
+		}
+		else if (metaData == 1) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.medium"));
-		} else if (metaData == 2) {
+		}
+		else if (metaData == 2) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.large"));
 		}
 	}

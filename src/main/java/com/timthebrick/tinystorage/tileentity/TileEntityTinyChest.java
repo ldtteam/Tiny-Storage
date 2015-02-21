@@ -170,6 +170,22 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 		}
 	}
 
+	public void updateTileEntity(int metaData) {
+		ItemStack[] oldInv = inventory;
+		this.setState((byte) metaData);
+		if (this.getState() == 1) {
+			inventory = new ItemStack[ContainerTinyChest.MEDIUM_INVENTORY_SIZE];
+			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+		} else if (this.getState() == 2) {
+			inventory = new ItemStack[ContainerTinyChest.LARGE_INVENTORY_SIZE];
+			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
+		}
+		for (int i = 0; i < oldInv.length; i++) {
+			inventory[i] = oldInv[i];
+		}
+		this.markDirty();
+	}
+
 	@Override
 	public boolean receiveClientEvent(int eventID, int numUsingPlayers) {
 		if (eventID == 1) {

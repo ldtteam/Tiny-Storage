@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,6 +29,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
@@ -121,21 +123,47 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+		if (world.isRemote) {
 			return true;
 		} else {
-			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
-				if (((TileEntityTinyChest) world.getTileEntity(x, y, z)).hasUniqueOwner()) {
-					if (((TileEntityTinyChest) world.getTileEntity(x, y, z)).getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
-						player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
-					} else {
-						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+			if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+				if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityTinyChest && player.getCurrentEquippedItem().getItem() instanceof ItemStorageComponent) {
+					ItemStack storageComponent = player.getCurrentEquippedItem();
+					TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
+					if (storageComponent.getItemDamage() == 0 && ((int) tileEntity.getState() + 1 <= 3)) {
+						if (tileEntity.hasUniqueOwner()) {
+							if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+								world.setBlockMetadataWithNotify(x, y, z, (int) tileEntity.getState() + 1, 3);
+								tileEntity.updateTileEntity((int) tileEntity.getState() + 1);
+								player.getCurrentEquippedItem().stackSize--;
+								tileEntity.markDirty();
+							} else {
+								PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+							}
+						} else {
+							world.setBlockMetadataWithNotify(x, y, z, (int) tileEntity.getState() + 1, 3);
+							tileEntity.updateTileEntity((int) tileEntity.getState() + 1);
+							player.getCurrentEquippedItem().stackSize--;
+							tileEntity.markDirty();
+						}
 					}
-				} else {
-					player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
 				}
+				return false;
+			} else {
+				if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
+					TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
+					if (tileEntity.hasUniqueOwner()) {
+						if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+							player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
+						} else {
+							PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+						}
+					} else {
+						player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
+					}
+				}
+				return false;
 			}
-			return true;
 		}
 	}
 
