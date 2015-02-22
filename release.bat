@@ -12,10 +12,13 @@ if %1 == dev (
         ) else ( if %1 == major (
             gradlew -q incrementMajor
             gradlew build --info
-			else (
-                echo Can't detect proper args. Exiting ...
-                goto end
-            )
+			) else ( if %1 == current (
+				gradlew build --info
+				else (
+					echo Can't detect proper args. Exiting ...
+					goto end
+				)
+			)
         )
     )
 )

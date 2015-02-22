@@ -2,9 +2,11 @@ package com.timthebrick.tinystorage.item;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,26 +36,43 @@ public class ItemStorageComponent extends Item {
 
 	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if(!player.isSneaking()) return false;
 		if (world.isRemote) {
 			return false;
-		}else{
-			if(stack.getItemDamage() != 0) return false;
+		} else {
+			if (stack.getItemDamage() != 0) return false;
 			TileEntity te = world.getTileEntity(x, y, z);
-			TileEntityTinyChest newChest;
-			if(te != null && te instanceof TileEntityTinyChest){
+			if (te != null && te instanceof TileEntityTinyChest) {
+				TileEntityTinyChest newChest;
 				TileEntityTinyChest tinyChest = (TileEntityTinyChest) te;
-				if(tinyChest.getState() + 1 > 3) return false;
+				if (tinyChest.getState() + 1 > 2) return false;
 				newChest = tinyChest.applyUpgradeItem(this, tinyChest.getState() + 1);
-				if(newChest == null){
+				if (newChest == null) {
 					return false;
 				}
-			}else{
+				world.setTileEntity(x, y, z, newChest);
+				world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+				stack.stackSize--;
+				return true;
+			} else if (te != null && te instanceof TileEntityTrashChest) {
+				TileEntityTrashChest newChest;
+				TileEntityTrashChest trashChest = (TileEntityTrashChest) te;
+				int state;
+				if (trashChest.getState() + 1 > 2) {
+					state = 0;
+				} else {
+					state = trashChest.getState() + 1;
+				}
+				newChest = trashChest.applyUpgradeItem(this, state);
+				if (newChest == null) {
+					return false;
+				}
+				world.setTileEntity(x, y, z, newChest);
+				world.setBlockMetadataWithNotify(x, y, z, state, 3);
+				return true;
+			} else {
 				return false;
 			}
-			world.setTileEntity(x, y, z, newChest);
-			world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
-			stack.stackSize--;
-			return true;
 		}
 	}
 

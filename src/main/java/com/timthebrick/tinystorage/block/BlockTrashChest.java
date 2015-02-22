@@ -40,7 +40,7 @@ public class BlockTrashChest extends BlockContainer implements ITileEntityProvid
 
 	public BlockTrashChest(Material mat) {
 		super(mat);
-		this.setHardness(50.0F);
+		this.setHardness(30.0F);
 		this.setResistance(2000.0F);
 		this.setBlockName("blockTrashChest");
 		this.setCreativeTab(TabTinyStorage.creativeTab);

@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.tileentity;
 
+import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.util.StackHelper;
@@ -70,6 +71,28 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 			itemStack.stackSize = this.getInventoryStackLimit();
 		}
 		this.markDirty();
+	}
+	
+
+	public TileEntityTrashChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int state) {
+		if(numPlayersUsing > 0){
+			return null;
+		}
+		TileEntityTrashChest newEntity;
+		if(state == 0){
+			newEntity = new TileEntityTrashChest(state);
+		}else if(state == 1){
+			newEntity = new TileEntityTrashChest(state);
+		}else if(state == 2){
+			newEntity = new TileEntityTrashChest(state);
+		}else{
+			return null;
+		}
+		int newSize = newEntity.inventory.length;
+		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
+		newEntity.setOrientation(this.orientation);
+		newEntity.ticksSinceSync = -1;
+		return newEntity;
 	}
 
 	@Override
@@ -219,5 +242,4 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
 		return true;
 	}
-
 }
