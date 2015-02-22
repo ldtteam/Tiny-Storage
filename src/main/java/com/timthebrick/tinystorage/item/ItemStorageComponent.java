@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,6 +13,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
@@ -31,8 +33,28 @@ public class ItemStorageComponent extends Item {
 	}
 
 	@Override
-	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
-		return true;
+	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if (world.isRemote) {
+			return false;
+		}else{
+			if(stack.getItemDamage() != 0) return false;
+			TileEntity te = world.getTileEntity(x, y, z);
+			TileEntityTinyChest newChest;
+			if(te != null && te instanceof TileEntityTinyChest){
+				TileEntityTinyChest tinyChest = (TileEntityTinyChest) te;
+				if(tinyChest.getState() + 1 > 3) return false;
+				newChest = tinyChest.applyUpgradeItem(this, tinyChest.getState() + 1);
+				if(newChest == null){
+					return false;
+				}
+			}else{
+				return false;
+			}
+			world.setTileEntity(x, y, z, newChest);
+			world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+			stack.stackSize--;
+			return true;
+		}
 	}
 
 	@Override
@@ -47,11 +69,9 @@ public class ItemStorageComponent extends Item {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.small"));
-		}
-		else if (metaData == 1) {
+		} else if (metaData == 1) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.medium"));
-		}
-		else if (metaData == 2) {
+		} else if (metaData == 2) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.large"));
 		}
 	}

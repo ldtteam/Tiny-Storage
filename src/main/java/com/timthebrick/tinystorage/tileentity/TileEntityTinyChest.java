@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.tileentity;
 
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
+import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityTinyChest extends TileEntityTinyStorage implements ISidedInventory {
@@ -94,6 +96,27 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 			return Names.Containers.TINY_CHEST;
 		}
 	}
+	
+	public TileEntityTinyChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier){
+		if(numPlayersUsing > 0){
+			return null;
+		}
+		TileEntityTinyChest newEntity;
+		if(upgradeTier == 0){
+			newEntity = new TileEntityTinyChestSmall();
+		}else if(upgradeTier == 1){
+			newEntity = new TileEntityTinyChestMedium();
+		}else if(upgradeTier == 2){
+			newEntity = new TileEntityTinyChestLarge();
+		}else{
+			return null;
+		}
+		int newSize = newEntity.inventory.length;
+		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
+		newEntity.setOrientation(this.orientation);
+		newEntity.ticksSinceSync = -1;
+		return newEntity;
+	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
@@ -170,22 +193,6 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 		}
 	}
 
-	public void updateTileEntity(int metaData) {
-		ItemStack[] oldInv = inventory;
-		this.setState((byte) metaData);
-		if (this.getState() == 1) {
-			inventory = new ItemStack[ContainerTinyChest.MEDIUM_INVENTORY_SIZE];
-			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-		} else if (this.getState() == 2) {
-			inventory = new ItemStack[ContainerTinyChest.LARGE_INVENTORY_SIZE];
-			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-		}
-		for (int i = 0; i < oldInv.length; i++) {
-			inventory[i] = oldInv[i];
-		}
-		this.markDirty();
-	}
-
 	@Override
 	public boolean receiveClientEvent(int eventID, int numUsingPlayers) {
 		if (eventID == 1) {
@@ -223,6 +230,11 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+	}
+	
+	@Override
+	public Packet getDescriptionPacket() {
+		return super.getDescriptionPacket();
 	}
 
 	@Override
