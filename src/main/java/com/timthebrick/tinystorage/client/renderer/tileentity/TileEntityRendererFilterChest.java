@@ -51,11 +51,11 @@ public class TileEntityRendererFilterChest extends TileEntitySpecialRenderer {
 			GL11.glTranslatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
 			// GL11.glScalef(1.0F, -1.0F, -1.0F);
 			if (tileEntityFilterChest.getState() == 0) {
-				GL11.glScalef(0.5F, -0.5F, -0.5F);
-				GL11.glTranslatef(0.5F, 1F, 0.5F);
+				GL11.glScalef(0.65F, -0.65F, -0.65F);
+				GL11.glTranslatef(0.26F, 0.53F, 0.26F);
 			} else if (tileEntityFilterChest.getState() == 1) {
-				GL11.glScalef(0.75F, -0.75F, -0.75F);
-				GL11.glTranslatef(0.16F, 0.325F, 0.16F);
+				GL11.glScalef(0.8F, -0.8F, -0.8F);
+				GL11.glTranslatef(0.12F, 0.25F, 0.12F);
 			} else if (tileEntityFilterChest.getState() == 2) {
 				GL11.glScalef(1.0F, -1.0F, -1.0F);
 			}
