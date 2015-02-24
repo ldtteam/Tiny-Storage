@@ -5,4 +5,5 @@ public class RenderIDs {
 	public static int filterChest;
 	public static int draw;
 	public static int trashChest;
+	public static int microChest;
 }

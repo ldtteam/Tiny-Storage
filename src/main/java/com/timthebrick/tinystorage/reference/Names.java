@@ -9,6 +9,8 @@ public class Names {
 		public static final String FILTER_CHEST_LOCKED = "filterChestLocked";
 		public static final String DRAW = "draw";
 		public static final String TRASH_CHEST = "trashChest";
+		public static final String MICRO_CHEST = "microChest";
+		public static final String MICRO_CHEST_LOCKED = "microChestLocked";
 	}
 	
 	public static final class Items{
@@ -38,6 +40,8 @@ public class Names {
 		public static final String FILTER_CHEST_LOCKED = "container.tinystorage:" + Blocks.FILTER_CHEST_LOCKED;
 		public static final String DRAW = "container.tinystorage:" + Blocks.DRAW;
 		public static final String TRASH_CHEST = "container.tinystorage:" + Blocks.TRASH_CHEST;
+		public static final String MICRO_CHEST = "container.tinystorage:" + Blocks.MICRO_CHEST;
+		public static final String MICRO_CHEST_LOCKED = "container.tinystorage:" + Blocks.MICRO_CHEST_LOCKED;
 	}
 
 }

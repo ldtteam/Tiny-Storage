@@ -9,12 +9,14 @@ import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTrashChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererDraw;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererFilterChest;
+import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererMicroChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTrashChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
@@ -29,6 +31,7 @@ public class ClientProxy extends CommonProxy {
 		RenderIDs.filterChest = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.draw = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.trashChest = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.microChest = RenderingRegistry.getNextAvailableRenderId();
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestStone), new ItemRendererTinyChest("Stone", false));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestOakLog), new ItemRendererTinyChest("OakLog", false));
@@ -85,6 +88,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFilterChest.class, new TileEntityRendererFilterChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDraw.class, new TileEntityRendererDraw());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrashChest.class, new TileEntityRendererTrashChest());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMicroChest.class, new TileEntityRendererMicroChest());
 	}
 
 	@Override
