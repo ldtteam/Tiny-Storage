@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.client.renderer.tileentity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import com.timthebrick.tinystorage.block.BlockMicroChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
@@ -34,14 +35,14 @@ public class TileEntityRendererMicroChest extends TileEntitySpecialRenderer {
 			World world = tileEntityMicroChest.getWorldObj();
 			Block block = world.getBlock(tileEntityMicroChest.xCoord, tileEntityMicroChest.yCoord, tileEntityMicroChest.zCoord);
 
-			if (block instanceof BlockTinyChest) {
-				BlockTinyChest blockChest = (BlockTinyChest) block;
+			if (block instanceof BlockMicroChest) {
+				BlockMicroChest blockChest = (BlockMicroChest) block;
 				if (!blockChest.getIsLockable()) {
 					textureName = blockChest.getTextureName();
-					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/microChest" + textureName + ".png"));
+					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chest" + textureName + ".png"));
 				} else {
 					textureName = blockChest.getTextureName();
-					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/microChest" + textureName + ".png"));
+					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chest" + textureName + ".png"));
 				}
 			}
 

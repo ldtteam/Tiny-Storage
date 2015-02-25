@@ -45,9 +45,9 @@ public class ItemRendererMicroChest implements IItemRenderer {
 		scale = 0.5F;
 
 		if (!isLocked) {
-			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/microChest" + textureName + ".png"));
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chest" + textureName + ".png"));
 		} else {
-			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/microChest" + textureName + ".png"));
+			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chest" + textureName + ".png"));
 		}
 
 		// Translate and render

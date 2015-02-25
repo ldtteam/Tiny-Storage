@@ -39,10 +39,10 @@ public class TileEntityRendererTinyChest extends TileEntitySpecialRenderer {
 				BlockTinyChest blockChest = (BlockTinyChest) block;
 				if (!blockChest.getIsLockable()) {
 					textureName = blockChest.getTextureName();
-					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/tinyChest" + textureName + ".png"));
+					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chest" + textureName + ".png"));
 				} else {
 					textureName = blockChest.getTextureName();
-					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/tinyChest" + textureName + ".png"));
+					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chest" + textureName + ".png"));
 				}
 			}
 

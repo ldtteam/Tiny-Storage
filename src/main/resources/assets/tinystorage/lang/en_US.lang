@@ -21,6 +21,7 @@ tile.blockTinyChestLockedAcaciaPlank.name=Tiny Chest - Acacia Plank
 tile.blockTinyChestLockedBirchPlank.name=Tiny Chest - Birch Plank
 tile.blockTinyChestLockedJunglePlank.name=Tiny Chest - Jungle Plank
 tile.blockTinyChestLockedSprucePlank.name=Tiny Chest - Spruce Plank
+
 tile.blockFilterChestStone.name=Filter Chest - Stone
 tile.blockFilterChestOakLog.name=Filter Chest - Oak Log
 tile.blockFilterChestAcaciaLog.name=Filter Chest - Acacia Log
@@ -43,6 +44,30 @@ tile.blockFilterChestLockedAcaciaPlank.name=Filter Chest - Acacia Plank
 tile.blockFilterChestLockedBirchPlank.name=Filter Chest - Birch Plank
 tile.blockFilterChestLockedJunglePlank.name=Filter Chest - Jungle Plank
 tile.blockFilterChestLockedSprucePlank.name=Filter Chest - Spruce Plank
+
+tile.blockMicroChestStone.name=Micro Chest - Stone
+tile.blockMicroChestOakLog.name=Micro Chest - Oak Log
+tile.blockMicroChestAcaciaLog.name=Micro Chest - Acacia Log
+tile.blockMicroChestBirchLog.name=Micro Chest - Birch Log
+tile.blockMicroChestJungleLog.name=Micro Chest - Jungle Log
+tile.blockMicroChestSpruceLog.name=Micro Chest - Spruce Log
+tile.blockMicroChestOakPlank.name=Micro Chest - Oak Plank
+tile.blockMicroChestAcaciaPlank.name=Micro Chest - Acacia Plank
+tile.blockMicroChestBirchPlank.name=Micro Chest - Birch Plank
+tile.blockMicroChestJunglePlank.name=Micro Chest - Jungle Plank
+tile.blockMicroChestSprucePlank.name=Micro Chest - Spruce Plank
+tile.blockMicroChestLockedStone.name=Micro Chest - Stone
+tile.blockMicroChestLockedOakLog.name=Micro Chest - Oak Log
+tile.blockMicroChestLockedAcaciaLog.name=Micro Chest - Acacia Log
+tile.blockMicroChestLockedBirchLog.name=Micro Chest - Birch Log
+tile.blockMicroChestLockedJungleLog.name=Micro Chest - Jungle Log
+tile.blockMicroChestLockedSpruceLog.name=Micro Chest - Spruce Log
+tile.blockMicroChestLockedOakPlank.name=Micro Chest - Oak Plank
+tile.blockMicroChestLockedAcaciaPlank.name=Micro Chest - Acacia Plank
+tile.blockMicroChestLockedBirchPlank.name=Micro Chest - Birch Plank
+tile.blockMicroChestLockedJunglePlank.name=Micro Chest - Jungle Plank
+tile.blockMicroChestLockedSprucePlank.name=Micro Chest - Spruce Plank
+
 tile.blockDrawOakLog.name=Chest of Draws - Oak Log
 tile.blockTrashChest.name=Trash Chest
 
@@ -55,8 +80,11 @@ item.chestLock.name=Chest Lock
 container.tinystorage:tinyChest=Tiny Chest
 container.tinystorage:tinyChestLocked=Locking Tiny Chest
 container.tinystorage:filterChest=Filter Chest
+container.tinystorage:filterChestLocked=Locking Filter Chest
 container.tinystorage:draw=Chest of Draws
 container.tinystorage:trashChest=Trash Chest
+container.tinystorage:microChest=Micro Chest
+container.tinystorage:microChestLocked=Locking Micro Chest
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small
@@ -76,6 +104,8 @@ tooltip.tinystorage:storageComponentPrefix.large=Tier 3
 tooltip.tinystorage:chestFilterPrefix.small=Tier 1
 tooltip.tinystorage:chestFilterPrefix.medium=Tier 2
 tooltip.tinystorage:chestFilterPrefix.large=Tier 3
+
+tooltip.tinystorage:microChestPrefix.locked=Locking
 
 #Config
 soundMode=Sound Mode
