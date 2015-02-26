@@ -69,6 +69,11 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 5));
+		
+		//Tiny Chests - Others
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStone, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.stone, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStone, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.stone, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStone, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.stone, 1, 0));
 
 		// Tiny Chests Locked - Logs
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0));
@@ -111,6 +116,11 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 5));
+		
+		//Tiny Chests Locked - Others
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0));
 
 		// Filter Chests - Logs
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestOakLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.log, 1, 0));
@@ -153,6 +163,11 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestAcaciaPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestAcaciaPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestAcaciaPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(Blocks.planks, 1, 4));
+		
+		//Filter Chests - Others
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStone, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.stone, 1));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStone, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(Blocks.stone, 1));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStone, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(Blocks.stone, 1));
 
 		// Filter Chests Locked - Logs
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0));
@@ -196,7 +211,46 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestAcaciaPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestAcaciaPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4));
 		
-		//Trash Chest
+		//Filter Chests Locked - Others
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStoneLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStoneLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStoneLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1));
+
+		// Micro Chests - Logs
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestOakLog, 9), new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestSpruceLog, 9), new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestBirchLog, 9), new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestJungleLog, 9), new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestAcaciaLog, 9), new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 0));
+
+		// Micro Chests - Planks
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestOakPlank, 9), new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestSprucePlank, 9), new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestBirchPlank, 9), new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestJunglePlank, 9), new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestAcaciaPlank, 9), new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 0));
+		
+		//Micro Chests - Others
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestStone, 9), new ItemStack(ModBlocks.blockTinyChestStone, 1, 0));
+
+		// Micro Chests Locked - Logs
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestOakLogLocked, 9), new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestSpruceLogLocked, 9), new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestBirchLogLocked, 9), new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestJungleLogLocked, 9), new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestAcaciaLogLocked, 9), new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 0));
+
+		// Micro Chests Locked - Planks
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestOakPlankLocked, 9), new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestSprucePlankLocked, 9), new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestBirchPlank, 9), new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestJunglePlankLocked, 9), new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestAcaciaPlankLocked, 9), new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 0));
+		
+		//Micro Chests Locked - Others
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestStoneLocked, 9), new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 0));
+
+		// Trash Chest
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.blockTrashChest, 1), "OOO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModBlocks.blockTinyChestStone, 1, 0));
 	}
 
