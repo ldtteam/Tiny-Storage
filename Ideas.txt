@@ -1,3 +1,6 @@
-Micro Chest - 1 stack
+//Ideas
 16 dye colours with right click dye function
 Double sized tiny chest - takes up 1 block space
+
+//Implemented Features
+Micro Chest - 1 stack
