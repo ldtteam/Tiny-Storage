@@ -11,6 +11,8 @@ public class Names {
 		public static final String TRASH_CHEST = "trashChest";
 		public static final String MICRO_CHEST = "microChest";
 		public static final String MICRO_CHEST_LOCKED = "microChestLocked";
+		public static final String WOOL_CHEST = "woolChest";
+		public static final String WOOL_CHEST_LOCKED = "woolChestLocked";
 	}
 	
 	public static final class Items{
