@@ -44,6 +44,8 @@ public class Names {
 		public static final String TRASH_CHEST = "container.tinystorage:" + Blocks.TRASH_CHEST;
 		public static final String MICRO_CHEST = "container.tinystorage:" + Blocks.MICRO_CHEST;
 		public static final String MICRO_CHEST_LOCKED = "container.tinystorage:" + Blocks.MICRO_CHEST_LOCKED;
+		public static final String WOOL_CHEST = "container.tinystorage:" + Blocks.WOOL_CHEST;
+		public static final String WOOL_CHEST_LOCKED = "container.tinystorage:" + Blocks.WOOL_CHEST_LOCKED;
 	}
 
 }

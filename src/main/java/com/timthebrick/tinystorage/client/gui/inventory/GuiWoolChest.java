@@ -1,23 +1,23 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
+import org.lwjgl.opengl.GL11;
+
+import com.timthebrick.tinystorage.inventory.ContainerWoolChest;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
 
-public class GuiTinyChest extends GuiContainer {
+public class GuiWoolChest extends GuiContainer {
 
-	private TileEntityTinyChest tileEntity;
+	private TileEntityWoolChest tileEntity;
 
-	public GuiTinyChest(InventoryPlayer inventoryPlayer, TileEntityTinyChest tileEntity) {
-		super(new ContainerTinyChest(inventoryPlayer, tileEntity));
+	public GuiWoolChest(InventoryPlayer inventoryPlayer, TileEntityWoolChest tileEntity) {
+		super(new ContainerWoolChest(inventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
 		if (this.tileEntity.getState() == 0) {
 			xSize = 176;

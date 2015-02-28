@@ -12,6 +12,10 @@ import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChestLarge;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChestMedium;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChestSmall;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -30,6 +34,11 @@ public class TileEntities {
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestMedium.class, "blockFilterChestMedium", "tileEntityFilterChestMedium");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestLarge.class, "blockFilterChestLarge", "tileEntityFilterChestLarge");
 
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChest.class, "blockWoolChest", "tileEntityWoolChest");
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChestSmall.class, "blockWoolChestSmall", "tileEntityWoolChestSmall");
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChestMedium.class, "blockWoolChestMedium", "tileEntityWoolChestMedium");
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChestLarge.class, "blockWoolChestLarge", "tileEntityWoolChestLarge");
+		
 		GameRegistry.registerTileEntity(TileEntityMicroChest.class, "tileEntityMicroChest");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityDraw.class, "tileEntityDraw");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityTrashChest.class, "tileEntityTrashChest");

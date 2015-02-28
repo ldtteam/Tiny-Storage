@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.block;
 
-import java.util.List;
 import java.util.Random;
 
 import com.timthebrick.tinystorage.TinyStorage;
@@ -9,94 +8,35 @@ import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoolChest extends BlockContainer implements ITileEntityProvider {
+public abstract class BlockWoolChest extends BlockContainer implements ITileEntityProvider {
 
-	protected String textureName;
-	private boolean isLockable;
+	protected boolean isLockable;
+	protected static final String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 
-	public BlockWoolChest(String textureName, boolean isLockable) {
-		super(Material.cloth);
+	protected BlockWoolChest(Material material, boolean isLockable) {
+		super(material);
 		this.isLockable = isLockable;
-		this.textureName = textureName;
-		if (!this.isLockable) {
-			this.setBlockName("blockWoolChest" + this.textureName);
-		} else {
-			this.setBlockName("blockWoolChestLocked" + this.textureName);
-		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int metaData) {
-		if (metaData == 0) {
-			return new TileEntityWoolChestSmall();
-		} else if (metaData == 1) {
-			return new TileEntityWoolChestMedium();
-		} else if (metaData == 2) {
-			return new TileEntityWoolChestLarge();
-		}
-		return null;
-	}
-	
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-		setBlockBoundsBasedOnState(world, x, y, z);
-		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-		setBlockBoundsBasedOnState(world, x, y, z);
-		return super.getSelectedBoundingBoxFromPool(world, x, y, z);
-	}
-
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-		updateChestBounds(world.getBlockMetadata(x, y, z));
-	}
-
-	public void updateChestBounds(int meta) {
-		float f = 0.125F;
-		if (meta == 0) {
-			setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.60f, 0.8f);
-		}
-		if (meta == 1) {
-			setBlockBounds(0.125f, 0.0f, 0.125f, 1F - 0.125f, 0.72f, 1F - 0.125f);
-		}
-		if (meta == 2) {
-			setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
-		}
 	}
 
 	@Override
@@ -109,11 +49,6 @@ public class BlockWoolChest extends BlockContainer implements ITileEntityProvide
 		return false;
 	}
 
-	@Override
-	public int getRenderType() {
-		return RenderIDs.woolChest;
-	}
-	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if (world.isRemote) {
@@ -128,7 +63,7 @@ public class BlockWoolChest extends BlockContainer implements ITileEntityProvide
 						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
 					}
 				} else {
-					player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
+					player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
 				}
 			}
 			return false;
@@ -239,18 +174,6 @@ public class BlockWoolChest extends BlockContainer implements ITileEntityProvide
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockWoolChest");
-	}
-
-	@Override
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-		for (int meta = 0; meta < 3; meta++) {
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
-
-	@Override
-	public int damageDropped(int metaData) {
-		return metaData;
 	}
 
 	@Override

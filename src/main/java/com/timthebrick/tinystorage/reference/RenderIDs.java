@@ -6,5 +6,5 @@ public class RenderIDs {
 	public static int draw;
 	public static int trashChest;
 	public static int microChest;
-	public static int woolChest;
+	public static int woolChestSmall;
 }
