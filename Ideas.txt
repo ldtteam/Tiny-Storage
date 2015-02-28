@@ -4,6 +4,7 @@ Double sized tiny chest - takes up 1 block space
 Click only interaction draws/barrels
 Bookshelves
 Potion racks
+"Piggy Bank"
 
 //Implemented Features
 Micro Chest - 1 stack
