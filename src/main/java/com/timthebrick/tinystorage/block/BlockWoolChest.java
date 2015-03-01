@@ -12,6 +12,7 @@ import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -21,12 +22,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public abstract class BlockWoolChest extends BlockContainer implements ITileEntityProvider {
 
@@ -51,9 +54,10 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-		if (world.isRemote) {
+		if (world.isRemote || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) || (player.isSneaking() && player.getHeldItem() != null)) {
 			return true;
 		} else {
+			TinyStorageLog.info(world.getBlockMetadata(x, y, z));
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoolChest) {
 				TileEntityWoolChest tileEntity = (TileEntityWoolChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {

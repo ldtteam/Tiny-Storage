@@ -123,6 +123,9 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+			return true;
+		}
 		if (world.isRemote) {
 			return true;
 		} else {
