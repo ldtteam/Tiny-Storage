@@ -97,7 +97,10 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 		}
 	}
 	
-	public TileEntityTinyChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier){
+	public TileEntityTinyChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player){
+		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())){
+			return null;
+		}
 		if(numPlayersUsing > 0){
 			return null;
 		}
@@ -115,6 +118,10 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
 		newEntity.setOrientation(this.orientation);
 		newEntity.ticksSinceSync = -1;
+		if(this.hasUniqueOwner()){
+			newEntity.setUniqueOwner(player);
+			newEntity.setOwner(player);
+		}
 		return newEntity;
 	}
 

@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.block;
 
+import java.util.List;
 import java.util.Random;
 
 import com.timthebrick.tinystorage.TinyStorage;
@@ -18,10 +19,12 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,6 +41,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 
 	protected BlockWoolChest(Material material, boolean isLockable) {
 		super(material);
+		this.setHardness(2.5f);
 		this.isLockable = isLockable;
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
@@ -57,11 +61,11 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 		if (world.isRemote || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) || (player.isSneaking() && player.getHeldItem() != null)) {
 			return true;
 		} else {
-			TinyStorageLog.info(world.getBlockMetadata(x, y, z));
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoolChest) {
 				TileEntityWoolChest tileEntity = (TileEntityWoolChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {
 					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+						TinyStorageLog.info(tileEntity.getUniqueOwner());
 						player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
@@ -94,8 +98,9 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 			} else {
 				return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 			}
+		} else {
+			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 		}
-		return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 	}
 
 	@Override
@@ -173,6 +178,18 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 				itemStack.stackSize = 0;
 			}
 		}
+	}
+	
+	@Override
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+		for (int meta = 0; meta < 16; meta++) {
+			list.add(new ItemStack(item, 1, meta));
+		}
+	}
+
+	@Override
+	public int damageDropped(int metaData) {
+		return metaData;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
+import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.init.ModItems;
 
@@ -19,7 +20,14 @@ public class UnlocalizedNameDump {
 		try {
 			writer = new PrintWriter(file, "UTF-8");
 			for (Block b : ModBlocks.tinyStorageBlocks) {
-				writer.println(b.getUnlocalizedName() + ".name=");
+				if (b instanceof BlockWoolChest) {
+					String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
+					for (int i = 0; i < 16; i++) {
+						writer.println(b.getUnlocalizedName() + textureNames[i] + ".name=");
+					}
+				} else {
+					writer.println(b.getUnlocalizedName() + ".name=");
+				}
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
@@ -28,7 +36,7 @@ public class UnlocalizedNameDump {
 			TinyStorageLog.error(e);
 		}
 	}
-	
+
 	public static void dumpItemNames(File file) {
 		TinyStorageLog.info("Attempting to dump unlocalized item names");
 		PrintWriter writer;

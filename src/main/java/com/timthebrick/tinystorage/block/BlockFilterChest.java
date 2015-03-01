@@ -36,6 +36,7 @@ import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
@@ -145,8 +146,8 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
-		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
-			TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityFilterChest) {
+			TileEntityFilterChest tileEntity = (TileEntityFilterChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
 				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
@@ -156,8 +157,9 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			} else {
 				return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 			}
+		} else {
+			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 		}
-		return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 	}
 
 	@Override
@@ -216,12 +218,9 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			IInventory inventory = (IInventory) tileEntity;
 
 			for (int i = 0; i < inventory.getSizeInventory(); i++) {
-				if (teChest.getState() == 0 && i == 0)
-					continue;
-				if (teChest.getState() == 1 && i == 0 || i == 1)
-					continue;
-				if (teChest.getState() == 2 && i == 0 || i == 1 || i == 2)
-					continue;
+				if (teChest.getState() == 0 && i == 0) continue;
+				if (teChest.getState() == 1 && i == 0 || i == 1) continue;
+				if (teChest.getState() == 2 && i == 0 || i == 1 || i == 2) continue;
 				ItemStack itemStack = inventory.getStackInSlot(i);
 
 				if (itemStack != null && itemStack.stackSize > 0) {

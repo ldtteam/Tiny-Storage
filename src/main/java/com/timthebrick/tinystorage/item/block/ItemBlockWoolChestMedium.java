@@ -15,11 +15,11 @@ import com.timthebrick.tinystorage.block.BlockWoolChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBlockWoolChestSmall extends ItemBlock {
+public class ItemBlockWoolChestMedium  extends ItemBlock {
 	
 	protected static final String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 
-	public ItemBlockWoolChestSmall(Block block) {
+	public ItemBlockWoolChestMedium(Block block) {
 		super(block);
 		this.setHasSubtypes(true);
 	}
@@ -37,7 +37,7 @@ public class ItemBlockWoolChestSmall extends ItemBlock {
 
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
-		list.add(StatCollector.translateToLocal("tooltip.tinystorage:woolChestPrefix.small"));
+		list.add(StatCollector.translateToLocal("tooltip.tinystorage:woolChestPrefix.medium"));
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockWoolChest) {
 			BlockWoolChest block = (BlockWoolChest) Block.getBlockFromItem(itemStack.getItem());
 			if (block.getIsLockable()) {

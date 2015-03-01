@@ -95,7 +95,7 @@ public class ItemRendererWoolChest implements IItemRenderer {
 		case INVENTORY: {
 			if (size == 0) {
 				transY = 1F;
-			} else if (itemStack.getItemDamage() == 1) {
+			} else if (size == 1) {
 				transY = 0.35F;
 			}
 			renderWoolChest(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);

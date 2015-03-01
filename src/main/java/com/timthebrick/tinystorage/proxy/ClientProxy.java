@@ -37,6 +37,8 @@ public class ClientProxy extends CommonProxy {
 		RenderIDs.trashChest = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.microChest = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.woolChestSmall = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.woolChestMedium = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.woolChestLarge = RenderingRegistry.getNextAvailableRenderId();
 
 		// Tiny Chests
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestStone), new ItemRendererTinyChest("Stone", false));
@@ -113,13 +115,15 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockMicroChestJunglePlankLocked), new ItemRendererMicroChest("JunglePlank", true));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockMicroChestSprucePlankLocked), new ItemRendererMicroChest("SprucePlank", true));
 
-		
 		//Wool Chests
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestSmall), new ItemRendererWoolChest(0, false));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestSmallLocked), new ItemRendererWoolChest(0, true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestMedium), new ItemRendererWoolChest(1, false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestMediumLocked), new ItemRendererWoolChest(1, true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestLarge), new ItemRendererWoolChest(2, false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestLargeLocked), new ItemRendererWoolChest(2, true));
 		
 		// Misc
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakLog), new ItemRendererDraw("OakLog"));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());
 
 		// TileEntity binding

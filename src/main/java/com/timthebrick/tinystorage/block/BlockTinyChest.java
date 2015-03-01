@@ -165,8 +165,9 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 			} else {
 				return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 			}
+		} else {
+			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 		}
-		return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 	}
 
 	@Override

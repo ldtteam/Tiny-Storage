@@ -45,12 +45,11 @@ public class BlockWoolChestSmall extends BlockWoolChest {
 	
 	public BlockWoolChestSmall(boolean isLockable) {
 		super(Material.cloth, isLockable);
-		this.setBlockName("blockWoolChestSmall");
-	}
-	
-	public String getUnlocalizedName(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, 15);
-		return super.getUnlocalizedName() + "_" + textureNames[i];
+		if (!this.isLockable) {
+			this.setBlockName("blockWoolChestSmall");
+		} else {
+			this.setBlockName("blockWoolChestSmallLocked");
+		}
 	}
 
 	@Override
@@ -83,18 +82,6 @@ public class BlockWoolChestSmall extends BlockWoolChest {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.woolChestSmall;
-	}
-
-	@Override
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-		for (int meta = 0; meta < 16; meta++) {
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
-
-	@Override
-	public int damageDropped(int metaData) {
-		return metaData;
 	}
 
 }

@@ -74,7 +74,10 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 	}
 	
 
-	public TileEntityTrashChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int state) {
+	public TileEntityTrashChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int state, EntityPlayer player) {
+		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())){
+			return null;
+		}
 		if(numPlayersUsing > 0){
 			return null;
 		}
