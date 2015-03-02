@@ -1,5 +1,4 @@
 //Ideas
-16 dye colours with right click dye function
 Double sized tiny chest - takes up 1 block space
 Click only interaction draws/barrels
 Bookshelves
@@ -8,3 +7,4 @@ Potion racks
 
 //Implemented Features
 Micro Chest - 1 stack
+16 dye colours with right click dye function
