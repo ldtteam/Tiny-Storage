@@ -74,7 +74,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 					player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
 				}
 			}
-			return false;
+			return true;
 		}
 	}
 

@@ -111,7 +111,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 					player.openGui(TinyStorage.instance, GUIs.MICRO_CHEST.ordinal(), world, x, y, z);
 				}
 			}
-			return false;
+			return true;
 		}
 	}
 
