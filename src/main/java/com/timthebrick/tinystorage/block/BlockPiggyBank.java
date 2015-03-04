@@ -8,6 +8,7 @@ import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankSmall;
@@ -87,6 +88,22 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		}
 		if (meta == 2) {
 			setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
+		}
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+			return true;
+		}
+		if (world.isRemote) {
+			return true;
+		} else {
+			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
+				TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
+				te.setAction(!te.getAction());
+			}
+			return true;
 		}
 	}
 
@@ -207,7 +224,8 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		//blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockTinyChest");
+		// blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase()
+		// + ":blockTinyChest");
 	}
 
 	@Override

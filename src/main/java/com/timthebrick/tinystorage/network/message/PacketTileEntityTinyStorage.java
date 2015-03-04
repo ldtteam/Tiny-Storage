@@ -14,6 +14,7 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 	public int x, y, z;
 	public byte orientation, state;
 	public String customName, owner, uniqueOwner;
+	public boolean action;
 
 	public PacketTileEntityTinyStorage() {
 	}
@@ -27,6 +28,7 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 		this.customName = tileEntity.getCustomName();
 		this.owner = tileEntity.getOwner();
 		this.uniqueOwner = tileEntity.getUniqueOwner();
+		this.action = tileEntity.getAction();
 	}
 
 	@Override
@@ -42,6 +44,7 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 		this.owner = new String(buf.readBytes(ownerLength).array());
 		int uniqueOwnerLength = buf.readInt();
 		this.uniqueOwner = new String(buf.readBytes(uniqueOwnerLength).array());
+		this.action = buf.readBoolean();
 	}
 
 	@Override
@@ -57,6 +60,7 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 		buf.writeBytes(owner.getBytes());
 		buf.writeInt(uniqueOwner.length());
 		buf.writeBytes(uniqueOwner.getBytes());
+		buf.writeBoolean(action);
 	}
 
 	@Override
@@ -69,13 +73,14 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 			((TileEntityTinyStorage) tileEntity).setCustomName(message.customName);
 			((TileEntityTinyStorage) tileEntity).setOwner(message.owner);
 			((TileEntityTinyStorage) tileEntity).setUniqueOwner(message.uniqueOwner);
+			((TileEntityTinyStorage) tileEntity).setAction(message.action);
 		}
 		return null;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("PacketTileEntityTinyStorage - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s, uniqueOwner:%s", x, y, z, orientation, state, customName, owner, uniqueOwner);
+		return String.format("PacketTileEntityTinyStorage - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s, uniqueOwner:%s, action%s", x, y, z, orientation, state, customName, owner, uniqueOwner, action);
 	}
 
 }

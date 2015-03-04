@@ -13,8 +13,12 @@ import com.timthebrick.tinystorage.reference.Names;
 
 public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISidedInventory {
 
+	public float headAngle;
+	public float prevHeadAngle;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
+	boolean headUp;
+	int bobbles;
 
 	public TileEntityPiggyBank(int metaData) {
 		super();
@@ -139,6 +143,33 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		prevHeadAngle = headAngle;
+		float angleIncrement = 0.25F;
+		System.out.println(this.getState());
+		if (this.getAction()) {
+
+			if (headUp) {
+				headAngle += angleIncrement;
+			} else {
+				headAngle -= angleIncrement;
+			}
+
+			if (headAngle > 10.0F) {
+				headAngle = 10.0F;
+				headUp = false;
+			}
+
+			if (headAngle < -10F) {
+				headAngle = -10F;
+				headUp = true;
+			}
+		} else {
+			if (headAngle > 0) {
+				headAngle -= angleIncrement;
+			} else if (headAngle < 0) {
+				headAngle += angleIncrement;
+			}
+		}
 	}
 
 	@Override

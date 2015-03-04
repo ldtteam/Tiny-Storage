@@ -73,8 +73,8 @@ public class TileEntityRendererPiggyBank extends TileEntitySpecialRenderer {
 
 			GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
 			GL11.glTranslatef(0F + translateX, -1F + translateY, 0F + translateZ);
-			modelPig.head.rotateAngleX =100;
-			modelPig.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+			float adjustedLidAngle = tileEntityPiggyBank.headAngle;
+			modelPig.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, adjustedLidAngle, 0.0625F);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			GL11.glPopMatrix();
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
