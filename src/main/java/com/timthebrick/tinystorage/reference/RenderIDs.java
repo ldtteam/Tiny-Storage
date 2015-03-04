@@ -9,4 +9,5 @@ public class RenderIDs {
 	public static int woolChestSmall;
 	public static int woolChestMedium;
 	public static int woolChestLarge;
+	public static int piggyBank;
 }

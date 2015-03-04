@@ -7,9 +7,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
-import com.timthebrick.tinystorage.block.BlockDraw;
 import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockMicroChest;
+import com.timthebrick.tinystorage.block.BlockPiggyBank;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.block.BlockTrashChest;
 import com.timthebrick.tinystorage.block.BlockWoolChestLarge;
@@ -18,6 +18,7 @@ import com.timthebrick.tinystorage.block.BlockWoolChestSmall;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.item.block.ItemBlockFilterChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockMicroChest;
+import com.timthebrick.tinystorage.item.block.ItemBlockPiggyBank;
 import com.timthebrick.tinystorage.item.block.ItemBlockTinyChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockTrashChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestLarge;
@@ -117,6 +118,7 @@ public class ModBlocks {
 
 	// Misc
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
+	public static Block blockPiggyBank = new BlockPiggyBank(Material.sponge);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -206,6 +208,7 @@ public class ModBlocks {
 
 		// Misc
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
+		registerBlock(blockPiggyBank, ItemBlockPiggyBank.class, Names.Blocks.PIGGY_BANK);
 	}
 
 	/**

@@ -6,12 +6,14 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererDraw;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererMicroChest;
+import com.timthebrick.tinystorage.client.renderer.item.ItemRendererPiggyBank;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTrashChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererWoolChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererDraw;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererMicroChest;
+import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererPiggyBank;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTrashChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererWoolChest;
@@ -20,6 +22,7 @@ import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
@@ -125,6 +128,7 @@ public class ClientProxy extends CommonProxy {
 		
 		// Misc
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockPiggyBank), new ItemRendererPiggyBank());
 
 		// TileEntity binding
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyChest.class, new TileEntityRendererTinyChest());
@@ -133,6 +137,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrashChest.class, new TileEntityRendererTrashChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMicroChest.class, new TileEntityRendererMicroChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoolChest.class, new TileEntityRendererWoolChest());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiggyBank.class, new TileEntityRendererPiggyBank());
 	}
 
 	@Override
