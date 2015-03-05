@@ -96,12 +96,13 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
 			return true;
 		}
-		if (world.isRemote) {
+		if (world.isRemote){
 			return true;
 		} else {
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
 				TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
-				te.setAction(!te.getAction());
+				te.setAction(te.getAction() != true);
+				world.markBlockForUpdate(x, y, z);
 			}
 			return true;
 		}

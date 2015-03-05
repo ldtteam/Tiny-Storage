@@ -5,7 +5,9 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
@@ -143,33 +145,39 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		prevHeadAngle = headAngle;
-		float angleIncrement = 0.25F;
-		System.out.println(this.getState());
-		if (this.getAction()) {
+		if (this.worldObj.isRemote) {
+			prevHeadAngle = headAngle;
+			float angleIncrement = 0.25F;
+			//System.out.println(getAction());
+			if (this.getAction()) {
+				if (headUp) {
+					headAngle += angleIncrement;
+				} else {
+					headAngle -= angleIncrement;
+				}
 
-			if (headUp) {
-				headAngle += angleIncrement;
+				if (headAngle > 10.0F) {
+					headAngle = 10.0F;
+					headUp = false;
+				}
+
+				if (headAngle < -10F) {
+					headAngle = -10F;
+					headUp = true;
+				}
+				//System.out.println(prevHeadAngle + " | " + headAngle + " | " + this.getAction());
 			} else {
-				headAngle -= angleIncrement;
-			}
-
-			if (headAngle > 10.0F) {
-				headAngle = 10.0F;
-				headUp = false;
-			}
-
-			if (headAngle < -10F) {
-				headAngle = -10F;
-				headUp = true;
-			}
-		} else {
-			if (headAngle > 0) {
-				headAngle -= angleIncrement;
-			} else if (headAngle < 0) {
-				headAngle += angleIncrement;
+				if (headAngle > 0) {
+					headAngle -= angleIncrement;
+				} else if (headAngle < 0) {
+					headAngle += angleIncrement;
+				}
 			}
 		}
+	}
+	
+	public float getHeadAngle(){
+		return headAngle;
 	}
 
 	@Override
@@ -209,6 +217,11 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	@Override
 	public Packet getDescriptionPacket() {
 		return super.getDescriptionPacket();
+	}
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		super.onDataPacket(net, pkt);
 	}
 
 	@Override

@@ -38,13 +38,13 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 		this.z = buf.readInt();
 		this.orientation = buf.readByte();
 		this.state = buf.readByte();
+		this.action = buf.readBoolean();
 		int customNameLength = buf.readInt();
 		this.customName = new String(buf.readBytes(customNameLength).array());
 		int ownerLength = buf.readInt();
 		this.owner = new String(buf.readBytes(ownerLength).array());
 		int uniqueOwnerLength = buf.readInt();
 		this.uniqueOwner = new String(buf.readBytes(uniqueOwnerLength).array());
-		this.action = buf.readBoolean();
 	}
 
 	@Override
@@ -54,13 +54,13 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 		buf.writeInt(z);
 		buf.writeByte(orientation);
 		buf.writeByte(state);
+		buf.writeBoolean(action);
 		buf.writeInt(customName.length());
 		buf.writeBytes(customName.getBytes());
 		buf.writeInt(owner.length());
 		buf.writeBytes(owner.getBytes());
 		buf.writeInt(uniqueOwner.length());
 		buf.writeBytes(uniqueOwner.getBytes());
-		buf.writeBoolean(action);
 	}
 
 	@Override
@@ -70,10 +70,10 @@ public class PacketTileEntityTinyStorage implements IMessage, IMessageHandler<Pa
 		if (tileEntity instanceof TileEntityTinyStorage) {
 			((TileEntityTinyStorage) tileEntity).setOrientation(message.orientation);
 			((TileEntityTinyStorage) tileEntity).setState(message.state);
+			((TileEntityTinyStorage) tileEntity).setAction(message.action);
 			((TileEntityTinyStorage) tileEntity).setCustomName(message.customName);
 			((TileEntityTinyStorage) tileEntity).setOwner(message.owner);
 			((TileEntityTinyStorage) tileEntity).setUniqueOwner(message.uniqueOwner);
-			((TileEntityTinyStorage) tileEntity).setAction(message.action);
 		}
 		return null;
 	}
