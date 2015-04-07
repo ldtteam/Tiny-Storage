@@ -2,12 +2,12 @@ package com.timthebrick.tinystorage.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.timthebrick.tinystorage.network.PacketHandler;
-import com.timthebrick.tinystorage.network.message.PacketTileEntityTinyStorage;
 import com.timthebrick.tinystorage.reference.Names;
 
 public class TileEntityTinyStorage extends TileEntity {
@@ -206,62 +206,95 @@ public class TileEntityTinyStorage extends TileEntity {
 		return textureName != null && textureName.length() > 0;
 	}
 
+	/**
+	 * Returns the description packet used for the object; used for syncing data between the client and server
+	 */
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound syncData = new NBTTagCompound();
+		this.writeSyncedNBT(syncData);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+	}
+
+	/**
+	 * Used for syncning data between the client and sever
+	 */
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readSyncedNBT(pkt.func_148857_g());
+	}
+
+	/**
+	 * Standard method to read data from NBT
+	 */
 	@Override
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
-
-		if (nbtTagCompound.hasKey(Names.NBT.DIRECTION)) {
-			this.orientation = ForgeDirection.getOrientation(nbtTagCompound.getByte(Names.NBT.DIRECTION));
-		}
-
-		if (nbtTagCompound.hasKey(Names.NBT.STATE)) {
-			this.state = nbtTagCompound.getByte(Names.NBT.STATE);
-		}
-
-		if (nbtTagCompound.hasKey(Names.NBT.CUSTOM_NAME)) {
-			this.customName = nbtTagCompound.getString(Names.NBT.CUSTOM_NAME);
-		}
-
-		if (nbtTagCompound.hasKey(Names.NBT.UNIQUE_OWNER)) {
-			this.uniqueOwner = nbtTagCompound.getString(Names.NBT.UNIQUE_OWNER);
-		}
-
-		if (nbtTagCompound.hasKey(Names.NBT.OWNER)) {
-			this.owner = nbtTagCompound.getString(Names.NBT.OWNER);
-		}
-
-		if (nbtTagCompound.hasKey(Names.NBT.TEXTURE_NAME)) {
-			this.textureName = nbtTagCompound.getString(Names.NBT.TEXTURE_NAME);
-		}
+		readSyncedNBT(nbtTagCompound);
 	}
 
+	/**
+	 * Standard method for writing data to NBT
+	 */
 	@Override
 	public void writeToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeToNBT(nbtTagCompound);
+		writeSyncedNBT(nbtTagCompound);
+	}
 
-		nbtTagCompound.setByte(Names.NBT.DIRECTION, (byte) orientation.ordinal());
-		nbtTagCompound.setByte(Names.NBT.STATE, state);
+	
+	/**
+	 * Method for writing data to be synced to the client
+	 * @param tag The tag to sync
+	 */
+	public void writeSyncedNBT(NBTTagCompound tag) {
+		tag.setByte(Names.NBT.DIRECTION, (byte) orientation.ordinal());
+		tag.setByte(Names.NBT.STATE, state);
 
 		if (this.hasCustomName()) {
-			nbtTagCompound.setString(Names.NBT.CUSTOM_NAME, customName);
+			tag.setString(Names.NBT.CUSTOM_NAME, customName);
 		}
 
 		if (this.hasUniqueOwner()) {
-			nbtTagCompound.setString(Names.NBT.UNIQUE_OWNER, uniqueOwner);
+			tag.setString(Names.NBT.UNIQUE_OWNER, uniqueOwner);
 		}
-		
-		if(this.hasOwner()){
-			nbtTagCompound.setString(Names.NBT.OWNER, owner);
+
+		if (this.hasOwner()) {
+			tag.setString(Names.NBT.OWNER, owner);
 		}
 
 		if (this.hasCustomTextureName()) {
-			nbtTagCompound.setString(Names.NBT.TEXTURE_NAME, textureName);
+			tag.setString(Names.NBT.TEXTURE_NAME, textureName);
 		}
 	}
 
-	@Override
-	public Packet getDescriptionPacket() {
-		return PacketHandler.INSTANCE.getPacketFrom(new PacketTileEntityTinyStorage(this));
-	}
+	/**
+	 * The method for reading synced data on the client
+	 * @param tag The tag to be read
+	 */
+	public void readSyncedNBT(NBTTagCompound tag) {
+		if (tag.hasKey(Names.NBT.DIRECTION)) {
+			this.orientation = ForgeDirection.getOrientation(tag.getByte(Names.NBT.DIRECTION));
+		}
 
+		if (tag.hasKey(Names.NBT.STATE)) {
+			this.state = tag.getByte(Names.NBT.STATE);
+		}
+
+		if (tag.hasKey(Names.NBT.CUSTOM_NAME)) {
+			this.customName = tag.getString(Names.NBT.CUSTOM_NAME);
+		}
+
+		if (tag.hasKey(Names.NBT.UNIQUE_OWNER)) {
+			this.uniqueOwner = tag.getString(Names.NBT.UNIQUE_OWNER);
+		}
+
+		if (tag.hasKey(Names.NBT.OWNER)) {
+			this.owner = tag.getString(Names.NBT.OWNER);
+		}
+
+		if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
+			this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
+		}
+	}
 }
