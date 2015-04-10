@@ -13,6 +13,7 @@ public class Names {
 		public static final String MICRO_CHEST_LOCKED = "microChestLocked";
 		public static final String WOOL_CHEST = "woolChest";
 		public static final String WOOL_CHEST_LOCKED = "woolChestLocked";
+		public static final String PIGGY_BANK = "piggyBank";
 	}
 	
 	public static final class Items{
@@ -46,6 +47,7 @@ public class Names {
 		public static final String MICRO_CHEST_LOCKED = "container.tinystorage:" + Blocks.MICRO_CHEST_LOCKED;
 		public static final String WOOL_CHEST = "container.tinystorage:" + Blocks.WOOL_CHEST;
 		public static final String WOOL_CHEST_LOCKED = "container.tinystorage:" + Blocks.WOOL_CHEST_LOCKED;
+		public static final String PIGGY_BANK = "container.tinystorage:" + Blocks.PIGGY_BANK;
 	}
 
 }

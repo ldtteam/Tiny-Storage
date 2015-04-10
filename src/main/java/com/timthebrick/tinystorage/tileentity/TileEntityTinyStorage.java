@@ -18,6 +18,7 @@ public class TileEntityTinyStorage extends TileEntity {
 	protected String uniqueOwner;
 	protected String owner;
 	protected String textureName;
+	protected boolean action;
 
 	public TileEntityTinyStorage() {
 		orientation = ForgeDirection.SOUTH;
@@ -26,6 +27,7 @@ public class TileEntityTinyStorage extends TileEntity {
 		uniqueOwner = "";
 		owner = "";
 		textureName = "";
+		action = false;
 	}
 
 	/**
@@ -118,6 +120,14 @@ public class TileEntityTinyStorage extends TileEntity {
 	public void setCustomTextureName(String textureName) {
 		this.textureName = textureName;
 	}
+	
+	/**
+	 * Sets whether the TE should perfom an action or not
+	 * @param action
+	 */
+	public void setAction(boolean action){
+		this.action = action;
+	}
 
 	/**
 	 * Get the orientation of the TE
@@ -168,6 +178,14 @@ public class TileEntityTinyStorage extends TileEntity {
 	 */
 	public String getTextureName() {
 		return textureName;
+	}
+	
+	/**
+	 * Get whether the TE should perform an action or not
+	 * @return True/False
+	 */
+	public boolean getAction(){
+		return action;
 	}
 
 	/**
@@ -266,6 +284,7 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (this.hasCustomTextureName()) {
 			tag.setString(Names.NBT.TEXTURE_NAME, textureName);
 		}
+		this.action = nbtTagCompound.getBoolean("Action");
 	}
 
 	/**
@@ -292,6 +311,11 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (tag.hasKey(Names.NBT.OWNER)) {
 			this.owner = tag.getString(Names.NBT.OWNER);
 		}
+<<<<<<< HEAD
+=======
+		nbtTagCompound.setBoolean("Action", action);
+	}
+>>>>>>> origin/Piggy_Banks
 
 		if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
 			this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
