@@ -9,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
@@ -148,9 +149,10 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		super.updateEntity();
 		if (this.worldObj.isRemote) {
 			prevHeadAngle = headAngle;
-			float angleIncrement = 0.25F;
-			//System.out.println(getAction());
-			if (this.getAction()) {
+			float angleIncrement = 1F;
+			// System.out.println(getAction());
+			if (this.shouldAction) {
+				angleIncrement = angleIncrement -  0.15F;
 				if (headUp) {
 					headAngle += angleIncrement;
 				} else {
@@ -160,13 +162,16 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 				if (headAngle > 10.0F) {
 					headAngle = 10.0F;
 					headUp = false;
+					bobbles--;
 				}
 
 				if (headAngle < -10F) {
 					headAngle = -10F;
 					headUp = true;
+					bobbles--;
 				}
-				//System.out.println(prevHeadAngle + " | " + headAngle + " | " + this.getAction());
+				// System.out.println(prevHeadAngle + " | " + headAngle + " | "
+				// + this.getAction());
 			} else {
 				if (headAngle > 0) {
 					headAngle -= angleIncrement;
@@ -174,10 +179,24 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 					headAngle += angleIncrement;
 				}
 			}
+			if (bobbles <= 0 && shouldAction) {
+				bobbles = 0;
+				shouldAction = false;
+				TinyStorageLog.info("Stopping bobbling");
+			}
+			markDirty();
 		}
 	}
-	
-	public float getHeadAngle(){
+
+	public void setAction() {
+		if(bobbles == 0){
+			shouldAction = (!shouldAction);
+			bobbles = 5;
+		}
+		this.markDirty();
+	}
+
+	public float getHeadAngle() {
 		return headAngle;
 	}
 
@@ -216,17 +235,19 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		tagCompound.setTag("Inventory", itemList);
 		writeSyncedNBT(tagCompound);
 	}
-	
+
 	@Override
 	public void readSyncedNBT(NBTTagCompound tag) {
 		super.readSyncedNBT(tag);
 		this.shouldAction = tag.getBoolean("Action");
+		this.bobbles = tag.getInteger("Bobbles");
 	}
-	
+
 	@Override
 	public void writeSyncedNBT(NBTTagCompound tag) {
 		super.writeSyncedNBT(tag);
 		tag.setBoolean("Action", shouldAction);
+		tag.setInteger("Bobbles", bobbles);
 	}
 
 	@Override
@@ -235,7 +256,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		this.writeSyncedNBT(syncData);
 		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
 	}
-	
+
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readSyncedNBT(pkt.func_148857_g());

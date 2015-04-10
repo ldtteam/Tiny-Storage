@@ -100,7 +100,9 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 			return true;
 		} else {
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
-				
+				TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
+				te.setAction();
+				world.markBlockForUpdate(x, y, z);
 			}
 			return true;
 		}
