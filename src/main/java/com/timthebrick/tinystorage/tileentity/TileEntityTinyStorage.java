@@ -284,7 +284,6 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (this.hasCustomTextureName()) {
 			tag.setString(Names.NBT.TEXTURE_NAME, textureName);
 		}
-		this.action = nbtTagCompound.getBoolean("Action");
 	}
 
 	/**
@@ -307,16 +306,6 @@ public class TileEntityTinyStorage extends TileEntity {
 		if (tag.hasKey(Names.NBT.UNIQUE_OWNER)) {
 			this.uniqueOwner = tag.getString(Names.NBT.UNIQUE_OWNER);
 		}
-
-		if (tag.hasKey(Names.NBT.OWNER)) {
-			this.owner = tag.getString(Names.NBT.OWNER);
-		}
-<<<<<<< HEAD
-=======
-		nbtTagCompound.setBoolean("Action", action);
-	}
->>>>>>> origin/Piggy_Banks
-
 		if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
 			this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
 		}

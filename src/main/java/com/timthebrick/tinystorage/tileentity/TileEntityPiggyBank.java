@@ -19,6 +19,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	public float prevHeadAngle;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
+	boolean shouldAction;
 	boolean headUp;
 	int bobbles;
 
@@ -196,6 +197,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
+		readSyncedNBT(tagCompound);
 	}
 
 	@Override
@@ -212,16 +214,31 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+		writeSyncedNBT(tagCompound);
+	}
+	
+	@Override
+	public void readSyncedNBT(NBTTagCompound tag) {
+		super.readSyncedNBT(tag);
+		this.shouldAction = tag.getBoolean("Action");
+	}
+	
+	@Override
+	public void writeSyncedNBT(NBTTagCompound tag) {
+		super.writeSyncedNBT(tag);
+		tag.setBoolean("Action", shouldAction);
 	}
 
 	@Override
 	public Packet getDescriptionPacket() {
-		return super.getDescriptionPacket();
+		NBTTagCompound syncData = new NBTTagCompound();
+		this.writeSyncedNBT(syncData);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
 	}
 	
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		super.onDataPacket(net, pkt);
+		readSyncedNBT(pkt.func_148857_g());
 	}
 
 	@Override
