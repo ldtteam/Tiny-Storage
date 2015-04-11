@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
@@ -38,16 +39,19 @@ public class ItemStorageComponent extends Item {
 
 	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if (!player.isSneaking()) return false;
+		if (!player.isSneaking())
+			return false;
 		if (world.isRemote) {
 			return false;
 		} else {
-			if (stack.getItemDamage() != 0) return false;
+			if (stack.getItemDamage() != 0)
+				return false;
 			TileEntity te = world.getTileEntity(x, y, z);
 			if (te != null && te instanceof TileEntityTinyChest) {
 				TileEntityTinyChest newChest;
 				TileEntityTinyChest tinyChest = (TileEntityTinyChest) te;
-				if (tinyChest.getState() + 1 > 2) return false;
+				if (tinyChest.getState() + 1 > 2)
+					return false;
 				newChest = tinyChest.applyUpgradeItem(this, tinyChest.getState() + 1, player);
 				if (newChest == null) {
 					return false;
@@ -72,11 +76,28 @@ public class ItemStorageComponent extends Item {
 				world.setTileEntity(x, y, z, newChest);
 				world.setBlockMetadataWithNotify(x, y, z, state, 3);
 				return true;
+			} else if (te != null && te instanceof TileEntityPiggyBank) {
+				System.out.println("Upgrade piggy bank");
+				TileEntityPiggyBank newChest;
+				TileEntityPiggyBank piggyBank = (TileEntityPiggyBank) te;
+				int state;
+				if (piggyBank.getState() + 1 > 2) {
+					return false;
+				}
+				newChest = piggyBank.applyUpgradeItem(this, piggyBank.getState()+1, player);
+				if (newChest == null) {
+					return false;
+				}
+				world.setTileEntity(x, y, z, newChest);
+				world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+				stack.stackSize--;
+				return true;
 			} else if (te != null && te instanceof TileEntityWoolChest) {
 				TileEntityWoolChest newChest;
 				TileEntityWoolChest woolChest = (TileEntityWoolChest) te;
 				int metaData = world.getBlockMetadata(x, y, z);
-				if (woolChest.getState() + 1 > 2) return false;
+				if (woolChest.getState() + 1 > 2)
+					return false;
 				newChest = woolChest.applyUpgradeItem(this, woolChest.getState() + 1, player);
 				if (newChest == null) {
 					return false;

@@ -1,8 +1,10 @@
 package com.timthebrick.tinystorage.handler;
 
+import com.timthebrick.tinystorage.block.BlockPiggyBank;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.init.ModBlocks;
+import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
@@ -34,8 +36,9 @@ public class PlayerEventHandler {
 					TileEntity te = world.getTileEntity(x, y, z);
 					if (te instanceof TileEntityTinyStorage) {
 						TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
-						if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
-							if (block instanceof BlockWoolChest) {
+
+						if (block instanceof BlockWoolChest) {
+							if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
 								if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
 									if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
 										world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
@@ -43,8 +46,8 @@ public class PlayerEventHandler {
 									}
 								}
 							}
-							// Any more interactions go here
 						}
+						// Any more interactions go here
 					}
 				}
 				if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {

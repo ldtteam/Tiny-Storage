@@ -154,7 +154,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 			prevHeadAngle = headAngle;
 			float angleIncrement = 1F;
 			if (this.shouldAction) {
-				angleIncrement = angleIncrement - 0.15F;
+				angleIncrement = angleIncrement - (0.15F * 5 - bobbles);
 				if (headUp) {
 					headAngle += angleIncrement;
 				} else {
@@ -193,15 +193,36 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	}
 
 	public void handlePlayerInteraction(EntityPlayer player) {
-		if (bobbles == 0) {
-			shouldAction = (!shouldAction);
-			double adjustedXCoord, adjustedZCoord;
-			adjustedXCoord = xCoord + 0.5D;
-			adjustedZCoord = zCoord + 0.5D;
-			worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_SAY, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
-			bobbles = 5;
+		if (player.getHeldItem() != null) {
+			if (this.hasInventorySpace()) {
+				int invSlot = getNextFreeSlot();
+				if (invSlot >= 0) {
+					if (bobbles == 0) {
+						shouldAction = (!shouldAction);
+						double adjustedXCoord, adjustedZCoord;
+						adjustedXCoord = xCoord + 0.5D;
+						adjustedZCoord = zCoord + 0.5D;
+						worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_SAY, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+						bobbles = 5;
+						this.setInventorySlotContents(invSlot, player.getHeldItem().copy());
+						player.getHeldItem().stackSize = 0;
+						this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+						this.markDirty();
+					}
+				}
+			} else {
+				PlayerHelper.sendChatMessage(player, "This Piggy Bank is full!");
+			}
+		} else {
+			if (this.getNextFreeSlot() == 0) {
+				PlayerHelper.sendChatMessage(player, "No items currently stored");
+			} else {
+				PlayerHelper.sendChatMessage(player, "Items currently stored: ");
+				for (int i = 0; i < this.getNextFreeSlot(); i++) {
+					PlayerHelper.sendChatMessage(player, getStackInSlot(i).getDisplayName() + " : " + getStackInSlot(i).stackSize);
+				}
+			}
 		}
-		this.markDirty();
 	}
 
 	public void handBadPlayerInteraction(EntityPlayer player) {
@@ -210,6 +231,24 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		adjustedZCoord = zCoord + 0.5D;
 		PlayerHelper.sendChatMessage(player, "This Piggy Bank does not belong to you! Back off!");
 		worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_DEATH, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+	}
+
+	public boolean hasInventorySpace() {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (getStackInSlot(i) == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getNextFreeSlot() {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (getStackInSlot(i) == null) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public float getHeadAngle() {

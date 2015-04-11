@@ -5,7 +5,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * 
- * @author TimtheBrick Taken and adjusted from the Buildcraft Source.
+ * @author TimtheBrick 
+ * Taken and adjusted from the Buildcraft Source.
  *
  */
 public class StackHelper {
