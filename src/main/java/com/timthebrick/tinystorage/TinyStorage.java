@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.core.UnlocalizedNameDump;
@@ -32,7 +33,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 @Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS)
 public class TinyStorage {
 
-	private boolean dumpUnlocalizedNames = true;
+	boolean developmentEnvironment;
 
 	@Instance(References.MOD_ID)
 	public static TinyStorage instance;
@@ -42,12 +43,16 @@ public class TinyStorage {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		developmentEnvironment = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
+		if (developmentEnvironment){
+			TinyStorageLog.info("Development Environment detected; some features may not work the same as in a normal game");
+		}
 		TinyStorageLog.info("Starting pre init");
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
 		PacketHandler.init();
 		ModBlocks.init();
 		ModItems.init();
-		if (dumpUnlocalizedNames) {
+		if (developmentEnvironment) {
 			UnlocalizedNameDump.dumpBlockNames(new File(event.getModConfigurationDirectory(), References.MOD_ID + "_BlockUnlocalizedNames.txt"));
 			UnlocalizedNameDump.dumpItemNames(new File(event.getModConfigurationDirectory(), References.MOD_ID + "_ItemUnlocalizedNames.txt"));
 		}
