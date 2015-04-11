@@ -40,10 +40,11 @@ public class TileEntityRendererPiggyBank extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glTranslatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
+			
 			float translateX = 0F;
 			float translateY = 0F;
 			float translateZ = 0F;
-			// GL11.glScalef(1.0F, -1.0F, -1.0F);
+			
 			if (tileEntityPiggyBank.getState() == 0) {
 				GL11.glScalef(0.65F, -0.65F, -0.65F);
 				GL11.glTranslatef(0.26F, 0.53F, 0.26F);
@@ -56,6 +57,7 @@ public class TileEntityRendererPiggyBank extends TileEntitySpecialRenderer {
 				GL11.glScalef(1.0F, -1.0F, -1.0F);
 				translateZ = 0.187F;
 			}
+			
 			GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 			short angle = 0;
 
@@ -74,7 +76,6 @@ public class TileEntityRendererPiggyBank extends TileEntitySpecialRenderer {
 			GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
 			GL11.glTranslatef(0F + translateX, -1F + translateY, 0F + translateZ);
 			float adjustedLidAngle = tileEntityPiggyBank.getHeadAngle();
-			System.out.println(adjustedLidAngle);
 			modelPig.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, adjustedLidAngle, 0.0625F);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			GL11.glPopMatrix();
