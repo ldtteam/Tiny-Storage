@@ -101,19 +101,18 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		}
 		if (world.isRemote) {
 			return true;
-		} else {
-			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
-				TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
-				if (te.hasUniqueOwner()) {
-					if (te.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
-						te.handlePlayerInteraction();
-					} else {
-						te.handBadPlayerInteraction();
-					}
+		}
+		if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
+			TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
+			if (te.hasUniqueOwner()) {
+				if (te.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+					te.handlePlayerInteraction(player);
+				} else {
+					te.handBadPlayerInteraction(player);
 				}
 			}
-			return true;
 		}
+		return true;
 	}
 
 	@Override
@@ -177,23 +176,44 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
 			}
-
-			if (entityLiving instanceof EntityPlayer) {
-				EntityPlayer player = (EntityPlayer) entityLiving;
-				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
-				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
-			} else {
-				TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
-				int meta = ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).getState();
-				world.setBlockToAir(x, y, z);
-				world.setBlock(x, y, z, Block.getBlockFromName(Names.Blocks.PIGGY_BANK), meta, 3);
-			}
-
+			
 			if (itemStack.hasDisplayName()) {
 				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
 			}
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
+
+			if (entityLiving instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer) entityLiving;
+				if (!PlayerHelper.isPlayerFake(player)) {
+					((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
+					((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
+				} else {
+					TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
+					world.removeTileEntity(x, y, z);
+					world.setBlockToAir(x, y, z);
+					if (itemStack != null && itemStack.stackSize > 0) {
+						Random rand = new Random();
+
+						float dX = rand.nextFloat() * 0.8F + 0.1F;
+						float dY = rand.nextFloat() * 0.8F + 0.1F;
+						float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+						EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+
+						if (itemStack.hasTagCompound()) {
+							entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+						}
+
+						float factor = 0.05F;
+						entityItem.motionX = rand.nextGaussian() * factor;
+						entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+						entityItem.motionZ = rand.nextGaussian() * factor;
+						world.spawnEntityInWorld(entityItem);
+						itemStack.stackSize = 0;
+					}
+				}
+			}			
 		}
 	}
 
