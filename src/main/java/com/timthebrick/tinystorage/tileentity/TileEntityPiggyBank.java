@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.tileentity;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,8 @@ import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.reference.Sounds;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -147,12 +150,11 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (this.worldObj.isRemote) {
+		if (!this.worldObj.isRemote) {
 			prevHeadAngle = headAngle;
 			float angleIncrement = 1F;
-			// System.out.println(getAction());
 			if (this.shouldAction) {
-				angleIncrement = angleIncrement -  0.15F;
+				angleIncrement = angleIncrement - 0.15F;
 				if (headUp) {
 					headAngle += angleIncrement;
 				} else {
@@ -170,34 +172,49 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 					headUp = true;
 					bobbles--;
 				}
-				// System.out.println(prevHeadAngle + " | " + headAngle + " | "
-				// + this.getAction());
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				this.markDirty();
 			} else {
 				if (headAngle > 0) {
 					headAngle -= angleIncrement;
 				} else if (headAngle < 0) {
 					headAngle += angleIncrement;
 				}
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				this.markDirty();
 			}
 			if (bobbles <= 0 && shouldAction) {
 				bobbles = 0;
 				shouldAction = false;
-				TinyStorageLog.info("Stopping bobbling");
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				this.markDirty();
 			}
-			markDirty();
 		}
 	}
 
-	public void setAction() {
-		if(bobbles == 0){
+	public void handlePlayerInteraction() {
+		if (bobbles == 0) {
 			shouldAction = (!shouldAction);
+			double adjustedXCoord, adjustedZCoord;
+			adjustedXCoord = xCoord + 0.5D;
+			adjustedZCoord = zCoord + 0.5D;
+			worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_SAY, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			bobbles = 5;
 		}
 		this.markDirty();
 	}
 
+	public void handBadPlayerInteraction() {
+		double adjustedXCoord, adjustedZCoord;
+		adjustedXCoord = xCoord + 0.5D;
+		adjustedZCoord = zCoord + 0.5D;
+		PlayerHelper.sendChatMessage(Minecraft.getMinecraft().thePlayer, "This Piggy Bank does not belong to you! Back off!");
+		worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_DEATH, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+	}
+
 	public float getHeadAngle() {
-		return headAngle;
+		if (this.worldObj.isRemote)	return headAngle;
+		return 0F;
 	}
 
 	@Override
@@ -241,6 +258,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		super.readSyncedNBT(tag);
 		this.shouldAction = tag.getBoolean("Action");
 		this.bobbles = tag.getInteger("Bobbles");
+		this.headAngle = tag.getFloat("HeadAngle");
 	}
 
 	@Override
@@ -248,6 +266,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		super.writeSyncedNBT(tag);
 		tag.setBoolean("Action", shouldAction);
 		tag.setInteger("Bobbles", bobbles);
+		tag.setFloat("HeadAngle", headAngle);
 	}
 
 	@Override

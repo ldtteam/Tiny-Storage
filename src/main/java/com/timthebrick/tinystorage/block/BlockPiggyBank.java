@@ -3,8 +3,10 @@ package com.timthebrick.tinystorage.block;
 import java.util.List;
 import java.util.Random;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
@@ -17,6 +19,7 @@ import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -96,13 +99,18 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
 			return true;
 		}
-		if (world.isRemote){
+		if (world.isRemote) {
 			return true;
 		} else {
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
 				TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
-				te.setAction();
-				world.markBlockForUpdate(x, y, z);
+				if (te.hasUniqueOwner()) {
+					if (te.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+						te.handlePlayerInteraction();
+					} else {
+						te.handBadPlayerInteraction();
+					}
+				}
 			}
 			return true;
 		}
