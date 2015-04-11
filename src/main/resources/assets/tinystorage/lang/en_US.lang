@@ -213,5 +213,5 @@ tooltip.tinystorage:woolChestPrefix.locked=Locking
 
 #Config
 soundMode=Sound Mode
-general.sound.soundMode.label=Tuna
+general.sound.soundMode.label=Sound Mode
 general.sound.soundMode.comment=Fish
