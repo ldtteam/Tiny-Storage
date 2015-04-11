@@ -192,7 +192,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		}
 	}
 
-	public void handlePlayerInteraction() {
+	public void handlePlayerInteraction(EntityPlayer player) {
 		if (bobbles == 0) {
 			shouldAction = (!shouldAction);
 			double adjustedXCoord, adjustedZCoord;
@@ -204,17 +204,16 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		this.markDirty();
 	}
 
-	public void handBadPlayerInteraction() {
+	public void handBadPlayerInteraction(EntityPlayer player) {
 		double adjustedXCoord, adjustedZCoord;
 		adjustedXCoord = xCoord + 0.5D;
 		adjustedZCoord = zCoord + 0.5D;
-		PlayerHelper.sendChatMessage(Minecraft.getMinecraft().thePlayer, "This Piggy Bank does not belong to you! Back off!");
+		PlayerHelper.sendChatMessage(player, "This Piggy Bank does not belong to you! Back off!");
 		worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_DEATH, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 	}
 
 	public float getHeadAngle() {
-		if (this.worldObj.isRemote)	return headAngle;
-		return 0F;
+		return headAngle;
 	}
 
 	@Override
