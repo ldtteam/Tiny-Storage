@@ -5,6 +5,7 @@ import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,27 +27,29 @@ public class PlayerEventHandler {
 			int y = event.y;
 			int z = event.z;
 			EntityPlayer player = event.entityPlayer;
-			if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-				TinyStorageLog.info("Trying to handle a PlayerInteractEvent");
-				Block block = world.getBlock(x, y, z);
-				TileEntity te = world.getTileEntity(x, y, z);
-				if (te instanceof TileEntityTinyStorage) {
-					TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
-					if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
-						if (block instanceof BlockWoolChest) {
-							if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
-								if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
-									world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
-									player.getHeldItem().stackSize--;
+			if (!PlayerHelper.isPlayerFake(player)) {
+				if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+					TinyStorageLog.info("Trying to handle a PlayerInteractEvent");
+					Block block = world.getBlock(x, y, z);
+					TileEntity te = world.getTileEntity(x, y, z);
+					if (te instanceof TileEntityTinyStorage) {
+						TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
+						if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
+							if (block instanceof BlockWoolChest) {
+								if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
+									if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
+										world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
+										player.getHeldItem().stackSize--;
+									}
 								}
 							}
+							// Any more interactions go here
 						}
-						//Any more interactions go here
 					}
 				}
-			}
-			if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+				if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
 
+				}
 			}
 		}
 	}
