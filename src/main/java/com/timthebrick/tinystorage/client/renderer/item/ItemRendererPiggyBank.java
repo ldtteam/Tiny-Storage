@@ -14,8 +14,8 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 
-public class ItemRendererPiggyBank implements IItemRenderer{
-	
+public class ItemRendererPiggyBank implements IItemRenderer {
+
 	private final ModelPig modelPig;
 
 	public ItemRendererPiggyBank() {
@@ -39,26 +39,65 @@ public class ItemRendererPiggyBank implements IItemRenderer{
 		// Translating
 		float transX = 0F, transY = 0F, transZ = 0F;
 
+		// Bind texture, scale
+		if (itemStack.getItemDamage() == 0) {
+			scale = 0.5F;
+		} else if (itemStack.getItemDamage() == 1) {
+			scale = 0.75F;
+		} else if (itemStack.getItemDamage() == 2) {
+			scale = 1F;
+		}
+
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/piggyBank.png"));
 
 		switch (type) {
 		case ENTITY: {
-			renderDraw(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
+			renderPiggyBank(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
 			break;
 		}
 		case EQUIPPED: {
-			renderDraw(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transX = -0.25F;
+				transY = -2.2F;
+				transZ = -1.5F;
+			} else if (itemStack.getItemDamage() == 1) {
+				transX = -0.15F;
+				transY = -2.4F;
+				transZ = -2F;
+			} else if (itemStack.getItemDamage() == 2) {
+				transX = -0.15F;
+				transY = -2.2F;
+				transZ = -2F;
+			}
+			renderPiggyBank(0 + transX, 0 + transY, 0 + transZ, scale);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON: {
-			transX = -0.15F;
-			transY = -2.2F;
-			transZ = -2F;
-			renderDraw(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
+			if (itemStack.getItemDamage() == 0) {
+				transX = -0.15F;
+				transY = -3F;
+				transZ = -2.5F;
+			} else if (itemStack.getItemDamage() == 1) {
+				transX = -0.15F;
+				transY = -2.4F;
+				transZ = -2F;
+			} else if (itemStack.getItemDamage() == 2) {
+				transX = -0.15F;
+				transY = -2.2F;
+				transZ = -2F;
+			}
+			renderPiggyBank(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
 			break;
 		}
 		case INVENTORY: {
-			renderDraw(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
+			if (itemStack.getItemDamage() == 0) {
+
+			} else if (itemStack.getItemDamage() == 1) {
+				transY = -0.5F;
+			}else if (itemStack.getItemDamage() == 2){
+				transY = -0.75F;
+			}
+			renderPiggyBank(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
 			break;
 		}
 		default:
@@ -66,7 +105,7 @@ public class ItemRendererPiggyBank implements IItemRenderer{
 		}
 	}
 
-	private void renderDraw(float x, float y, float z, float scale) {
+	private void renderPiggyBank(float x, float y, float z, float scale) {
 		GL11.glPushMatrix(); // start
 		GL11.glScalef(scale, -scale, -scale);
 		GL11.glTranslatef(x, y, z);
