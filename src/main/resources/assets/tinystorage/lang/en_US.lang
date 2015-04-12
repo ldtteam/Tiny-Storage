@@ -167,6 +167,7 @@ tile.blockMicroChestLockedSprucePlank.name=Micro Chest - Spruce Plank
 
 tile.blockDrawOakLog.name=Chest of Draws - Oak Log
 tile.blockTrashChest.name=Trash Chest
+tile.blockPiggyBank.name=Piggy Bank
 
 #Items
 item.storageComponent.name=Storage Component
@@ -210,6 +211,10 @@ tooltip.tinystorage:woolChestPrefix.small=Small
 tooltip.tinystorage:woolChestPrefix.medium=Medium
 tooltip.tinystorage:woolChestPrefix.large=Large
 tooltip.tinystorage:woolChestPrefix.locked=Locking
+
+tooltip.tinystorage:piggyBankPrefix.small=Small
+tooltip.tinystorage:piggyBankPrefix.medium=Medium
+tooltip.tinystorage:piggyBankPrefix.large=Large
 
 #Config
 soundMode=Sound Mode
