@@ -300,6 +300,11 @@ public class Recipes {
 
 		// Trash Chest
 		registerShapedRecipe(new ItemStack(ModBlocks.blockTrashChest, 1), "OOO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModBlocks.blockTinyChestStone, 1, 0));
+		
+		//Piggy Banks
+		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 0), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 1), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 2), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
 	}
 	
 	public static void registerShapelessRecipe(ItemStack output, Object... params){
