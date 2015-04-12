@@ -52,7 +52,7 @@ public class ItemRendererPiggyBank implements IItemRenderer {
 
 		switch (type) {
 		case ENTITY: {
-			renderPiggyBank(0.5F + transX, 0.5F + transY, 0.5F + transZ, scale);
+			renderPiggyBank(0.5F + transX, -0.75F, 0.5F + transZ, scale);
 			break;
 		}
 		case EQUIPPED: {
@@ -62,12 +62,12 @@ public class ItemRendererPiggyBank implements IItemRenderer {
 				transZ = -1.5F;
 			} else if (itemStack.getItemDamage() == 1) {
 				transX = -0.15F;
-				transY = -2.4F;
-				transZ = -2F;
+				transY = -1.5F;
+				transZ = -1F;
 			} else if (itemStack.getItemDamage() == 2) {
-				transX = -0.15F;
-				transY = -2.2F;
-				transZ = -2F;
+				transX = -0.2F;
+				transY = -1.4F;
+				transZ = -1F;
 			}
 			renderPiggyBank(0 + transX, 0 + transY, 0 + transZ, scale);
 			break;

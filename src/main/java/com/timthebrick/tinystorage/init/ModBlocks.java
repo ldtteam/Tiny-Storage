@@ -118,7 +118,7 @@ public class ModBlocks {
 
 	// Misc
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
-	public static Block blockPiggyBank = new BlockPiggyBank(Material.sponge);
+	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");

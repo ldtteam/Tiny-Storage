@@ -68,8 +68,16 @@ public class ItemRendererTinyChest implements IItemRenderer {
 				transX = 0.3F;
 				transY = -0.6F;
 				transZ = -0.9F;
+			}else if (itemStack.getItemDamage() == 1) {
+				transX = 0.3F;
+				transY = -0.6F;
+				transZ = -0.9F;
+			} else if (itemStack.getItemDamage() == 2) {
+				transX = 0.3F;
+				transY = -0.6F;
+				transZ = -0.9F;
 			}
-			renderTinyChest(0.9F + transX, -1.0F + transY, -1.2F + transZ, scale);
+			renderTinyChest(transX,  transY,  transZ, scale);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON: {
