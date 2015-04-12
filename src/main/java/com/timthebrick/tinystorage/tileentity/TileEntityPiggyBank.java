@@ -1,5 +1,7 @@
 package com.timthebrick.tinystorage.tileentity;
 
+import org.apache.http.impl.auth.GGSSchemeBase;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -15,7 +17,9 @@ import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
+import com.timthebrick.tinystorage.util.ItemHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.StackHelper;
 
 public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -194,7 +198,20 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 
 	public void handlePlayerInteraction(EntityPlayer player) {
 		if (player.getHeldItem() != null) {
-			if (this.hasInventorySpace()) {
+			if (this.canMergeItemStacks(player.getHeldItem())) {
+				if (bobbles == 0) {
+					shouldAction = (!shouldAction);
+					double adjustedXCoord, adjustedZCoord;
+					adjustedXCoord = xCoord + 0.5D;
+					adjustedZCoord = zCoord + 0.5D;
+					worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_SAY, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+					bobbles = 5;
+					int originalSize = player.getHeldItem().copy().stackSize;
+					player.getHeldItem().stackSize = originalSize - tryMergeStacks(player.getHeldItem()).stackSize;
+					this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+					this.markDirty();
+				}
+			} else if (this.hasInventorySpace()) {
 				int invSlot = getNextFreeSlot();
 				if (invSlot >= 0) {
 					if (bobbles == 0) {
@@ -249,6 +266,28 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 			}
 		}
 		return -1;
+	}
+
+	public boolean canMergeItemStacks(ItemStack input) {
+		for (int i = 0; i < getNextFreeSlot(); i++) {
+			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public ItemStack tryMergeStacks(ItemStack input) {
+		ItemStack leftOver = null;
+		for (int i = 0; i < getNextFreeSlot(); i++) {
+			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+				leftOver = input.copy();
+				leftOver.stackSize = StackHelper.mergeStacks(input, getStackInSlot(i), true);
+				this.markDirty();
+				this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+		}
+		return leftOver;
 	}
 
 	public float getHeadAngle() {

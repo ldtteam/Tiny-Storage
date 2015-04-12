@@ -81,7 +81,9 @@ public class ItemHelper {
 						// Then sort on NBT
 						if (itemStack1.hasTagCompound() && itemStack2.hasTagCompound()) {
 							// Then sort on stack size
-							if (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2)) { return true; }
+							if (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2)) {
+								return true;
+							}
 						} else {
 							return true;
 						}
