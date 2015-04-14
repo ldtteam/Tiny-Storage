@@ -1,18 +1,15 @@
 package com.timthebrick.tinystorage.tileentity;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.inventory.ContainerDraw;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.Sounds;
-import com.timthebrick.tinystorage.util.SoundHelper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import com.timthebrick.tinystorage.inventory.ContainerDraw;
+import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.util.CommonSoundHelper;
 
 public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -126,7 +123,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
 		if (numPlayersUsing >= 0 && playSoundEvent) {
 			adjustedXCoord = xCoord + 0.5D;
 			adjustedZCoord = zCoord + 0.5D;
-			SoundHelper.playSoundAt(Minecraft.getMinecraft().thePlayer, "drawOpen", 1.5F, 0.5F, 3F);
+			CommonSoundHelper.playSoundAt(Minecraft.getMinecraft().thePlayer, "drawOpen", 1.5F, 0.5F, 3F);
 			playSoundEvent = false;
 		}
 
