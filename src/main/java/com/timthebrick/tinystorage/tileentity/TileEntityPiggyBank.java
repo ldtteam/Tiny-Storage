@@ -154,6 +154,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		//if(this.worldObj.difficultySetting.getDifficultyId() == EnumDifficulty.PEACEFUL)
 		if (!this.worldObj.isRemote) {
 			prevHeadAngle = headAngle;
 			float angleIncrement = 1F;
