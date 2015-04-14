@@ -6,6 +6,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PlayerHelper {
 
@@ -15,10 +17,6 @@ public class PlayerHelper {
 	public static void sendChatMessage(EntityPlayer p, String message) {
 		if (p != null && message != null && !message.isEmpty())
 			p.addChatComponentMessage(new ChatComponentText(message));
-	}
-
-	public static void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch) {
-		FMLClientHandler.instance().getClient().getSoundHandler().playSound(new PositionedSoundRecord(ResourceLocationHelper.getResourceLocation(soundName), volume, pitch, xCoord, yCoord, zCoord));
 	}
 
 	/**

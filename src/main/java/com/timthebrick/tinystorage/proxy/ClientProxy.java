@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.proxy;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import com.timthebrick.tinystorage.client.helper.ClientSoundHelper;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererDraw;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererMicroChest;
@@ -142,7 +143,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch) {
-		PlayerHelper.playSound(soundName, xCoord, yCoord, zCoord, volume, pitch);
+		ClientSoundHelper.playSound(soundName, xCoord, yCoord, zCoord, volume, pitch);
 	}
 
 	@Override
