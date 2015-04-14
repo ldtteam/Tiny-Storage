@@ -14,6 +14,8 @@ public class Names {
 		public static final String WOOL_CHEST = "woolChest";
 		public static final String WOOL_CHEST_LOCKED = "woolChestLocked";
 		public static final String PIGGY_BANK = "piggyBank";
+		public static final String PEACEFUL_CHEST = "peacefulChest";
+		public static final String PEACEFUL_CHEST_LOCKED = "peacefulChestLocked";
 	}
 	
 	public static final class Items{
@@ -23,11 +25,11 @@ public class Names {
 	}
 
 	public static final class NBT {
-		public static final String ITEMS = "Items";
+		public static final String ITEMS = "items";
 		public static final String DISPLAY = "display";
 		public static final String COLOR = "color";
 		public static final String STATE = "teState";
-		public static final String CUSTOM_NAME = "CustomName";
+		public static final String CUSTOM_NAME = "customName";
 		public static final String DIRECTION = "teDirection";
 		public static final String UNIQUE_OWNER = "uniqueOwner";
 		public static final String OWNER = "owner";
@@ -48,6 +50,8 @@ public class Names {
 		public static final String WOOL_CHEST = "container.tinystorage:" + Blocks.WOOL_CHEST;
 		public static final String WOOL_CHEST_LOCKED = "container.tinystorage:" + Blocks.WOOL_CHEST_LOCKED;
 		public static final String PIGGY_BANK = "container.tinystorage:" + Blocks.PIGGY_BANK;
+		public static final String PEACEFUL_CHEST = "container.tinystorage:" + Blocks.PEACEFUL_CHEST;
+		public static final String PEACEFUL_CHEST_LOCKED = "container.tinystorage:" + Blocks.PEACEFUL_CHEST_LOCKED;
 	}
 
 }
