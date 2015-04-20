@@ -7,6 +7,10 @@ import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestLarge;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestMedium;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankMedium;
@@ -51,6 +55,11 @@ public class TileEntities {
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBankSmall.class, "blockPiggyBankSmall", "tileEntityPiggyBankSmall");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBankMedium.class, "blockPiggyBankMedium", "tileEntityPiggyBankMedium");
 		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBankLarge.class, "blockPiggyBankLarge", "tileEntityPiggyBankLarge");
+		
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChest.class, "blockPeacefulChest", "tileEntityPeacefulChest");
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChestSmall.class, "blockPeacefulChestSmall", "tileEntityPeacefulChestSmall");
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChestMedium.class, "blockPeacefulChestMedium", "tileEntityPeacefulChestMedium");
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChestLarge.class, "blockPeacefulChestLarge", "tileEntityPeacefulChestLarge");
 	}
 
 }
