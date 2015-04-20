@@ -12,6 +12,7 @@ import com.timthebrick.tinystorage.client.gui.inventory.GuiWoolChest;
 import com.timthebrick.tinystorage.inventory.ContainerDraw;
 import com.timthebrick.tinystorage.inventory.ContainerFilterChest;
 import com.timthebrick.tinystorage.inventory.ContainerMicroChest;
+import com.timthebrick.tinystorage.inventory.ContainerPeacefulChest;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.inventory.ContainerTrashChest;
 import com.timthebrick.tinystorage.inventory.ContainerWoolChest;
@@ -19,6 +20,7 @@ import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
@@ -47,6 +49,9 @@ public class GuiHandler implements IGuiHandler {
 		} else if (id == GUIs.WOOL_CHEST.ordinal()) {
 			TileEntityWoolChest tileEntityWoolChest = (TileEntityWoolChest) world.getTileEntity(x, y, z);
 			return new ContainerWoolChest(entityPlayer.inventory, tileEntityWoolChest);
+		} else if (id == GUIs.PEACEFUL_CHEST.ordinal()) {
+			TileEntityPeacefulChest tileEntityPeacefulChest = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
+			return new ContainerPeacefulChest(entityPlayer.inventory, tileEntityPeacefulChest);
 		}
 		return null;
 	}
@@ -71,6 +76,10 @@ public class GuiHandler implements IGuiHandler {
 		} else if (id == GUIs.WOOL_CHEST.ordinal()) {
 			TileEntityWoolChest tileEntityWoolChest = (TileEntityWoolChest) world.getTileEntity(x, y, z);
 			return new GuiWoolChest(entityPlayer.inventory, tileEntityWoolChest);
+		}else if (id == GUIs.PEACEFUL_CHEST.ordinal()) {
+			TileEntityPeacefulChest tileEntityPeacefulChest = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
+			//TODO: Create a Peaceful Chest GUI.
+			return new GuiPeacefulChest(entityPlayer.inventory, tileEntityPeacefulChest);
 		}
 
 		return null;
