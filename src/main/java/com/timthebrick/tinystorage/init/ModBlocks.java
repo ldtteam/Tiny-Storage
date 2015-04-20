@@ -225,7 +225,7 @@ public class ModBlocks {
 	 *            your modid.
 	 */
 	private static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
-		TinyStorageLog.info("Attempting to register " + block.getUnlocalizedName());
+		TinyStorageLog.info("Attempting to register block: " + block.getUnlocalizedName());
 		try {
 			GameRegistry.registerBlock(block, itemclass, name);
 			tinyStorageBlocks.add(block);
@@ -244,7 +244,7 @@ public class ModBlocks {
 	 *            your modid.
 	 */
 	private static void registerBlock(Block block, String name) {
-		TinyStorageLog.info("Attempting to register " + block.getUnlocalizedName());
+		TinyStorageLog.info("Attempting to register block: " + block.getUnlocalizedName());
 		try {
 			GameRegistry.registerBlock(block, name);
 			tinyStorageBlocks.add(block);

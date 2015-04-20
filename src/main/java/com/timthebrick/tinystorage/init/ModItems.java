@@ -30,7 +30,7 @@ public class ModItems {
 	}
 	
 	private static void registerItem(Item item, String name){
-		TinyStorageLog.info("Attempting to register " + item.getUnlocalizedName());
+		TinyStorageLog.info("Attempting to register item: " + item.getUnlocalizedName());
 		try {
 			GameRegistry.registerItem(item, name);
 			tinyStorageItems.add(item);
