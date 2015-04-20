@@ -1,7 +1,12 @@
 package com.timthebrick.tinystorage.inventory;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 
+import com.timthebrick.tinystorage.inventory.slot.SlotSpecificInput;
 import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
 
 public class ContainerPeacefulChest extends ContainerTinyStorage {
@@ -18,10 +23,85 @@ public class ContainerPeacefulChest extends ContainerTinyStorage {
 	public static final int LARGE_CHEST_INVENTORY_ROWS = 3;
 	public static final int LARGE_CHEST_INVENTORY_COLUMNS = 7;
 	public static final int LARGE_INVENTORY_SIZE = LARGE_CHEST_INVENTORY_ROWS * LARGE_CHEST_INVENTORY_COLUMNS;
-	
+
 	private TileEntityPeacefulChest tileEntity;
 	private InventoryPlayer inventory;
 	private int chestInventoryRows;
 	private int chestInventoryColumns;
+
+	public ContainerPeacefulChest(InventoryPlayer inventoryPlayer, TileEntityPeacefulChest tileEntity) {
+		this.tileEntity = tileEntity;
+		tileEntity.openInventory();
+
+		if (this.tileEntity.getState() == 0) {
+			chestInventoryRows = SMALL_CHEST_INVENTORY_ROWS;
+			chestInventoryColumns = SMALL_CHEST_INVENTORY_COLUMNS;
+		} else if (this.tileEntity.getState() == 1) {
+			chestInventoryRows = MEDIUM_CHEST_INVENTORY_ROWS;
+			chestInventoryColumns = MEDIUM_CHEST_INVENTORY_COLUMNS;
+		} else if (this.tileEntity.getState() == 2) {
+			chestInventoryRows = LARGE_CHEST_INVENTORY_ROWS;
+			chestInventoryColumns = LARGE_CHEST_INVENTORY_COLUMNS;
+		}
+
+		this.addSlotToContainer(new SlotSpecificInput(tileEntity, 0, 8, 20, ItemSword.class));
+
+		// Add player inventory to inventory
+		for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
+			for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
+				if (this.tileEntity.getState() == 0) {
+					this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 51 + inventoryRowIndex * 18));
+				} else if (this.tileEntity.getState() == 1) {
+					this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 69 + inventoryRowIndex * 18));
+				} else if (this.tileEntity.getState() == 2) {
+					this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 87 + inventoryRowIndex * 18));
+				}
+			}
+		}
+
+		// Add player hotbar to inventory
+		for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
+			if (this.tileEntity.getState() == 0) {
+				this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 109));
+			} else if (this.tileEntity.getState() == 1) {
+				this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 127));
+			} else if (this.tileEntity.getState() == 2) {
+				this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 145));
+			}
+		}
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer entityPlayer) {
+		super.onContainerClosed(entityPlayer);
+		tileEntity.closeInventory();
+	}
+
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex) {
+		ItemStack newItemStack = null;
+		Slot slot = (Slot) inventorySlots.get(slotIndex);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemStack = slot.getStack();
+			newItemStack = itemStack.copy();
+
+			if (slotIndex < chestInventoryRows * chestInventoryColumns) {
+				if (!this.mergeItemStack(itemStack, chestInventoryRows * chestInventoryColumns, inventorySlots.size(), false)) {
+					return null;
+				}
+			} else if (!this.mergeItemStack(itemStack, 0, chestInventoryRows * chestInventoryColumns, false)) {
+				return null;
+			}
+
+			if (itemStack.stackSize == 0) {
+				slot.putStack(null);
+			} else {
+				slot.onSlotChanged();
+			}
+		}
+
+		return newItemStack;
+	}
 
 }
