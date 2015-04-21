@@ -124,7 +124,7 @@ public class BlockPeacefulChest extends BlockContainer implements ITileEntityPro
 						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
 					}
 				} else {
-					player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
+					player.openGui(TinyStorage.instance, GUIs.PEACEFUL_CHEST.ordinal(), world, x, y, z);
 				}
 			}
 			return true;

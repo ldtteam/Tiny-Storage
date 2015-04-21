@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiDraw;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiFilterChest;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiMicroChest;
+import com.timthebrick.tinystorage.client.gui.inventory.GuiPeacefulChest;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyChest;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTrashChest;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiWoolChest;
@@ -78,7 +79,6 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiWoolChest(entityPlayer.inventory, tileEntityWoolChest);
 		}else if (id == GUIs.PEACEFUL_CHEST.ordinal()) {
 			TileEntityPeacefulChest tileEntityPeacefulChest = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
-			//TODO: Create a Peaceful Chest GUI.
 			return new GuiPeacefulChest(entityPlayer.inventory, tileEntityPeacefulChest);
 		}
 

@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL12;
 import com.timthebrick.tinystorage.block.BlockPeacefulChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
 public class TileEntityRendererPeacefulChest extends TileEntitySpecialRenderer {
@@ -22,8 +23,8 @@ public class TileEntityRendererPeacefulChest extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float tick) {
-		if (tileEntity instanceof TileEntityTinyChest) {
-			TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) tileEntity;
+		if (tileEntity instanceof TileEntityPeacefulChest) {
+			TileEntityPeacefulChest tileEntityTinyChest = (TileEntityPeacefulChest) tileEntity;
 			ForgeDirection direction = null;
 			String textureName = "";
 
