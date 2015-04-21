@@ -33,7 +33,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 @Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS)
 public class TinyStorage {
 
-	boolean developmentEnvironment;
+	public boolean developmentEnvironment;
 
 	@Instance(References.MOD_ID)
 	public static TinyStorage instance;

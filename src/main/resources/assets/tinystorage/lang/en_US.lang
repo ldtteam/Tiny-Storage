@@ -217,6 +217,8 @@ tooltip.tinystorage:piggyBankPrefix.medium=Medium
 tooltip.tinystorage:piggyBankPrefix.large=Large
 
 #Config
-soundMode=Sound Mode
-general.sound.soundMode.label=Sound Mode
-general.sound.soundMode.comment=Fish
+general.sound.soundMode.label=Sounds
+general.sound.soundMode.comment='All' plays mod sounds from all players, 'Self' only plays mod sounds from you, and 'None' plays no mod sounds
+
+general.blocks.peacefulChestMode.label=Peaceful Chest Mode
+general.blocks.peacefulChestMode.comment='False' will only allow mob drops to be generated in Peaceful Mode, 'True' will allow the block to function in any Game Mode
