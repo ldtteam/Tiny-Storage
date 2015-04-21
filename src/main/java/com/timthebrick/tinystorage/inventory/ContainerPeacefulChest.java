@@ -14,15 +14,15 @@ public class ContainerPeacefulChest extends ContainerTinyStorage {
 
 	// Small Chest
 	public static final int SMALL_CHEST_INVENTORY_ROWS = 1;
-	public static final int SMALL_CHEST_INVENTORY_COLUMNS = 7;
+	public static final int SMALL_CHEST_INVENTORY_COLUMNS = 8;
 	public static final int SMALL_INVENTORY_SIZE = SMALL_CHEST_INVENTORY_ROWS * SMALL_CHEST_INVENTORY_COLUMNS;
 	// Medium Chest
 	public static final int MEDIUM_CHEST_INVENTORY_ROWS = 2;
-	public static final int MEDIUM_CHEST_INVENTORY_COLUMNS = 7;
+	public static final int MEDIUM_CHEST_INVENTORY_COLUMNS = 8;
 	public static final int MEDIUM_INVENTORY_SIZE = MEDIUM_CHEST_INVENTORY_ROWS * MEDIUM_CHEST_INVENTORY_COLUMNS;
 	// Large Chest
 	public static final int LARGE_CHEST_INVENTORY_ROWS = 3;
-	public static final int LARGE_CHEST_INVENTORY_COLUMNS = 7;
+	public static final int LARGE_CHEST_INVENTORY_COLUMNS = 8;
 	public static final int LARGE_INVENTORY_SIZE = LARGE_CHEST_INVENTORY_ROWS * LARGE_CHEST_INVENTORY_COLUMNS;
 
 	private TileEntityPeacefulChest tileEntity;
@@ -45,18 +45,18 @@ public class ContainerPeacefulChest extends ContainerTinyStorage {
 			chestInventoryColumns = LARGE_CHEST_INVENTORY_COLUMNS;
 		}
 
-		//Add the sword slot to the container
+		// Add the sword slot to the container
 		this.addSlotToContainer(new SlotSpecificInput(tileEntity, 0, 8, 20, ItemSword.class));
 
-		//Add the inventory slots to the container
+		// Add the inventory slots to the container
 		for (int chestRowIndex = 0; chestRowIndex < chestInventoryRows; chestRowIndex++) {
-			for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
+			for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns - 1; chestColumnIndex++) {
 				if (this.tileEntity.getState() == 0) {
-					this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 44 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
+					this.addSlotToContainer(new SlotTinyStorage(tileEntity, 1 + chestColumnIndex + chestRowIndex * chestInventoryColumns, 44 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
 				} else if (this.tileEntity.getState() == 1) {
-					this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 44 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
+					this.addSlotToContainer(new SlotTinyStorage(tileEntity, 1 + chestColumnIndex + chestRowIndex * chestInventoryColumns, 44 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
 				} else if (this.tileEntity.getState() == 2) {
-					this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 44 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
+					this.addSlotToContainer(new SlotTinyStorage(tileEntity, 1 + chestColumnIndex + chestRowIndex * chestInventoryColumns, 44 + chestColumnIndex * 18, 20 + chestRowIndex * 18));
 				}
 			}
 		}
