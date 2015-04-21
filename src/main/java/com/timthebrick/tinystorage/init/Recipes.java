@@ -340,7 +340,7 @@ public class Recipes {
 		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 2), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
 	}
 
-	public static void registerShapelessRecipe(ItemStack output, Object... params) {
+	private static void registerShapelessRecipe(ItemStack output, Object... params) {
 		TinyStorageLog.info("Creating shapeless recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
 		try {
 			GameRegistry.addShapelessRecipe(output, params);
@@ -349,7 +349,7 @@ public class Recipes {
 		}
 	}
 
-	public static void registerShapedRecipe(ItemStack output, Object... params) {
+	private static void registerShapedRecipe(ItemStack output, Object... params) {
 		TinyStorageLog.info("Creating shaped recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
 		try {
 			GameRegistry.addShapedRecipe(output, params);

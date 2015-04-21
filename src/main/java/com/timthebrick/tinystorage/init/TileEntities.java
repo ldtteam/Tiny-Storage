@@ -9,6 +9,10 @@ import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestLarge;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestMedium;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankMedium;
@@ -53,6 +57,11 @@ public class TileEntities {
 		registerTileEntityWithAlternatives(TileEntityPiggyBankSmall.class, "blockPiggyBankSmall", "tileEntityPiggyBankSmall");
 		registerTileEntityWithAlternatives(TileEntityPiggyBankMedium.class, "blockPiggyBankMedium", "tileEntityPiggyBankMedium");
 		registerTileEntityWithAlternatives(TileEntityPiggyBankLarge.class, "blockPiggyBankLarge", "tileEntityPiggyBankLarge");
+		
+		registerTileEntityWithAlternatives(TileEntityPeacefulChest.class, "blockPeacefulChest", "tileEntityPeacefulChest");
+		registerTileEntityWithAlternatives(TileEntityPeacefulChestSmall.class, "blockPeacefulChestSmall", "tileEntityPeacefulChestSmall");
+		registerTileEntityWithAlternatives(TileEntityPeacefulChestMedium.class, "blockPeacefulChestMedium", "tileEntityPeacefulChestMedium");
+		registerTileEntityWithAlternatives(TileEntityPeacefulChestLarge.class, "blockPeacefulChestLarge", "tileEntityPeacefulChestLarge");
 	}
 	
 	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){
