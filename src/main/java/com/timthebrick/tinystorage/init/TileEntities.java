@@ -1,5 +1,7 @@
 package com.timthebrick.tinystorage.init;
 
+import net.minecraft.tileentity.TileEntity;
+
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
@@ -7,10 +9,6 @@ import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankMedium;
@@ -32,34 +30,47 @@ public class TileEntities {
 	public static void init() {
 		TinyStorageLog.info("Initialising Tile Entities");
 
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChest.class, "blockTinyChest", "tileEntityTinyChest");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChestSmall.class, "blockTinyChestSmall", "tileEntityTinyChestSmall");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChestMedium.class, "blockTinyChestMedium", "tileEntityTinyChestMedium");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityTinyChestLarge.class, "blockTinyChestLarge", "tileEntityTinyChestLarge");
+		registerTileEntityWithAlternatives(TileEntityTinyChest.class, "blockTinyChest", "tileEntityTinyChest");
+		registerTileEntityWithAlternatives(TileEntityTinyChestSmall.class, "blockTinyChestSmall", "tileEntityTinyChestSmall");
+		registerTileEntityWithAlternatives(TileEntityTinyChestMedium.class, "blockTinyChestMedium", "tileEntityTinyChestMedium");
+		registerTileEntityWithAlternatives(TileEntityTinyChestLarge.class, "blockTinyChestLarge", "tileEntityTinyChestLarge");
 
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChest.class, "blockFilterChest", "tileEntityFilterChest");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestSmall.class, "blockFilterChestSmall", "tileEntityFilterChestSmall");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestMedium.class, "blockFilterChestMedium", "tileEntityFilterChestMedium");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityFilterChestLarge.class, "blockFilterChestLarge", "tileEntityFilterChestLarge");
+		registerTileEntityWithAlternatives(TileEntityFilterChest.class, "blockFilterChest", "tileEntityFilterChest");
+		registerTileEntityWithAlternatives(TileEntityFilterChestSmall.class, "blockFilterChestSmall", "tileEntityFilterChestSmall");
+		registerTileEntityWithAlternatives(TileEntityFilterChestMedium.class, "blockFilterChestMedium", "tileEntityFilterChestMedium");
+		registerTileEntityWithAlternatives(TileEntityFilterChestLarge.class, "blockFilterChestLarge", "tileEntityFilterChestLarge");
 
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChest.class, "blockWoolChest", "tileEntityWoolChest");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChestSmall.class, "blockWoolChestSmall", "tileEntityWoolChestSmall");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChestMedium.class, "blockWoolChestMedium", "tileEntityWoolChestMedium");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityWoolChestLarge.class, "blockWoolChestLarge", "tileEntityWoolChestLarge");
+		registerTileEntityWithAlternatives(TileEntityWoolChest.class, "blockWoolChest", "tileEntityWoolChest");
+		registerTileEntityWithAlternatives(TileEntityWoolChestSmall.class, "blockWoolChestSmall", "tileEntityWoolChestSmall");
+		registerTileEntityWithAlternatives(TileEntityWoolChestMedium.class, "blockWoolChestMedium", "tileEntityWoolChestMedium");
+		registerTileEntityWithAlternatives(TileEntityWoolChestLarge.class, "blockWoolChestLarge", "tileEntityWoolChestLarge");
 		
-		GameRegistry.registerTileEntity(TileEntityMicroChest.class, "tileEntityMicroChest");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityDraw.class, "tileEntityDraw");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityTrashChest.class, "tileEntityTrashChest");
+		registerTileEntity(TileEntityMicroChest.class, "tileEntityMicroChest");
+		registerTileEntity(TileEntityDraw.class, "tileEntityDraw");
+		registerTileEntity(TileEntityTrashChest.class, "tileEntityTrashChest");
 		
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBank.class, "blockPiggyBank", "tileEntityPiggyBank");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBankSmall.class, "blockPiggyBankSmall", "tileEntityPiggyBankSmall");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBankMedium.class, "blockPiggyBankMedium", "tileEntityPiggyBankMedium");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPiggyBankLarge.class, "blockPiggyBankLarge", "tileEntityPiggyBankLarge");
-		
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChest.class, "blockPeacefulChest", "tileEntityPeacefulChest");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChestSmall.class, "blockPeacefulChestSmall", "tileEntityPeacefulChestSmall");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChestMedium.class, "blockPeacefulChestMedium", "tileEntityPeacefulChestMedium");
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityPeacefulChestLarge.class, "blockPeacefulChestLarge", "tileEntityPeacefulChestLarge");
+		registerTileEntityWithAlternatives(TileEntityPiggyBank.class, "blockPiggyBank", "tileEntityPiggyBank");
+		registerTileEntityWithAlternatives(TileEntityPiggyBankSmall.class, "blockPiggyBankSmall", "tileEntityPiggyBankSmall");
+		registerTileEntityWithAlternatives(TileEntityPiggyBankMedium.class, "blockPiggyBankMedium", "tileEntityPiggyBankMedium");
+		registerTileEntityWithAlternatives(TileEntityPiggyBankLarge.class, "blockPiggyBankLarge", "tileEntityPiggyBankLarge");
+	}
+	
+	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){
+		TinyStorageLog.info("Attempting to register Tile Entity: " + tileEntityClass.getName());
+		try{
+			GameRegistry.registerTileEntity(tileEntityClass, id);
+		}catch (Exception e){
+			TinyStorageLog.error(e);
+		}
+	}
+	
+	private static void registerTileEntityWithAlternatives(Class<? extends TileEntity> tileEntityClass, String id, String... alternatives){
+		TinyStorageLog.info("Attempting to register Tile Entity with Alternatives: " + tileEntityClass.getName());
+		try{
+			GameRegistry.registerTileEntityWithAlternatives(tileEntityClass, id, alternatives);
+		}catch (Exception e){
+			TinyStorageLog.error(e);
+		}
 	}
 
 }
