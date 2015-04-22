@@ -1,5 +1,12 @@
 package com.timthebrick.tinystorage.tileentity;
 
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -9,11 +16,24 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerPeacefulChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
+import com.timthebrick.tinystorage.util.InventoryHelper;
+import com.timthebrick.tinystorage.util.ItemHelper;
+import com.timthebrick.tinystorage.util.Settings;
+import com.timthebrick.tinystorage.util.StackHelper;
 
 public class TileEntityPeacefulChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -24,6 +44,9 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 	private ItemStack[] inventory;
 	private int[] inventorySlots;
 	private int swordSlot;
+	private int cooldownTicks;
+	private int ticksSinceAction;
+	private Random random;
 
 	public TileEntityPeacefulChest(int metaData) {
 		super();
@@ -39,6 +62,8 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 			inventory = new ItemStack[ContainerPeacefulChest.LARGE_INVENTORY_SIZE];
 			inventorySlots = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
 		}
+		this.random = new Random();
+		System.out.println(getSizeInventory());
 	}
 
 	@Override
@@ -98,34 +123,34 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 		}
 	}
 
-	public TileEntityPeacefulChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player){
-		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())){
+	public TileEntityPeacefulChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 			return null;
 		}
-		if(numPlayersUsing > 0){
+		if (numPlayersUsing > 0) {
 			return null;
 		}
 		TileEntityPeacefulChest newEntity;
-		if(upgradeTier == 0){
+		if (upgradeTier == 0) {
 			newEntity = new TileEntityPeacefulChestSmall();
-		}else if(upgradeTier == 1){
+		} else if (upgradeTier == 1) {
 			newEntity = new TileEntityPeacefulChestMedium();
-		}else if(upgradeTier == 2){
+		} else if (upgradeTier == 2) {
 			newEntity = new TileEntityPeacefulChestLarge();
-		}else{
+		} else {
 			return null;
 		}
 		int newSize = newEntity.inventory.length;
 		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
 		newEntity.setOrientation(this.orientation);
 		newEntity.ticksSinceSync = -1;
-		if(this.hasUniqueOwner()){
+		if (this.hasUniqueOwner()) {
 			newEntity.setUniqueOwner(player);
 			newEntity.setOwner(player);
 		}
 		return newEntity;
 	}
-	
+
 	@Override
 	public boolean hasCustomInventoryName() {
 		return this.hasCustomName();
@@ -152,17 +177,65 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 		--numPlayersUsing;
 		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int slotID, ItemStack itemStack) {
-		if(slotID == 0){
-			if(itemStack.getItem() instanceof ItemSword){
+		if (slotID == 0) {
+			if (itemStack.getItem() instanceof ItemSword) {
+				return true;
+			}
+		}
+		return true;
+	}
+
+	private boolean hasSwordInUse() {
+		return ((this.getStackInSlot(swordSlot) != null) && (this.getStackInSlot(swordSlot).getItem() instanceof ItemSword));
+	}
+
+	private ItemStack getSwordInUse() {
+		return hasSwordInUse() ? getStackInSlot(swordSlot) : null;
+	}
+
+	private boolean hasInventorySpace() {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (getStackInSlot(i) == null) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
+	private int getNextFreeSlot() {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (getStackInSlot(i) == null) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	private boolean canMergeItemStacks(ItemStack input) {
+		for (int i = 0; i < getNextFreeSlot(); i++) {
+			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private ItemStack tryMergeStacks(ItemStack input) {
+		ItemStack leftOver = null;
+		for (int i = 0; i < getNextFreeSlot(); i++) {
+			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+				leftOver = input.copy();
+				leftOver.stackSize = StackHelper.mergeStacks(input, getStackInSlot(i), true);
+				this.markDirty();
+				this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+		}
+		return leftOver;
+	}
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
@@ -204,8 +277,106 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 				lidAngle = 0.0F;
 			}
 		}
+
+		if (!this.worldObj.isRemote) {
+
+			if ((Settings.Blocks.peacefulChestMode == false) && (this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL)) {
+				return;
+			}
+
+			if (cooldownTicks - ticksSinceAction == 0) {
+
+				BiomeGenBase.SpawnListEntry mobSpawn = ((WorldServer) worldObj).spawnRandomCreature(EnumCreatureType.monster, xCoord, yCoord, zCoord);
+
+				if (mobSpawn != null) {
+
+					if (!this.hasSwordInUse()) {
+						return;
+					}
+
+					ItemStack sword = getSwordInUse();
+					EntityLiving mobEntity;
+
+					try {
+						mobEntity = (EntityLiving) mobSpawn.entityClass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { worldObj });
+					} catch (Exception e) {
+						TinyStorageLog.error(e);
+						return;
+					}
+
+					List itemEntities = worldObj.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 4, zCoord + 2), IEntitySelector.selectAnything);
+
+					mobEntity.setLocationAndAngles(xCoord + 0.5D, yCoord + 1.25D, zCoord + 0.5D, random.nextFloat() * 360.0F, 0.0F);
+					worldObj.spawnEntityInWorld(mobEntity);
+
+					EnumDifficulty prevDifficulty = worldObj.difficultySetting;
+					worldObj.difficultySetting = EnumDifficulty.HARD;
+					mobEntity.onSpawnWithEgg(null);
+					worldObj.difficultySetting = prevDifficulty;
+
+					FakePlayer fakePlayer = FakePlayerFactory.getMinecraft((WorldServer) worldObj);
+
+					fakePlayer.setCurrentItemOrArmor(0, sword.copy());
+					float healthA = mobEntity.getHealth();
+					fakePlayer.attackTargetEntityWithCurrentItem(mobEntity);
+					float healthB = mobEntity.getHealth();
+
+					if (mobEntity.isDead) {
+						if ((fakePlayer.getCurrentEquippedItem() == null) || (fakePlayer.getCurrentEquippedItem().stackSize == 0)) {
+							this.setInventorySlotContents(swordSlot, null);
+						} else {
+							this.setInventorySlotContents(swordSlot, fakePlayer.getCurrentEquippedItem());
+						}
+					} else {
+						if ((fakePlayer.getCurrentEquippedItem() == null) || (fakePlayer.getCurrentEquippedItem().stackSize == 0)) {
+							this.setInventorySlotContents(swordSlot, null);
+						} else {
+							if (healthA > healthB) {
+								for (float health = healthB; health > 0.0F; health -= healthA - healthB) {
+									sword.hitEntity(mobEntity, fakePlayer);
+								}
+							}
+							if (sword.stackSize == 0) {
+								this.setInventorySlotContents(swordSlot, null);
+							}
+						}
+						mobEntity.onDeath(DamageSource.causePlayerDamage(fakePlayer));
+						mobEntity.motionX = 0.0D;
+						mobEntity.motionY = 0.0D;
+						mobEntity.motionZ = 0.0D;
+					}
+
+					fakePlayer.setCurrentItemOrArmor(0, null);
+					mobEntity.setDead();
+
+					List newItemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 4, zCoord + 2));
+
+					for (Object obj : newItemEntities) {
+						if (!itemEntities.contains(obj)) {
+							if (!(((EntityItem) obj).isDead)) {
+								ItemStack itemStack = ((EntityItem) obj).getEntityItem().copy();
+								ItemStack itemstack1 = InventoryHelper.invInsert(this, itemStack, 2);
+								if ((itemstack1 != null) && (itemstack1.stackSize != 0)) {
+									System.out.println("Left over stack");
+									((EntityItem) obj).setEntityItemStack(itemstack1);
+								} else {
+									System.out.println("No left over stack");
+									((EntityItem) obj).setDead();
+								}
+							}
+							// ((EntityItem) obj).setDead();
+						}
+					}
+					cooldownTicks = 20 + random.nextInt(80);
+					ticksSinceAction = 0;
+				}
+			} else {
+				ticksSinceAction++;
+
+			}
+		}
 	}
-	
+
 	@Override
 	public boolean receiveClientEvent(int eventID, int numUsingPlayers) {
 		if (eventID == 1) {
@@ -215,7 +386,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 			return super.receiveClientEvent(eventID, numUsingPlayers);
 		}
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
@@ -227,6 +398,8 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
+		cooldownTicks = tagCompound.getInteger("cooldownTicks");
+		ticksSinceAction = tagCompound.getInteger("ticksSinceAction");
 		readSyncedNBT(tagCompound);
 	}
 
@@ -244,9 +417,11 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+		tagCompound.setInteger("cooldownTicks", cooldownTicks);
+		tagCompound.setInteger("ticksSinceAction", ticksSinceAction);
 		writeSyncedNBT(tagCompound);
 	}
-	
+
 	@Override
 	public void readSyncedNBT(NBTTagCompound tag) {
 		super.readSyncedNBT(tag);
@@ -271,7 +446,10 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return this.inventorySlots;
+		if (side == 2 || side == 3 || side == 4 || side == 5) {
+			return this.inventorySlots;
+		}
+		return new int[] { swordSlot };
 	}
 
 	@Override

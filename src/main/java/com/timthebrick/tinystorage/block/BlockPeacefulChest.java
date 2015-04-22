@@ -9,8 +9,10 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -24,7 +26,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.References;
@@ -33,7 +34,6 @@ import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestLarge;
 import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestMedium;
 import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestSmall;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
@@ -157,12 +157,6 @@ public class BlockPeacefulChest extends BlockContainer implements ITileEntityPro
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		dropInventory(world, x, y, z);
-		super.breakBlock(world, x, y, z, block, meta);
-	}
-
-	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack) {
 		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
 			int direction = 0;
@@ -184,6 +178,18 @@ public class BlockPeacefulChest extends BlockContainer implements ITileEntityPro
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
 		}
+	}
+
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		if ((entity instanceof EntityXPOrb)) {
+			entity.setDead();
+		}
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		dropInventory(world, x, y, z);
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	protected void dropInventory(World world, int x, int y, int z) {
