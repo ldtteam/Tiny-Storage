@@ -16,7 +16,7 @@ public class SlotSpecificInput extends SlotTinyStorage {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return stack.getItem().getClass().isAssignableFrom(filterItem);
+		return filterItem.isAssignableFrom(stack.getItem().getClass());
 	}
 
 	@Override
