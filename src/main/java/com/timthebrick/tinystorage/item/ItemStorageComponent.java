@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
@@ -60,7 +61,20 @@ public class ItemStorageComponent extends Item {
 				world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
 				stack.stackSize--;
 				return true;
-			} else if (te != null && te instanceof TileEntityTrashChest) {
+			} else if (te != null && te instanceof TileEntityPeacefulChest) {
+				TileEntityPeacefulChest newChest;
+				TileEntityPeacefulChest peacefulChest = (TileEntityPeacefulChest) te;
+				if (peacefulChest.getState() + 1 > 2)
+					return false;
+				newChest = peacefulChest.applyUpgradeItem(this, peacefulChest.getState() + 1, player);
+				if (newChest == null) {
+					return false;
+				}
+				world.setTileEntity(x, y, z, newChest);
+				world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+				stack.stackSize--;
+				return true;
+			}else if (te != null && te instanceof TileEntityTrashChest) {
 				TileEntityTrashChest newChest;
 				TileEntityTrashChest trashChest = (TileEntityTrashChest) te;
 				int state;
@@ -77,7 +91,6 @@ public class ItemStorageComponent extends Item {
 				world.setBlockMetadataWithNotify(x, y, z, state, 3);
 				return true;
 			} else if (te != null && te instanceof TileEntityPiggyBank) {
-				System.out.println("Upgrade piggy bank");
 				TileEntityPiggyBank newChest;
 				TileEntityPiggyBank piggyBank = (TileEntityPiggyBank) te;
 				int state;

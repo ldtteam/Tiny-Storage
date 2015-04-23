@@ -284,95 +284,94 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 				return;
 			}
 
-			if (cooldownTicks - ticksSinceAction == 0) {
+			if (this.hasInventorySpace() && !this.worldObj.isDaytime()) {
+				if (cooldownTicks - ticksSinceAction == 0) {
 
-				BiomeGenBase.SpawnListEntry mobSpawn = ((WorldServer) worldObj).spawnRandomCreature(EnumCreatureType.monster, xCoord, yCoord, zCoord);
+					BiomeGenBase.SpawnListEntry mobSpawn = ((WorldServer) worldObj).spawnRandomCreature(EnumCreatureType.monster, xCoord, yCoord, zCoord);
 
-				if (mobSpawn != null) {
+					if (mobSpawn != null) {
 
-					if (!this.hasSwordInUse()) {
-						return;
-					}
-
-					ItemStack sword = getSwordInUse();
-					EntityLiving mobEntity;
-
-					try {
-						mobEntity = (EntityLiving) mobSpawn.entityClass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { worldObj });
-					} catch (Exception e) {
-						TinyStorageLog.error(e);
-						return;
-					}
-
-					List itemEntities = worldObj.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 4, zCoord + 2), IEntitySelector.selectAnything);
-
-					mobEntity.setLocationAndAngles(xCoord + 0.5D, yCoord + 1.25D, zCoord + 0.5D, random.nextFloat() * 360.0F, 0.0F);
-					worldObj.spawnEntityInWorld(mobEntity);
-
-					EnumDifficulty prevDifficulty = worldObj.difficultySetting;
-					worldObj.difficultySetting = EnumDifficulty.HARD;
-					mobEntity.onSpawnWithEgg(null);
-					worldObj.difficultySetting = prevDifficulty;
-
-					FakePlayer fakePlayer = FakePlayerFactory.getMinecraft((WorldServer) worldObj);
-
-					fakePlayer.setCurrentItemOrArmor(0, sword.copy());
-					float healthA = mobEntity.getHealth();
-					fakePlayer.attackTargetEntityWithCurrentItem(mobEntity);
-					float healthB = mobEntity.getHealth();
-
-					if (mobEntity.isDead) {
-						if ((fakePlayer.getCurrentEquippedItem() == null) || (fakePlayer.getCurrentEquippedItem().stackSize == 0)) {
-							this.setInventorySlotContents(swordSlot, null);
-						} else {
-							this.setInventorySlotContents(swordSlot, fakePlayer.getCurrentEquippedItem());
+						if (!this.hasSwordInUse()) {
+							return;
 						}
-					} else {
-						if ((fakePlayer.getCurrentEquippedItem() == null) || (fakePlayer.getCurrentEquippedItem().stackSize == 0)) {
-							this.setInventorySlotContents(swordSlot, null);
-						} else {
-							if (healthA > healthB) {
-								for (float health = healthB; health > 0.0F; health -= healthA - healthB) {
-									sword.hitEntity(mobEntity, fakePlayer);
-								}
-							}
-							if (sword.stackSize == 0) {
+
+						ItemStack sword = getSwordInUse();
+						EntityLiving mobEntity;
+
+						try {
+							mobEntity = (EntityLiving) mobSpawn.entityClass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { worldObj });
+						} catch (Exception e) {
+							TinyStorageLog.error(e);
+							return;
+						}
+
+						List itemEntities = worldObj.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 4, zCoord + 2), IEntitySelector.selectAnything);
+
+						mobEntity.setLocationAndAngles(xCoord + 0.5D, yCoord + 1.25D, zCoord + 0.5D, random.nextFloat() * 360.0F, 0.0F);
+						worldObj.spawnEntityInWorld(mobEntity);
+
+						EnumDifficulty prevDifficulty = worldObj.difficultySetting;
+						worldObj.difficultySetting = EnumDifficulty.HARD;
+						mobEntity.onSpawnWithEgg(null);
+						worldObj.difficultySetting = prevDifficulty;
+
+						FakePlayer fakePlayer = FakePlayerFactory.getMinecraft((WorldServer) worldObj);
+
+						fakePlayer.setCurrentItemOrArmor(0, sword.copy());
+						float healthA = mobEntity.getHealth();
+						fakePlayer.attackTargetEntityWithCurrentItem(mobEntity);
+						float healthB = mobEntity.getHealth();
+
+						if (mobEntity.isDead) {
+							if ((fakePlayer.getCurrentEquippedItem() == null) || (fakePlayer.getCurrentEquippedItem().stackSize == 0)) {
 								this.setInventorySlotContents(swordSlot, null);
+							} else {
+								this.setInventorySlotContents(swordSlot, fakePlayer.getCurrentEquippedItem());
 							}
-						}
-						mobEntity.onDeath(DamageSource.causePlayerDamage(fakePlayer));
-						mobEntity.motionX = 0.0D;
-						mobEntity.motionY = 0.0D;
-						mobEntity.motionZ = 0.0D;
-					}
-
-					fakePlayer.setCurrentItemOrArmor(0, null);
-					mobEntity.setDead();
-
-					List newItemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 4, zCoord + 2));
-
-					for (Object obj : newItemEntities) {
-						if (!itemEntities.contains(obj)) {
-							if (!(((EntityItem) obj).isDead)) {
-								ItemStack itemStack = ((EntityItem) obj).getEntityItem().copy();
-								ItemStack itemstack1 = InventoryHelper.invInsert(this, itemStack, 2);
-								if ((itemstack1 != null) && (itemstack1.stackSize != 0)) {
-									System.out.println("Left over stack");
-									((EntityItem) obj).setEntityItemStack(itemstack1);
-								} else {
-									System.out.println("No left over stack");
-									((EntityItem) obj).setDead();
+						} else {
+							if ((fakePlayer.getCurrentEquippedItem() == null) || (fakePlayer.getCurrentEquippedItem().stackSize == 0)) {
+								this.setInventorySlotContents(swordSlot, null);
+							} else {
+								if (healthA > healthB) {
+									for (float health = healthB; health > 0.0F; health -= healthA - healthB) {
+										sword.hitEntity(mobEntity, fakePlayer);
+									}
+								}
+								if (sword.stackSize == 0) {
+									this.setInventorySlotContents(swordSlot, null);
 								}
 							}
-							// ((EntityItem) obj).setDead();
+							mobEntity.onDeath(DamageSource.causePlayerDamage(fakePlayer));
+							mobEntity.motionX = 0.0D;
+							mobEntity.motionY = 0.0D;
+							mobEntity.motionZ = 0.0D;
 						}
-					}
-					cooldownTicks = 20 + random.nextInt(80);
-					ticksSinceAction = 0;
-				}
-			} else {
-				ticksSinceAction++;
 
+						fakePlayer.setCurrentItemOrArmor(0, null);
+						mobEntity.setDead();
+
+						List newItemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 4, zCoord + 2));
+
+						for (Object obj : newItemEntities) {
+							if (!itemEntities.contains(obj)) {
+								if (!(((EntityItem) obj).isDead)) {
+									ItemStack itemStack = ((EntityItem) obj).getEntityItem().copy();
+									ItemStack itemstack1 = InventoryHelper.invInsert(this, itemStack, 2);
+									if ((itemstack1 != null) && (itemstack1.stackSize != 0)) {
+										((EntityItem) obj).setEntityItemStack(itemstack1);
+									} else {
+										((EntityItem) obj).setDead();
+									}
+								}
+							}
+						}
+						cooldownTicks = 20 + random.nextInt(80);
+						ticksSinceAction = 0;
+					}
+				} else {
+					ticksSinceAction++;
+
+				}
 			}
 		}
 	}
