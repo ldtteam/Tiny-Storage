@@ -168,6 +168,7 @@ tile.blockMicroChestLockedSprucePlank.name=Micro Chest - Spruce Plank
 tile.blockDrawOakLog.name=Chest of Draws - Oak Log
 tile.blockTrashChest.name=Trash Chest
 tile.blockPiggyBank.name=Piggy Bank
+tile.blockPeacefulChest.name=Peaceful Chest
 
 #Items
 item.storageComponent.name=Storage Component
@@ -185,6 +186,8 @@ container.tinystorage:microChest=Micro Chest
 container.tinystorage:microChestLocked=Locking Micro Chest
 container.tinystorage:woolChest=Wool Chest
 container.tinystorage:woolChestLocked=Locking Wool Chest
+container.tinystorage:peacefulChest=Peaceful Chest
+container.tinystorage:peacefulChestLocked=Locking Peaceful Chest
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small
@@ -215,6 +218,11 @@ tooltip.tinystorage:woolChestPrefix.locked=Locking
 tooltip.tinystorage:piggyBankPrefix.small=Small
 tooltip.tinystorage:piggyBankPrefix.medium=Medium
 tooltip.tinystorage:piggyBankPrefix.large=Large
+
+tooltip.tinystorage:peacefulChestPrefix.small=Small
+tooltip.tinystorage:peacefulChestPrefix.medium=Medium
+tooltip.tinystorage:peacefulChestPrefix.large=Large
+tooltip.tinystorage:peacefulChest.description=Passively generates mob drops in a Peaceful World; simply place and provide with a sword!
 
 #Config
 general.sound.soundMode.label=Sounds

@@ -24,6 +24,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.IFluidHandler;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerPeacefulChest;
@@ -63,7 +65,6 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 			inventorySlots = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
 		}
 		this.random = new Random();
-		System.out.println(getSizeInventory());
 	}
 
 	@Override
@@ -176,16 +177,6 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 	public void closeInventory() {
 		--numPlayersUsing;
 		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slotID, ItemStack itemStack) {
-		if (slotID == 0) {
-			if (itemStack.getItem() instanceof ItemSword) {
-				return true;
-			}
-		}
-		return true;
 	}
 
 	private boolean hasSwordInUse() {
@@ -442,6 +433,18 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readSyncedNBT(pkt.func_148857_g());
 	}
+	
+	@Override
+	public boolean isItemValidForSlot(int slotID, ItemStack itemStack) {
+		if (slotID == swordSlot) {
+			if (itemStack.getItem() instanceof ItemSword) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
@@ -458,6 +461,9 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
 	@Override
 	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
+		if(slotID == swordSlot){
+			return false;
+		}
 		return true;
 	}
 

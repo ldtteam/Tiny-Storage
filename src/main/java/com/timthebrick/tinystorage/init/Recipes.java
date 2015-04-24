@@ -338,6 +338,11 @@ public class Recipes {
 		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 0), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 1), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
 		registerShapedRecipe(new ItemStack(ModBlocks.blockPiggyBank, 1, 2), "PPP", "PSP", "PPP", 'P', new ItemStack(Items.porkchop), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
+		
+		//Peaceful Chest
+		registerShapedRecipe(new ItemStack(ModBlocks.blockPeacefulChest, 1, 0), "OSO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0), 'S', new ItemStack(Items.wooden_sword));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockPeacefulChest, 1, 1), "OSO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1), 'S', new ItemStack(Items.wooden_sword));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockPeacefulChest, 1, 2), "OSO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 2), 'S', new ItemStack(Items.wooden_sword));
 	}
 
 	private static void registerShapelessRecipe(ItemStack output, Object... params) {
