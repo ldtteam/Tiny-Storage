@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.handler;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.block.BlockPiggyBank;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
@@ -31,7 +32,9 @@ public class PlayerEventHandler {
 			EntityPlayer player = event.entityPlayer;
 			if (!PlayerHelper.isPlayerFake(player)) {
 				if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-					TinyStorageLog.info("Trying to handle a PlayerInteractEvent");
+					if(TinyStorage.instance.developmentEnvironment){
+						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Block");
+					}
 					Block block = world.getBlock(x, y, z);
 					TileEntity te = world.getTileEntity(x, y, z);
 					if (te instanceof TileEntityTinyStorage) {

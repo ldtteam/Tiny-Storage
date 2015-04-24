@@ -11,6 +11,9 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileEntityTrashChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -213,6 +216,7 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
+		readSyncedNBT(tagCompound);
 	}
 
 	@Override
@@ -229,6 +233,29 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+		writeSyncedNBT(tagCompound);
+	}
+	
+	@Override
+	public void readSyncedNBT(NBTTagCompound tag) {
+		super.readSyncedNBT(tag);
+	}
+
+	@Override
+	public void writeSyncedNBT(NBTTagCompound tag) {
+		super.writeSyncedNBT(tag);
+	}
+
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound syncData = new NBTTagCompound();
+		this.writeSyncedNBT(syncData);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readSyncedNBT(pkt.func_148857_g());
 	}
 
 	@Override
