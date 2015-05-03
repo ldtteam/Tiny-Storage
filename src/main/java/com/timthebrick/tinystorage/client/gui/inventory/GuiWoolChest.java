@@ -12,12 +12,12 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
 
-public class GuiWoolChest extends GuiContainer {
+public class GuiWoolChest extends GuiTinyStorage {
 
 	private TileEntityWoolChest tileEntity;
 
 	public GuiWoolChest(InventoryPlayer inventoryPlayer, TileEntityWoolChest tileEntity) {
-		super(new ContainerWoolChest(inventoryPlayer, tileEntity));
+		super(new ContainerWoolChest(inventoryPlayer, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;
 		if (this.tileEntity.getState() == 0) {
 			xSize = 176;
@@ -39,6 +39,7 @@ public class GuiWoolChest extends GuiContainer {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
 		}
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
+		drawFG();
 	}
 
 	@Override
@@ -53,7 +54,18 @@ public class GuiWoolChest extends GuiContainer {
 		}
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
+		drawBG();
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
+	}
+	
+	@Override
+	public void drawFG() {
+		super.drawFG();
+	}
+	
+	@Override
+	public void drawBG() {
+		super.drawBG();
 	}
 
 	@Override

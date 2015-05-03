@@ -224,6 +224,13 @@ tooltip.tinystorage:peacefulChestPrefix.medium=Medium
 tooltip.tinystorage:peacefulChestPrefix.large=Large
 tooltip.tinystorage:peacefulChest.description=Passively generates mob drops in a Peaceful World; simply place and provide with a sword!
 
+#Button Tooltips
+button.tooltip.tinystorage:automated_side_access=Automated IO Mode
+button.tooltip.tinystorage:automated_side_access_disabled=Disabled
+button.tooltip.tinystorage:automated_side_access_input_only=Input Only
+button.tooltip.tinystorage:automated_side_access_output_only=Output Only
+button.tooltip.tinystorage:automated_side_access_input_output=Input & Output
+
 #Config
 general.sound.soundMode.label=Sounds
 general.sound.soundMode.comment='All' plays mod sounds from all players, 'Self' only plays mod sounds from you, and 'None' plays no mod sounds
