@@ -15,12 +15,12 @@ import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
 
-public class GuiMicroChest extends GuiTinyStorage {
+public class GuiMicroChest extends GuiContainer {
 	
 	private TileEntityMicroChest tileEntity;
 
 	public GuiMicroChest(InventoryPlayer inventoryPlayer, TileEntityMicroChest tileEntity) {
-		super(new ContainerMicroChest(inventoryPlayer, tileEntity), tileEntity);
+		super(new ContainerMicroChest(inventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
 	}
 	
@@ -32,7 +32,6 @@ public class GuiMicroChest extends GuiTinyStorage {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
 		}
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
-		drawFG();
 	}
 
 	@Override
@@ -41,18 +40,7 @@ public class GuiMicroChest extends GuiTinyStorage {
 		this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiTrashChest.png"));
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
-		drawBG();
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
-	}
-	
-	@Override
-	public void drawFG() {
-		super.drawFG();
-	}
-	
-	@Override
-	public void drawBG() {
-		super.drawBG();
 	}
 
 }

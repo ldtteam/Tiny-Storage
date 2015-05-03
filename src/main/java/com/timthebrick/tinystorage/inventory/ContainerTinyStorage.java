@@ -7,7 +7,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import com.timthebrick.tinystorage.inventory.slot.IFakeItemSlot;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.ItemHelper;
 import com.timthebrick.tinystorage.util.StackHelper;
 

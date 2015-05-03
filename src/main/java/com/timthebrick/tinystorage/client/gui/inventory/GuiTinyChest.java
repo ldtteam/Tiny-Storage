@@ -7,18 +7,17 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 
-public class GuiTinyChest extends GuiTinyStorage {
+public class GuiTinyChest extends GuiContainer {
 
 	private TileEntityTinyChest tileEntity;
 
 	public GuiTinyChest(InventoryPlayer inventoryPlayer, TileEntityTinyChest tileEntity) {
-		super(new ContainerTinyChest(inventoryPlayer, tileEntity), tileEntity);
+		super(new ContainerTinyChest(inventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
 		if (this.tileEntity.getState() == 0) {
 			xSize = 176;
@@ -40,7 +39,6 @@ public class GuiTinyChest extends GuiTinyStorage {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
 		}
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
-		this.drawFG();
 	}
 
 	@Override
@@ -55,18 +53,7 @@ public class GuiTinyChest extends GuiTinyStorage {
 		}
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
-		drawBG();
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
-	}
-	
-	@Override
-	public void drawFG() {
-		super.drawFG();
-	}
-	
-	@Override
-	public void drawBG() {
-		super.drawBG();
 	}
 
 	@Override

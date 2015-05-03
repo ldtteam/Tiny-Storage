@@ -1,8 +1,5 @@
 package com.timthebrick.tinystorage.tileentity;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -11,13 +8,9 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.reference.Names;
 
 public class TileEntityTinyStorage extends TileEntity {
-	
-	private final Map<ButtonSettings, Enum<?>> settings = new EnumMap<ButtonSettings, Enum<?>>( ButtonSettings.class );
 
 	protected ForgeDirection orientation;
 	protected byte state;
@@ -25,7 +18,6 @@ public class TileEntityTinyStorage extends TileEntity {
 	protected String uniqueOwner;
 	protected String owner;
 	protected String textureName;
-	public AccessMode accessMode;
 
 	public TileEntityTinyStorage() {
 		orientation = ForgeDirection.SOUTH;
@@ -34,7 +26,6 @@ public class TileEntityTinyStorage extends TileEntity {
 		uniqueOwner = "";
 		owner = "";
 		textureName = "";
-		accessMode = AccessMode.INPUT_OUTPUT;
 	}
 
 	/**
@@ -127,15 +118,6 @@ public class TileEntityTinyStorage extends TileEntity {
 	public void setCustomTextureName(String textureName) {
 		this.textureName = textureName;
 	}
-	
-	/**
-	 * Set the access mode for a *locking* chest
-	 * 
-	 * @param mode
-	 */
-	public void setAccessMode(AccessMode mode){
-		this.accessMode =  mode;
-	}
 
 	/**
 	 * Get the orientation of the TE
@@ -187,15 +169,6 @@ public class TileEntityTinyStorage extends TileEntity {
 	public String getTextureName() {
 		return textureName;
 	}
-	
-	/**
-	 * Get the access mode for the chest
-	 * 
-	 * @return
-	 */
-	public AccessMode getAccessMode(){
-		return this.accessMode;
-	}
 
 	/**
 	 * Whether or not this block has a custom name
@@ -232,11 +205,9 @@ public class TileEntityTinyStorage extends TileEntity {
 	public boolean hasCustomTextureName() {
 		return textureName != null && textureName.length() > 0;
 	}
-	
 
 	/**
-	 * Returns the description packet used for the object; used for syncing data
-	 * between the client and server
+	 * Returns the description packet used for the object; used for syncing data between the client and server
 	 */
 	@Override
 	public Packet getDescriptionPacket() {
@@ -271,16 +242,14 @@ public class TileEntityTinyStorage extends TileEntity {
 		writeSyncedNBT(nbtTagCompound);
 	}
 
+	
 	/**
 	 * Method for writing data to be synced to the client
-	 * 
-	 * @param tag
-	 *            The tag to sync
+	 * @param tag The tag to sync
 	 */
 	public void writeSyncedNBT(NBTTagCompound tag) {
 		tag.setByte(Names.NBT.DIRECTION, (byte) orientation.ordinal());
 		tag.setByte(Names.NBT.STATE, state);
-		tag.setInteger(Names.NBT.ACCESS_MODE, accessMode.ordinal());
 
 		if (this.hasCustomName()) {
 			tag.setString(Names.NBT.CUSTOM_NAME, customName);
@@ -301,9 +270,7 @@ public class TileEntityTinyStorage extends TileEntity {
 
 	/**
 	 * The method for reading synced data on the client
-	 * 
-	 * @param tag
-	 *            The tag to be read
+	 * @param tag The tag to be read
 	 */
 	public void readSyncedNBT(NBTTagCompound tag) {
 		if (tag.hasKey(Names.NBT.DIRECTION)) {
@@ -312,10 +279,6 @@ public class TileEntityTinyStorage extends TileEntity {
 
 		if (tag.hasKey(Names.NBT.STATE)) {
 			this.state = tag.getByte(Names.NBT.STATE);
-		}
-
-		if (tag.hasKey(Names.NBT.ACCESS_MODE)) {
-			this.accessMode = AccessMode.values()[tag.getInteger(Names.NBT.ACCESS_MODE)];
 		}
 
 		if (tag.hasKey(Names.NBT.CUSTOM_NAME)) {

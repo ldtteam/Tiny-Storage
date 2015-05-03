@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
@@ -138,7 +137,6 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 					if (!PlayerHelper.isPlayerFake(player)) {
 						((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
 						((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
-						((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setAccessMode(AccessMode.DISABLED);
 					} else {
 						TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
 						world.removeTileEntity(x, y, z);

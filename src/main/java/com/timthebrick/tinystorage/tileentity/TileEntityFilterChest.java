@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.tileentity;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.inventory.ContainerFilterChest;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
@@ -31,13 +30,13 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 		this.state = (byte) metaData;
 		if (metaData == 0) {
 			inventory = new ItemStack[ContainerFilterChest.SMALL_INVENTORY_SIZE];
-			sides = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			sides = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
 		} else if (metaData == 1) {
 			inventory = new ItemStack[ContainerFilterChest.MEDIUM_INVENTORY_SIZE];
-			sides = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-		} else if (metaData == 2) {
+			sides = new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+		} else if (metaData == 2) {			
 			inventory = new ItemStack[ContainerFilterChest.LARGE_INVENTORY_SIZE];
-			sides = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+			sides = new int[]{3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
 		}
 	}
 
@@ -149,9 +148,9 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 			} else {
 				if (slotID > 2 && slotID <= 9) {
 					return StackHelper.isMatchingItem(stack, getStackInSlot(0), true, true);
-				} else if (slotID > 9 && slotID <= 16) {
+				} else if (slotID > 9 && slotID <= 16 ){
 					return StackHelper.isMatchingItem(stack, getStackInSlot(1), true, true);
-				} else {
+				}else{
 					return StackHelper.isMatchingItem(stack, getStackInSlot(2), true, true);
 				}
 			}
@@ -241,7 +240,7 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 		tagCompound.setTag("Inventory", itemList);
 		writeSyncedNBT(tagCompound);
 	}
-
+	
 	@Override
 	public void readSyncedNBT(NBTTagCompound tag) {
 		super.readSyncedNBT(tag);
@@ -263,7 +262,7 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readSyncedNBT(pkt.func_148857_g());
 	}
-
+	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		return this.sides;
@@ -271,30 +270,12 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 
 	@Override
 	public boolean canInsertItem(int slotID, ItemStack stack, int blockSide) {
-		if (this.accessMode == AccessMode.DISABLED) {
-			return false;
-		} else if (this.accessMode == AccessMode.INPUT_ONLY) {
-			return this.isItemValidForSlot(slotID, stack);
-		} else if (this.accessMode == AccessMode.OUTPUT_ONLY) {
-			return false;
-		} else if (this.accessMode == AccessMode.INPUT_OUTPUT) {
-			return this.isItemValidForSlot(slotID, stack);
-		}
-		return false;
+		return this.isItemValidForSlot(slotID, stack);
 	}
 
 	@Override
 	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
-		if (this.accessMode == AccessMode.DISABLED) {
-			return false;
-		} else if (this.accessMode == AccessMode.INPUT_ONLY) {
-			return false;
-		} else if (this.accessMode == AccessMode.OUTPUT_ONLY) {
-			return true;
-		} else if (this.accessMode == AccessMode.INPUT_OUTPUT) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 }
