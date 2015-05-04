@@ -23,8 +23,8 @@ import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
 
 public class BlockDraw extends BlockContainer {
 

@@ -11,4 +11,5 @@ public class RenderIDs {
 	public static int woolChestLarge;
 	public static int piggyBank;
 	public static int peacefulChest;
+	public static int vacuumChest;
 }

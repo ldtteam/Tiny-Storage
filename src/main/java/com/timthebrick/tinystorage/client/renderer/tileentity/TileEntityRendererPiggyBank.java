@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelPig;

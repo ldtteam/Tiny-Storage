@@ -5,9 +5,9 @@ import com.timthebrick.tinystorage.block.BlockPiggyBank;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.init.ModBlocks;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import net.minecraft.block.Block;

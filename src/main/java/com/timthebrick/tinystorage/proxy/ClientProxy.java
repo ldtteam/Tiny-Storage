@@ -22,14 +22,14 @@ import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRenderer
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererWoolChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.client.registry.ClientRegistry;

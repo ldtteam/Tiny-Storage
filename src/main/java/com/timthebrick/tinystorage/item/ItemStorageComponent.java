@@ -16,11 +16,11 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
