@@ -4,13 +4,13 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.timthebrick.tinystorage.client.helper.ClientSoundHelper;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererDraw;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererMicroChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererPeacefulChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererPiggyBank;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTrashChest;
+import com.timthebrick.tinystorage.client.renderer.item.ItemRendererVacuumChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererWoolChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererDraw;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererFilterChest;
@@ -19,6 +19,7 @@ import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRenderer
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererPiggyBank;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTrashChest;
+import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererVacuumChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererWoolChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
@@ -29,8 +30,8 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeaceful
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
-import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -48,6 +49,7 @@ public class ClientProxy extends CommonProxy {
 		RenderIDs.woolChestLarge = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.piggyBank = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.peacefulChest = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.vacuumChest = RenderingRegistry.getNextAvailableRenderId();
 
 		// Tiny Chests
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestStone), new ItemRendererTinyChest("Stone", false));
@@ -132,6 +134,31 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestLarge), new ItemRendererWoolChest(2, false));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockWoolChestLargeLocked), new ItemRendererWoolChest(2, true));
 		
+		//Vacuum Chests
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestStone), new ItemRendererVacuumChest("Stone", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestOakLog), new ItemRendererVacuumChest("OakLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestAcaciaLog), new ItemRendererVacuumChest("AcaciaLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestBirchLog), new ItemRendererVacuumChest("BirchLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestJungleLog), new ItemRendererVacuumChest("JungleLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestSpruceLog), new ItemRendererVacuumChest("SpruceLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestOakPlank), new ItemRendererVacuumChest("OakPlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestAcaciaPlank), new ItemRendererVacuumChest("AcaciaPlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestBirchPlank), new ItemRendererVacuumChest("BirchPlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestJunglePlank), new ItemRendererVacuumChest("JunglePlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestSprucePlank), new ItemRendererVacuumChest("SprucePlank", false));
+
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestStoneLocked), new ItemRendererVacuumChest("Stone", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestOakLogLocked), new ItemRendererVacuumChest("OakLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestAcaciaLogLocked), new ItemRendererVacuumChest("AcaciaLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestBirchLogLocked), new ItemRendererVacuumChest("BirchLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestJungleLogLocked), new ItemRendererVacuumChest("JungleLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestSpruceLogLocked), new ItemRendererVacuumChest("SpruceLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestOakPlankLocked), new ItemRendererVacuumChest("OakPlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestAcaciaPlankLocked), new ItemRendererVacuumChest("AcaciaPlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestBirchPlankLocked), new ItemRendererVacuumChest("BirchPlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestJunglePlankLocked), new ItemRendererVacuumChest("JunglePlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestSprucePlankLocked), new ItemRendererVacuumChest("SprucePlank", true));
+		
 		// Misc
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockPiggyBank), new ItemRendererPiggyBank());
@@ -146,6 +173,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoolChest.class, new TileEntityRendererWoolChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiggyBank.class, new TileEntityRendererPiggyBank());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPeacefulChest.class, new TileEntityRendererPeacefulChest());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVacuumChest.class, new TileEntityRendererVacuumChest());
 	}
 
 	@Override
