@@ -18,12 +18,12 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
 
-public class GuiFilterChest extends GuiContainer {
+public class GuiFilterChest extends GuiTinyStorage {
 
 	private TileEntityFilterChest tileEntity;
 
 	public GuiFilterChest(InventoryPlayer inventoryPlayer, TileEntityFilterChest tileEntity) {
-		super(new ContainerFilterChest(inventoryPlayer, tileEntity));
+		super(new ContainerFilterChest(inventoryPlayer, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;
 		if (this.tileEntity.getState() == 0) {
 			xSize = 176;
@@ -60,6 +60,7 @@ public class GuiFilterChest extends GuiContainer {
 				}
 			}
 		}
+		drawFG();
 	}
 
 	@Override
@@ -74,7 +75,18 @@ public class GuiFilterChest extends GuiContainer {
 		}
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
+		drawBG();
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
+	}
+	
+	@Override
+	public void drawFG() {
+		super.drawFG();
+	}
+	
+	@Override
+	public void drawBG() {
+		super.drawBG();
 	}
 
 	@Override

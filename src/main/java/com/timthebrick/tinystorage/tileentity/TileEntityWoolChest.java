@@ -9,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
@@ -268,12 +269,30 @@ public class TileEntityWoolChest extends TileEntityTinyStorage implements ISided
 
 	@Override
 	public boolean canInsertItem(int slotID, ItemStack stack, int blockSide) {
-		return this.isItemValidForSlot(slotID, stack);
+		if (this.accessMode == AccessMode.DISABLED) {
+			return false;
+		} else if (this.accessMode == AccessMode.INPUT_ONLY) {
+			return this.isItemValidForSlot(slotID, stack);
+		} else if (this.accessMode == AccessMode.OUTPUT_ONLY) {
+			return false;
+		} else if (this.accessMode == AccessMode.INPUT_OUTPUT) {
+			return this.isItemValidForSlot(slotID, stack);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
-		return true;
+		if (this.accessMode == AccessMode.DISABLED) {
+			return false;
+		} else if (this.accessMode == AccessMode.INPUT_ONLY) {
+			return false;
+		} else if (this.accessMode == AccessMode.OUTPUT_ONLY) {
+			return true;
+		} else if (this.accessMode == AccessMode.INPUT_OUTPUT) {
+			return true;
+		}
+		return false;
 	}
 
 }

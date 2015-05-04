@@ -27,6 +27,7 @@ import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerPeacefulChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
@@ -356,7 +357,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 								}
 							}
 						}
-						cooldownTicks = 20 + random.nextInt(80);
+						cooldownTicks = 100 + random.nextInt(100);
 						ticksSinceAction = 0;
 					}
 				} else {
@@ -433,7 +434,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readSyncedNBT(pkt.func_148857_g());
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int slotID, ItemStack itemStack) {
 		if (slotID == swordSlot) {
@@ -456,12 +457,12 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
 	@Override
 	public boolean canInsertItem(int slotID, ItemStack stack, int blockSide) {
-		return this.isItemValidForSlot(slotID, stack);
+		return true;
 	}
 
 	@Override
 	public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
-		if(slotID == swordSlot){
+		if (slotID == swordSlot) {
 			return false;
 		}
 		return true;

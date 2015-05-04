@@ -1,5 +1,8 @@
 package com.timthebrick.tinystorage.reference;
 
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
+
 public class Names {
 
 	public static final class Blocks {
@@ -34,6 +37,7 @@ public class Names {
 		public static final String UNIQUE_OWNER = "uniqueOwner";
 		public static final String OWNER = "owner";
 		public static final String TEXTURE_NAME = "textureName";
+		public static final String ACCESS_MODE = "accessMode";
 	}
 
 	public static final class Containers {
@@ -52,6 +56,14 @@ public class Names {
 		public static final String PIGGY_BANK = "container.tinystorage:" + Blocks.PIGGY_BANK;
 		public static final String PEACEFUL_CHEST = "container.tinystorage:" + Blocks.PEACEFUL_CHEST;
 		public static final String PEACEFUL_CHEST_LOCKED = "container.tinystorage:" + Blocks.PEACEFUL_CHEST_LOCKED;
+	}
+	
+	public static final class ButtonTooltips{
+		public static final String ACCESS_MODE_TITLE = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase();
+		public static final String ACCESS_MODE_BLOCKED = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.DISABLED.toString().toLowerCase();
+		public static final String ACCESS_MODE_INPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_ONLY.toString().toLowerCase();
+		public static final String ACCESS_MODE_OUTPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.OUTPUT_ONLY.toString().toLowerCase();
+		public static final String ACCESS_MODE_BOTH = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_OUTPUT.toString().toLowerCase();
 	}
 
 }
