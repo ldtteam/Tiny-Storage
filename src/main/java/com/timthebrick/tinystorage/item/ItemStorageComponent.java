@@ -20,6 +20,7 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeaceful
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 
 import cpw.mods.fml.relauncher.Side;
@@ -74,7 +75,7 @@ public class ItemStorageComponent extends Item {
 				world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
 				stack.stackSize--;
 				return true;
-			}else if (te != null && te instanceof TileEntityTrashChest) {
+			} else if (te != null && te instanceof TileEntityTrashChest) {
 				TileEntityTrashChest newChest;
 				TileEntityTrashChest trashChest = (TileEntityTrashChest) te;
 				int state;
@@ -97,7 +98,7 @@ public class ItemStorageComponent extends Item {
 				if (piggyBank.getState() + 1 > 2) {
 					return false;
 				}
-				newChest = piggyBank.applyUpgradeItem(this, piggyBank.getState()+1, player);
+				newChest = piggyBank.applyUpgradeItem(this, piggyBank.getState() + 1, player);
 				if (newChest == null) {
 					return false;
 				}
@@ -154,6 +155,21 @@ public class ItemStorageComponent extends Item {
 						return false;
 					}
 				}
+			} else if (te != null && te instanceof TileEntityVacuumChest) {
+				TileEntityVacuumChest newChest;
+				TileEntityVacuumChest vacuumChest = (TileEntityVacuumChest) te;
+				int state;
+				if (vacuumChest.getState() + 1 > 2) {
+					return false;
+				}
+				newChest = vacuumChest.applyUpgradeItem(this, vacuumChest.getState() + 1, player);
+				if (newChest == null) {
+					return false;
+				}
+				world.setTileEntity(x, y, z, newChest);
+				world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+				stack.stackSize--;
+				return true;
 			} else {
 				return false;
 			}
