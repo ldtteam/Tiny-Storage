@@ -27,6 +27,7 @@ public class Names {
 		public static final String STORAGE_COMPONENT = "storageComponent";
 		public static final String CHEST_FILTER = "chestFilter";
 		public static final String CHEST_LOCK = "chestLock";
+		public static final String DEBUG_TOOL = "debugTool";
 	}
 
 	public static final class NBT {
