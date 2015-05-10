@@ -1,5 +1,7 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import java.util.List;
+
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
@@ -8,6 +10,8 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -16,15 +20,17 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.AxisAlignedBB;
 
-public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISidedInventory{
-	
+public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISidedInventory {
+
 	public float lidAngle;
 	public float prevLidAngle;
 	public int numPlayersUsing;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
 	private int[] sides;
+	public double minX, minY, minZ, maxX, maxY, maxZ;
 
 	public TileEntityVacuumChest(int metaData) {
 		super();
@@ -39,6 +45,12 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 			inventory = new ItemStack[ContainerVacuumChest.LARGE_INVENTORY_SIZE];
 			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
 		}
+		this.minX = this.xCoord - (2 * ((int) this.getState() + 1));
+		this.minY = this.yCoord - 2;
+		this.minZ = this.zCoord - (2 * ((int) this.getState() + 1));
+		this.maxX = this.xCoord + (2 * ((int) this.getState() + 1));
+		this.maxY = this.yCoord + 2;
+		this.maxZ = this.zCoord + (2 * ((int) this.getState() + 1));
 	}
 
 	@Override
@@ -97,29 +109,29 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 			return Names.Containers.VACUUM_CHEST;
 		}
 	}
-	
-	public TileEntityVacuumChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player){
-		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())){
+
+	public TileEntityVacuumChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 			return null;
 		}
-		if(numPlayersUsing > 0){
+		if (numPlayersUsing > 0) {
 			return null;
 		}
 		TileEntityVacuumChest newEntity;
-		if(upgradeTier == 0){
+		if (upgradeTier == 0) {
 			newEntity = new TileEntityVacuumChestSmall();
-		}else if(upgradeTier == 1){
+		} else if (upgradeTier == 1) {
 			newEntity = new TileEntityVacuumChestMedium();
-		}else if(upgradeTier == 2){
+		} else if (upgradeTier == 2) {
 			newEntity = new TileEntityVacuumChestLarge();
-		}else{
+		} else {
 			return null;
 		}
 		int newSize = newEntity.inventory.length;
 		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
 		newEntity.setOrientation(this.orientation);
 		newEntity.ticksSinceSync = -1;
-		if(this.hasUniqueOwner()){
+		if (this.hasUniqueOwner()) {
 			newEntity.setUniqueOwner(player);
 			newEntity.setOwner(player);
 		}
@@ -199,6 +211,11 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 				lidAngle = 0.0F;
 			}
 		}
+
+		if (!worldObj.isRemote) {
+			List itemEntities = worldObj.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ), IEntitySelector.selectAnything);
+		}
+
 	}
 
 	@Override
@@ -241,7 +258,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 		tagCompound.setTag("Inventory", itemList);
 		writeSyncedNBT(tagCompound);
 	}
-	
+
 	@Override
 	public void readSyncedNBT(NBTTagCompound tag) {
 		super.readSyncedNBT(tag);
