@@ -41,10 +41,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockVacuumChest extends BlockContainer implements ITileEntityProvider {
-	
+
 	protected String textureName;
 	private boolean isLockable;
-	
+
 	public BlockVacuumChest(Material mat, String textureName, boolean isLockable) {
 		super(mat);
 		this.setHardness(2.5f);
@@ -57,7 +57,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int metaData) {
 		if (metaData == 0) {
@@ -69,7 +69,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 		}
 		return null;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		setBlockBoundsBasedOnState(world, x, y, z);
@@ -115,7 +115,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 	public int getRenderType() {
 		return RenderIDs.vacuumChest;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
@@ -139,7 +139,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 			return true;
 		}
 	}
-	
+
 	@Override
 	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventId, int eventData) {
 		super.onBlockEventReceived(world, x, y, z, eventId, eventData);
@@ -186,7 +186,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
 			}
-			
+
 			if (itemStack.hasDisplayName()) {
 				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
 			}
@@ -273,6 +273,14 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
 		for (int meta = 0; meta < 3; meta++) {
 			list.add(new ItemStack(item, 1, meta));
+		}
+	}
+
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+		super.randomDisplayTick(world, x, y, z, random);
+		if ((random.nextInt(2) == 0)) {
+			world.spawnParticle("portal", x + random.nextFloat(), y + 1.1F, z + random.nextFloat(), 0.0D, 0.05D, 0.0D);
 		}
 	}
 
