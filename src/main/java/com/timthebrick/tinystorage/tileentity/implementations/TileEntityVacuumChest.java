@@ -1,16 +1,8 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
 import java.util.List;
+import java.util.Random;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
-import com.timthebrick.tinystorage.item.ItemStorageComponent;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.Sounds;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-
-import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -22,6 +14,15 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
+import com.timthebrick.tinystorage.item.ItemStorageComponent;
+import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.reference.Sounds;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.MathHelper;
+import com.timthebrick.tinystorage.util.Vector3;
+
 public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISidedInventory {
 
 	public float lidAngle;
@@ -31,6 +32,8 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 	private ItemStack[] inventory;
 	private int[] sides;
 	public double minX, minY, minZ, maxX, maxY, maxZ;
+	private Random random;
+	private int cooldown;
 
 	public TileEntityVacuumChest(int metaData) {
 		super();
@@ -51,6 +54,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 		this.maxX = this.xCoord + (2 * ((int) this.getState() + 1));
 		this.maxY = this.yCoord + 2;
 		this.maxZ = this.zCoord + (2 * ((int) this.getState() + 1));
+		random = new Random();
 	}
 
 	@Override
@@ -213,9 +217,32 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 		}
 
 		if (!worldObj.isRemote) {
-			List itemEntities = worldObj.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ), IEntitySelector.selectAnything);
+			if (cooldown <= 0) {
+				List<EntityItem> itemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord + minX, yCoord + minY, zCoord + minZ, xCoord + maxX, yCoord + maxY, zCoord + maxZ));
+				double x = (double) this.xCoord;
+				double y = (double) this.yCoord;
+				double z = (double) this.zCoord;
+				for (EntityItem item : itemEntities) {
+					if (canPullItem(item)) {
+						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.25F);
+					}
+				}
+				cooldown = 5;
+			} else {
+				cooldown -= 1;
+			}
 		}
+	}
 
+	private boolean canPullItem(EntityItem item) {
+		if (item.isDead) {
+			return false;
+		}
+		ItemStack stack = item.getEntityItem();
+		if (stack == null) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -239,6 +266,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
+		cooldown = tagCompound.getInteger("Cooldown");
 		readSyncedNBT(tagCompound);
 	}
 
@@ -256,6 +284,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+		tagCompound.setInteger("Cooldown", cooldown);
 		writeSyncedNBT(tagCompound);
 	}
 
