@@ -95,31 +95,6 @@ public class ModBlocks {
 	public static Block blockWoolChestLarge = new BlockWoolChestLarge(false);
 	public static Block blockWoolChestLargeLocked = new BlockWoolChestLarge(true);
 
-	// Micro Chests
-	public static Block blockMicroChestStone = new BlockMicroChest(Material.rock, "Stone", false);
-	public static Block blockMicroChestOakLog = new BlockMicroChest(Material.wood, "OakLog", false);
-	public static Block blockMicroChestAcaciaLog = new BlockMicroChest(Material.wood, "AcaciaLog", false);
-	public static Block blockMicroChestBirchLog = new BlockMicroChest(Material.wood, "BirchLog", false);
-	public static Block blockMicroChestJungleLog = new BlockMicroChest(Material.wood, "JungleLog", false);
-	public static Block blockMicroChestSpruceLog = new BlockMicroChest(Material.wood, "SpruceLog", false);
-	public static Block blockMicroChestOakPlank = new BlockMicroChest(Material.wood, "OakPlank", false);
-	public static Block blockMicroChestAcaciaPlank = new BlockMicroChest(Material.wood, "AcaciaPlank", false);
-	public static Block blockMicroChestBirchPlank = new BlockMicroChest(Material.wood, "BirchPlank", false);
-	public static Block blockMicroChestJunglePlank = new BlockMicroChest(Material.wood, "JunglePlank", false);
-	public static Block blockMicroChestSprucePlank = new BlockMicroChest(Material.wood, "SprucePlank", false);
-
-	public static Block blockMicroChestStoneLocked = new BlockMicroChest(Material.rock, "Stone", true);
-	public static Block blockMicroChestOakLogLocked = new BlockMicroChest(Material.wood, "OakLog", true);
-	public static Block blockMicroChestAcaciaLogLocked = new BlockMicroChest(Material.wood, "AcaciaLog", true);
-	public static Block blockMicroChestBirchLogLocked = new BlockMicroChest(Material.wood, "BirchLog", true);
-	public static Block blockMicroChestJungleLogLocked = new BlockMicroChest(Material.wood, "JungleLog", true);
-	public static Block blockMicroChestSpruceLogLocked = new BlockMicroChest(Material.wood, "SpruceLog", true);
-	public static Block blockMicroChestOakPlankLocked = new BlockMicroChest(Material.wood, "OakPlank", true);
-	public static Block blockMicroChestAcaciaPlankLocked = new BlockMicroChest(Material.wood, "AcaciaPlank", true);
-	public static Block blockMicroChestBirchPlankLocked = new BlockMicroChest(Material.wood, "BirchPlank", true);
-	public static Block blockMicroChestJunglePlankLocked = new BlockMicroChest(Material.wood, "JunglePlank", true);
-	public static Block blockMicroChestSprucePlankLocked = new BlockMicroChest(Material.wood, "SprucePlank", true);
-
 	// Vacuum Chests
 	public static Block blockVacuumChestStone = new BlockVacuumChest(Material.rock, "Stone", false);
 	public static Block blockVacuumChestOakLog = new BlockVacuumChest(Material.wood, "OakLog", false);
@@ -144,6 +119,31 @@ public class ModBlocks {
 	public static Block blockVacuumChestBirchPlankLocked = new BlockVacuumChest(Material.wood, "BirchPlank", true);
 	public static Block blockVacuumChestJunglePlankLocked = new BlockVacuumChest(Material.wood, "JunglePlank", true);
 	public static Block blockVacuumChestSprucePlankLocked = new BlockVacuumChest(Material.wood, "SprucePlank", true);
+
+	// Micro Chests
+	public static Block blockMicroChestStone = new BlockMicroChest(Material.rock, "Stone", false);
+	public static Block blockMicroChestOakLog = new BlockMicroChest(Material.wood, "OakLog", false);
+	public static Block blockMicroChestAcaciaLog = new BlockMicroChest(Material.wood, "AcaciaLog", false);
+	public static Block blockMicroChestBirchLog = new BlockMicroChest(Material.wood, "BirchLog", false);
+	public static Block blockMicroChestJungleLog = new BlockMicroChest(Material.wood, "JungleLog", false);
+	public static Block blockMicroChestSpruceLog = new BlockMicroChest(Material.wood, "SpruceLog", false);
+	public static Block blockMicroChestOakPlank = new BlockMicroChest(Material.wood, "OakPlank", false);
+	public static Block blockMicroChestAcaciaPlank = new BlockMicroChest(Material.wood, "AcaciaPlank", false);
+	public static Block blockMicroChestBirchPlank = new BlockMicroChest(Material.wood, "BirchPlank", false);
+	public static Block blockMicroChestJunglePlank = new BlockMicroChest(Material.wood, "JunglePlank", false);
+	public static Block blockMicroChestSprucePlank = new BlockMicroChest(Material.wood, "SprucePlank", false);
+
+	public static Block blockMicroChestStoneLocked = new BlockMicroChest(Material.rock, "Stone", true);
+	public static Block blockMicroChestOakLogLocked = new BlockMicroChest(Material.wood, "OakLog", true);
+	public static Block blockMicroChestAcaciaLogLocked = new BlockMicroChest(Material.wood, "AcaciaLog", true);
+	public static Block blockMicroChestBirchLogLocked = new BlockMicroChest(Material.wood, "BirchLog", true);
+	public static Block blockMicroChestJungleLogLocked = new BlockMicroChest(Material.wood, "JungleLog", true);
+	public static Block blockMicroChestSpruceLogLocked = new BlockMicroChest(Material.wood, "SpruceLog", true);
+	public static Block blockMicroChestOakPlankLocked = new BlockMicroChest(Material.wood, "OakPlank", true);
+	public static Block blockMicroChestAcaciaPlankLocked = new BlockMicroChest(Material.wood, "AcaciaPlank", true);
+	public static Block blockMicroChestBirchPlankLocked = new BlockMicroChest(Material.wood, "BirchPlank", true);
+	public static Block blockMicroChestJunglePlankLocked = new BlockMicroChest(Material.wood, "JunglePlank", true);
+	public static Block blockMicroChestSprucePlankLocked = new BlockMicroChest(Material.wood, "SprucePlank", true);
 
 	// Misc
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
@@ -210,6 +210,31 @@ public class ModBlocks {
 		registerBlock(blockWoolChestMediumLocked, ItemBlockWoolChestMedium.class, Names.Blocks.WOOL_CHEST_LOCKED + "Medium");
 		registerBlock(blockWoolChestLarge, ItemBlockWoolChestLarge.class, Names.Blocks.WOOL_CHEST + "Large");
 		registerBlock(blockWoolChestLargeLocked, ItemBlockWoolChestLarge.class, Names.Blocks.WOOL_CHEST_LOCKED + "Large");
+		
+		// Vacuum Chests
+		registerBlock(blockVacuumChestStone, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "Stone");
+		registerBlock(blockVacuumChestOakLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "OakLog");
+		registerBlock(blockVacuumChestAcaciaLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "AcaciaLog");
+		registerBlock(blockVacuumChestBirchLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "BirchLog");
+		registerBlock(blockVacuumChestJungleLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "JungleLog");
+		registerBlock(blockVacuumChestSpruceLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "SpruceLog");
+		registerBlock(blockVacuumChestOakPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "OakPlank");
+		registerBlock(blockVacuumChestAcaciaPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "AcaciaPlank");
+		registerBlock(blockVacuumChestBirchPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "BirchPlank");
+		registerBlock(blockVacuumChestJunglePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "JunglePlank");
+		registerBlock(blockVacuumChestSprucePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "SprucePlank");
+		
+		registerBlock(blockVacuumChestStoneLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "Stone");
+		registerBlock(blockVacuumChestOakLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "OakLog");
+		registerBlock(blockVacuumChestAcaciaLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "AcaciaLog");
+		registerBlock(blockVacuumChestBirchLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "BirchLog");
+		registerBlock(blockVacuumChestJungleLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "JungleLog");
+		registerBlock(blockVacuumChestSpruceLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "SpruceLog");
+		registerBlock(blockVacuumChestOakPlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "OakPlank");
+		registerBlock(blockVacuumChestAcaciaPlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "AcaciaPlank");
+		registerBlock(blockVacuumChestBirchPlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "BirchPlank");
+		registerBlock(blockVacuumChestJunglePlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "JunglePlank");
+		registerBlock(blockVacuumChestSprucePlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "SprucePlank");
 
 		// Micro Chests
 		registerBlock(blockMicroChestStone, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "Stone");
@@ -235,31 +260,6 @@ public class ModBlocks {
 		registerBlock(blockMicroChestBirchPlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "BirchPlank");
 		registerBlock(blockMicroChestJunglePlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "JunglePlank");
 		registerBlock(blockMicroChestSprucePlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "SprucePlank");
-
-		// Vacuum Chests
-		registerBlock(blockVacuumChestStone, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "Stone");
-		registerBlock(blockVacuumChestOakLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "OakLog");
-		registerBlock(blockVacuumChestAcaciaLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "AcaciaLog");
-		registerBlock(blockVacuumChestBirchLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "BirchLog");
-		registerBlock(blockVacuumChestJungleLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "JungleLog");
-		registerBlock(blockVacuumChestSpruceLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "SpruceLog");
-		registerBlock(blockVacuumChestOakPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "OakPlank");
-		registerBlock(blockVacuumChestAcaciaPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "AcaciaPlank");
-		registerBlock(blockVacuumChestBirchPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "BirchPlank");
-		registerBlock(blockVacuumChestJunglePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "JunglePlank");
-		registerBlock(blockVacuumChestSprucePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "SprucePlank");
-
-		registerBlock(blockVacuumChestStoneLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "Stone");
-		registerBlock(blockVacuumChestOakLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "OakLog");
-		registerBlock(blockVacuumChestAcaciaLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "AcaciaLog");
-		registerBlock(blockVacuumChestBirchLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "BirchLog");
-		registerBlock(blockVacuumChestJungleLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "JungleLog");
-		registerBlock(blockVacuumChestSpruceLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "SpruceLog");
-		registerBlock(blockVacuumChestOakPlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "OakPlank");
-		registerBlock(blockVacuumChestAcaciaPlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "AcaciaPlank");
-		registerBlock(blockVacuumChestBirchPlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "BirchPlank");
-		registerBlock(blockVacuumChestJunglePlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "JunglePlank");
-		registerBlock(blockVacuumChestSprucePlankLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "SprucePlank");
 
 		// Misc
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
