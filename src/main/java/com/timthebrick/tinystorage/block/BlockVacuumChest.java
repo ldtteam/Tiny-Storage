@@ -9,6 +9,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,6 +36,7 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumCh
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestSmall;
+import com.timthebrick.tinystorage.util.InventoryHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
@@ -162,6 +164,25 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 			}
 		} else {
 			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+		}
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		super.onEntityCollidedWithBlock(world, x, y, z, entity);
+		if (!world.isRemote) {
+			if (entity instanceof EntityItem) {
+				if (world.getTileEntity(x, y, z) instanceof TileEntityVacuumChest) {
+					TileEntityVacuumChest tileEntity = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
+					ItemStack itemStack = ((EntityItem) entity).getEntityItem();
+					ItemStack itemstack1 = InventoryHelper.invInsert(tileEntity, itemStack, 2);
+					if ((itemstack1 != null) && (itemstack1.stackSize != 0)) {
+						((EntityItem) entity).setEntityItemStack(itemstack1);
+					} else {
+						((EntityItem) entity).setDead();
+					}
+				}
+			}
 		}
 	}
 

@@ -16,4 +16,14 @@ public class MathHelper {
 		entity.motionZ = finalVector.z * modifier;
 	}
 
+	public static void setEntityVelocityFromVector(Entity entity, Vector3 originalPosVector, double modifier) {
+		Vector3 entityVector = Vector3.fromEntityCenter(entity);
+		Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
+
+		if (finalVector.mag() > 1) {
+			finalVector.normalize();
+		}
+		entity.addVelocity(finalVector.x * modifier, finalVector.y * modifier, finalVector.z * modifier);
+	}
+
 }

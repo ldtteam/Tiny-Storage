@@ -15,6 +15,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
@@ -22,6 +23,8 @@ import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.MathHelper;
 import com.timthebrick.tinystorage.util.Vector3;
+
+import cpw.mods.fml.relauncher.Side;
 
 public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -216,20 +219,16 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 			}
 		}
 
-		if (!worldObj.isRemote) {
-			if (cooldown <= 0) {
-				List<EntityItem> itemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord + minX, yCoord + minY, zCoord + minZ, xCoord + maxX, yCoord + maxY, zCoord + maxZ));
-				double x = (double) this.xCoord;
-				double y = (double) this.yCoord;
-				double z = (double) this.zCoord;
-				for (EntityItem item : itemEntities) {
-					if (canPullItem(item)) {
-						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.25F);
-					}
+		List<EntityItem> itemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord + minX, yCoord + minY, zCoord + minZ, xCoord + maxX, yCoord + maxY, zCoord + maxZ));
+		double x = (double) this.xCoord;
+		double y = (double) this.yCoord;
+		double z = (double) this.zCoord;
+		for (EntityItem item : itemEntities) {
+			if (canPullItem(item)) {
+				MathHelper.setEntityVelocityFromVector(item, new Vector3(x, y, z), 0.05D);
+				if (this.worldObj.isRemote) {
+					this.worldObj.spawnParticle("portal", item.posX , item.posY - 0.5F, item.posZ + random.nextFloat(), item.motionX, item.motionY, item.motionZ);
 				}
-				cooldown = 5;
-			} else {
-				cooldown -= 1;
 			}
 		}
 	}
