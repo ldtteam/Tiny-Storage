@@ -10,9 +10,9 @@ import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;

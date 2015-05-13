@@ -7,8 +7,8 @@ import com.timthebrick.tinystorage.block.BlockDraw;
 import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.client.renderer.model.ModelDraw;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

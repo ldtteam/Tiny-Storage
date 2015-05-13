@@ -14,7 +14,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 
 public class TileEntityRendererWoolChest extends TileEntitySpecialRenderer {
 

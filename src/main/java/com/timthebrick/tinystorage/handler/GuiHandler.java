@@ -3,28 +3,31 @@ package com.timthebrick.tinystorage.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiDraw;
-import com.timthebrick.tinystorage.client.gui.inventory.GuiFilterChest;
-import com.timthebrick.tinystorage.client.gui.inventory.GuiMicroChest;
-import com.timthebrick.tinystorage.client.gui.inventory.GuiPeacefulChest;
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyChest;
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTrashChest;
-import com.timthebrick.tinystorage.client.gui.inventory.GuiWoolChest;
-import com.timthebrick.tinystorage.inventory.ContainerDraw;
-import com.timthebrick.tinystorage.inventory.ContainerFilterChest;
-import com.timthebrick.tinystorage.inventory.ContainerMicroChest;
-import com.timthebrick.tinystorage.inventory.ContainerPeacefulChest;
-import com.timthebrick.tinystorage.inventory.ContainerTinyChest;
-import com.timthebrick.tinystorage.inventory.ContainerTrashChest;
-import com.timthebrick.tinystorage.inventory.ContainerWoolChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiDraw;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiFilterChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiMicroChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiPeacefulChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiTinyChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiTrashChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiVacuumChest;
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiWoolChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerDraw;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerFilterChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerMicroChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerPeacefulChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerTrashChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerWoolChest;
 import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -53,6 +56,9 @@ public class GuiHandler implements IGuiHandler {
 		} else if (id == GUIs.PEACEFUL_CHEST.ordinal()) {
 			TileEntityPeacefulChest tileEntityPeacefulChest = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
 			return new ContainerPeacefulChest(entityPlayer.inventory, tileEntityPeacefulChest);
+		} else if (id == GUIs.VACUUM_CHEST.ordinal()) {
+			TileEntityVacuumChest tileEntityVacuumChest = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
+			return new ContainerVacuumChest(entityPlayer.inventory, tileEntityVacuumChest);
 		}
 		return null;
 	}
@@ -77,11 +83,13 @@ public class GuiHandler implements IGuiHandler {
 		} else if (id == GUIs.WOOL_CHEST.ordinal()) {
 			TileEntityWoolChest tileEntityWoolChest = (TileEntityWoolChest) world.getTileEntity(x, y, z);
 			return new GuiWoolChest(entityPlayer.inventory, tileEntityWoolChest);
-		}else if (id == GUIs.PEACEFUL_CHEST.ordinal()) {
+		} else if (id == GUIs.PEACEFUL_CHEST.ordinal()) {
 			TileEntityPeacefulChest tileEntityPeacefulChest = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
 			return new GuiPeacefulChest(entityPlayer.inventory, tileEntityPeacefulChest);
+		} else if (id == GUIs.VACUUM_CHEST.ordinal()) {
+			TileEntityVacuumChest tileEntityVauumChest = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
+			return new GuiVacuumChest(entityPlayer.inventory, tileEntityVauumChest);
 		}
-
 		return null;
 	}
 

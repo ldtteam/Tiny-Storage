@@ -14,8 +14,8 @@ import org.lwjgl.opengl.GL12;
 import com.timthebrick.tinystorage.block.BlockPeacefulChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 
 public class TileEntityRendererPeacefulChest extends TileEntitySpecialRenderer {
 

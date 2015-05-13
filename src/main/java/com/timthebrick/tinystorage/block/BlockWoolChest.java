@@ -11,7 +11,7 @@ import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

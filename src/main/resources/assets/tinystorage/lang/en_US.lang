@@ -165,6 +165,29 @@ tile.blockMicroChestLockedBirchPlank.name=Micro Chest - Birch Plank
 tile.blockMicroChestLockedJunglePlank.name=Micro Chest - Jungle Plank
 tile.blockMicroChestLockedSprucePlank.name=Micro Chest - Spruce Plank
 
+tile.blockVacuumChestStone.name=Vacuum Chest - Stone
+tile.blockVacuumChestOakLog.name=Vacuum Chest - Oak Log
+tile.blockVacuumChestAcaciaLog.name=Vacuum Chest - Acacia Log
+tile.blockVacuumChestBirchLog.name=Vacuum Chest - Birch Log
+tile.blockVacuumChestJungleLog.name=Vacuum Chest - Jungle Log
+tile.blockVacuumChestSpruceLog.name=Vacuum Chest - Spruce Log
+tile.blockVacuumChestOakPlank.name=Vacuum Chest - Oak Plank
+tile.blockVacuumChestAcaciaPlank.name=Vacuum Chest - Acacia Plank
+tile.blockVacuumChestBirchPlank.name=Vacuum Chest - Birch Plank
+tile.blockVacuumChestJunglePlank.name=Vacuum Chest - Jungle Plank
+tile.blockVacuumChestSprucePlank.name=Vacuum Chest - Spruce Plank
+tile.blockVacuumChestLockedStone.name=Vacuum Chest - Stone
+tile.blockVacuumChestLockedOakLog.name=Vacuum Chest - Oak Log
+tile.blockVacuumChestLockedAcaciaLog.name=Vacuum Chest - Acacia Log
+tile.blockVacuumChestLockedBirchLog.name=Vacuum Chest - Birch Log
+tile.blockVacuumChestLockedJungleLog.name=Vacuum Chest - Jungle Log
+tile.blockVacuumChestLockedSpruceLog.name=Vacuum Chest - Spruce Log
+tile.blockVacuumChestLockedOakPlank.name=Vacuum Chest - Oak Plank
+tile.blockVacuumChestLockedAcaciaPlank.name=Vacuum Chest - Acacia Plank
+tile.blockVacuumChestLockedBirchPlank.name=Vacuum Chest - Birch Plank
+tile.blockVacuumChestLockedJunglePlank.name=Vacuum Chest - Jungle Plank
+tile.blockVacuumChestLockedSprucePlank.name=Vacuum Chest - Spruce Plank
+
 tile.blockDrawOakLog.name=Chest of Draws - Oak Log
 tile.blockTrashChest.name=Trash Chest
 tile.blockPiggyBank.name=Piggy Bank
@@ -174,6 +197,7 @@ tile.blockPeacefulChest.name=Peaceful Chest
 item.storageComponent.name=Storage Component
 item.chestFilter.name=Chest Filter
 item.chestLock.name=Chest Lock
+item.debugTool.name=Chest Wrench
 
 #Containers
 container.tinystorage:tinyChest=Tiny Chest
@@ -188,6 +212,8 @@ container.tinystorage:woolChest=Wool Chest
 container.tinystorage:woolChestLocked=Locking Wool Chest
 container.tinystorage:peacefulChest=Peaceful Chest
 container.tinystorage:peacefulChestLocked=Locking Peaceful Chest
+container.tinyStorage:vacuumChest=Vacuum Chest
+container.tinyStorage:vacuumChestLocked=Locking Vacuum Chest
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small
@@ -200,20 +226,17 @@ tooltip.tinystorage:filterChestPrefix.medium=Medium
 tooltip.tinystorage:filterChestPrefix.large=Large
 tooltip.tinystorage:filterChestPrefix.locked=Locking
 
-tooltip.tinystorage:storageComponentPrefix.small=Tier 1
-tooltip.tinystorage:storageComponentPrefix.medium=Tier 2
-tooltip.tinystorage:storageComponentPrefix.large=Tier 3
-
-tooltip.tinystorage:chestFilterPrefix.small=Tier 1
-tooltip.tinystorage:chestFilterPrefix.medium=Tier 2
-tooltip.tinystorage:chestFilterPrefix.large=Tier 3
-
-tooltip.tinystorage:microChestPrefix.locked=Locking
-
 tooltip.tinystorage:woolChestPrefix.small=Small
 tooltip.tinystorage:woolChestPrefix.medium=Medium
 tooltip.tinystorage:woolChestPrefix.large=Large
 tooltip.tinystorage:woolChestPrefix.locked=Locking
+
+tooltip.tinystorage:vacuumChestPrefix.small=Small
+tooltip.tinystorage:vacuumChestPrefix.medium=Medium
+tooltip.tinystorage:vacuumChestPrefix.large=Large
+tooltip.tinystorage:vacuumChestPrefix.locked=Locking
+
+tooltip.tinystorage:microChestPrefix.locked=Locking
 
 tooltip.tinystorage:piggyBankPrefix.small=Small
 tooltip.tinystorage:piggyBankPrefix.medium=Medium
@@ -223,6 +246,14 @@ tooltip.tinystorage:peacefulChestPrefix.small=Small
 tooltip.tinystorage:peacefulChestPrefix.medium=Medium
 tooltip.tinystorage:peacefulChestPrefix.large=Large
 tooltip.tinystorage:peacefulChest.description=Passively generates mob drops in a Peaceful World; simply place and provide with a sword!
+
+tooltip.tinystorage:storageComponentPrefix.small=Tier 1
+tooltip.tinystorage:storageComponentPrefix.medium=Tier 2
+tooltip.tinystorage:storageComponentPrefix.large=Tier 3
+
+tooltip.tinystorage:chestFilterPrefix.small=Tier 1
+tooltip.tinystorage:chestFilterPrefix.medium=Tier 2
+tooltip.tinystorage:chestFilterPrefix.large=Tier 3
 
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode

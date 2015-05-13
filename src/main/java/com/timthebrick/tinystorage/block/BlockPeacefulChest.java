@@ -30,11 +30,11 @@ import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;

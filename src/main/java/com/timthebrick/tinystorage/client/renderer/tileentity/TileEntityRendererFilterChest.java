@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL12;
 import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 
 public class TileEntityRendererFilterChest extends TileEntitySpecialRenderer {
 

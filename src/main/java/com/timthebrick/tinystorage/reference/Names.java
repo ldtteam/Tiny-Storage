@@ -19,12 +19,15 @@ public class Names {
 		public static final String PIGGY_BANK = "piggyBank";
 		public static final String PEACEFUL_CHEST = "peacefulChest";
 		public static final String PEACEFUL_CHEST_LOCKED = "peacefulChestLocked";
+		public static final String VACUUM_CHEST = "vacuumChest";
+		public static final String VACUUM_CHEST_LOCKED = "vacuumChestLocked";
 	}
 	
 	public static final class Items{
 		public static final String STORAGE_COMPONENT = "storageComponent";
 		public static final String CHEST_FILTER = "chestFilter";
 		public static final String CHEST_LOCK = "chestLock";
+		public static final String DEBUG_TOOL = "debugTool";
 	}
 
 	public static final class NBT {
@@ -56,6 +59,8 @@ public class Names {
 		public static final String PIGGY_BANK = "container.tinystorage:" + Blocks.PIGGY_BANK;
 		public static final String PEACEFUL_CHEST = "container.tinystorage:" + Blocks.PEACEFUL_CHEST;
 		public static final String PEACEFUL_CHEST_LOCKED = "container.tinystorage:" + Blocks.PEACEFUL_CHEST_LOCKED;
+		public static final String VACUUM_CHEST = "container.tinystorage:" + Blocks.VACUUM_CHEST;
+		public static final String VACUUM_CHEST_LOCKED = "container.tinystorage:" + Blocks.VACUUM_CHEST_LOCKED;
 	}
 	
 	public static final class ButtonTooltips{

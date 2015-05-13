@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Level;
 import com.timthebrick.tinystorage.reference.References;
 
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.relauncher.FMLRelaunchLog;
 
 public class TinyStorageLog {
 

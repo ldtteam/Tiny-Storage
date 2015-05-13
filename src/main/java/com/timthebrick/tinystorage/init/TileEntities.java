@@ -3,29 +3,33 @@ package com.timthebrick.tinystorage.init;
 import net.minecraft.tileentity.TileEntity;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.tileentity.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityFilterChestSmall;
-import com.timthebrick.tinystorage.tileentity.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityPeacefulChestSmall;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityPiggyBankSmall;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyChestSmall;
-import com.timthebrick.tinystorage.tileentity.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChest;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChestLarge;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChestMedium;
-import com.timthebrick.tinystorage.tileentity.TileEntityWoolChestSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChestSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChestSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBankLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBankMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBankSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChestSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChestSmall;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -62,6 +66,11 @@ public class TileEntities {
 		registerTileEntityWithAlternatives(TileEntityPeacefulChestSmall.class, "blockPeacefulChestSmall", "tileEntityPeacefulChestSmall");
 		registerTileEntityWithAlternatives(TileEntityPeacefulChestMedium.class, "blockPeacefulChestMedium", "tileEntityPeacefulChestMedium");
 		registerTileEntityWithAlternatives(TileEntityPeacefulChestLarge.class, "blockPeacefulChestLarge", "tileEntityPeacefulChestLarge");
+		
+		registerTileEntityWithAlternatives(TileEntityVacuumChest.class, "blockVacuumChest", "tileEntityVacuumChest");
+		registerTileEntityWithAlternatives(TileEntityVacuumChestSmall.class, "blockVacuumChestSmall", "tileEntityVacuumChestSmall");
+		registerTileEntityWithAlternatives(TileEntityVacuumChestMedium.class, "blockVacuumChestMedium", "tileEntityVacuumChestMedium");
+		registerTileEntityWithAlternatives(TileEntityVacuumChestLarge.class, "blockVacuumChestLarge", "tileEntityVacuumChestLarge");
 	}
 	
 	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){
