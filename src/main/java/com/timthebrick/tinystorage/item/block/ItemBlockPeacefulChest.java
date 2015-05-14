@@ -36,7 +36,8 @@ public class ItemBlockPeacefulChest extends ItemBlock {
 		} else if (metaData == 2) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:peacefulChestPrefix.large"));
 		}
-		list.add(StatCollector.translateToLocal("tooltip.tinystorage:peacefulChest.description"));
+		list.add(StatCollector.translateToLocal("tooltip.tinystorage:peacefulChest.description1"));
+		list.add(StatCollector.translateToLocal("tooltip.tinystorage:peacefulChest.description2"));
 	}
 
 }

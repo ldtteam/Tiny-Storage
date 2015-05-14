@@ -212,8 +212,8 @@ container.tinystorage:woolChest=Wool Chest
 container.tinystorage:woolChestLocked=Locking Wool Chest
 container.tinystorage:peacefulChest=Peaceful Chest
 container.tinystorage:peacefulChestLocked=Locking Peaceful Chest
-container.tinyStorage:vacuumChest=Vacuum Chest
-container.tinyStorage:vacuumChestLocked=Locking Vacuum Chest
+container.tinystorage:vacuumChest=Vacuum Chest
+container.tinystorage:vacuumChestLocked=Locking Vacuum Chest
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small
@@ -245,7 +245,8 @@ tooltip.tinystorage:piggyBankPrefix.large=Large
 tooltip.tinystorage:peacefulChestPrefix.small=Small
 tooltip.tinystorage:peacefulChestPrefix.medium=Medium
 tooltip.tinystorage:peacefulChestPrefix.large=Large
-tooltip.tinystorage:peacefulChest.description=Passively generates mob drops in a Peaceful World; simply place and provide with a sword!
+tooltip.tinystorage:peacefulChest.description1=Passively generates mob drops in a Peaceful World!
+tooltip.tinystorage:peacefulChest.description2=Simply place down and provide with a sword of choice!
 
 tooltip.tinystorage:storageComponentPrefix.small=Tier 1
 tooltip.tinystorage:storageComponentPrefix.medium=Tier 2
@@ -254,6 +255,10 @@ tooltip.tinystorage:storageComponentPrefix.large=Tier 3
 tooltip.tinystorage:chestFilterPrefix.small=Tier 1
 tooltip.tinystorage:chestFilterPrefix.medium=Tier 2
 tooltip.tinystorage:chestFilterPrefix.large=Tier 3
+
+tooltip.tinystorage:debugTool.mode=Current Mode
+tooltip.tinystorage:debugTool.case0=Show area of effect
+tooltip.tinystorage:debugTool.case1=Rotate chests
 
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode
