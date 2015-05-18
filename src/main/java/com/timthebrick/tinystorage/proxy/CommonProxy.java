@@ -9,11 +9,11 @@ import com.timthebrick.tinystorage.handler.PlayerEventHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public abstract class CommonProxy implements IProxy {
-	
-	PlayerEventHandler playerEventHandler = new PlayerEventHandler();
-	CraftingEventHandler craftingEventHandler = new CraftingEventHandler();
 
 	public void registerEventHandlers() {
+		PlayerEventHandler playerEventHandler = new PlayerEventHandler();
+		CraftingEventHandler craftingEventHandler = new CraftingEventHandler();
+		
 		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
 		MinecraftForge.EVENT_BUS.register(playerEventHandler);
 		MinecraftForge.EVENT_BUS.register(craftingEventHandler);

@@ -259,6 +259,7 @@ tooltip.tinystorage:chestFilterPrefix.large=Tier 3
 tooltip.tinystorage:debugTool.mode=Current Mode
 tooltip.tinystorage:debugTool.case0=Show area of effect
 tooltip.tinystorage:debugTool.case1=Rotate chests
+tooltip.tinystorage:debugTool.case2=Downgrade chest
 
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode

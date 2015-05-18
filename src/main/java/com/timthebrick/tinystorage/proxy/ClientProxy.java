@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.proxy;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import com.timthebrick.tinystorage.client.handler.KeyInputEventHandler;
 import com.timthebrick.tinystorage.client.helper.ClientSoundHelper;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
 import com.timthebrick.tinystorage.client.renderer.item.ItemRendererMicroChest;
@@ -35,6 +36,7 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChes
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ClientProxy extends CommonProxy {
 
@@ -174,6 +176,12 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiggyBank.class, new TileEntityRendererPiggyBank());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPeacefulChest.class, new TileEntityRendererPeacefulChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVacuumChest.class, new TileEntityRendererVacuumChest());
+	}
+	
+	@Override
+	public void registerEventHandlers() {
+		super.registerEventHandlers();
+		FMLCommonHandler.instance().bus().register(new KeyInputEventHandler());
 	}
 
 	@Override

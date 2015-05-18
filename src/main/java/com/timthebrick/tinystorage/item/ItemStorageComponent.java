@@ -46,8 +46,9 @@ public class ItemStorageComponent extends Item {
 		if (world.isRemote) {
 			return false;
 		} else {
-			if (stack.getItemDamage() != 0)
+			if (stack.getItemDamage() != 0) {
 				return false;
+			}
 			TileEntity te = world.getTileEntity(x, y, z);
 			if (te != null && te instanceof TileEntityTinyChest) {
 				TileEntityTinyChest newChest;

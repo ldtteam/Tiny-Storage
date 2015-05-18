@@ -70,5 +70,10 @@ public class Names {
 		public static final String ACCESS_MODE_OUTPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.OUTPUT_ONLY.toString().toLowerCase();
 		public static final String ACCESS_MODE_BOTH = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_OUTPUT.toString().toLowerCase();
 	}
+	
+	public static final class Keys{
+		public static final String CATEGORY = "key.tinystorage.categories";
+        public static final String MODE = "key.tinystorage.mode";
+	}
 
 }

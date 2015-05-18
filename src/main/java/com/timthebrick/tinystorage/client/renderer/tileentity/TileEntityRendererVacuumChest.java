@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL12;
 import com.timthebrick.tinystorage.block.BlockVacuumChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.item.ItemDebugTool;
-import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeOptions;
+import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.util.NBTHelper;
@@ -94,8 +94,8 @@ public class TileEntityRendererVacuumChest extends TileEntitySpecialRenderer {
 
 			if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
 				if (Minecraft.getMinecraft().thePlayer.getHeldItem().getItem() != null && Minecraft.getMinecraft().thePlayer.getHeldItem().getItem() instanceof ItemDebugTool) {
-					OperationModeOptions operationMode = OperationModeOptions.values()[NBTHelper.getInteger(Minecraft.getMinecraft().thePlayer.getHeldItem(), "operationMode")];
-					if (operationMode == OperationModeOptions.RENDER_AREA) {
+					OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(Minecraft.getMinecraft().thePlayer.getHeldItem(), "operationMode")];
+					if (operationMode == OperationModeSettings.RENDER_AREA) {
 						GL11.glPushMatrix();
 						GL11.glTranslatef((float) x, (float) y, (float) z);
 						GL11.glEnable(GL11.GL_BLEND);

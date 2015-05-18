@@ -4,20 +4,25 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
+import com.timthebrick.tinystorage.item.ItemDebugTool;
+import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.util.NBTHelper;
 
 public class TileEntityTinyStorage extends TileEntity {
-	
-	private final Map<ButtonSettings, Enum<?>> settings = new EnumMap<ButtonSettings, Enum<?>>( ButtonSettings.class );
+
+	private final Map<ButtonSettings, Enum<?>> settings = new EnumMap<ButtonSettings, Enum<?>>(ButtonSettings.class);
 
 	protected ForgeDirection orientation;
 	protected byte state;
@@ -127,14 +132,14 @@ public class TileEntityTinyStorage extends TileEntity {
 	public void setCustomTextureName(String textureName) {
 		this.textureName = textureName;
 	}
-	
+
 	/**
 	 * Set the access mode for a *locking* chest
 	 * 
 	 * @param mode
 	 */
-	public void setAccessMode(AccessMode mode){
-		this.accessMode =  mode;
+	public void setAccessMode(AccessMode mode) {
+		this.accessMode = mode;
 	}
 
 	/**
@@ -187,13 +192,13 @@ public class TileEntityTinyStorage extends TileEntity {
 	public String getTextureName() {
 		return textureName;
 	}
-	
+
 	/**
 	 * Get the access mode for the chest
 	 * 
 	 * @return
 	 */
-	public AccessMode getAccessMode(){
+	public AccessMode getAccessMode() {
 		return this.accessMode;
 	}
 
@@ -232,7 +237,6 @@ public class TileEntityTinyStorage extends TileEntity {
 	public boolean hasCustomTextureName() {
 		return textureName != null && textureName.length() > 0;
 	}
-	
 
 	/**
 	 * Returns the description packet used for the object; used for syncing data
