@@ -22,6 +22,7 @@ import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRenderer
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTrashChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererVacuumChest;
 import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererWoolChest;
+import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
@@ -190,8 +191,8 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void registerKeybindings() {
-
+	public void registerKeyBindings() {
+		ClientRegistry.registerKeyBinding(KeyBindings.changeMode);
 	}
 
 	@Override

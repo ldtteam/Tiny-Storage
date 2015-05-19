@@ -12,7 +12,7 @@ public class ServerProxy extends CommonProxy{
 	}
 
 	@Override
-	public void registerKeybindings() {		
+	public void registerKeyBindings() {		
 	}
 
 	@Override

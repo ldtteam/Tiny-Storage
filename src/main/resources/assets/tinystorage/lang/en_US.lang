@@ -274,3 +274,6 @@ general.sound.soundMode.comment='All' plays mod sounds from all players, 'Self' 
 
 general.blocks.peacefulChestMode.label=Peaceful Chest Mode
 general.blocks.peacefulChestMode.comment='False' will only allow mob drops to be generated in Peaceful Mode, 'True' will allow the block to function in any Game Mode
+
+key.tinystorage.categories=Tiny Storage
+key.tinystorage.mode=Change Wrench Mode
