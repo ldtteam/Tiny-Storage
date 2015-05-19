@@ -57,6 +57,8 @@ public class GuiFilterChest extends GuiTinyStorage {
 			Slot slot = i < 0 ? null : (Slot) this.inventorySlots.inventorySlots.get(i);
 			if(slot instanceof SlotRestrictedInput){
 				if(((SlotRestrictedInput)slot).containsInvalidStack()){
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glColor4d(184, 84, 84, 255);
 					drawTexturedModalRect(slot.xDisplayPosition, slot.yDisplayPosition, 176, 0, 16, 16);
 				}
 			}
