@@ -256,6 +256,8 @@ tooltip.tinystorage:chestFilterPrefix.small=Tier 1
 tooltip.tinystorage:chestFilterPrefix.medium=Tier 2
 tooltip.tinystorage:chestFilterPrefix.large=Tier 3
 
+tooltip.tinystorage:debugTool.modetipA=Press
+tooltip.tinystorage:debugTool.modetipB=to change the mode of operation (Shift cycles backwards)
 tooltip.tinystorage:debugTool.mode=Current Mode
 tooltip.tinystorage:debugTool.case0=Show area of effect
 tooltip.tinystorage:debugTool.case1=Rotate chests

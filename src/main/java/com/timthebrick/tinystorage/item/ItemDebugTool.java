@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,6 +16,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.init.ModBlocks;
@@ -68,6 +71,7 @@ public class ItemDebugTool extends Item implements IKeyBound {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
 		OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
+		list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipA") + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipB"));
 		list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
 	}
 
