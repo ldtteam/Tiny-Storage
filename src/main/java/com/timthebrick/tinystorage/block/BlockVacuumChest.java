@@ -33,9 +33,9 @@ import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestLarge;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestMedium;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChestSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestSmall;
 import com.timthebrick.tinystorage.util.InventoryHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 

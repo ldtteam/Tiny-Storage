@@ -21,6 +21,9 @@ import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityWoolChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityWoolChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityWoolChestSmall;
 
 public class TileEntityWoolChest extends TileEntityTinyStorage implements ISidedInventory {
 

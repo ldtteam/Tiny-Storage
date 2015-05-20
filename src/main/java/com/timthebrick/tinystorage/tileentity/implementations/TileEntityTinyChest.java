@@ -12,6 +12,9 @@ import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestSmall;
 import com.timthebrick.tinystorage.util.NBTHelper;
 
 import net.minecraft.entity.item.EntityItem;

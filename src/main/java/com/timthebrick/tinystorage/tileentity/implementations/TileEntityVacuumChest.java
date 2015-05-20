@@ -23,6 +23,9 @@ import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestSmall;
 import com.timthebrick.tinystorage.util.MathHelper;
 import com.timthebrick.tinystorage.util.Vector3;
 
