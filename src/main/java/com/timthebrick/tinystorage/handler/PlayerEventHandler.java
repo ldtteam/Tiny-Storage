@@ -1,24 +1,25 @@
 package com.timthebrick.tinystorage.handler;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.block.BlockPiggyBank;
-import com.timthebrick.tinystorage.block.BlockWoolChest;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.init.ModBlocks;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
-import com.timthebrick.tinystorage.util.PlayerHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.block.BlockWoolChest;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.item.ItemDebugTool;
+import com.timthebrick.tinystorage.item.ItemDebugTool.OperationMode;
+import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.Utils;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PlayerEventHandler {
 
@@ -32,7 +33,7 @@ public class PlayerEventHandler {
 			EntityPlayer player = event.entityPlayer;
 			if (!PlayerHelper.isPlayerFake(player)) {
 				if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-					if(TinyStorage.instance.developmentEnvironment){
+					if (TinyStorage.instance.developmentEnvironment) {
 						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Block");
 					}
 					Block block = world.getBlock(x, y, z);
@@ -52,9 +53,14 @@ public class PlayerEventHandler {
 						}
 						// Any more interactions go here
 					}
-				}
-				if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
-
+				} else if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+					if (TinyStorage.instance.developmentEnvironment) {
+						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Left Click Block");
+					}
+				} else if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
+					if (TinyStorage.instance.developmentEnvironment) {
+						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Air");
+					}
 				}
 			}
 		}

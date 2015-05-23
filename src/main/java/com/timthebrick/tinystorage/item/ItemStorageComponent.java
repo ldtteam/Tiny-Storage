@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
@@ -46,8 +47,9 @@ public class ItemStorageComponent extends Item {
 		if (world.isRemote) {
 			return false;
 		} else {
-			if (stack.getItemDamage() != 0)
+			if (stack.getItemDamage() != 0) {
 				return false;
+			}
 			TileEntity te = world.getTileEntity(x, y, z);
 			if (te != null && te instanceof TileEntityTinyChest) {
 				TileEntityTinyChest newChest;

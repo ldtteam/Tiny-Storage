@@ -43,13 +43,14 @@ public class TinyStorage {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		TinyStorageLog.info("Starting pre init");
 		developmentEnvironment = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
 		if (developmentEnvironment){
 			TinyStorageLog.info("Development Environment detected; some features may not work the same as in a normal game");
 		}
-		TinyStorageLog.info("Starting pre init");
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
 		PacketHandler.init();
+		proxy.registerKeyBindings();
 		ModBlocks.init();
 		ModItems.init();
 		if (developmentEnvironment) {

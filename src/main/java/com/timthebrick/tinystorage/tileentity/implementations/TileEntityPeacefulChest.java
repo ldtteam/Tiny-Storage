@@ -24,16 +24,18 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.IFluidHandler;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.init.ModItems;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerPeacefulChest;
+import com.timthebrick.tinystorage.item.ItemDebugTool;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.util.InventoryHelper;
 import com.timthebrick.tinystorage.util.ItemHelper;
 import com.timthebrick.tinystorage.util.Settings;
@@ -144,6 +146,73 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 			return null;
 		}
 		int newSize = newEntity.inventory.length;
+		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
+		newEntity.setOrientation(this.orientation);
+		newEntity.ticksSinceSync = -1;
+		if (this.hasUniqueOwner()) {
+			newEntity.setUniqueOwner(player);
+			newEntity.setOwner(player);
+		}
+		return newEntity;
+	}
+	
+	public TileEntityPeacefulChest applyDowngradeClick(World world, ItemDebugTool itemDebugTool, int upgradeTier, EntityPlayer player) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+			return null;
+		}
+		if (numPlayersUsing > 0) {
+			return null;
+		}
+		TileEntityPeacefulChest newEntity;
+		if (upgradeTier == 0) {
+			newEntity = new TileEntityPeacefulChestSmall();
+		} else if (upgradeTier == 1) {
+			newEntity = new TileEntityPeacefulChestMedium();
+		} else if (upgradeTier == 2) {
+			newEntity = new TileEntityPeacefulChestLarge();
+		} else {
+			return null;
+		}
+		int newSize = newEntity.inventory.length;
+		int lossSize = this.inventory.length - newSize;
+		ItemStack[] lossStacks = new ItemStack[lossSize];
+		for (int i = newSize; i < this.inventory.length; i++) {
+			lossStacks[i - newSize] = this.inventory[i];
+		}
+		Random rand = new Random();
+		for (ItemStack itemStack : lossStacks) {
+			if (itemStack != null && itemStack.stackSize > 0) {
+				float dX = rand.nextFloat() * 0.8F + 0.1F;
+				float dY = rand.nextFloat() * 0.8F + 0.1F;
+				float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+				EntityItem entityItem = new EntityItem(world, this.xCoord + dX, this.yCoord + dY, this.zCoord + dZ, itemStack.copy());
+
+				if (itemStack.hasTagCompound()) {
+					entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+				}
+
+				float factor = 0.05F;
+				entityItem.motionX = rand.nextGaussian() * factor;
+				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+				entityItem.motionZ = rand.nextGaussian() * factor;
+				world.spawnEntityInWorld(entityItem);
+				itemStack.stackSize = 0;
+			}
+		}
+
+		float dX = rand.nextFloat() * 0.8F + 0.1F;
+		float dY = rand.nextFloat() * 0.8F + 0.1F;
+		float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+		EntityItem storageComponent = new EntityItem(world, this.xCoord + dX, this.yCoord + dY, this.zCoord + dZ, new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
+
+		float factor = 0.05F;
+		storageComponent.motionX = rand.nextGaussian() * factor;
+		storageComponent.motionY = rand.nextGaussian() * factor + 0.2F;
+		storageComponent.motionZ = rand.nextGaussian() * factor;
+		world.spawnEntityInWorld(storageComponent);
+		
 		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
 		newEntity.setOrientation(this.orientation);
 		newEntity.ticksSinceSync = -1;
@@ -468,5 +537,4 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 		}
 		return true;
 	}
-
 }

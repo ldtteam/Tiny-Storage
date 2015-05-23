@@ -33,11 +33,11 @@ import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChestLarge;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChestMedium;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestSmall;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;

@@ -16,8 +16,10 @@ import org.lwjgl.opengl.GL12;
 import com.timthebrick.tinystorage.block.BlockVacuumChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.item.ItemDebugTool;
+import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
+import com.timthebrick.tinystorage.util.NBTHelper;
 
 public class TileEntityRendererVacuumChest extends TileEntitySpecialRenderer {
 
@@ -92,55 +94,58 @@ public class TileEntityRendererVacuumChest extends TileEntitySpecialRenderer {
 
 			if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
 				if (Minecraft.getMinecraft().thePlayer.getHeldItem().getItem() != null && Minecraft.getMinecraft().thePlayer.getHeldItem().getItem() instanceof ItemDebugTool) {
-					GL11.glPushMatrix();
-					GL11.glTranslatef((float) x, (float) y, (float) z);
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glScalef(0.5F, 0.5F, 0.5F);
-					GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-					for (int yArea = (int) tileEntityVacuumChest.minY; yArea <= tileEntityVacuumChest.maxY; yArea++) {
-						for (int xArea = (int) tileEntityVacuumChest.minX; xArea <= tileEntityVacuumChest.maxX; xArea++) {
-							for (int zArea = (int) tileEntityVacuumChest.minZ; zArea <= tileEntityVacuumChest.maxZ; zArea++) {
+					OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(Minecraft.getMinecraft().thePlayer.getHeldItem(), "operationMode")];
+					if (operationMode == OperationModeSettings.RENDER_AREA) {
+						GL11.glPushMatrix();
+						GL11.glTranslatef((float) x, (float) y, (float) z);
+						GL11.glEnable(GL11.GL_BLEND);
+						GL11.glScalef(0.5F, 0.5F, 0.5F);
+						GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+						for (int yArea = (int) tileEntityVacuumChest.minY; yArea <= tileEntityVacuumChest.maxY; yArea++) {
+							for (int xArea = (int) tileEntityVacuumChest.minX; xArea <= tileEntityVacuumChest.maxX; xArea++) {
+								for (int zArea = (int) tileEntityVacuumChest.minZ; zArea <= tileEntityVacuumChest.maxZ; zArea++) {
 
-								Tessellator t = Tessellator.instance;
-								t.startDrawingQuads();
-								this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/debugBlock.png"));
-								t.setColorRGBA(255, 0, 255, 200);
+									Tessellator t = Tessellator.instance;
+									t.startDrawingQuads();
+									this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/debugBlock.png"));
+									t.setColorRGBA(255, 0, 255, 200);
 
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
 
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 0);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 1);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 0);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 1);
 
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 1);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 0);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 0);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 1);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 1);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 0);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 0);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 0, 1);
 
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 1);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 0);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 1);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 1, 0);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
 
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 1 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
 
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
-								t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
-								t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 1);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 1 + zArea + (zArea * 1F), 1, 0);
+									t.addVertexWithUV(0 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 0);
+									t.addVertexWithUV(1 + xArea + (xArea * 1F), 0 + yArea + (yArea * 1F), 0 + zArea + (zArea * 1F), 0, 1);
 
-								t.draw();
+									t.draw();
+								}
 							}
 						}
+						GL11.glPopMatrix();
 					}
-					GL11.glPopMatrix();
 				}
 			}
 

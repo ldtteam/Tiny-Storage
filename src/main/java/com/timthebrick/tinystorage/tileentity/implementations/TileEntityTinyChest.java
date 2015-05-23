@@ -1,13 +1,23 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import java.util.Random;
+
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.init.ModBlocks;
+import com.timthebrick.tinystorage.init.ModItems;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
+import com.timthebrick.tinystorage.item.ItemDebugTool;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
+import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestSmall;
+import com.timthebrick.tinystorage.util.NBTHelper;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -19,6 +29,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityTinyChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -100,29 +111,96 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 			return Names.Containers.TINY_CHEST;
 		}
 	}
-	
-	public TileEntityTinyChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player){
-		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())){
+
+	public TileEntityTinyChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 			return null;
 		}
-		if(numPlayersUsing > 0){
+		if (numPlayersUsing > 0) {
 			return null;
 		}
 		TileEntityTinyChest newEntity;
-		if(upgradeTier == 0){
+		if (upgradeTier == 0) {
 			newEntity = new TileEntityTinyChestSmall();
-		}else if(upgradeTier == 1){
+		} else if (upgradeTier == 1) {
 			newEntity = new TileEntityTinyChestMedium();
-		}else if(upgradeTier == 2){
+		} else if (upgradeTier == 2) {
 			newEntity = new TileEntityTinyChestLarge();
-		}else{
+		} else {
 			return null;
 		}
 		int newSize = newEntity.inventory.length;
 		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
 		newEntity.setOrientation(this.orientation);
 		newEntity.ticksSinceSync = -1;
-		if(this.hasUniqueOwner()){
+		if (this.hasUniqueOwner()) {
+			newEntity.setUniqueOwner(player);
+			newEntity.setOwner(player);
+		}
+		return newEntity;
+	}
+
+	public TileEntityTinyChest applyDowngradeClick(World world, ItemDebugTool debugTool, int upgradeTier, EntityPlayer player) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+			return null;
+		}
+		if (numPlayersUsing > 0) {
+			return null;
+		}
+		TileEntityTinyChest newEntity;
+		if (upgradeTier == 0) {
+			newEntity = new TileEntityTinyChestSmall();
+		} else if (upgradeTier == 1) {
+			newEntity = new TileEntityTinyChestMedium();
+		} else if (upgradeTier == 2) {
+			newEntity = new TileEntityTinyChestLarge();
+		} else {
+			return null;
+		}
+		int newSize = newEntity.inventory.length;
+		int lossSize = this.inventory.length - newSize;
+		ItemStack[] lossStacks = new ItemStack[lossSize];
+		for (int i = newSize; i < this.inventory.length; i++) {
+			lossStacks[i - newSize] = this.inventory[i];
+		}
+		Random rand = new Random();
+		for (ItemStack itemStack : lossStacks) {
+			if (itemStack != null && itemStack.stackSize > 0) {
+				float dX = rand.nextFloat() * 0.8F + 0.1F;
+				float dY = rand.nextFloat() * 0.8F + 0.1F;
+				float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+				EntityItem entityItem = new EntityItem(world, this.xCoord + dX, this.yCoord + dY, this.zCoord + dZ, itemStack.copy());
+
+				if (itemStack.hasTagCompound()) {
+					entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+				}
+
+				float factor = 0.05F;
+				entityItem.motionX = rand.nextGaussian() * factor;
+				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+				entityItem.motionZ = rand.nextGaussian() * factor;
+				world.spawnEntityInWorld(entityItem);
+				itemStack.stackSize = 0;
+			}
+		}
+
+		float dX = rand.nextFloat() * 0.8F + 0.1F;
+		float dY = rand.nextFloat() * 0.8F + 0.1F;
+		float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+		EntityItem storageComponent = new EntityItem(world, this.xCoord + dX, this.yCoord + dY, this.zCoord + dZ, new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
+
+		float factor = 0.05F;
+		storageComponent.motionX = rand.nextGaussian() * factor;
+		storageComponent.motionY = rand.nextGaussian() * factor + 0.2F;
+		storageComponent.motionZ = rand.nextGaussian() * factor;
+		world.spawnEntityInWorld(storageComponent);
+		
+		System.arraycopy(inventory, 0, newEntity.inventory, 0, Math.min(newSize, inventory.length));
+		newEntity.setOrientation(this.orientation);
+		newEntity.ticksSinceSync = -1;
+		if (this.hasUniqueOwner()) {
 			newEntity.setUniqueOwner(player);
 			newEntity.setOwner(player);
 		}
@@ -244,7 +322,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 		tagCompound.setTag("Inventory", itemList);
 		writeSyncedNBT(tagCompound);
 	}
-	
+
 	@Override
 	public void readSyncedNBT(NBTTagCompound tag) {
 		super.readSyncedNBT(tag);
