@@ -7,6 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.core.VersionChecker;
 import com.timthebrick.tinystorage.reference.Messages;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.util.ConfigurationHelper;
@@ -47,11 +48,15 @@ public class ConfigurationHandler {
 	}
 
 	private static void loadConfig() {
-
 		Settings.Sounds.soundMode = ConfigurationHelper.getString(config, Messages.Config.SOUND_MODE, Configuration.CATEGORY_GENERAL, "All", StatCollector.translateToLocal(Messages.Config.SOUND_MODE_COMMENT), new String[] { "All", "Self", "None" },
 				Messages.Config.SOUND_MODE_LABEL);
 		Settings.Blocks.peacefulChestMode = config.getBoolean(Messages.Config.PEACEFUL_CHEST_MODE, Configuration.CATEGORY_GENERAL, false, StatCollector.translateToLocal(Messages.Config.PEACEFUL_CHEST_COMMENT), Messages.Config.PEACEFUL_CHEST_LABEL);
-
+		Settings.Misc.versionCheck = config.getBoolean(Messages.Config.VERSION_CHECK_MODE, Configuration.CATEGORY_GENERAL, true, StatCollector.translateToLocal(Messages.Config.VERSION_CHECK_COMMENT), Messages.Config.VERSION_CHECK_LABEL);
+		
+		if(Settings.Misc.versionCheck){
+			VersionChecker.check();
+		}
+		
 		if (config.hasChanged()) {
 			config.save();
 		}

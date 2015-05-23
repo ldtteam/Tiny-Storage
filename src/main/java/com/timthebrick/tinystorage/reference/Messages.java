@@ -10,6 +10,11 @@ public class Messages {
 		public static final String PEACEFUL_CHEST_MODE = "blocks.peacefulChestMode";
 		public static final String PEACEFUL_CHEST_LABEL = "general.blocks.peacefulChestMode.label";
 		public static final String PEACEFUL_CHEST_COMMENT = "general.blocks.peacefulChestMode.comment";
+		
+		public static final String VERSION_CHECK_MODE = "misc.versionCheckMode";
+		public static final String VERSION_CHECK_LABEL = "general.misc.versionCheckMode.label";
+		public static final String VERSION_CHECK_COMMENT = "general.misc.versionCheckMode.comment";
+		
 	}
 
 }
