@@ -21,11 +21,10 @@ public class VersionChecker implements Runnable {
 		CURRENT, OUTDATED, CONNECTION_ERROR
 	}
 
-	public static final String VERSION = "@VERSION@";
+	public static final String VERSION = "1.12.1-Dev1";
 	public static EnumUpdateState currentVersion = EnumUpdateState.CURRENT;
 
 	private static final String REMOTE_VERSION_FILE_RELEASE = "https://raw.githubusercontent.com/Tim020/Tiny-Storage/master/src/main/resources/versionsRelease";
-	private static final String REMOTE_VERSION_FILE_DEV = "https://raw.githubusercontent.com/Tim020/Tiny-Storage/Dev/src/main/resources/versionsDev";
 	private static String remoteLocation = REMOTE_VERSION_FILE_RELEASE;
 
 	private static String recommendedVersion;
@@ -70,11 +69,13 @@ public class VersionChecker implements Runnable {
 			if ("0.0.0".equals(VERSION)) {
 				return;
 			}
-
-			if (VERSION.contains("-Dev")) {
-				remoteLocation = REMOTE_VERSION_FILE_DEV;
+			
+			String version = VERSION;
+			
+			if(VERSION.contains("-Dev")){
+				String verTokens[] = VERSION.split("-");
+				version = verTokens[0];
 			}
-
 			String location = remoteLocation;
 			HttpURLConnection conn = null;
 			while (location != null && !location.isEmpty()) {
@@ -103,7 +104,7 @@ public class VersionChecker implements Runnable {
 				if (mcVersion.matches(tokens[0])) {
 					if (References.MOD_ID.matches(tokens[1])) {
 						recommendedVersion = tokens[2];
-						if (VERSION.matches(tokens[2])) {
+						if (version.matches(tokens[2]) && (!VERSION.contains("-Dev"))) {
 							TinyStorageLog.trace("Using the latest version [" + getVersion() + "] for Minecraft " + mcVersion);
 							currentVersion = EnumUpdateState.CURRENT;
 							return;
