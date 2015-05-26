@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.init;
 import net.minecraft.tileentity.TileEntity;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
@@ -12,6 +13,9 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChes
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestSmall;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestSmall;
@@ -71,6 +75,11 @@ public class TileEntities {
 		registerTileEntityWithAlternatives(TileEntityVacuumChestSmall.class, "blockVacuumChestSmall", "tileEntityVacuumChestSmall");
 		registerTileEntityWithAlternatives(TileEntityVacuumChestMedium.class, "blockVacuumChestMedium", "tileEntityVacuumChestMedium");
 		registerTileEntityWithAlternatives(TileEntityVacuumChestLarge.class, "blockVacuumChestLarge", "tileEntityVacuumChestLarge");
+		
+		registerTileEntityWithAlternatives(TileEntityClayChest.class, "blockClayChest", "tileEntityClayChest");
+		registerTileEntityWithAlternatives(TileEntityClayChestSmall.class, "blockClayChestSmall", "tileEntityClayChestSmall");
+		registerTileEntityWithAlternatives(TileEntityClayChestMedium.class, "blockClayChestMedium", "tileEntityClayChestMedium");
+		registerTileEntityWithAlternatives(TileEntityClayChestLarge.class, "blockClayChestLarge", "tileEntityClayChestLarge");
 	}
 	
 	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){

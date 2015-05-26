@@ -1,15 +1,16 @@
 package com.timthebrick.tinystorage.block;
 
-import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityWoolChestLarge;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestLarge;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockClayChestLarge extends BlockClayChest {
 

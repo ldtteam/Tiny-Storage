@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiClayChest;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiDraw;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiFilterChest;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiMicroChest;
@@ -11,6 +12,7 @@ import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiTinyC
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiTrashChest;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiVacuumChest;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiWoolChest;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerClayChest;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerDraw;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerFilterChest;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerMicroChest;
@@ -20,6 +22,7 @@ import com.timthebrick.tinystorage.inventory.implementations.ContainerTrashChest
 import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerWoolChest;
 import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
@@ -59,6 +62,9 @@ public class GuiHandler implements IGuiHandler {
 		} else if (id == GUIs.VACUUM_CHEST.ordinal()) {
 			TileEntityVacuumChest tileEntityVacuumChest = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
 			return new ContainerVacuumChest(entityPlayer.inventory, tileEntityVacuumChest);
+		}else if (id == GUIs.CLAY_CHEST.ordinal()) {
+			TileEntityClayChest tileEntityClayChest = (TileEntityClayChest) world.getTileEntity(x, y, z);
+			return new ContainerClayChest(entityPlayer.inventory, tileEntityClayChest);
 		}
 		return null;
 	}
@@ -89,6 +95,9 @@ public class GuiHandler implements IGuiHandler {
 		} else if (id == GUIs.VACUUM_CHEST.ordinal()) {
 			TileEntityVacuumChest tileEntityVauumChest = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
 			return new GuiVacuumChest(entityPlayer.inventory, tileEntityVauumChest);
+		}else if (id == GUIs.CLAY_CHEST.ordinal()) {
+			TileEntityClayChest tileEntityClayChest = (TileEntityClayChest) world.getTileEntity(x, y, z);
+			return new GuiClayChest(entityPlayer.inventory, tileEntityClayChest);
 		}
 		return null;
 	}

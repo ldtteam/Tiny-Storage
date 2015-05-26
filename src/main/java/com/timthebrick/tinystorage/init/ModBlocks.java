@@ -7,6 +7,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
+import com.timthebrick.tinystorage.block.BlockClayChestLarge;
+import com.timthebrick.tinystorage.block.BlockClayChestMedium;
+import com.timthebrick.tinystorage.block.BlockClayChestSmall;
 import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockMicroChest;
 import com.timthebrick.tinystorage.block.BlockPeacefulChest;
@@ -18,6 +21,9 @@ import com.timthebrick.tinystorage.block.BlockWoolChestLarge;
 import com.timthebrick.tinystorage.block.BlockWoolChestMedium;
 import com.timthebrick.tinystorage.block.BlockWoolChestSmall;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.item.block.ItemBlockClayChestLarge;
+import com.timthebrick.tinystorage.item.block.ItemBlockClayChestMedium;
+import com.timthebrick.tinystorage.item.block.ItemBlockClayChestSmall;
 import com.timthebrick.tinystorage.item.block.ItemBlockFilterChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockMicroChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockPeacefulChest;
@@ -94,6 +100,14 @@ public class ModBlocks {
 	public static Block blockWoolChestMediumLocked = new BlockWoolChestMedium(true);
 	public static Block blockWoolChestLarge = new BlockWoolChestLarge(false);
 	public static Block blockWoolChestLargeLocked = new BlockWoolChestLarge(true);
+
+	// Clay Chests
+	public static Block blockClayChestSmall = new BlockClayChestSmall(false);
+	public static Block blockClayChestSmallLocked = new BlockClayChestSmall(true);
+	public static Block blockClayChestMedium = new BlockClayChestMedium(false);
+	public static Block blockClayChestMediumLocked = new BlockClayChestMedium(true);
+	public static Block blockClayChestLarge = new BlockClayChestLarge(false);
+	public static Block blockClayChestLargeLocked = new BlockClayChestLarge(true);
 
 	// Vacuum Chests
 	public static Block blockVacuumChestStone = new BlockVacuumChest(Material.rock, "Stone", false);
@@ -210,7 +224,15 @@ public class ModBlocks {
 		registerBlock(blockWoolChestMediumLocked, ItemBlockWoolChestMedium.class, Names.Blocks.WOOL_CHEST_LOCKED + "Medium");
 		registerBlock(blockWoolChestLarge, ItemBlockWoolChestLarge.class, Names.Blocks.WOOL_CHEST + "Large");
 		registerBlock(blockWoolChestLargeLocked, ItemBlockWoolChestLarge.class, Names.Blocks.WOOL_CHEST_LOCKED + "Large");
-		
+
+		// Clay Chests
+		registerBlock(blockClayChestSmall, ItemBlockClayChestSmall.class, Names.Blocks.CLAY_CHEST + "Small");
+		registerBlock(blockClayChestSmallLocked, ItemBlockClayChestSmall.class, Names.Blocks.CLAY_CHEST_LOCKED + "Small");
+		registerBlock(blockClayChestMedium, ItemBlockClayChestMedium.class, Names.Blocks.CLAY_CHEST + "Medium");
+		registerBlock(blockClayChestMediumLocked, ItemBlockClayChestMedium.class, Names.Blocks.CLAY_CHEST_LOCKED + "Medium");
+		registerBlock(blockClayChestLarge, ItemBlockClayChestLarge.class, Names.Blocks.CLAY_CHEST + "Large");
+		registerBlock(blockClayChestLargeLocked, ItemBlockClayChestLarge.class, Names.Blocks.CLAY_CHEST_LOCKED + "Large");
+
 		// Vacuum Chests
 		registerBlock(blockVacuumChestStone, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "Stone");
 		registerBlock(blockVacuumChestOakLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "OakLog");
@@ -223,7 +245,7 @@ public class ModBlocks {
 		registerBlock(blockVacuumChestBirchPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "BirchPlank");
 		registerBlock(blockVacuumChestJunglePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "JunglePlank");
 		registerBlock(blockVacuumChestSprucePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "SprucePlank");
-		
+
 		registerBlock(blockVacuumChestStoneLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "Stone");
 		registerBlock(blockVacuumChestOakLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "OakLog");
 		registerBlock(blockVacuumChestAcaciaLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "AcaciaLog");

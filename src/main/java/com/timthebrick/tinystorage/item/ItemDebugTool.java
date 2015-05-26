@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,6 +14,8 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import org.lwjgl.input.Keyboard;
+
 import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
@@ -23,10 +23,10 @@ import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.Key;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 import com.timthebrick.tinystorage.util.IKeyBound;
@@ -187,7 +187,51 @@ public class ItemDebugTool extends Item implements IKeyBound {
 								return true;
 							}
 						}
-					} else if (tileEntity != null && tileEntity instanceof TileEntityVacuumChest) {
+					} else if (tileEntity != null && tileEntity instanceof TileEntityClayChest) {
+						TileEntityClayChest newChest;
+						TileEntityClayChest clayChest = (TileEntityClayChest) tileEntity;
+						int metaData = world.getBlockMetadata(x, y, z);
+						if (clayChest.getState() - 1 < 0) {
+							return true;
+						}
+						newChest = clayChest.applyDowngradeClick(world, this, clayChest.getState() - 1, player);
+						if (newChest == null) {
+							return true;
+						}
+						if (newChest.getUniqueOwner() == "") {
+							if (newChest.getState() == 0) {
+								world.setBlock(x, y, z, ModBlocks.blockClayChestSmall, metaData, 3);
+								world.setTileEntity(x, y, z, newChest);
+								return true;
+							} else if (newChest.getState() == 1) {
+								world.setBlock(x, y, z, ModBlocks.blockClayChestMedium, metaData, 3);
+								world.setTileEntity(x, y, z, newChest);
+								return true;
+							} else if (newChest.getState() == 2) {
+								world.setBlock(x, y, z, ModBlocks.blockClayChestLarge, metaData, 3);
+								world.setTileEntity(x, y, z, newChest);
+								return true;
+							} else {
+								return true;
+							}
+						} else {
+							if (newChest.getState() == 0) {
+								world.setBlock(x, y, z, ModBlocks.blockClayChestSmallLocked, metaData, 3);
+								world.setTileEntity(x, y, z, newChest);
+								return true;
+							} else if (newChest.getState() == 1) {
+								world.setBlock(x, y, z, ModBlocks.blockClayChestMediumLocked, metaData, 3);
+								world.setTileEntity(x, y, z, newChest);
+								return true;
+							} else if (newChest.getState() == 2) {
+								world.setBlock(x, y, z, ModBlocks.blockClayChestLargeLocked, metaData, 3);
+								world.setTileEntity(x, y, z, newChest);
+								return true;
+							} else {
+								return true;
+							}
+						}
+					}else if (tileEntity != null && tileEntity instanceof TileEntityVacuumChest) {
 						TileEntityVacuumChest newChest;
 						TileEntityVacuumChest tinyChest = (TileEntityVacuumChest) tileEntity;
 						if (tinyChest.getState() - 1 < 0) {
