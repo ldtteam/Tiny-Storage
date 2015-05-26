@@ -75,7 +75,7 @@ public class PlayerEventHandler {
 			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:update"));
 			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:new_version", VersionChecker.getRecommendedVersion(), TinyStorage.proxy.getMinecraftVersion()));
 			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:download"));
-			PlayerHelper.sendChatMessage(player, "");
+			PlayerHelper.sendChatMessage(player, "/n");
 		}
 		nagged = true;
 	}

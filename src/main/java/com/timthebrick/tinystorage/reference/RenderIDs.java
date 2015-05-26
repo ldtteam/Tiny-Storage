@@ -12,4 +12,7 @@ public class RenderIDs {
 	public static int piggyBank;
 	public static int peacefulChest;
 	public static int vacuumChest;
+	public static int clayChestSmall;
+	public static int clayChestMedium;
+	public static int clayChestLarge;
 }

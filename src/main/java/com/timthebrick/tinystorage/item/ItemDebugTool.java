@@ -87,9 +87,6 @@ public class ItemDebugTool extends Item implements IKeyBound {
 
 	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			System.out.println("onItemUseFirst");
-		}
 		if (!world.isRemote && player.isSneaking()) {
 			if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
 				TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);

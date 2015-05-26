@@ -3,18 +3,6 @@ package com.timthebrick.tinystorage.block;
 import java.util.List;
 import java.util.Random;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
-import com.timthebrick.tinystorage.util.PlayerHelper;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -26,27 +14,35 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public abstract class BlockWoolChest extends BlockContainer implements ITileEntityProvider {
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
+import com.timthebrick.tinystorage.util.PlayerHelper;
+
+public abstract class BlockClayChest extends BlockContainer implements ITileEntityProvider {
 
 	protected boolean isLockable;
 	protected static final String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 
-	protected BlockWoolChest(Material material, boolean isLockable) {
-		super(material);
+	public BlockClayChest(Material mat, boolean isLocked) {
+		super(mat);
 		this.setHardness(2.5f);
-		this.isLockable = isLockable;
+		this.isLockable = isLocked;
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
-
+	
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -62,17 +58,17 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 		if (world.isRemote || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) || (player.isSneaking() && player.getHeldItem() != null)) {
 			return true;
 		} else {
-			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoolChest) {
-				TileEntityWoolChest tileEntity = (TileEntityWoolChest) world.getTileEntity(x, y, z);
+			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityClayChest) {
+				TileEntityClayChest tileEntity = (TileEntityClayChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {
 					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 						TinyStorageLog.info(tileEntity.getUniqueOwner());
-						player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
+						player.openGui(TinyStorage.instance, GUIs.CLAY_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
 					}
 				} else {
-					player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
+					player.openGui(TinyStorage.instance, GUIs.CLAY_CHEST.ordinal(), world, x, y, z);
 				}
 			}
 			return true;
@@ -88,8 +84,8 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
-		if (world.getTileEntity(x, y, z) instanceof TileEntityWoolChest) {
-			TileEntityWoolChest tileEntity = (TileEntityWoolChest) world.getTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityClayChest) {
+			TileEntityClayChest tileEntity = (TileEntityClayChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
 				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
@@ -217,7 +213,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockWoolChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockClayChest");
 	}
 
 	@Override
