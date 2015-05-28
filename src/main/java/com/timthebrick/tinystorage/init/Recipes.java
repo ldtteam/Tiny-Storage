@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.init;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -34,132 +35,18 @@ public class Recipes {
 		// Chest Wrench
 		registerShapedRecipe(new ItemStack(ModItems.itemDebugTool, 1), "I I", " C ", " I ", 'I', new ItemStack(Items.iron_ingot, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 
-		// Tiny Chests - Logs
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 0));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 1));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 3));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log2, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log2, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log2, 1, 0));
-
-		// Tiny Chests - Planks
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 0));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 1));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 3));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 4));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 4));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 5));
-
-		// Tiny Chests - Others
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStone, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.stone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStone, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.stone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStone, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.stone, 1, 0));
-
-		// Tiny Chests Locked - Logs
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestOakLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSpruceLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestSpruceLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestBirchLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJungleLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestJungleLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log2, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log2, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log2, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestAcaciaLog, 1, 2));
-
-		// Tiny Chests Locked - Planks
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestOakPlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestOakPlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestSprucePlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestSprucePlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 2));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestBirchPlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestBirchPlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 3));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestJunglePlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestJunglePlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 5));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestAcaciaPlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestAcaciaPlank, 1, 2));
-
-		// Tiny Chests Locked - Others
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestStone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestStone, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockTinyChestStone, 1, 2));
+		// Tiny Chests
+		registerLockableChestRecipes(ModBlocks.blockTinyChestOakLog, ModBlocks.blockTinyChestOakLogLocked, Blocks.log, 0);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestSpruceLog, ModBlocks.blockTinyChestSpruceLogLocked, Blocks.log, 1);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestBirchLog, ModBlocks.blockTinyChestBirchLogLocked, Blocks.log, 1);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestJungleLog, ModBlocks.blockTinyChestJungleLogLocked, Blocks.log, 2);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestAcaciaLog, ModBlocks.blockTinyChestAcaciaLogLocked, Blocks.log2, 0);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestOakPlank, ModBlocks.blockTinyChestOakPlankLocked, Blocks.planks, 0);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestSprucePlank, ModBlocks.blockTinyChestSprucePlankLocked, Blocks.planks, 1);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestBirchPlank, ModBlocks.blockTinyChestBirchPlankLocked, Blocks.planks, 2);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestJunglePlank, ModBlocks.blockTinyChestJunglePlankLocked, Blocks.planks, 3);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestAcaciaPlank, ModBlocks.blockTinyChestAcaciaPlankLocked, Blocks.planks, 4);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestStone, ModBlocks.blockTinyChestStoneLocked, Blocks.stone);
 
 		// Filter Chests - Logs
 		registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestOakLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.log, 1, 0));
@@ -392,133 +279,51 @@ public class Recipes {
 		registerShapedRecipe(new ItemStack(ModBlocks.blockPeacefulChest, 1, 1), "OSO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1), 'S', new ItemStack(Items.wooden_sword));
 		registerShapedRecipe(new ItemStack(ModBlocks.blockPeacefulChest, 1, 2), "OSO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 2), 'S', new ItemStack(Items.wooden_sword));
 
-		// Vacuum Chests - Logs
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.ender_pearl, 1));
+		// Vacuum Chests
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestOakLog, ModBlocks.blockVacuumChestOakLogLocked, Blocks.log, 0);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestSpruceLog, ModBlocks.blockVacuumChestSpruceLogLocked, Blocks.log, 1);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestBirchLog, ModBlocks.blockVacuumChestBirchLogLocked, Blocks.log, 1);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestJungleLog, ModBlocks.blockVacuumChestJungleLogLocked, Blocks.log, 2);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestAcaciaLog, ModBlocks.blockVacuumChestAcaciaLogLocked, Blocks.log2, 0);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestOakPlank, ModBlocks.blockVacuumChestOakPlankLocked, Blocks.planks, 0);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestSprucePlank, ModBlocks.blockVacuumChestSprucePlankLocked, Blocks.planks, 1);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestBirchPlank, ModBlocks.blockVacuumChestBirchPlankLocked, Blocks.planks, 2);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestJunglePlank, ModBlocks.blockVacuumChestJunglePlankLocked, Blocks.planks, 3);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestAcaciaPlank, ModBlocks.blockVacuumChestAcaciaPlankLocked, Blocks.planks, 4);
+		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestStone, ModBlocks.blockVacuumChestStoneLocked, Blocks.stone);
 
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.ender_pearl, 1));
+	}
 
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.ender_pearl, 1));
+	private static void registerLockableChestRecipes(Block normalOutput, Block lockedOutput, Block material) {
+		registerLockableChestRecipes(normalOutput, lockedOutput, material, 0);
+	}
 
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.ender_pearl, 1));
+	private static void registerLockableChestRecipes(Block normalOutput, Block lockedOutput, Block material, int matMeta) {
+		registerShapelessRecipe(new ItemStack(normalOutput, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(material, 1, matMeta));
+		registerShapelessRecipe(new ItemStack(normalOutput, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(material, 1, matMeta));
+		registerShapelessRecipe(new ItemStack(normalOutput, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(material, 1, matMeta));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(normalOutput, 1, 0));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(normalOutput, 1, 1));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(normalOutput, 1, 2));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(material, 1, matMeta));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(material, 1, matMeta));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(material, 1, matMeta));
+	}
 
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLog, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLog, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.ender_pearl, 1));
+	private static void registerLockableVacuumChestRecipes(Block normalOutput, Block lockedOutput, Block material) {
+		registerLockableChestRecipes(normalOutput, lockedOutput, material, 0);
+	}
 
-		// Vacuum Chests - Planks
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 0), new ItemStack(Items.ender_pearl, 1));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 1), new ItemStack(Items.ender_pearl, 1));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 2), new ItemStack(Items.ender_pearl, 1));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 3), new ItemStack(Items.ender_pearl, 1));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlank, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.planks, 1, 4), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlank, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.planks, 1, 4), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlank, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.planks, 1, 5), new ItemStack(Items.ender_pearl, 1));
-
-		// Vacuum Chests - Others
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStone, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(Blocks.stone, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStone, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(Blocks.stone, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStone, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(Blocks.stone, 1, 0), new ItemStack(Items.ender_pearl, 1));
-
-		// Vacuum Chests Locked - Logs
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestOakLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestOakLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestOakLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestSpruceLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestSpruceLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSpruceLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestSpruceLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestBirchLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestBirchLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestBirchLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestJungleLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestJungleLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJungleLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestJungleLog, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLogLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLogLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLogLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestAcaciaLog, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLogLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestAcaciaLog, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaLogLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestAcaciaLog, 1, 2));
-
-		// Vacuum Chests Locked - Planks
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestOakPlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestOakPlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestOakPlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestOakPlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 1), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestSprucePlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestSprucePlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestSprucePlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestSprucePlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 2), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestBirchPlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestBirchPlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestBirchPlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestBirchPlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 3), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestJunglePlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestJunglePlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestJunglePlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestJunglePlank, 1, 2));
-
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlankLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlankLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 4), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlankLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.planks, 1, 5), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlankLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestAcaciaPlank, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlankLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestAcaciaPlank, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestAcaciaPlankLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestAcaciaPlank, 1, 2));
-
-		// Vacuum Chests Locked - Others
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStoneLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStoneLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStoneLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1, 0), new ItemStack(Items.ender_pearl, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStoneLocked, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestStone, 1, 0));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStoneLocked, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestStone, 1, 1));
-		registerShapelessRecipe(new ItemStack(ModBlocks.blockVacuumChestStoneLocked, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(ModBlocks.blockVacuumChestStone, 1, 2));
-
+	private static void registerLockableVacuumChestRecipes(Block normalOutput, Block lockedOutput, Block material, int matMeta) {
+		registerShapelessRecipe(new ItemStack(normalOutput, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(material, 1, matMeta), new ItemStack(Items.ender_pearl, 1));
+		registerShapelessRecipe(new ItemStack(normalOutput, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(material, 1, matMeta), new ItemStack(Items.ender_pearl, 1));
+		registerShapelessRecipe(new ItemStack(normalOutput, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(material, 1, matMeta), new ItemStack(Items.ender_pearl, 1));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(normalOutput, 1, 0));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(normalOutput, 1, 1));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(normalOutput, 1, 2));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(material, 1, matMeta), new ItemStack(Items.ender_pearl, 1));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(material, 1, matMeta), new ItemStack(Items.ender_pearl, 1));
+		registerShapelessRecipe(new ItemStack(lockedOutput, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(material, 1, matMeta), new ItemStack(Items.ender_pearl, 1));
 	}
 
 	private static void registerShapelessRecipe(ItemStack output, Object... params) {
