@@ -11,4 +11,6 @@ public interface IProxy {
 	public abstract void registerKeyBindings();
 
 	public abstract void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch);
+
+	public abstract String getMinecraftVersion();
 }

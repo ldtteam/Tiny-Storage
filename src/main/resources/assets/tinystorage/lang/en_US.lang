@@ -279,3 +279,7 @@ general.blocks.peacefulChestMode.comment='False' will only allow mob drops to be
 
 key.tinystorage.categories=Tiny Storage
 key.tinystorage.mode=Change Wrench Mode
+
+update.tinystorage:update=[TinyStorage] A new version is available:
+update.tinystorage:new_version=TinyStorage %s for Minecraft %s
+update.tinystorage:download=Download from tiny.cc/TinyStorage

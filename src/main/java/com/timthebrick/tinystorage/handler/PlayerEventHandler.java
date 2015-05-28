@@ -4,24 +4,23 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.item.ItemDebugTool;
-import com.timthebrick.tinystorage.item.ItemDebugTool.OperationMode;
-import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
+import com.timthebrick.tinystorage.core.VersionChecker;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.NBTHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
-import com.timthebrick.tinystorage.util.Utils;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class PlayerEventHandler {
+
+	private boolean nagged;
 
 	@SubscribeEvent
 	public void playerInteract(PlayerInteractEvent event) {
@@ -64,6 +63,21 @@ public class PlayerEventHandler {
 				}
 			}
 		}
+	}
+
+	@SubscribeEvent
+	public void playerLoggedIn(PlayerLoggedInEvent event) {
+		EntityPlayer player = event.player;
+		if (nagged) {
+			return;
+		}
+		if (VersionChecker.needsUpdateNoticeAndMarkAsSeen()) {
+			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:update"));
+			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:new_version", VersionChecker.getRecommendedVersion(), TinyStorage.proxy.getMinecraftVersion()));
+			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:download"));
+			PlayerHelper.sendChatMessage(player, "");
+		}
+		nagged = true;
 	}
 
 }
