@@ -148,8 +148,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		return true;
 	}
 
-	ArrayList<Block> currentLayer = new ArrayList<Block>();
-	ArrayList<Block> nextLayer = new ArrayList<Block>();
+	ArrayList<ItemStack> currentLayer = new ArrayList<ItemStack>();
+	ArrayList<ItemStack> nextLayer = new ArrayList<ItemStack>();
 
 	@Override
 	public void updateEntity() {
@@ -197,7 +197,6 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 			if (running) {
 				if (cooldown <= 0) {
 					if (!currentLayer.isEmpty()) {
-						
 						
 					} else {
 						currentLayer = nextLayer;
