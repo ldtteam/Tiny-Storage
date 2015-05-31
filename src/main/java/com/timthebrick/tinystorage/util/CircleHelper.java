@@ -56,7 +56,7 @@ public class CircleHelper {
 		}
 	}
 	
-	public static void getCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius, ArrayList<Block> blocks) {
+	private static void getCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius, ArrayList<Block> blocks) {
 		int currentX = pRadius;
 		int currentZ = 0;
 		int decisionOver2 = 1 - currentX;
