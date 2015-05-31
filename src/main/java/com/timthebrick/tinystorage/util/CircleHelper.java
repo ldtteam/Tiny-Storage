@@ -25,7 +25,9 @@ public class CircleHelper {
 
 	public static EntryMap<String, ArrayList<ItemStack>> genCircle(int originX, int originY, int originZ, World world, int radius) {
 		EntryMap<String, ArrayList<ItemStack>> drops = new EntryMap<String, ArrayList<ItemStack>>();
-		drops.put(originX + ";" + originY + ";" + originZ, world.getBlock(originX, originY - 1, originZ).getDrops(world, originX, originY - 1, originZ, world.getBlockMetadata(originX, originY - 1, originZ), 0));
+		if(!world.isAirBlock(originX, originY, originZ)) {
+			drops.put(originX + ";" + originY + ";" + originZ, world.getBlock(originX, originY - 1, originZ).getDrops(world, originX, originY - 1, originZ, world.getBlockMetadata(originX, originY - 1, originZ), 0));
+		}
 		for (int tStep = 1; tStep <= radius; tStep++) {
 			getCircleIncNeigborCheck(originX, originY, originZ, world, tStep, drops);
 		}
@@ -84,7 +86,7 @@ public class CircleHelper {
 	}
 
 	private static void getBlockIncNeighborCheck(int originX, int originY, int originZ, int relativeX, int relativeY, int relativeZ, World world, HashMap<String, ArrayList<ItemStack>> drops) {
-		if (!drops.containsKey(originX + ";" + originY + ";" + originZ)) {
+		if (!drops.containsKey(originX + ";" + originY + ";" + originZ) && !world.isAirBlock(originX, originY, originZ)) {
 			drops.put(originX + ";" + originY + ";" + originZ, world.getBlock(originX, originY, originZ).getDrops(world, originX, originY, originZ, world.getBlockMetadata(originX, originY, originZ), 0));
 		}
 
@@ -109,16 +111,16 @@ public class CircleHelper {
 
 		//TinyStorageLog.info(relativeX + "-" + relativeY + "-" + relativeZ + "/" + tRelativeX + "-" + tRelativeZ);
 
-		if (!drops.containsKey((originX + tRelativeX) + ";" +  originY + ";" + (originZ + tRelativeZ))) {
+		if (!drops.containsKey((originX + tRelativeX) + ";" +  originY + ";" + (originZ + tRelativeZ)) && !world.isAirBlock(originX + tRelativeX, originY, originZ + tRelativeZ)) {
 			drops.put((originX + tRelativeX) + ";" +  originY + ";" + (originZ + tRelativeZ),
 					world.getBlock(originX + tRelativeX, originY, originZ + tRelativeZ).getDrops(world, originX + tRelativeX, originY, originZ + tRelativeZ, world.getBlockMetadata(originX + tRelativeX, originY, originZ + tRelativeZ), 0));
 		}
 
-		if (!drops.containsKey((originX + tRelativeX) + ";" +  originY + ";" + originZ)) {
+		if (!drops.containsKey((originX + tRelativeX) + ";" +  originY + ";" + originZ) && !world.isAirBlock(originX + tRelativeX, originY, originZ)) {
 			drops.put((originX + tRelativeX) + ";" +  originY + ";" + originZ, world.getBlock(originX + tRelativeX, originY, originZ).getDrops(world, originX + tRelativeX, originY, originZ, world.getBlockMetadata(originX + tRelativeX, originY, originZ), 0));
 		}
 
-		if (!drops.containsKey(originX + ";" +  originY + ";" + (originZ + tRelativeZ))) {
+		if (!drops.containsKey(originX + ";" +  originY + ";" + (originZ + tRelativeZ)) && !world.isAirBlock(originX, originY, originZ + tRelativeZ)) {
 			drops.put(originX + ";" +  originY + ";" + (originZ + tRelativeZ), world.getBlock(originX, originY, originZ + tRelativeZ).getDrops(world, originX, originY, originZ + tRelativeZ, world.getBlockMetadata(originX, originY, originZ + tRelativeZ), 0));
 		}
 	}
