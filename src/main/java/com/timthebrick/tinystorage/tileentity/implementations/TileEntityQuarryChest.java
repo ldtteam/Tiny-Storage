@@ -55,6 +55,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 			opDepth = 20;
 		}
 		random = new Random();
+
+		opRadius = 100;
 	}
 
 	@Override
@@ -203,7 +205,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 								TinyStorageLog.info(location[0] + "-" + location[1] + "-" + location[2]);
 
 								currentLayer.remove(locationEncoded);
-								//cooldown = 5;
+								cooldown = 20;
 							} else {
 								currentY -= 1;
 								currentLayer = (EntryMap<String, ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord,yCoord +  currentY, zCoord, worldObj, opRadius);
