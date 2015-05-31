@@ -191,8 +191,9 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 			if (running) {
 				if (currentY <= opDepth) {
 					if (cooldown <= 0) {
-						if (currentLayer == null) {
+						if (currentLayer != null) {
 							if (!currentLayer.isEmpty()) {
+								System.out.println("Blah");
 								Map.Entry<int[], ArrayList<ItemStack>> blockDrops = currentLayer.getEntry(0);
 								int[] location = blockDrops.getKey();
 								ArrayList<ItemStack> drops = blockDrops.getValue();

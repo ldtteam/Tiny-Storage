@@ -84,7 +84,6 @@ public class CircleHelper {
 	}
 
 	private static void getBlockIncNeighborCheck(int originX, int originY, int originZ, int relativeX, int relativeY, int relativeZ, World world, HashMap<int[], ArrayList<ItemStack>> drops) {
-		world.setBlockToAir(originX, originY, originZ);
 		drops.put(new int[] { originX, originY, originZ }, world.getBlock(originX, originY, originZ).getDrops(world, originX, originY, originZ, world.getBlockMetadata(originX, originY, originZ), 0));
 
 		int tRelativeX = 0;

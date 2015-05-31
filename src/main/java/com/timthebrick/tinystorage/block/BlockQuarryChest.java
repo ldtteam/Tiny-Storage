@@ -86,7 +86,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 			setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
 		}
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -172,9 +172,11 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 			}
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
-			
-			if(world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest){
-				((TileEntityQuarryChest) world.getTileEntity(x, y, z)).genFirstLayer();
+
+			if (!world.isRemote) {
+				if (world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
+					((TileEntityQuarryChest) world.getTileEntity(x, y, z)).genFirstLayer();
+				}
 			}
 		}
 	}
