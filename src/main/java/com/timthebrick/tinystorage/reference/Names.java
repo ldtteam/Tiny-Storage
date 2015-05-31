@@ -23,6 +23,7 @@ public class Names {
 		public static final String VACUUM_CHEST_LOCKED = "vacuumChestLocked";
 		public static final String CLAY_CHEST = "clayChest";
 		public static final String CLAY_CHEST_LOCKED = "clayChestLocked";
+		public static final String QUARRY_CHEST = "quarryChest";
 	}
 	
 	public static final class Items{
@@ -65,6 +66,7 @@ public class Names {
 		public static final String VACUUM_CHEST_LOCKED = "container.tinystorage:" + Blocks.VACUUM_CHEST_LOCKED;
 		public static final String CLAY_CHEST_LOCKED = "container.tinystorage:" + Blocks.CLAY_CHEST;
 		public static final String CLAY_CHEST = "container.tinystorage:" + Blocks.CLAY_CHEST_LOCKED;
+		public static final String QUARRY_CHEST = "container.tinystorage:" + Blocks.QUARRY_CHEST;
 	}
 	
 	public static final class ButtonTooltips{

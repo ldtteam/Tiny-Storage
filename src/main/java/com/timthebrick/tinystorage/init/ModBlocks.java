@@ -14,6 +14,7 @@ import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockMicroChest;
 import com.timthebrick.tinystorage.block.BlockPeacefulChest;
 import com.timthebrick.tinystorage.block.BlockPiggyBank;
+import com.timthebrick.tinystorage.block.BlockQuarryChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 import com.timthebrick.tinystorage.block.BlockTrashChest;
 import com.timthebrick.tinystorage.block.BlockVacuumChest;
@@ -28,6 +29,7 @@ import com.timthebrick.tinystorage.item.block.ItemBlockFilterChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockMicroChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockPeacefulChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockPiggyBank;
+import com.timthebrick.tinystorage.item.block.ItemBlockQuarryChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockTinyChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockTrashChest;
 import com.timthebrick.tinystorage.item.block.ItemBlockVacuumChest;
@@ -163,6 +165,7 @@ public class ModBlocks {
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
 	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
 	public static Block blockPeacefulChest = new BlockPeacefulChest(Material.rock);
+	public static Block blockQuarryChest = new BlockQuarryChest(Material.rock);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -287,6 +290,7 @@ public class ModBlocks {
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
 		registerBlock(blockPiggyBank, ItemBlockPiggyBank.class, Names.Blocks.PIGGY_BANK);
 		registerBlock(blockPeacefulChest, ItemBlockPeacefulChest.class, Names.Blocks.PEACEFUL_CHEST);
+		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
 	}
 
 	/**
