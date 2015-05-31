@@ -4,6 +4,14 @@ import net.minecraft.entity.Entity;
 
 public class MathHelper {
 
+	public static int CalcModuloIncSign(int pInput, int pModulo) {
+		int tResult = pInput % pModulo;
+		if (pInput < 0) {
+			tResult *= -1;
+		}
+		return tResult;
+	}
+
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
 		Vector3 entityVector = Vector3.fromEntityCenter(entity);
 		Vector3 finalVector = originalPosVector.copy().subtract(entityVector);

@@ -29,12 +29,9 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	private int[] sides;
 	private Random random;
 	private int cooldown;
-	private int opRadius;
-	private int currRadius;
-	private int currentX, currentY, currentZ;
-	private double decision;
 	private boolean running = true;
 	private int cycle;
+	private int opRadius;
 
 	public TileEntityQuarryChest(int metaData) {
 		super();
@@ -53,10 +50,6 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 			opRadius = 31;
 		}
 		random = new Random();
-		currentX = 0;
-		currentY = -1;
-		currentZ = 4;
-		decision = 1 - opRadius;
 	}
 
 	@Override
@@ -191,49 +184,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		if (!worldObj.isRemote) {
 			if (running) {
 				if (cooldown <= 0) {
-					//if (currRadius <= opRadius) {
-						if (currentX < currentZ) {
-							TinyStorageLog.info("Cycle: " + cycle + " | Current Radius: " + currRadius + " | Max radius: " + opRadius + " | " + currentX + " | " + currentY + " | " + currentZ + " | " + decision);
-							if (cycle == 0) {
-								this.worldObj.setBlockToAir(this.xCoord + currentX, this.yCoord + currentY, this.zCoord + currentZ);
-							} else if (cycle == 1) {
-								this.worldObj.setBlockToAir(this.xCoord - currentX, this.yCoord + currentY, this.zCoord + currentZ);
-							} else if (cycle == 2) {
-								this.worldObj.setBlockToAir(this.xCoord + currentX, this.yCoord + currentY, this.zCoord - currentZ);
-							} else if (cycle == 3) {
-								this.worldObj.setBlockToAir(this.xCoord - currentX, this.yCoord + currentY, this.zCoord - currentZ);
-							} else if (cycle == 4) {
-								this.worldObj.setBlockToAir(this.xCoord + currentZ, this.yCoord + currentY, this.zCoord + currentX);
-							} else if (cycle == 5) {
-								this.worldObj.setBlockToAir(this.xCoord - currentZ, this.yCoord + currentY, this.zCoord + currentX);
-							} else if (cycle == 6) {
-								this.worldObj.setBlockToAir(this.xCoord + currentZ, this.yCoord + currentY, this.zCoord - currentX);
-							} else if (cycle == 7) {
-								this.worldObj.setBlockToAir(this.xCoord - currentZ, this.yCoord + currentY, this.zCoord - currentX);
-							}
-							cycle += 1;
-							if (cycle > 7) {
-								cycle = 0;
-								running = true;
-								currentX++;
-								if (decision < 0) {
-									decision += 2 * currentX + 1;
-								} else {
-									currentZ--;
-									decision += 2 * (currentX - currentZ) + 1;
-								}
-							}
-							//cooldown = 30;
-						} else {
-							running = false;
-							//currRadius++;
-							//currentY--;
-							//currentX = 0;
-							//currentZ = currRadius;
-						}
-					//} else {
-					//	running = false;
-					//}
+					
 				} else {
 					cooldown--;
 				}
@@ -264,9 +215,6 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
-		currentX = tagCompound.getInteger("currentX");
-		currentZ = tagCompound.getInteger("currentZ");
-		decision = tagCompound.getDouble("decision");
 		cooldown = tagCompound.getInteger("cooldown");
 		running = tagCompound.getBoolean("runnning");
 		readSyncedNBT(tagCompound);
@@ -286,9 +234,6 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
-		tagCompound.setInteger("currentX", currentX);
-		tagCompound.setInteger("currentZ", currentZ);
-		tagCompound.setDouble("decision", decision);
 		tagCompound.setInteger("cooldown", cooldown);
 		tagCompound.setBoolean("running", running);
 		writeSyncedNBT(tagCompound);
