@@ -1,10 +1,8 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
+import com.timthebrick.tinystorage.util.EntryMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -145,8 +143,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		return true;
 	}
 
-	LinkedHashMap<int[], ArrayList<ItemStack>> currentLayer;
-	LinkedHashMap<int[], ArrayList<ItemStack>> nextLayer;
+	EntryMap<int[], ArrayList<ItemStack>> currentLayer;
+	EntryMap<int[], ArrayList<ItemStack>> nextLayer;
 
 	@Override
 	public void updateEntity() {
@@ -193,10 +191,23 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		if (!worldObj.isRemote) {
 			if (running) {
 				if (cooldown <= 0) {
-					if (!currentLayer.isEmpty()) {
-						
-					} else {
-						
+					if (currentLayer == null)
+					{
+						if (!currentLayer.isEmpty()) {
+							Map.Entry<int[], ArrayList<ItemStack>> blockDrops = currentLayer.getEntry(0);
+							int[] location = blockDrops.getKey();
+							ArrayList<ItemStack> drops = blockDrops.getValue();
+
+							//Insert stuffs for location and drops here
+
+							currentLayer.remove(location);
+						} else {
+							currentLayer = nextLayer;
+							nextLayer = null;
+						}
+					}
+					else {
+						// regen layer!
 					}
 				} else {
 					cooldown--;
@@ -208,8 +219,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	}
 
 	public void genFirstLayer() {
-		currentLayer = CircleHelper.genCircle(xCoord, yCoord - 1, zCoord, worldObj, opRadius);
-		nextLayer = CircleHelper.genCircle(xCoord, yCoord - 2, zCoord, worldObj, opRadius);
+		currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, yCoord - 1, zCoord, worldObj, opRadius);
+		nextLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, yCoord - 2, zCoord, worldObj, opRadius);
 	}
 
 	@Override
