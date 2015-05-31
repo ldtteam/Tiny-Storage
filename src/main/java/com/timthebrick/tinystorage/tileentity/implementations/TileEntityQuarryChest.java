@@ -1,7 +1,11 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -18,6 +22,7 @@ import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChes
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.CircleHelper;
 
 public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -31,7 +36,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	private int cooldown;
 	private boolean running = true;
 	private int cycle;
-	private int opRadius;
+	private int opRadius, opDepth;
+	private int currentY = 0;
 
 	public TileEntityQuarryChest(int metaData) {
 		super();
@@ -39,15 +45,18 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		if (metaData == 0) {
 			inventory = new ItemStack[ContainerQuarryChest.SMALL_INVENTORY_SIZE];
 			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-			opRadius = 7;
+			opRadius = 10;
+			opDepth = 10;
 		} else if (metaData == 1) {
 			inventory = new ItemStack[ContainerQuarryChest.MEDIUM_INVENTORY_SIZE];
 			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-			opRadius = 15;
+			opRadius = 20;
+			opDepth = 15;
 		} else if (metaData == 2) {
 			inventory = new ItemStack[ContainerQuarryChest.LARGE_INVENTORY_SIZE];
 			sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-			opRadius = 31;
+			opRadius = 40;
+			opDepth = 20;
 		}
 		random = new Random();
 	}
@@ -139,6 +148,9 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		return true;
 	}
 
+	ArrayList<Block> currentLayer = new ArrayList<Block>();
+	ArrayList<Block> nextLayer = new ArrayList<Block>();
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
@@ -184,7 +196,13 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		if (!worldObj.isRemote) {
 			if (running) {
 				if (cooldown <= 0) {
-					
+					if (!currentLayer.isEmpty()) {
+						
+						
+					} else {
+						currentLayer = nextLayer;
+						nextLayer = CircleHelper.genCircle(xCoord, yCoord - (currentY + 1), zCoord, worldObj, opRadius);
+					}
 				} else {
 					cooldown--;
 				}
@@ -192,6 +210,11 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 				this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 		}
+	}
+
+	public void genFirstLayer() {
+		currentLayer = CircleHelper.genCircle(xCoord, yCoord, zCoord, worldObj, opRadius);
+		nextLayer = CircleHelper.genCircle(xCoord, yCoord - 1, zCoord, worldObj, opRadius);
 	}
 
 	@Override
@@ -215,6 +238,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
+		currentY = tagCompound.getInteger("currentY");
 		cooldown = tagCompound.getInteger("cooldown");
 		running = tagCompound.getBoolean("runnning");
 		readSyncedNBT(tagCompound);
@@ -234,6 +258,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+		tagCompound.setInteger("currentY", currentY);
 		tagCompound.setInteger("cooldown", cooldown);
 		tagCompound.setBoolean("running", running);
 		writeSyncedNBT(tagCompound);

@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.util;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
@@ -22,12 +23,12 @@ public class CircleHelper {
 	}
 	
 	public static ArrayList genCircle(int originX, int originY, int originZ, World world, int radius){
-		ArrayList blocks = new ArrayList<Block>();
-		blocks.add(world.getBlock(originX, originY, originZ));
+		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+		drops.addAll(world.getBlock(originX, originY, originZ).getDrops(world, originX, originY, originZ, world.getBlockMetadata(originX, originY, originZ), 0));
 		for (int tStep = 1; tStep <= radius; tStep++) {
-			getCircleIncNeigborCheck(originX, originY, originZ, world, tStep, blocks);
+			getCircleIncNeigborCheck(originX, originY, originZ, world, tStep, drops);
 		}
-		return blocks;
+		return drops;
 	}
 
 	public static void setCircle(int originX, int originY, int originZ, World world, int pRadius) {
@@ -56,20 +57,20 @@ public class CircleHelper {
 		}
 	}
 	
-	private static void getCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius, ArrayList<Block> blocks) {
+	private static void getCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius, ArrayList<ItemStack> drops) {
 		int currentX = pRadius;
 		int currentZ = 0;
 		int decisionOver2 = 1 - currentX;
 
 		while (currentX >= currentZ) {
-			getBlockIncNeighborCheck(currentX + originX, originY, currentZ + originZ, currentX, 0, currentZ, world, blocks);
-			getBlockIncNeighborCheck(currentZ + originX, originY, currentX + originZ, currentZ, 0, currentX, world, blocks);
-			getBlockIncNeighborCheck(-currentX + originX, originY, currentZ + originZ, -currentX, 0, currentZ, world, blocks);
-			getBlockIncNeighborCheck(-currentZ + originX, originY, currentX + originZ, -currentZ, 0, currentX, world, blocks);
-			getBlockIncNeighborCheck(-currentX + originX, originY, -currentZ + originZ, -currentX, 0, -currentZ, world, blocks);
-			getBlockIncNeighborCheck(-currentZ + originX, originY, -currentX + originZ, -currentZ, 0, -currentX, world, blocks);
-			getBlockIncNeighborCheck(currentX + originX, originY, -currentZ + originZ, currentX, 0, -currentZ, world, blocks);
-			getBlockIncNeighborCheck(currentZ + originX, originY, -currentX + originZ, currentZ, 0, -currentX, world, blocks);
+			getBlockIncNeighborCheck(currentX + originX, originY, currentZ + originZ, currentX, 0, currentZ, world, drops);
+			getBlockIncNeighborCheck(currentZ + originX, originY, currentX + originZ, currentZ, 0, currentX, world, drops);
+			getBlockIncNeighborCheck(-currentX + originX, originY, currentZ + originZ, -currentX, 0, currentZ, world, drops);
+			getBlockIncNeighborCheck(-currentZ + originX, originY, currentX + originZ, -currentZ, 0, currentX, world, drops);
+			getBlockIncNeighborCheck(-currentX + originX, originY, -currentZ + originZ, -currentX, 0, -currentZ, world, drops);
+			getBlockIncNeighborCheck(-currentZ + originX, originY, -currentX + originZ, -currentZ, 0, -currentX, world, drops);
+			getBlockIncNeighborCheck(currentX + originX, originY, -currentZ + originZ, currentX, 0, -currentZ, world, drops);
+			getBlockIncNeighborCheck(currentZ + originX, originY, -currentX + originZ, currentZ, 0, -currentX, world, drops);
 			currentZ++;
 
 			if (decisionOver2 <= 0) {
@@ -81,7 +82,7 @@ public class CircleHelper {
 		}
 	}
 	
-	private static void getBlockIncNeighborCheck(int originX, int originY, int originZ, int relativeX, int relativeY, int relativeZ, World world, ArrayList<Block> blocks) {
+	private static void getBlockIncNeighborCheck(int originX, int originY, int originZ, int relativeX, int relativeY, int relativeZ, World world, ArrayList<ItemStack> drops) {
 		world.setBlockToAir(originX, originY, originZ);
 
 		int tRelativeX = 0;
@@ -104,9 +105,9 @@ public class CircleHelper {
 		}
 
 		TinyStorageLog.info(relativeX + "-" + relativeY + "-" + relativeZ + "/" + tRelativeX + "-" + tRelativeZ);
-		blocks.add(world.getBlock(originX + tRelativeX, originY, originZ + tRelativeZ));
-		blocks.add(world.getBlock(originX + tRelativeX, originY, originZ));
-		blocks.add(world.getBlock(originX, originY, originZ + tRelativeZ));
+		drops.addAll(world.getBlock(originX + tRelativeX, originY, originZ + tRelativeZ).getDrops(world, originX + tRelativeX, originY, originZ + tRelativeZ, world.getBlockMetadata(originX + tRelativeX, originY, originZ + tRelativeZ), 0));
+		drops.addAll(world.getBlock(originX + tRelativeX, originY, originZ).getDrops(world, originX + tRelativeX, originY, originZ, world.getBlockMetadata(originX + tRelativeX, originY, originZ), 0));
+		drops.addAll(world.getBlock(originX, originY, originZ + tRelativeZ).getDrops(world, originX, originY, originZ + tRelativeZ, world.getBlockMetadata(originX, originY, originZ + tRelativeZ), 0));
 	}
 
 	public static void setCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius) {

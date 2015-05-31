@@ -27,9 +27,6 @@ import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
-import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestLarge;
-import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestMedium;
-import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestSmall;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestSmall;
@@ -175,6 +172,10 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 			}
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
+			
+			if(world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest){
+				((TileEntityQuarryChest) world.getTileEntity(x, y, z)).genFirstLayer();
+			}
 		}
 	}
 
