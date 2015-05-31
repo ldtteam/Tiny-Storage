@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.tileentity.implementations;
 
 import java.util.*;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.EntryMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -143,11 +144,10 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		return true;
 	}
 
-	EntryMap<int[], ArrayList<ItemStack>> currentLayer;
+	EntryMap<String, ArrayList<ItemStack>> currentLayer;
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
 
 		if (++ticksSinceSync % 20 * 4 == 0) {
 			worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
@@ -193,22 +193,23 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 					if (cooldown <= 0) {
 						if (currentLayer != null) {
 							if (!currentLayer.isEmpty()) {
-								System.out.println("Blah");
-								Map.Entry<int[], ArrayList<ItemStack>> blockDrops = currentLayer.getEntry(0);
-								int[] location = blockDrops.getKey();
-								ArrayList<ItemStack> drops = blockDrops.getValue();
+								Iterator<String> tIter = currentLayer.keySet().iterator();
+								String locationEncoded = tIter.next();
+								String[] location = locationEncoded.split(";");
+								ArrayList<ItemStack> drops = currentLayer.get(location);
 
 								// Insert stuffs for location and drops here
-								worldObj.setBlockToAir(location[0], location[1], location[2]);
+								worldObj.setBlockToAir(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]));
+								TinyStorageLog.info(location[0] + "-" + location[1] + "-" + location[2]);
 
-								currentLayer.remove(location);
-								cooldown = 30;
+								currentLayer.remove(locationEncoded);
+								//cooldown = 5;
 							} else {
 								currentY -= 1;
-								currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, currentY, zCoord, worldObj, opRadius);
+								currentLayer = (EntryMap<String, ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord,yCoord +  currentY, zCoord, worldObj, opRadius);
 							}
 						} else {
-							currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, currentY, zCoord, worldObj, opRadius);
+							currentLayer = (EntryMap<String, ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord,yCoord +  currentY, zCoord, worldObj, opRadius);
 						}
 					} else {
 						cooldown--;
@@ -223,7 +224,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	}
 
 	public void genFirstLayer() {
-		currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, currentY, zCoord, worldObj, opRadius);
+		currentLayer = (EntryMap<String, ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, yCoord + currentY, zCoord, worldObj, opRadius);
 	}
 
 	@Override
