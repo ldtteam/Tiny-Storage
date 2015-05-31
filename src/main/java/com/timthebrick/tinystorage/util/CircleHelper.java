@@ -106,7 +106,7 @@ public class CircleHelper {
 			tRelativeZ = 1;
 		}
 
-		TinyStorageLog.info(relativeX + "-" + relativeY + "-" + relativeZ + "/" + tRelativeX + "-" + tRelativeZ);
+		//TinyStorageLog.info(relativeX + "-" + relativeY + "-" + relativeZ + "/" + tRelativeX + "-" + tRelativeZ);
 
 		if (!drops.containsKey(new int[] { originX + tRelativeX, originY, originZ + tRelativeZ })) {
 			drops.put(new int[] { originX + tRelativeX, originY, originZ + tRelativeZ },
@@ -169,7 +169,7 @@ public class CircleHelper {
 			tRelativeZ = 1;
 		}
 
-		TinyStorageLog.info(relativeX + "-" + relativeY + "-" + relativeZ + "/" + tRelativeX + "-" + tRelativeZ);
+		//TinyStorageLog.info(relativeX + "-" + relativeY + "-" + relativeZ + "/" + tRelativeX + "-" + tRelativeZ);
 		world.setBlockToAir(originX + tRelativeX, originY, originZ + tRelativeZ);
 		world.setBlockToAir(originX + tRelativeX, originY, originZ);
 		world.setBlockToAir(originX, originY, originZ + tRelativeZ);
