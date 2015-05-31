@@ -2,8 +2,8 @@ package com.timthebrick.tinystorage.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -23,8 +23,9 @@ public class CircleHelper {
 		}
 	}
 
-	public static HashMap<int[], ArrayList<ItemStack>> genCircle(int originX, int originY, int originZ, World world, int radius){
-		HashMap<int[], ArrayList<ItemStack>> drops = new HashMap<int[], ArrayList<ItemStack>>();
+	public static LinkedHashMap<int[], ArrayList<ItemStack>> genCircle(int originX, int originY, int originZ, World world, int radius) {
+		LinkedHashMap<int[], ArrayList<ItemStack>> drops = new LinkedHashMap<int[], ArrayList<ItemStack>>();
+		drops.put(new int[] { originX, originY - 1, originZ }, world.getBlock(originX, originY - 1, originZ).getDrops(world, originX, originY - 1, originZ, world.getBlockMetadata(originX, originY - 1, originZ), 0));
 		for (int tStep = 1; tStep <= radius; tStep++) {
 			getCircleIncNeigborCheck(originX, originY, originZ, world, tStep, drops);
 		}
@@ -84,6 +85,7 @@ public class CircleHelper {
 
 	private static void getBlockIncNeighborCheck(int originX, int originY, int originZ, int relativeX, int relativeY, int relativeZ, World world, HashMap<int[], ArrayList<ItemStack>> drops) {
 		world.setBlockToAir(originX, originY, originZ);
+		drops.put(new int[] { originX, originY, originZ }, world.getBlock(originX, originY, originZ).getDrops(world, originX, originY, originZ, world.getBlockMetadata(originX, originY, originZ), 0));
 
 		int tRelativeX = 0;
 		int tRelativeZ = 0;

@@ -1,11 +1,10 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -16,9 +15,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerVacuumChest;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
@@ -148,8 +145,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 		return true;
 	}
 
-	ArrayList<ItemStack> currentLayer = new ArrayList<ItemStack>();
-	ArrayList<ItemStack> nextLayer = new ArrayList<ItemStack>();
+	LinkedHashMap<int[], ArrayList<ItemStack>> currentLayer;
+	LinkedHashMap<int[], ArrayList<ItemStack>> nextLayer;
 
 	@Override
 	public void updateEntity() {
@@ -199,8 +196,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 					if (!currentLayer.isEmpty()) {
 						
 					} else {
-						currentLayer = nextLayer;
-						nextLayer = CircleHelper.genCircle(xCoord, yCoord - (currentY + 1), zCoord, worldObj, opRadius);
+						
 					}
 				} else {
 					cooldown--;
@@ -212,8 +208,8 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	}
 
 	public void genFirstLayer() {
-		currentLayer = CircleHelper.genCircle(xCoord, yCoord, zCoord, worldObj, opRadius);
-		nextLayer = CircleHelper.genCircle(xCoord, yCoord - 1, zCoord, worldObj, opRadius);
+		currentLayer = CircleHelper.genCircle(xCoord, yCoord - 1, zCoord, worldObj, opRadius);
+		nextLayer = CircleHelper.genCircle(xCoord, yCoord - 2, zCoord, worldObj, opRadius);
 	}
 
 	@Override
