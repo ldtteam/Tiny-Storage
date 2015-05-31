@@ -23,8 +23,8 @@ public class CircleHelper {
 		}
 	}
 
-	public static LinkedHashMap<int[], ArrayList<ItemStack>> genCircle(int originX, int originY, int originZ, World world, int radius) {
-		LinkedHashMap<int[], ArrayList<ItemStack>> drops = new LinkedHashMap<int[], ArrayList<ItemStack>>();
+	public static EntryMap<int[], ArrayList<ItemStack>> genCircle(int originX, int originY, int originZ, World world, int radius) {
+		EntryMap<int[], ArrayList<ItemStack>> drops = new EntryMap<int[], ArrayList<ItemStack>>();
 		drops.put(new int[] { originX, originY - 1, originZ }, world.getBlock(originX, originY - 1, originZ).getDrops(world, originX, originY - 1, originZ, world.getBlockMetadata(originX, originY - 1, originZ), 0));
 		for (int tStep = 1; tStep <= radius; tStep++) {
 			getCircleIncNeigborCheck(originX, originY, originZ, world, tStep, drops);

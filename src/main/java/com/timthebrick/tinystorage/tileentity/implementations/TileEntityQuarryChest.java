@@ -32,7 +32,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	private boolean running = true;
 	private int cycle;
 	private int opRadius, opDepth;
-	private int currentY = 0;
+	private int currentY = -1;
 
 	public TileEntityQuarryChest(int metaData) {
 		super();
@@ -144,7 +144,6 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 	}
 
 	EntryMap<int[], ArrayList<ItemStack>> currentLayer;
-	EntryMap<int[], ArrayList<ItemStack>> nextLayer;
 
 	@Override
 	public void updateEntity() {
@@ -190,37 +189,40 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 
 		if (!worldObj.isRemote) {
 			if (running) {
-				if (cooldown <= 0) {
-					if (currentLayer == null)
-					{
-						if (!currentLayer.isEmpty()) {
-							Map.Entry<int[], ArrayList<ItemStack>> blockDrops = currentLayer.getEntry(0);
-							int[] location = blockDrops.getKey();
-							ArrayList<ItemStack> drops = blockDrops.getValue();
+				if (currentY <= opDepth) {
+					if (cooldown <= 0) {
+						if (currentLayer == null) {
+							if (!currentLayer.isEmpty()) {
+								Map.Entry<int[], ArrayList<ItemStack>> blockDrops = currentLayer.getEntry(0);
+								int[] location = blockDrops.getKey();
+								ArrayList<ItemStack> drops = blockDrops.getValue();
 
-							//Insert stuffs for location and drops here
+								// Insert stuffs for location and drops here
+								worldObj.setBlockToAir(location[0], location[1], location[2]);
 
-							currentLayer.remove(location);
+								currentLayer.remove(location);
+								cooldown = 30;
+							} else {
+								currentY -= 1;
+								currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, currentY, zCoord, worldObj, opRadius);
+							}
 						} else {
-							currentLayer = nextLayer;
-							nextLayer = null;
+							currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, currentY, zCoord, worldObj, opRadius);
 						}
+					} else {
+						cooldown--;
 					}
-					else {
-						// regen layer!
-					}
-				} else {
-					cooldown--;
+					this.markDirty();
+					this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
-				this.markDirty();
-				this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			} else {
+				running = false;
 			}
 		}
 	}
 
 	public void genFirstLayer() {
-		currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, yCoord - 1, zCoord, worldObj, opRadius);
-		nextLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, yCoord - 2, zCoord, worldObj, opRadius);
+		currentLayer = (EntryMap<int[], ArrayList<ItemStack>>) CircleHelper.genCircle(xCoord, currentY, zCoord, worldObj, opRadius);
 	}
 
 	@Override
