@@ -1,31 +1,29 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
-import java.util.*;
-
-import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.util.EntryMap;
-import com.timthebrick.tinystorage.util.InventoryHelper;
-import com.timthebrick.tinystorage.util.WorldHelper;
-import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
+import com.timthebrick.tinystorage.network.PacketHandler;
+import com.timthebrick.tinystorage.network.message.MessageSpawnParticle;
+import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.reference.Sounds;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.*;
+import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.world.World;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.Sounds;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.CircleHelper;
-import net.minecraft.util.MathHelper;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -37,10 +35,11 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
     private int[] sides;
     private Random random;
     private int cooldown;
+    private int blockBreakCooldown;
     private boolean running = true;
-    private int cycle;
     private int opRadius, opDepth;
     private int currentY = 1;
+    private int currentBlockX, currentBlockY, currentBlockZ;
 
     public TileEntityQuarryChest (int metaData) {
         super();
@@ -54,12 +53,12 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
             inventory = new ItemStack[ContainerQuarryChest.MEDIUM_INVENTORY_SIZE];
             sides = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
             opRadius = 20;
-            opDepth = 15;
+            opDepth = 20;
         } else if (metaData == 2) {
             inventory = new ItemStack[ContainerQuarryChest.LARGE_INVENTORY_SIZE];
             sides = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};
             opRadius = 40;
-            opDepth = 20;
+            opDepth = 40;
         }
         random = new Random();
     }
@@ -197,43 +196,46 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         if (!worldObj.isRemote) {
             if (running) {
                 if (currentY <= opDepth) {
-                    if (cooldown <= 0) {
-                        if (currentLayer != null) {
-                            if (!currentLayer.isEmpty()) {
+                    if (currentLayer != null) {
+                        if (!currentLayer.isEmpty()) {
+                            if (cooldown <= 0) {
                                 if (this.hasInventorySpace()) {
                                     Iterator<String> iter = currentLayer.keySet().iterator();
                                     String locationEncoded = iter.next();
                                     String[] location = locationEncoded.split(";");
                                     ArrayList<ItemStack> drops = currentLayer.get(locationEncoded);
-
-                                    // Insert stuffs for location and drops here
                                     worldObj.notifyBlockOfNeighborChange(Integer.parseInt(location[0]), Integer.parseInt(location[1]) + 1, Integer.parseInt(location[2]), worldObj.getBlock(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])));
                                     worldObj.setBlockToAir(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]));
                                     if (drops != null) {
                                         for (ItemStack item : drops) {
-                                            //TinyStorageLog.info(item.getItem().getUnlocalizedName());
                                             ItemStack item1 = InventoryHelper.invInsert(this, item, 0);
                                             if ((item1 != null) && (item1.stackSize != 0)) {
                                                 WorldHelper.spawnEntityItemWithRandomMovement(item1, worldObj, xCoord, yCoord, zCoord);
                                             }
                                         }
                                     }
-                                    // TinyStorageLog.info(location[0] + ", " + location[1] + ", " + location[2]);
                                     currentLayer.remove(locationEncoded);
                                 }
                                 cooldown = 60 - (int) ((getInventoryMass() / (getSizeInventory() * 64)) * 60);
-                                //TinyStorageLog.info(getInventoryMass());
-                                TinyStorageLog.info((int)((getInventoryMass() / (getSizeInventory() * 64)) * 60));
-                               // TinyStorageLog.info(cooldown);
+                                blockBreakCooldown = cooldown;
                             } else {
-                                currentY += 1;
-                                currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius - currentY + 1);
+                                Iterator<String> iter = currentLayer.keySet().iterator();
+                                String locationEncoded = iter.next();
+                                String[] location = locationEncoded.split(";");
+                                currentBlockX = Integer.parseInt(location[0]);
+                                currentBlockY = Integer.parseInt(location[1]);
+                                currentBlockZ = Integer.parseInt(location[2]);
+                                PacketHandler.INSTANCE.sendToAll(new MessageSpawnParticle(Minecraft.getMinecraft().thePlayer, xCoord, yCoord, zCoord, currentBlockX, currentBlockY, currentBlockZ));
+                                //TinyStorageLog.info(currentBlockX + ", " + currentBlockY + ", " + currentBlockZ);
+                                cooldown--;
+                                blockBreakCooldown = cooldown;
                             }
                         } else {
-                            currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius - currentY + 1);
+                            currentY += 1;
+                            currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
                         }
                     } else {
-                        cooldown--;
+                        currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
                     }
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -244,18 +246,25 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         }
     }
 
+    public void spawnDigParticle (float xCoord, float yCoord, float zCoord, float dX, float dY, float dZ) {
+        World world = Minecraft.getMinecraft().theWorld;
+        if (world.isRemote) {
+            Vector3 velocity = MathHelper.getMotionFromPosition(new Vector3(dX, dY, dZ), new Vector3(xCoord, yCoord, zCoord), 1F).multiply(new Vector3(-5, -5, -5));
+            world.spawnParticle("portal", xCoord, yCoord, zCoord, velocity.x, velocity.y, velocity.z);
+            world.spawnParticle("portal", xCoord, yCoord, zCoord, velocity.x, velocity.y, velocity.z);
+            world.spawnParticle("portal", xCoord, yCoord, zCoord, velocity.x, velocity.y, velocity.z);
+        }
+    }
+
     private float getInventoryMass () {
         float mass = 0;
         for (int i = 0; i < getSizeInventory(); i++) {
             if (getStackInSlot(i) != null && getStackInSlot(i).stackSize > 0) {
-                //TinyStorageLog.info(i + ", " + getStackInSlot(i).getItem().getUnlocalizedName());
                 mass += getStackInSlot(i).stackSize;
             }
         }
-
         return mass;
     }
-
 
     private boolean hasInventorySpace () {
         for (int i = 0; i < getSizeInventory(); i++) {
@@ -294,6 +303,11 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         currentY = tagCompound.getInteger("currentY");
         cooldown = tagCompound.getInteger("cooldown");
         running = tagCompound.getBoolean("running");
+        opDepth = tagCompound.getInteger("opDepth");
+        opRadius = tagCompound.getInteger("opRadius");
+        currentBlockX = tagCompound.getInteger("currentBlockX");
+        currentBlockY = tagCompound.getInteger("currentBlockY");
+        currentBlockZ = tagCompound.getInteger("currentBlockZ");
         readSyncedNBT(tagCompound);
     }
 
@@ -314,17 +328,26 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         tagCompound.setInteger("currentY", currentY);
         tagCompound.setInteger("cooldown", cooldown);
         tagCompound.setBoolean("running", running);
+        tagCompound.setInteger("opDepth", opDepth);
+        tagCompound.setInteger("opRadius", opRadius);
+        tagCompound.setInteger("currentBlockX", currentBlockX);
+        tagCompound.setInteger("currentBlockY", currentBlockY);
+        tagCompound.setInteger("currentBlockZ", currentBlockZ);
         writeSyncedNBT(tagCompound);
     }
 
     @Override
     public void readSyncedNBT (NBTTagCompound tag) {
         super.readSyncedNBT(tag);
+        blockBreakCooldown = tag.getInteger("blockCooldown");
+
     }
 
     @Override
     public void writeSyncedNBT (NBTTagCompound tag) {
         super.writeSyncedNBT(tag);
+        tag.setInteger("blockCooldown", blockBreakCooldown);
+
     }
 
     @Override
@@ -371,5 +394,4 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         }
         return false;
     }
-
 }
