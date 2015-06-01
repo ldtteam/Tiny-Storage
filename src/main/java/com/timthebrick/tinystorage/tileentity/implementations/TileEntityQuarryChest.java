@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.tileentity.implementations;
 
 import java.util.*;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.EntryMap;
 import com.timthebrick.tinystorage.util.InventoryHelper;
@@ -24,6 +25,7 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.CircleHelper;
+import net.minecraft.util.MathHelper;
 
 public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -202,27 +204,33 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
                                     Iterator<String> iter = currentLayer.keySet().iterator();
                                     String locationEncoded = iter.next();
                                     String[] location = locationEncoded.split(";");
-                                    ArrayList<ItemStack> drops = currentLayer.get(location);
+                                    ArrayList<ItemStack> drops = currentLayer.get(locationEncoded);
 
                                     // Insert stuffs for location and drops here
                                     worldObj.notifyBlockOfNeighborChange(Integer.parseInt(location[0]), Integer.parseInt(location[1]) + 1, Integer.parseInt(location[2]), worldObj.getBlock(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])));
                                     worldObj.setBlockToAir(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]));
-                                    for (ItemStack item : drops) {
-                                        ItemStack item1 = InventoryHelper.invInsert(this, item, 0);
-                                        if ((item1 != null) || (item1.stackSize != 0)) {
-                                            WorldHelper.spawnEntityItemWithRandomMovement(item1, worldObj, xCoord, yCoord, zCoord);
+                                    if (drops != null) {
+                                        for (ItemStack item : drops) {
+                                            //TinyStorageLog.info(item.getItem().getUnlocalizedName());
+                                            ItemStack item1 = InventoryHelper.invInsert(this, item, 0);
+                                            if ((item1 != null) && (item1.stackSize != 0)) {
+                                                WorldHelper.spawnEntityItemWithRandomMovement(item1, worldObj, xCoord, yCoord, zCoord);
+                                            }
                                         }
                                     }
                                     // TinyStorageLog.info(location[0] + ", " + location[1] + ", " + location[2]);
                                     currentLayer.remove(locationEncoded);
                                 }
-                                cooldown = 30;
+                                cooldown = 60 - (int) ((getInventoryMass() / (getSizeInventory() * 64)) * 60);
+                                //TinyStorageLog.info(getInventoryMass());
+                                TinyStorageLog.info((int)((getInventoryMass() / (getSizeInventory() * 64)) * 60));
+                               // TinyStorageLog.info(cooldown);
                             } else {
                                 currentY += 1;
-                                currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
+                                currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius - currentY + 1);
                             }
                         } else {
-                            currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
+                            currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius - currentY + 1);
                         }
                     } else {
                         cooldown--;
@@ -239,17 +247,12 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
     private float getInventoryMass () {
         float mass = 0;
         for (int i = 0; i < getSizeInventory(); i++) {
-            if (getStackInSlot(i) != null) {
-                ItemStack stack = getStackInSlot(i);
-                Item item = stack.getItem();
-                if (Block.getBlockFromItem(item) != null) {
-                    Block block = Block.getBlockFromItem(item);
-                    //mass += (stack.stackSize * block.getBlockHar);
-                }else{
-                    mass += (stack.stackSize * 0.2F);
-                }
+            if (getStackInSlot(i) != null && getStackInSlot(i).stackSize > 0) {
+                //TinyStorageLog.info(i + ", " + getStackInSlot(i).getItem().getUnlocalizedName());
+                mass += getStackInSlot(i).stackSize;
             }
         }
+
         return mass;
     }
 
