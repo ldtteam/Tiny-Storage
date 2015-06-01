@@ -371,6 +371,9 @@ button.tooltip.tinystorage:automated_side_access_disabled=Disabled
 button.tooltip.tinystorage:automated_side_access_input_only=Input Only
 button.tooltip.tinystorage:automated_side_access_output_only=Output Only
 button.tooltip.tinystorage:automated_side_access_input_output=Input & Output
+button.tooltip.tinystorage:delete_last_stack=Delete stored stack
+button.tooltip.tinystorage:delete_last_stack_false=Keep last stack stored
+button.tooltip.tinystorage:delete_last_stack_true=Delete last stack
 
 #Config
 general.sound.soundMode.label=Sounds

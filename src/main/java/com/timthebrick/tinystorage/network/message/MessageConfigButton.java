@@ -1,5 +1,8 @@
 package com.timthebrick.tinystorage.network.message;
 
+import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -64,7 +67,13 @@ public class MessageConfigButton implements IMessage, IMessageHandler<MessageCon
 					te.accessMode = AccessMode.values()[newState.ordinal()];
 					te.markDirty();
 					world.markBlockForUpdate((int)event.xCoord,(int) event.yCoord, (int)event.zCoord);
+				}else if (event.option.ordinal() == ButtonSettings.DELETE_LAST_STACK.ordinal() && te instanceof TileEntityTrashChest){
+					Enum<?> newState = Utils.rotateEnum(((TileEntityTrashChest) te).deleteStack, event.rotationDirection, event.option.getPossibleValues() );
+					((TileEntityTrashChest) te).deleteStack = BooleanMode.values()[newState.ordinal()];
+					te.markDirty();
+					world.markBlockForUpdate((int)event.xCoord,(int) event.yCoord, (int)event.zCoord);
 				}
+
 			}
 		}
 		return null;
