@@ -219,7 +219,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
                                         }
                                         totalItems++;
                                     }
-                                    if (checkDrops.size() > drops.size() || matchedItems / totalItems < 0.75) {
+                                    if (checkDrops.size() > drops.size() || (matchedItems > 0 && matchedItems / totalItems < 0.75 && possibleMatch)) {
                                         possibleMatch = false;
                                     }
                                     if (!possibleMatch) {
