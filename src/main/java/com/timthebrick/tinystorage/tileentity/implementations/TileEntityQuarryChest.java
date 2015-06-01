@@ -208,12 +208,19 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
                                     ArrayList<ItemStack> drops = currentLayer.get(locationEncoded);
                                     ArrayList<ItemStack> checkDrops = worldObj.getBlock(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])).getDrops(worldObj, Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]), worldObj.getBlockMetadata(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])), 0);
                                     boolean possibleMatch = false;
+                                    int matchedItems = 0;
+                                    int totalItems = 0;
                                     for (ItemStack stack : checkDrops) {
                                         for (ItemStack stackA : drops) {
                                             if (ItemHelper.equalsIgnoreStackSize(stack, stackA)) {
                                                 possibleMatch = true;
+                                                matchedItems++;
                                             }
                                         }
+                                        totalItems++;
+                                    }
+                                    if (checkDrops.size() > drops.size() || matchedItems / totalItems < 0.75) {
+                                        possibleMatch = false;
                                     }
                                     if (!possibleMatch) {
                                         drops = checkDrops;
