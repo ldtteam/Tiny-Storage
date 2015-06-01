@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
@@ -12,6 +13,7 @@ import com.timthebrick.tinystorage.util.*;
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -204,16 +206,40 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
                                     String locationEncoded = iter.next();
                                     String[] location = locationEncoded.split(";");
                                     ArrayList<ItemStack> drops = currentLayer.get(locationEncoded);
-                                    worldObj.notifyBlockOfNeighborChange(Integer.parseInt(location[0]), Integer.parseInt(location[1]) + 1, Integer.parseInt(location[2]), worldObj.getBlock(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])));
-                                    worldObj.setBlockToAir(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]));
+                                    ArrayList<ItemStack> checkDrops = worldObj.getBlock(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])).getDrops(worldObj, Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]), worldObj.getBlockMetadata(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])), 0);
+                                    boolean possibleMatch = false;
+                                    for (ItemStack stack : checkDrops) {
+                                        for (ItemStack stackA : drops) {
+                                            if (ItemHelper.equalsIgnoreStackSize(stack, stackA)) {
+                                                possibleMatch = true;
+                                            }
+                                        }
+                                    }
+                                    if (!possibleMatch) {
+                                        drops = checkDrops;
+                                    }
+                                    if (worldObj.getTileEntity(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])) != null && worldObj.getTileEntity(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])) instanceof IInventory) {
+                                        TinyStorageLog.info("Found an inventory");
+                                        IInventory inventoryToCheck = (IInventory) worldObj.getTileEntity(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]));
+                                        for (int i = 0; i < inventoryToCheck.getSizeInventory(); i++) {
+                                            if (inventoryToCheck.getStackInSlot(i) != null && inventoryToCheck.getStackInSlot(i).stackSize > 0) {
+                                                //TinyStorageLog.info("Inside loop " + i);
+                                                drops.add(inventoryToCheck.getStackInSlot(i).copy());
+                                                inventoryToCheck.setInventorySlotContents(i, null);
+                                            }
+                                        }
+                                    }
                                     if (drops != null) {
                                         for (ItemStack item : drops) {
+                                            TinyStorageLog.info(item.getItem().getUnlocalizedName());
                                             ItemStack item1 = InventoryHelper.invInsert(this, item, 0);
                                             if ((item1 != null) && (item1.stackSize != 0)) {
                                                 WorldHelper.spawnEntityItemWithRandomMovement(item1, worldObj, xCoord, yCoord, zCoord);
                                             }
                                         }
                                     }
+                                    worldObj.notifyBlockOfNeighborChange(Integer.parseInt(location[0]), Integer.parseInt(location[1]) + 1, Integer.parseInt(location[2]), worldObj.getBlock(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2])));
+                                    worldObj.setBlockToAir(Integer.parseInt(location[0]), Integer.parseInt(location[1]), Integer.parseInt(location[2]));
                                     currentLayer.remove(locationEncoded);
                                 }
                                 cooldown = 60 - (int) ((getInventoryMass() / (getSizeInventory() * 64)) * 60);
