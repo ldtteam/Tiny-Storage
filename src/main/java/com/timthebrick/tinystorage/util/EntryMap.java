@@ -11,25 +11,27 @@ import java.util.Set;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public class EntryMap<K, V> extends LinkedHashMap<K, V>
-{
+public class EntryMap<K, V> extends LinkedHashMap<K, V> {
 
-    public V getValue(int i)
-    {
+    public V getValue (int i) {
 
-        Map.Entry<K, V>entry = this.getEntry(i);
-        if(entry == null) return null;
+        Map.Entry<K, V> entry = this.getEntry(i);
+        if (entry == null) {
+            return null;
+        }
 
         return entry.getValue();
     }
 
-    public Map.Entry<K, V> getEntry(int i)
-    {
-        Set<Map.Entry<K,V>> entries = entrySet();
+    public Map.Entry<K, V> getEntry (int i) {
+        Set<Map.Entry<K, V>> entries = entrySet();
         int j = 0;
 
-        for(Map.Entry<K, V>entry : entries)
-            if(j++ == i)return entry;
+        for (Map.Entry<K, V> entry : entries) {
+            if (j++ == i) {
+                return entry;
+            }
+        }
 
         return null;
 
