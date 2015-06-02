@@ -4,25 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.timthebrick.tinystorage.block.*;
+import com.timthebrick.tinystorage.item.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.item.block.ItemBlockClayChestLarge;
-import com.timthebrick.tinystorage.item.block.ItemBlockClayChestMedium;
-import com.timthebrick.tinystorage.item.block.ItemBlockClayChestSmall;
-import com.timthebrick.tinystorage.item.block.ItemBlockFilterChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockMicroChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockPeacefulChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockPiggyBank;
-import com.timthebrick.tinystorage.item.block.ItemBlockQuarryChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockTinyChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockTrashChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockVacuumChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestLarge;
-import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestMedium;
-import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestSmall;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 
@@ -279,7 +266,7 @@ public class ModBlocks {
 		registerBlock(blockPiggyBank, ItemBlockPiggyBank.class, Names.Blocks.PIGGY_BANK);
 		registerBlock(blockPeacefulChest, ItemBlockPeacefulChest.class, Names.Blocks.PEACEFUL_CHEST);
 		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
-		registerBlock(blockDenseBlock, Names.Blocks.DENSE_BLOCK);
+		registerBlock(blockDenseBlock, ItemBlockDenseMaterial.class, Names.Blocks.DENSE_BLOCK);
 	}
 
 	/**
