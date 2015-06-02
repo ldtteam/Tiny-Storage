@@ -72,7 +72,7 @@ public class ItemDebugTool extends Item implements IKeyBound {
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean flag) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
         list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipA") + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipB"));
-        list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.mode" + ": " + "tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
+        list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.mode") + ": " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
     }
 
     @Override
