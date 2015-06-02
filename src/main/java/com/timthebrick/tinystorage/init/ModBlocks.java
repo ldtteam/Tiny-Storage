@@ -3,24 +3,11 @@ package com.timthebrick.tinystorage.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.timthebrick.tinystorage.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
-import com.timthebrick.tinystorage.block.BlockClayChestLarge;
-import com.timthebrick.tinystorage.block.BlockClayChestMedium;
-import com.timthebrick.tinystorage.block.BlockClayChestSmall;
-import com.timthebrick.tinystorage.block.BlockFilterChest;
-import com.timthebrick.tinystorage.block.BlockMicroChest;
-import com.timthebrick.tinystorage.block.BlockPeacefulChest;
-import com.timthebrick.tinystorage.block.BlockPiggyBank;
-import com.timthebrick.tinystorage.block.BlockQuarryChest;
-import com.timthebrick.tinystorage.block.BlockTinyChest;
-import com.timthebrick.tinystorage.block.BlockTrashChest;
-import com.timthebrick.tinystorage.block.BlockVacuumChest;
-import com.timthebrick.tinystorage.block.BlockWoolChestLarge;
-import com.timthebrick.tinystorage.block.BlockWoolChestMedium;
-import com.timthebrick.tinystorage.block.BlockWoolChestSmall;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.item.block.ItemBlockClayChestLarge;
 import com.timthebrick.tinystorage.item.block.ItemBlockClayChestMedium;
@@ -166,6 +153,7 @@ public class ModBlocks {
 	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
 	public static Block blockPeacefulChest = new BlockPeacefulChest(Material.rock);
 	public static Block blockQuarryChest = new BlockQuarryChest(Material.rock);
+	public static Block blockDenseBlock = new BlockDenseMaterial(Material.rock);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -291,6 +279,7 @@ public class ModBlocks {
 		registerBlock(blockPiggyBank, ItemBlockPiggyBank.class, Names.Blocks.PIGGY_BANK);
 		registerBlock(blockPeacefulChest, ItemBlockPeacefulChest.class, Names.Blocks.PEACEFUL_CHEST);
 		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
+		registerBlock(blockDenseBlock, Names.Blocks.DENSE_BLOCK);
 	}
 
 	/**

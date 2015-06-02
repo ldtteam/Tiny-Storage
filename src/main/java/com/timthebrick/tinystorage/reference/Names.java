@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.reference;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 
 public class Names {
@@ -24,6 +25,7 @@ public class Names {
 		public static final String CLAY_CHEST = "clayChest";
 		public static final String CLAY_CHEST_LOCKED = "clayChestLocked";
 		public static final String QUARRY_CHEST = "quarryChest";
+		public static final String DENSE_BLOCK = "denseBlock";
 	}
 	
 	public static final class Items{
@@ -44,6 +46,7 @@ public class Names {
 		public static final String OWNER = "owner";
 		public static final String TEXTURE_NAME = "textureName";
 		public static final String ACCESS_MODE = "accessMode";
+		public static final String DELETE_STACK = "deleteStack";
 	}
 
 	public static final class Containers {
@@ -75,6 +78,9 @@ public class Names {
 		public static final String ACCESS_MODE_INPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_ONLY.toString().toLowerCase();
 		public static final String ACCESS_MODE_OUTPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.OUTPUT_ONLY.toString().toLowerCase();
 		public static final String ACCESS_MODE_BOTH = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_OUTPUT.toString().toLowerCase();
+		public static final String DELETE_STACK_TITLE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase();
+		public static final String DELETE_STACK_TRUE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.TRUE.toString().toLowerCase();
+		public static final String DELETE_STACK_FALSE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.FALSE.toString().toLowerCase();
 	}
 	
 	public static final class Keys{

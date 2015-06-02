@@ -1,42 +1,16 @@
 package com.timthebrick.tinystorage.proxy;
 
+import com.timthebrick.tinystorage.client.renderer.item.*;
+import com.timthebrick.tinystorage.client.renderer.tileentity.*;
+import com.timthebrick.tinystorage.tileentity.implementations.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.timthebrick.tinystorage.client.handler.KeyInputEventHandler;
 import com.timthebrick.tinystorage.client.helper.ClientSoundHelper;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererClayChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererFilterChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererMicroChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererPeacefulChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererPiggyBank;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTinyChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererTrashChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererVacuumChest;
-import com.timthebrick.tinystorage.client.renderer.item.ItemRendererWoolChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererClayChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererDraw;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererFilterChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererMicroChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererPeacefulChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererPiggyBank;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTinyChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererTrashChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererVacuumChest;
-import com.timthebrick.tinystorage.client.renderer.tileentity.TileEntityRendererWoolChest;
 import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.RenderIDs;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -181,6 +155,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockPiggyBank), new ItemRendererPiggyBank());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockPeacefulChest), new ItemRendererPeacefulChest());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockQuarryChest), new ItemRendererQuarryChest());
 
 		// TileEntity binding
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyChest.class, new TileEntityRendererTinyChest());
@@ -193,6 +168,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPeacefulChest.class, new TileEntityRendererPeacefulChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVacuumChest.class, new TileEntityRendererVacuumChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityClayChest.class, new TileEntityRendererClayChest());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityQuarryChest.class, new TileEntityRendererQuarryChest());
+
 	}
 	
 	@Override
