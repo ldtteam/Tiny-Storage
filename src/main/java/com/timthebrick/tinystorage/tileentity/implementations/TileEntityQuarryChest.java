@@ -59,6 +59,9 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
             opRadius = 40;
             opDepth = 40;
         }
+        if (yCoord - opDepth < 1) {
+            opDepth = yCoord - 1;
+        }
         random = new Random();
     }
 
