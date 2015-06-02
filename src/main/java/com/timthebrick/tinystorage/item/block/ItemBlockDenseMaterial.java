@@ -10,19 +10,14 @@ import net.minecraft.item.ItemBlock;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public class ItemBlockDenseMaterial extends ItemBlock
-{
+public class ItemBlockDenseMaterial extends ItemBlock {
 
-    public ItemBlockDenseMaterial(Block p_i45328_1_) {
-        super(p_i45328_1_);
+    public ItemBlockDenseMaterial (Block block) {
+        super(block);
+        this.setHasSubtypes(true);
     }
 
-
-    /**
-     * Returns the metadata of the block which this Item (ItemBlock) can place
-     */
-    public int getMetadata(int p_77647_1_)
-    {
-        return p_77647_1_;
+    public int getMetadata (int meta) {
+        return meta;
     }
 }

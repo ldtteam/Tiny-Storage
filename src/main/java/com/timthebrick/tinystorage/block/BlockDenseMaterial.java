@@ -15,6 +15,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Random;
 
 public class BlockDenseMaterial extends Block {
 
@@ -26,6 +27,8 @@ public class BlockDenseMaterial extends Block {
         this.setHardness(2.5f);
         this.setCreativeTab(TabTinyStorage.creativeTab);
         this.setBlockName("blockDenseBlock");
+        this.setHardness(50.0F);
+        this.setResistance(2000.0F);
     }
 
     @Override
@@ -41,11 +44,11 @@ public class BlockDenseMaterial extends Block {
     }
 
     @Override
-    public int onBlockPlaced(World p_149660_1_, int p_149660_2_, int p_149660_3_, int p_149660_4_, int p_149660_5_, float p_149660_6_, float p_149660_7_, float p_149660_8_, int p_149660_9_) {
-        int j1 = p_149660_1_.getBlockMetadata(p_149660_2_, p_149660_3_, p_149660_4_);
-        System.out.println("Placed: " + j1);
-
-        return super.onBlockPlaced(p_149660_1_, p_149660_2_, p_149660_3_, p_149660_4_, p_149660_5_, p_149660_6_, p_149660_7_, p_149660_8_, p_149660_9_);
+    public void randomDisplayTick (World world, int x, int y, int z, Random random) {
+        super.randomDisplayTick(world, x, y, z, random);
+        if ((random.nextInt(2) == 0)) {
+            world.spawnParticle("portal", x + random.nextFloat(), y + 1F, z + random.nextFloat(), 0.0D, 0.05D, 0.0D);
+        }
     }
 
     @Override
