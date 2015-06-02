@@ -25,6 +25,7 @@ public class Names {
 		public static final String CLAY_CHEST = "clayChest";
 		public static final String CLAY_CHEST_LOCKED = "clayChestLocked";
 		public static final String QUARRY_CHEST = "quarryChest";
+		public static final String DENSE_BLOCK = "denseBlock";
 	}
 	
 	public static final class Items{

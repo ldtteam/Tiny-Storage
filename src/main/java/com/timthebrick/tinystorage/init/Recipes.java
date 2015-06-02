@@ -292,6 +292,10 @@ public class Recipes {
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestAcaciaPlank, ModBlocks.blockVacuumChestAcaciaPlankLocked, Blocks.planks, 4);
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestStone, ModBlocks.blockVacuumChestStoneLocked, Blocks.stone);
 
+		//Dense Blocks
+		registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 0), "OSO", "OEO", "OSO", 'O', new ItemStack(Blocks.obsidian), 'S', new ItemStack(Blocks.cobblestone), 'E', new ItemStack(Items.ender_pearl));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 1), "DDD", "DDD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 2), "DDD", "DDD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 2));
 	}
 
 	private static void registerLockableChestRecipes(Block normalOutput, Block lockedOutput, Block material) {
