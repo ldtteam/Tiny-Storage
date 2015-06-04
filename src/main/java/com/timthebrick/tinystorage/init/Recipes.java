@@ -292,12 +292,10 @@ public class Recipes {
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestAcaciaPlank, ModBlocks.blockVacuumChestAcaciaPlankLocked, Blocks.planks, 4);
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestStone, ModBlocks.blockVacuumChestStoneLocked, Blocks.stone);
 
-
-
 		//Quarry Chests
-		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 0), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 0), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
-		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 1), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 1), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
-		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 2), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 2), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 0), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 0), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModBlocks.blockVacuumChestStone, 1, 0));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 1), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 1), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModBlocks.blockVacuumChestStone, 1, 1));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 2), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 2), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModBlocks.blockVacuumChestStone, 1, 2));
 
 		//Dense Blocks
 		registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 0), "OSO", "OEO", "OSO", 'O', new ItemStack(Blocks.obsidian), 'S', new ItemStack(Blocks.cobblestone), 'E', new ItemStack(Items.ender_pearl));

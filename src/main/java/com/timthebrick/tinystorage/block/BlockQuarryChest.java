@@ -174,9 +174,9 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
 
-			if (!world.isRemote) {
+			if (!world.isRemote && entityLiving instanceof EntityPlayer) {
 				if (world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
-					((TileEntityQuarryChest) world.getTileEntity(x, y, z)).genFirstLayer();
+					((TileEntityQuarryChest) world.getTileEntity(x, y, z)).genFirstLayer((EntityPlayer) entityLiving);
 				}
 			}
 		}

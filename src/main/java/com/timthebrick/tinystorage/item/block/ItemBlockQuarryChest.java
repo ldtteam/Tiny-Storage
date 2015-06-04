@@ -32,6 +32,8 @@ public class ItemBlockQuarryChest extends ItemBlock {
 		} else if (metaData == 2) {
 			list.add(StatCollector.translateToLocal("tooltip.tinystorage:quarryChestPrefix.large"));
 		}
+		list.add(StatCollector.translateToLocal("tooltip.tinystorage:quarryChestPrefix.mode"));
+		list.add(StatCollector.translateToLocal("tooltip.tinystorage:quarryChestPrefix.modeA"));
 	}
 
 }

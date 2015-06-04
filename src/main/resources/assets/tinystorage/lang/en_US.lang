@@ -289,6 +289,8 @@ tile.blockDrawOakLog.name=Chest of Draws - Oak Log
 tile.blockTrashChest.name=Trash Chest
 tile.blockPiggyBank.name=Piggy Bank
 tile.blockPeacefulChest.name=Peaceful Chest
+tile.blockQuarryChest.name=Singularity Chest
+tile.blockDenseBlock.name=Dense Block
 
 #Items
 item.storageComponent.name=Storage Component
@@ -311,6 +313,7 @@ container.tinystorage:peacefulChest=Peaceful Chest
 container.tinystorage:peacefulChestLocked=Locking Peaceful Chest
 container.tinystorage:vacuumChest=Vacuum Chest
 container.tinystorage:vacuumChestLocked=Locking Vacuum Chest
+container.tinystorge:quarryChest=Black Hole Singularity Chest
 
 #Tooltips
 tooltip.tinystorage:tinyChestPrefix.small=Small
@@ -349,6 +352,12 @@ tooltip.tinystorage:peacefulChestPrefix.medium=Medium
 tooltip.tinystorage:peacefulChestPrefix.large=Large
 tooltip.tinystorage:peacefulChest.description1=Passively generates mob drops in a Peaceful World!
 tooltip.tinystorage:peacefulChest.description2=Simply place down and provide with a sword of choice!
+
+tooltip.tinystorage:quarryChestPrefix.small=Small
+tooltip.tinystorage:quarryChestPrefix.medium=Medium
+tooltip.tinystorage:quarryChestPrefix.large=Large
+tooltip.tinystorage:quarryChestPrefix.mode=A very dense core at the centre of this chest breaks all blocks around it
+tooltip.tinystorage:quarryChestPrefix.modeA=And pulls them into its inventory
 
 tooltip.tinystorage:storageComponentPrefix.small=Tier 1
 tooltip.tinystorage:storageComponentPrefix.medium=Tier 2
