@@ -91,9 +91,9 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 		if (this.hasCustomName()) {
 			return this.getCustomName();
 		} else if (this.hasUniqueOwner()) {
-			return Names.Containers.FILTER_CHEST;
-		} else {
 			return Names.Containers.FILTER_CHEST_LOCKED;
+		} else {
+			return Names.Containers.FILTER_CHEST;
 		}
 	}
 

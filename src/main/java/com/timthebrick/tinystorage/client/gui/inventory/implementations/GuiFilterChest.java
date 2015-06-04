@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;

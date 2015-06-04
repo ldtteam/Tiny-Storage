@@ -306,7 +306,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
     public void genFirstLayer (EntityPlayer player) {
         if (yCoord - opDepth < 1) {
             opDepth = yCoord - 1;
-            PlayerHelper.sendChatMessage(player, "The chest is too deep to function fully, setting the depth to: " + opDepth + " block deep");
+            PlayerHelper.sendChatMessage(player, "The chest is too deep to function fully, setting the depth to: " + opDepth + " blocks deep");
             //TinyStorageLog.info("Setting new depth to: " + opDepth);
         }
         currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
