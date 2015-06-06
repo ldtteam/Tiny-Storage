@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
+import com.timthebrick.tinystorage.block.BlockClayChest;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.init.ModItems;
@@ -25,7 +26,12 @@ public class UnlocalizedNameDump {
 					for (int i = 0; i < 16; i++) {
 						writer.println(b.getUnlocalizedName() + textureNames[i] + ".name=");
 					}
-				} else {
+				} else if (b instanceof BlockClayChest) {
+					String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
+					for (int i = 0; i < 16; i++) {
+						writer.println(b.getUnlocalizedName() + textureNames[i] + ".name=");
+					}
+				}else {
 					writer.println(b.getUnlocalizedName() + ".name=");
 				}
 			}

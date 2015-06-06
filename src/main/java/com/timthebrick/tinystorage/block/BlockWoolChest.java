@@ -125,7 +125,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
 			}
-			
+
 			if (itemStack.hasDisplayName()) {
 				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
 			}

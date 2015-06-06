@@ -17,12 +17,12 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.13.0"
+version = "1.14.0"
 group= "com.timthebrick.tinystorage" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "TinyStorage"
 
 minecraft {
-    version = "1.7.10-10.13.2.1291"
+    version = "1.7.10-10.13.3.1420-1.7.10"
     runDir = "eclipse"
 	replace '@VERSION@', project.version
     replace '@MC_VERSION@', version
@@ -50,4 +50,5 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+	exclude '**/Thumbs.db'
 }

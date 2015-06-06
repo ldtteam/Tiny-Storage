@@ -3,31 +3,13 @@ package com.timthebrick.tinystorage.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.timthebrick.tinystorage.block.*;
+import com.timthebrick.tinystorage.item.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
-import com.timthebrick.tinystorage.block.BlockFilterChest;
-import com.timthebrick.tinystorage.block.BlockMicroChest;
-import com.timthebrick.tinystorage.block.BlockPeacefulChest;
-import com.timthebrick.tinystorage.block.BlockPiggyBank;
-import com.timthebrick.tinystorage.block.BlockTinyChest;
-import com.timthebrick.tinystorage.block.BlockTrashChest;
-import com.timthebrick.tinystorage.block.BlockVacuumChest;
-import com.timthebrick.tinystorage.block.BlockWoolChestLarge;
-import com.timthebrick.tinystorage.block.BlockWoolChestMedium;
-import com.timthebrick.tinystorage.block.BlockWoolChestSmall;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.item.block.ItemBlockFilterChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockMicroChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockPeacefulChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockPiggyBank;
-import com.timthebrick.tinystorage.item.block.ItemBlockTinyChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockTrashChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockVacuumChest;
-import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestLarge;
-import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestMedium;
-import com.timthebrick.tinystorage.item.block.ItemBlockWoolChestSmall;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 
@@ -95,6 +77,14 @@ public class ModBlocks {
 	public static Block blockWoolChestLarge = new BlockWoolChestLarge(false);
 	public static Block blockWoolChestLargeLocked = new BlockWoolChestLarge(true);
 
+	// Clay Chests
+	public static Block blockClayChestSmall = new BlockClayChestSmall(false);
+	public static Block blockClayChestSmallLocked = new BlockClayChestSmall(true);
+	public static Block blockClayChestMedium = new BlockClayChestMedium(false);
+	public static Block blockClayChestMediumLocked = new BlockClayChestMedium(true);
+	public static Block blockClayChestLarge = new BlockClayChestLarge(false);
+	public static Block blockClayChestLargeLocked = new BlockClayChestLarge(true);
+
 	// Vacuum Chests
 	public static Block blockVacuumChestStone = new BlockVacuumChest(Material.rock, "Stone", false);
 	public static Block blockVacuumChestOakLog = new BlockVacuumChest(Material.wood, "OakLog", false);
@@ -149,6 +139,8 @@ public class ModBlocks {
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
 	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
 	public static Block blockPeacefulChest = new BlockPeacefulChest(Material.rock);
+	public static Block blockQuarryChest = new BlockQuarryChest(Material.rock);
+	public static Block blockDenseBlock = new BlockDenseMaterial(Material.rock);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -210,7 +202,15 @@ public class ModBlocks {
 		registerBlock(blockWoolChestMediumLocked, ItemBlockWoolChestMedium.class, Names.Blocks.WOOL_CHEST_LOCKED + "Medium");
 		registerBlock(blockWoolChestLarge, ItemBlockWoolChestLarge.class, Names.Blocks.WOOL_CHEST + "Large");
 		registerBlock(blockWoolChestLargeLocked, ItemBlockWoolChestLarge.class, Names.Blocks.WOOL_CHEST_LOCKED + "Large");
-		
+
+		// Clay Chests
+		registerBlock(blockClayChestSmall, ItemBlockClayChestSmall.class, Names.Blocks.CLAY_CHEST + "Small");
+		registerBlock(blockClayChestSmallLocked, ItemBlockClayChestSmall.class, Names.Blocks.CLAY_CHEST_LOCKED + "Small");
+		registerBlock(blockClayChestMedium, ItemBlockClayChestMedium.class, Names.Blocks.CLAY_CHEST + "Medium");
+		registerBlock(blockClayChestMediumLocked, ItemBlockClayChestMedium.class, Names.Blocks.CLAY_CHEST_LOCKED + "Medium");
+		registerBlock(blockClayChestLarge, ItemBlockClayChestLarge.class, Names.Blocks.CLAY_CHEST + "Large");
+		registerBlock(blockClayChestLargeLocked, ItemBlockClayChestLarge.class, Names.Blocks.CLAY_CHEST_LOCKED + "Large");
+
 		// Vacuum Chests
 		registerBlock(blockVacuumChestStone, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "Stone");
 		registerBlock(blockVacuumChestOakLog, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "OakLog");
@@ -223,7 +223,7 @@ public class ModBlocks {
 		registerBlock(blockVacuumChestBirchPlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "BirchPlank");
 		registerBlock(blockVacuumChestJunglePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "JunglePlank");
 		registerBlock(blockVacuumChestSprucePlank, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST + "SprucePlank");
-		
+
 		registerBlock(blockVacuumChestStoneLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "Stone");
 		registerBlock(blockVacuumChestOakLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "OakLog");
 		registerBlock(blockVacuumChestAcaciaLogLocked, ItemBlockVacuumChest.class, Names.Blocks.VACUUM_CHEST_LOCKED + "AcaciaLog");
@@ -265,6 +265,8 @@ public class ModBlocks {
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
 		registerBlock(blockPiggyBank, ItemBlockPiggyBank.class, Names.Blocks.PIGGY_BANK);
 		registerBlock(blockPeacefulChest, ItemBlockPeacefulChest.class, Names.Blocks.PEACEFUL_CHEST);
+		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
+		registerBlock(blockDenseBlock, ItemBlockDenseMaterial.class, Names.Blocks.DENSE_BLOCK);
 	}
 
 	/**

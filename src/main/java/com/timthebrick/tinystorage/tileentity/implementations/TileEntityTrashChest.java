@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.tileentity.implementations;
 import java.util.Random;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
 import com.timthebrick.tinystorage.init.ModItems;
 import com.timthebrick.tinystorage.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.reference.Names;
@@ -30,11 +31,13 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
 	private final int[] sides = { 0, 1 };
+	public BooleanMode deleteStack;
 
 	public TileEntityTrashChest(int metaData) {
 		super();
 		this.state = (byte) metaData;
 		inventory = new ItemStack[2];
+		deleteStack = BooleanMode.FALSE;
 	}
 
 	@Override
@@ -164,6 +167,9 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 		if (++ticksSinceSync % 20 * 4 == 0) {
 			if (getStackInSlot(1) != null)
 				setInventorySlotContents(1, null);
+			if(this.deleteStack== BooleanMode.TRUE){
+				setInventorySlotContents(0, null);
+			}
 			worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
 		}
 
@@ -246,11 +252,15 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 	@Override
 	public void readSyncedNBT(NBTTagCompound tag) {
 		super.readSyncedNBT(tag);
+		if (tag.hasKey(Names.NBT.DELETE_STACK)) {
+			this.deleteStack = BooleanMode.values()[tag.getInteger(Names.NBT.DELETE_STACK)];
+		}
 	}
 
 	@Override
 	public void writeSyncedNBT(NBTTagCompound tag) {
 		super.writeSyncedNBT(tag);
+		tag.setInteger(Names.NBT.DELETE_STACK, deleteStack.ordinal());
 	}
 
 	@Override

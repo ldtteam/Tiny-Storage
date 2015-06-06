@@ -3,15 +3,20 @@ package com.timthebrick.tinystorage.init;
 import net.minecraft.tileentity.TileEntity;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestSmall;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityFilterChestSmall;
@@ -21,6 +26,9 @@ import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeac
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPiggyBankMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPiggyBankSmall;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestLarge;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestMedium;
+import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestSmall;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityTinyChestSmall;
@@ -71,6 +79,16 @@ public class TileEntities {
 		registerTileEntityWithAlternatives(TileEntityVacuumChestSmall.class, "blockVacuumChestSmall", "tileEntityVacuumChestSmall");
 		registerTileEntityWithAlternatives(TileEntityVacuumChestMedium.class, "blockVacuumChestMedium", "tileEntityVacuumChestMedium");
 		registerTileEntityWithAlternatives(TileEntityVacuumChestLarge.class, "blockVacuumChestLarge", "tileEntityVacuumChestLarge");
+		
+		registerTileEntityWithAlternatives(TileEntityClayChest.class, "blockClayChest", "tileEntityClayChest");
+		registerTileEntityWithAlternatives(TileEntityClayChestSmall.class, "blockClayChestSmall", "tileEntityClayChestSmall");
+		registerTileEntityWithAlternatives(TileEntityClayChestMedium.class, "blockClayChestMedium", "tileEntityClayChestMedium");
+		registerTileEntityWithAlternatives(TileEntityClayChestLarge.class, "blockClayChestLarge", "tileEntityClayChestLarge");
+		
+		registerTileEntityWithAlternatives(TileEntityQuarryChest.class, "blockQuarryChest", "tileEntityQuarryChest");
+		registerTileEntityWithAlternatives(TileEntityQuarryChestSmall.class, "blockQuarryChestSmall", "tileEntityQuarryChestSmall");
+		registerTileEntityWithAlternatives(TileEntityQuarryChestMedium.class, "blockQuarryChestMedium", "tileEntityQuarryChestMedium");
+		registerTileEntityWithAlternatives(TileEntityQuarryChestLarge.class, "blockQuarryChestLarge", "tileEntityQuarryChestLarge");
 	}
 	
 	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.block.BlockClayChest;
 import com.timthebrick.tinystorage.block.BlockWoolChest;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.core.VersionChecker;
@@ -49,6 +50,15 @@ public class PlayerEventHandler {
 									}
 								}
 							}
+						} else if (block instanceof BlockClayChest) {
+							if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
+								if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
+									if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
+										world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
+										player.getHeldItem().stackSize--;
+									}
+								}
+							}
 						}
 						// Any more interactions go here
 					}
@@ -75,7 +85,7 @@ public class PlayerEventHandler {
 			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:update"));
 			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:new_version", VersionChecker.getRecommendedVersion(), TinyStorage.proxy.getMinecraftVersion()));
 			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:download"));
-			PlayerHelper.sendChatMessage(player, "");
+			PlayerHelper.sendChatMessage(player, " ");
 		}
 		nagged = true;
 	}

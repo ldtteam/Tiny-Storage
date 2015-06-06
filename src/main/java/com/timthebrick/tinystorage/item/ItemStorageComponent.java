@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.init.ModBlocks;
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
@@ -150,6 +151,55 @@ public class ItemStorageComponent extends Item {
 						return true;
 					} else if (newChest.getState() == 2) {
 						world.setBlock(x, y, z, ModBlocks.blockWoolChestLargeLocked, metaData, 3);
+						world.setTileEntity(x, y, z, newChest);
+						stack.stackSize--;
+						return true;
+					} else {
+						return false;
+					}
+				}
+			} else if (te != null && te instanceof TileEntityClayChest) {
+				TileEntityClayChest newChest;
+				TileEntityClayChest clayChest = (TileEntityClayChest) te;
+				int metaData = world.getBlockMetadata(x, y, z);
+				if (clayChest.getState() + 1 > 2)
+					return false;
+				newChest = clayChest.applyUpgradeItem(this, clayChest.getState() + 1, player);
+				if (newChest == null) {
+					return false;
+				}
+				if (newChest.getUniqueOwner() == "") {
+					if (newChest.getState() == 0) {
+						world.setBlock(x, y, z, ModBlocks.blockClayChestSmall, metaData, 3);
+						world.setTileEntity(x, y, z, newChest);
+						stack.stackSize--;
+						return true;
+					} else if (newChest.getState() == 1) {
+						world.setBlock(x, y, z, ModBlocks.blockClayChestMedium, metaData, 3);
+						world.setTileEntity(x, y, z, newChest);
+						stack.stackSize--;
+						return true;
+					} else if (newChest.getState() == 2) {
+						world.setBlock(x, y, z, ModBlocks.blockClayChestLarge, metaData, 3);
+						world.setTileEntity(x, y, z, newChest);
+						stack.stackSize--;
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					if (newChest.getState() == 0) {
+						world.setBlock(x, y, z, ModBlocks.blockClayChestSmallLocked, metaData, 3);
+						world.setTileEntity(x, y, z, newChest);
+						stack.stackSize--;
+						return true;
+					} else if (newChest.getState() == 1) {
+						world.setBlock(x, y, z, ModBlocks.blockClayChestMediumLocked, metaData, 3);
+						world.setTileEntity(x, y, z, newChest);
+						stack.stackSize--;
+						return true;
+					} else if (newChest.getState() == 2) {
+						world.setBlock(x, y, z, ModBlocks.blockClayChestLargeLocked, metaData, 3);
 						world.setTileEntity(x, y, z, newChest);
 						stack.stackSize--;
 						return true;

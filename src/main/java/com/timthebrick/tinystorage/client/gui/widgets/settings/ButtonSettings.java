@@ -6,7 +6,8 @@ import javax.annotation.Nonnull;
 
 public enum ButtonSettings {
 
-	AUTOMATED_SIDE_ACCESS(EnumSet.allOf(AccessMode.class));
+	AUTOMATED_SIDE_ACCESS(EnumSet.allOf(AccessMode.class)),
+	DELETE_LAST_STACK(EnumSet.allOf(BooleanMode.class));
 
 	private final EnumSet<? extends Enum<?>> values;
 
