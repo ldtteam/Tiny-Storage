@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage;
 
 import java.io.File;
 
+import com.timthebrick.tinystorage.handler.CraftingEventHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -67,6 +68,7 @@ public class TinyStorage {
 		TileEntities.init();
 		proxy.initRenderingAndTextures();
 		proxy.registerEventHandlers();
+		CraftingEventHandler.init();
 		Recipes.init();
 		TinyStorageLog.info("Finished init - Still!? storing all the things!");
 	}

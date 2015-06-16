@@ -2,6 +2,8 @@ package com.timthebrick.tinystorage.reference;
 
 public class Messages {
 
+	public static final String OWNER_SET_TO_SELF = "general.misc.tinyStorage:owner-set-to-self";
+
 	public static final class Config {
 		public static final String SOUND_MODE = "soundMode";
 		public static final String SOUND_MODE_LABEL = "general.sound.soundMode.label";

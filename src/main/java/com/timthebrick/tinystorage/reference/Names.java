@@ -33,12 +33,13 @@ public class Names {
 		public static final String CHEST_FILTER = "chestFilter";
 		public static final String CHEST_LOCK = "chestLock";
 		public static final String DEBUG_TOOL = "debugTool";
+		public static final String STORAGE_BAG = "storageBag";
 	}
 
 	public static final class NBT {
 		public static final String ITEMS = "items";
 		public static final String DISPLAY = "display";
-		public static final String COLOR = "color";
+		public static final String COLOR = "colour";
 		public static final String STATE = "teState";
 		public static final String CUSTOM_NAME = "customName";
 		public static final String DIRECTION = "teDirection";
@@ -47,6 +48,11 @@ public class Names {
 		public static final String TEXTURE_NAME = "textureName";
 		public static final String ACCESS_MODE = "accessMode";
 		public static final String DELETE_STACK = "deleteStack";
+		public static final String STORAGE_BAG_GUI_OPEN = "storageBagGuiOpen";
+		public static final String UUID_MOST_SIG = "UUIDMostSig";
+		public static final String UUID_LEAST_SIG = "UUIDLeastSig";
+		public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
+		public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
 	}
 
 	public static final class Containers {
@@ -70,6 +76,7 @@ public class Names {
 		public static final String CLAY_CHEST_LOCKED = "container.tinystorage:" + Blocks.CLAY_CHEST;
 		public static final String CLAY_CHEST = "container.tinystorage:" + Blocks.CLAY_CHEST_LOCKED;
 		public static final String QUARRY_CHEST = "container.tinystorage:" + Blocks.QUARRY_CHEST;
+		public static final String STORAGE_BAG = "container.tinystorage:" + Items.STORAGE_BAG;
 	}
 	
 	public static final class ButtonTooltips{
