@@ -8,6 +8,7 @@ import net.minecraft.util.ChatComponentText;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.ChatComponentTranslation;
 
 public class PlayerHelper {
 
@@ -15,8 +16,18 @@ public class PlayerHelper {
 	 * Sends a given message to a specific player
 	 */
 	public static void sendChatMessage(EntityPlayer p, String message) {
-		if (p != null && message != null && !message.isEmpty())
+		if (p != null && message != null && !message.isEmpty()){
 			p.addChatComponentMessage(new ChatComponentText(message));
+		}
+	}
+
+	/**
+	 * Sends a given unlocalised message to a specific player
+	 */
+	public static void sendChatMessage(EntityPlayer p, ChatComponentTranslation message) {
+		if (p != null && message != null) {
+			p.addChatComponentMessage(message);
+		}
 	}
 
 	/**

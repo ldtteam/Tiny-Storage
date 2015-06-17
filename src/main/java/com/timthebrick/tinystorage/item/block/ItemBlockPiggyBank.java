@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.item.block;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -30,11 +31,11 @@ public class ItemBlockPiggyBank extends ItemBlock {
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:piggyBankPrefix.small"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_SMALL));
 		} else if (metaData == 1) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:piggyBankPrefix.medium"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_MEDIUM));
 		} else if (metaData == 2) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:piggyBankPrefix.large"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LARGE));
 		}
 	}
 

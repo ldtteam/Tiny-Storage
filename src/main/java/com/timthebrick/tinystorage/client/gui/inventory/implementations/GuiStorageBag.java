@@ -19,26 +19,24 @@ public class GuiStorageBag extends GuiContainer {
 
     public GuiStorageBag (EntityPlayer entityPlayer, InventoryStorageBag inventoryStorageBag) {
         super(new ContainerStorageBag(entityPlayer, inventoryStorageBag));
-
         this.parentItemStack = inventoryStorageBag.parentItemStack;
         this.inventoryStorageBag = inventoryStorageBag;
-
         if (this.parentItemStack.getItemDamage() == 0) {
-            xSize = 230;
-            ySize = 186;
+            xSize = 176;
+            ySize = 133;
         } else if (this.parentItemStack.getItemDamage() == 1) {
-            xSize = 230;
-            ySize = 240;
+            xSize = 176;
+            ySize = 151;
         } else if (this.parentItemStack.getItemDamage() == 2) {
-            xSize = 248;
-            ySize = 256;
+            xSize = 176;
+            ySize = 169;
         }
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer (int x, int y) {
-        fontRendererObj.drawString(StatCollector.translateToLocal(inventoryStorageBag.getInventoryName()), 8, 6, Integer.parseInt(Colours.PURE_WHITE, 16));
-        fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 180, Integer.parseInt(Colours.PURE_WHITE, 16));
+        fontRendererObj.drawString(StatCollector.translateToLocal(inventoryStorageBag.getInventoryName()), 8, 6, Colours.INV_GRAY);
+        fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
     }
 
     @Override

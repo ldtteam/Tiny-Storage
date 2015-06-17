@@ -297,6 +297,7 @@ item.storageComponent.name=Storage Component
 item.chestFilter.name=Chest Filter
 item.chestLock.name=Chest Lock
 item.debugTool.name=Chest Wrench
+item.storageBag.name=Tiny Bag
 
 #Containers
 container.tinystorage:tinyChest=Tiny Chest
@@ -314,58 +315,20 @@ container.tinystorage:peacefulChestLocked=Locking Peaceful Chest
 container.tinystorage:vacuumChest=Vacuum Chest
 container.tinystorage:vacuumChestLocked=Locking Vacuum Chest
 container.tinystorge:quarryChest=Black Hole Singularity Chest
+container.tinystorag:storageBag=Storage Bag
 
 #Tooltips
-tooltip.tinystorage:tinyChestPrefix.small=Small
-tooltip.tinystorage:tinyChestPrefix.medium=Medium
-tooltip.tinystorage:tinyChestPrefix.large=Large
-tooltip.tinystorage:tinyChestPrefix.locked=Locking
-
-tooltip.tinystorage:filterChestPrefix.small=Small
-tooltip.tinystorage:filterChestPrefix.medium=Medium
-tooltip.tinystorage:filterChestPrefix.large=Large
-tooltip.tinystorage:filterChestPrefix.locked=Locking
-
-tooltip.tinystorage:woolChestPrefix.small=Small
-tooltip.tinystorage:woolChestPrefix.medium=Medium
-tooltip.tinystorage:woolChestPrefix.large=Large
-tooltip.tinystorage:woolChestPrefix.locked=Locking
-
-tooltip.tinystorage:clayChestPrefix.small=Small
-tooltip.tinystorage:clayChestPrefix.medium=Medium
-tooltip.tinystorage:clayChestPrefix.large=Large
-tooltip.tinystorage:clayChestPrefix.locked=Locking
-
-tooltip.tinystorage:vacuumChestPrefix.small=Small
-tooltip.tinystorage:vacuumChestPrefix.medium=Medium
-tooltip.tinystorage:vacuumChestPrefix.large=Large
-tooltip.tinystorage:vacuumChestPrefix.locked=Locking
-
-tooltip.tinystorage:microChestPrefix.locked=Locking
-
-tooltip.tinystorage:piggyBankPrefix.small=Small
-tooltip.tinystorage:piggyBankPrefix.medium=Medium
-tooltip.tinystorage:piggyBankPrefix.large=Large
-
-tooltip.tinystorage:peacefulChestPrefix.small=Small
-tooltip.tinystorage:peacefulChestPrefix.medium=Medium
-tooltip.tinystorage:peacefulChestPrefix.large=Large
+tooltip.tinystorage:itemSize.small=Tier 1
+tooltip.tinystorage:itemSize.medium=Tier 2
+tooltip.tinystorage:itemSize.large=Tier 3
+tooltip.tinystorage:blockSize.small=Small
+tooltip.tinystorage:blockSize.medium=Medium
+tooltip.tinystorage:blockSize.large=Large
+tooltip.tinystorage:blockLocked=Locking
 tooltip.tinystorage:peacefulChest.description1=Passively generates mob drops in a Peaceful World!
 tooltip.tinystorage:peacefulChest.description2=Simply place down and provide with a sword of choice!
-
-tooltip.tinystorage:quarryChestPrefix.small=Small
-tooltip.tinystorage:quarryChestPrefix.medium=Medium
-tooltip.tinystorage:quarryChestPrefix.large=Large
 tooltip.tinystorage:quarryChestPrefix.mode=A very dense core at the centre of this chest breaks all blocks around it
 tooltip.tinystorage:quarryChestPrefix.modeA=And pulls them into its inventory
-
-tooltip.tinystorage:storageComponentPrefix.small=Tier 1
-tooltip.tinystorage:storageComponentPrefix.medium=Tier 2
-tooltip.tinystorage:storageComponentPrefix.large=Tier 3
-
-tooltip.tinystorage:chestFilterPrefix.small=Tier 1
-tooltip.tinystorage:chestFilterPrefix.medium=Tier 2
-tooltip.tinystorage:chestFilterPrefix.large=Tier 3
 
 tooltip.tinystorage:debugTool.modetipA=Press
 tooltip.tinystorage:debugTool.modetipB=to change the mode of operation (Shift cycles backwards)
@@ -385,17 +348,29 @@ button.tooltip.tinystorage:delete_last_stack_false=Keep last stack stored
 button.tooltip.tinystorage:delete_last_stack_true=Delete last stack
 
 #Config
+general.sound.SoundMode=Sounds
 general.sound.soundMode.label=Sounds
 general.sound.soundMode.comment='All' plays mod sounds from all players, 'Self' only plays mod sounds from you, and 'None' plays no mod sounds
 
+general.blocks.peacefulChestMode=Peaceful Chest
 general.blocks.peacefulChestMode.label=Peaceful Chest Mode
 general.blocks.peacefulChestMode.comment='False' will only allow mob drops to be generated in Peaceful Mode, 'True' will allow the block to function in any Game Mode
 
 key.tinystorage.categories=Tiny Storage
 key.tinystorage.mode=Change Wrench Mode
 
-#Misc
+#Chat Messages
 update.tinystorage:update=[TinyStorage] A new version is available:
 update.tinystorage:new_version=TinyStorage %s for Minecraft %s
 update.tinystorage:download=Download from tiny.cc/TinyStorage
+general.misc.tinyStorage:setOwner=This item has been bound to your player
+general.blocks.chests.notOwned=This chest does not belong to you! Back off!
+general.blocks.piggyBank.notOwned=This Piggy Bank does not belong to you! Back off!
+general.blocks.piggyBank.full=This Piggy Bank is full!
+general.blocks.piggyBank.empty=No items currently stored
+general.blocks.piggyBank.contents=Items currently stored:
+general.blocks.quarryChest.depth=The chest is too deep to function fully, setting the depth to:
+general.blocks.quarryChest.depthBlocks= blocks deep
+
+#Misc
 itemGroup.tinystorage=Tiny Storage

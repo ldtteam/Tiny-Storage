@@ -7,6 +7,7 @@ import com.timthebrick.tinystorage.reference.*;
 import com.timthebrick.tinystorage.util.ColourHelper;
 import com.timthebrick.tinystorage.util.ItemHelper;
 import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -39,6 +41,18 @@ public class ItemStorageBag extends Item {
     }
 
     @Override
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean flag) {
+        int metaData = stack.getItemDamage();
+        if (metaData == 0) {
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_1));
+        } else if (metaData == 1) {
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_2));
+        } else if (metaData == 2) {
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_3));
+        }
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean requiresMultipleRenderPasses () {
         return true;
@@ -57,11 +71,8 @@ public class ItemStorageBag extends Item {
     public IIcon getIcon (ItemStack itemStack, int renderPass) {
         if (renderPass == 0) {
             if (NBTHelper.hasTag(itemStack, Names.NBT.STORAGE_BAG_GUI_OPEN)) {
-                // TinyStorageLog.info(icons[0].getIconName());
                 return icons[0];
-
             } else {
-                //TinyStorageLog.info(icons[1].getIconName());
                 return icons[1];
             }
         } else {
@@ -87,7 +98,7 @@ public class ItemStorageBag extends Item {
         if (!world.isRemote) {
             if (!ItemHelper.hasOwnerUUID(itemStack)) {
                 ItemHelper.setOwner(itemStack, entityPlayer);
-                entityPlayer.addChatComponentMessage(new ChatComponentTranslation(Messages.OWNER_SET_TO_SELF, new Object[]{itemStack.func_151000_E()}));
+                PlayerHelper.sendChatMessage(entityPlayer, StatCollector.translateToLocal(Messages.Chat.OWNER_SET_TO_SELF));
             }
             NBTHelper.setUUID(itemStack);
             NBTHelper.setBoolean(itemStack, Names.NBT.STORAGE_BAG_GUI_OPEN, true);

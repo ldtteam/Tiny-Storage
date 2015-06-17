@@ -1,9 +1,5 @@
 package com.timthebrick.tinystorage.reference;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-
 public class Names {
 
 	public static final class Blocks {
@@ -78,18 +74,7 @@ public class Names {
 		public static final String QUARRY_CHEST = "container.tinystorage:" + Blocks.QUARRY_CHEST;
 		public static final String STORAGE_BAG = "container.tinystorage:" + Items.STORAGE_BAG;
 	}
-	
-	public static final class ButtonTooltips{
-		public static final String ACCESS_MODE_TITLE = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase();
-		public static final String ACCESS_MODE_BLOCKED = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.DISABLED.toString().toLowerCase();
-		public static final String ACCESS_MODE_INPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_ONLY.toString().toLowerCase();
-		public static final String ACCESS_MODE_OUTPUT_ONLY = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.OUTPUT_ONLY.toString().toLowerCase();
-		public static final String ACCESS_MODE_BOTH = "button.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_OUTPUT.toString().toLowerCase();
-		public static final String DELETE_STACK_TITLE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase();
-		public static final String DELETE_STACK_TRUE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.TRUE.toString().toLowerCase();
-		public static final String DELETE_STACK_FALSE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.FALSE.toString().toLowerCase();
-	}
-	
+
 	public static final class Keys{
 		public static final String CATEGORY = "key.tinystorage.categories";
         public static final String MODE = "key.tinystorage.mode";

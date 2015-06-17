@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.item;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -239,11 +240,11 @@ public class ItemStorageComponent extends Item {
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.small"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_1));
 		} else if (metaData == 1) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.medium"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_2));
 		} else if (metaData == 2) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:storageComponentPrefix.large"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_3));
 		}
 	}
 

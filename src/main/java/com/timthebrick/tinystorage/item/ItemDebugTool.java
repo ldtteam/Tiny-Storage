@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -264,7 +265,7 @@ public class ItemDebugTool extends Item implements IKeyBound {
                 Enum<?> newState = Utils.rotateEnum(operationMode, player.isSneaking(), OperationMode.OPERATION_MODE.getPossibleValues());
                 operationMode = OperationModeSettings.values()[newState.ordinal()];
                 NBTHelper.setInteger(itemStack, "operationMode", operationMode.ordinal());
-                PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal("tooltip.tinystorage:debugTool.mode") + ": " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
+                PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.DEBUG_TOOL_MODE) + ": " + StatCollector.translateToLocal(Messages.Chat.DEBUG_TOOL_CASE + operationMode.ordinal()));
             }
         }
     }

@@ -19,7 +19,7 @@ public class SlotRestrictedInput extends SlotTinyStorage {
 	@Override
 	public boolean isItemValid(ItemStack testStack) {
 		if(StackHelper.isMatchingItem(testStack, filterStack, true, false)){
-			return StackHelper.isMatchingItem(testStack, filterStack, true, false);
+			return true;
 		}
 		if(StackHelper.hasOreDictEntry(testStack) && StackHelper.hasOreDictEntry(filterStack)){
 			return StackHelper.isMatchingOreDict(testStack, filterStack);

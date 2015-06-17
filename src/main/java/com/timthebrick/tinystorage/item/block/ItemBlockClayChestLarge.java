@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.item.block;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -11,10 +12,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 
 import com.timthebrick.tinystorage.block.BlockClayChest;
-import com.timthebrick.tinystorage.block.BlockWoolChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import sun.plugin2.message.Message;
 
 public class ItemBlockClayChestLarge extends ItemBlock {
 
@@ -38,11 +39,11 @@ public class ItemBlockClayChestLarge extends ItemBlock {
 
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
-		list.add(StatCollector.translateToLocal("tooltip.tinystorage:clayChestPrefix.large"));
+		list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LARGE));
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockClayChest) {
 			BlockClayChest block = (BlockClayChest) Block.getBlockFromItem(itemStack.getItem());
 			if (block.getIsLockable()) {
-				list.add(StatCollector.translateToLocal("tooltip.tinystorage:clayChestPrefix.locked"));
+				list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
 			}
 		}
 	}
