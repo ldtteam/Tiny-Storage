@@ -1,13 +1,8 @@
 package com.timthebrick.tinystorage.inventory.slot;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.util.StackHelper;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class SlotRestrictedInput extends SlotTinyStorage {
 
