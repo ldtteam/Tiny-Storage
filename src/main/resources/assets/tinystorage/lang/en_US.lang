@@ -315,7 +315,7 @@ container.tinystorage:peacefulChestLocked=Locking Peaceful Chest
 container.tinystorage:vacuumChest=Vacuum Chest
 container.tinystorage:vacuumChestLocked=Locking Vacuum Chest
 container.tinystorge:quarryChest=Black Hole Singularity Chest
-container.tinystorag:storageBag=Storage Bag
+container.tinystorage:storageBag=Storage Bag
 
 #Tooltips
 tooltip.tinystorage:itemSize.small=Tier 1
