@@ -7,11 +7,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ColourHelper {
 
-    public static boolean hasColor (ItemStack itemStack) {
+    public static boolean hasColour (ItemStack itemStack) {
         return itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(Names.NBT.DISPLAY) && itemStack.getTagCompound().getCompoundTag(Names.NBT.DISPLAY).hasKey(Names.NBT.COLOR);
     }
 
-    public static int getColor (ItemStack itemStack) {
+    public static int getColour (ItemStack itemStack) {
         NBTTagCompound nbtTagCompound = itemStack.getTagCompound();
         if (nbtTagCompound == null) {
             return Integer.parseInt(Colours.PURE_WHITE, 16);
@@ -21,7 +21,7 @@ public class ColourHelper {
         }
     }
 
-    public static void setColor (ItemStack itemStack, int color) {
+    public static void setColour (ItemStack itemStack, int color) {
         if (itemStack != null) {
             NBTTagCompound nbtTagCompound = itemStack.getTagCompound();
             if (nbtTagCompound == null) {

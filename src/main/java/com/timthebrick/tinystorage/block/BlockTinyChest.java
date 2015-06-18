@@ -52,9 +52,9 @@ public class BlockTinyChest extends BlockContainer implements ITileEntityProvide
 		this.isLockable = isLockable;
 		this.textureName = textureName;
 		if (!this.isLockable) {
-			this.setBlockName("blockTinyChest" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.TINY_CHEST + this.textureName);
 		} else {
-			this.setBlockName("blockTinyChestLocked" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.TINY_CHEST_LOCKED + this.textureName);
 		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}

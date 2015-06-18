@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.handler;
 
-import com.timthebrick.tinystorage.client.gui.inventory.implementations.GuiStorageBag;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.*;
 import com.timthebrick.tinystorage.inventory.implementations.*;
 import com.timthebrick.tinystorage.tileentity.implementations.*;

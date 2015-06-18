@@ -15,7 +15,6 @@ public class Names {
 		public static final String WOOL_CHEST_LOCKED = "woolChestLocked";
 		public static final String PIGGY_BANK = "piggyBank";
 		public static final String PEACEFUL_CHEST = "peacefulChest";
-		public static final String PEACEFUL_CHEST_LOCKED = "peacefulChestLocked";
 		public static final String VACUUM_CHEST = "vacuumChest";
 		public static final String VACUUM_CHEST_LOCKED = "vacuumChestLocked";
 		public static final String CLAY_CHEST = "clayChest";
@@ -23,6 +22,36 @@ public class Names {
 		public static final String QUARRY_CHEST = "quarryChest";
 		public static final String DENSE_BLOCK = "denseBlock";
 	}
+
+	public static final class UnlocalisedBlocks{
+        public static final String TINY_CHEST = "blockTinyChest";
+        public static final String TINY_CHEST_LOCKED = "blockTinyChestLocked";
+        public static final String FILTER_CHEST = "blockFilterChest";
+        public static final String FILTER_CHEST_LOCKED = "blockFilterChestLocked";
+        public static final String DRAW = "blockDraw";
+        public static final String TRASH_CHEST = "blockTrashChest";
+        public static final String MICRO_CHEST = "blockMicroChest";
+        public static final String MICRO_CHEST_LOCKED = "blockMicroChestLocked";
+        public static final String WOOL_CHEST_SMALL = "blockWoolChestSmall";
+        public static final String WOOL_CHEST_SMALL_LOCKED = "blockWoolChestSmallLocked";
+        public static final String WOOL_CHEST_MEDIUM = "blockWoolChestMedium";
+        public static final String WOOL_CHEST_MEDIUM_LOCKED = "blockWoolChestMediumLocked";
+        public static final String WOOL_CHEST_LARGE = "blockWoolChestLarge";
+        public static final String WOOL_CHEST_LARGE_LOCKED = "blockWoolChestLargeLocked";
+        public static final String PIGGY_BANK = "blockPiggyBank";
+        public static final String PEACEFUL_CHEST = "blockPeacefulChest";
+        public static final String VACUUM_CHEST = "blockVacuumChest";
+        public static final String VACUUM_CHEST_LOCKED = "blockVacuumChestLocked";
+        public static final String CLAY_CHEST_SMALL = "blockClayChestSmall";
+        public static final String CLAY_CHEST_SMALL_LOCKED = "blockClayChestSmallLocked";
+        public static final String CLAY_CHEST_MEDIUM = "blockClayMediumChest";
+        public static final String CLAY_CHEST_MEDIUM_LOCKED = "blockClayChestMediumLocked";
+        public static final String CLAY_CHEST_LARGE = "blockClayLLargeChest";
+        public static final String CLAY_CHEST_LARGE_LOCKED = "blockClayChestLargeLocked";
+        public static final String QUARRY_CHEST = "blockQuarryChest";
+        public static final String DENSE_BLOCK = "blockDenseBlock";
+    }
+
 	
 	public static final class Items{
 		public static final String STORAGE_COMPONENT = "storageComponent";
@@ -66,7 +95,6 @@ public class Names {
 		public static final String WOOL_CHEST_LOCKED = "container.tinystorage:" + Blocks.WOOL_CHEST_LOCKED;
 		public static final String PIGGY_BANK = "container.tinystorage:" + Blocks.PIGGY_BANK;
 		public static final String PEACEFUL_CHEST = "container.tinystorage:" + Blocks.PEACEFUL_CHEST;
-		public static final String PEACEFUL_CHEST_LOCKED = "container.tinystorage:" + Blocks.PEACEFUL_CHEST_LOCKED;
 		public static final String VACUUM_CHEST = "container.tinystorage:" + Blocks.VACUUM_CHEST;
 		public static final String VACUUM_CHEST_LOCKED = "container.tinystorage:" + Blocks.VACUUM_CHEST_LOCKED;
 		public static final String CLAY_CHEST_LOCKED = "container.tinystorage:" + Blocks.CLAY_CHEST;

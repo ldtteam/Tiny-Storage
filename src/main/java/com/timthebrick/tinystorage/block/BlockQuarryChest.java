@@ -2,10 +2,7 @@ package com.timthebrick.tinystorage.block;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.reference.Messages;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.reference.*;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestLarge;
@@ -44,7 +41,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 	public BlockQuarryChest(Material mat) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockQuarryChest");
+		this.setBlockName(Names.UnlocalisedBlocks.QUARRY_CHEST);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 

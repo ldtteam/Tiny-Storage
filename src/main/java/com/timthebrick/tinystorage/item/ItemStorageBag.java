@@ -1,7 +1,6 @@
 package com.timthebrick.tinystorage.item;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.*;
 import com.timthebrick.tinystorage.util.ColourHelper;
@@ -16,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
@@ -118,17 +116,17 @@ public class ItemStorageBag extends Item {
     }
 
     public boolean hasColor (ItemStack itemStack) {
-        return ColourHelper.hasColor(itemStack);
+        return ColourHelper.hasColour(itemStack);
     }
 
     public int getColor (ItemStack itemStack) {
-        return ColourHelper.getColor(itemStack);
+        return ColourHelper.getColour(itemStack);
     }
 
     public void setColor (ItemStack itemStack, int color) {
         if (itemStack != null) {
             if (itemStack.getItem() instanceof ItemStorageBag) {
-                ColourHelper.setColor(itemStack, color);
+                ColourHelper.setColour(itemStack, color);
             }
         }
     }

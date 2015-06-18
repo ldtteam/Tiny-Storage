@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.block;
 
+import com.timthebrick.tinystorage.reference.Names;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -17,9 +18,9 @@ public class BlockClayChestLarge extends BlockClayChest {
 	public BlockClayChestLarge(boolean isLockable) {
 		super(Material.rock, isLockable);
 		if (!this.isLockable) {
-			this.setBlockName("blockClayChestLarge");
+			this.setBlockName(Names.UnlocalisedBlocks.CLAY_CHEST_LARGE);
 		} else {
-			this.setBlockName("blockClayChestLargeLocked");
+			this.setBlockName(Names.UnlocalisedBlocks.CLAY_CHEST_LARGE_LOCKED);
 		}
 	}
 	

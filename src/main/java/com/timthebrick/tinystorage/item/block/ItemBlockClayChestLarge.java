@@ -15,7 +15,6 @@ import com.timthebrick.tinystorage.block.BlockClayChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import sun.plugin2.message.Message;
 
 public class ItemBlockClayChestLarge extends ItemBlock {
 

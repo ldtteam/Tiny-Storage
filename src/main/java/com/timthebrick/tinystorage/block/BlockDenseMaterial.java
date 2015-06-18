@@ -26,7 +26,7 @@ public class BlockDenseMaterial extends Block {
         super(mat);
         this.setHardness(2.5f);
         this.setCreativeTab(TabTinyStorage.creativeTab);
-        this.setBlockName("blockDenseBlock");
+        this.setBlockName(Names.UnlocalisedBlocks.DENSE_BLOCK);
         this.setHardness(50.0F);
         this.setResistance(2000.0F);
     }

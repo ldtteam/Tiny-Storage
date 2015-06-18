@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.block;
 import java.util.List;
 import java.util.Random;
 
-import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.reference.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -30,9 +30,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestLarge;
@@ -48,7 +45,7 @@ public class BlockPeacefulChest extends BlockContainer implements ITileEntityPro
 	public BlockPeacefulChest(Material mat) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockPeacefulChest");
+		this.setBlockName(Names.UnlocalisedBlocks.PEACEFUL_CHEST);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 

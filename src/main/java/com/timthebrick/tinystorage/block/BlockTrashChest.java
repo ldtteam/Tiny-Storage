@@ -7,6 +7,7 @@ import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.reference.RenderIDs;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
@@ -42,7 +43,7 @@ public class BlockTrashChest extends BlockContainer implements ITileEntityProvid
 		super(mat);
 		this.setHardness(30.0F);
 		this.setResistance(2000.0F);
-		this.setBlockName("blockTrashChest");
+		this.setBlockName(Names.UnlocalisedBlocks.TRASH_CHEST);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 

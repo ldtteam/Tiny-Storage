@@ -45,9 +45,9 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 		this.isLockable = isLockable;
 		this.textureName = textureName;
 		if (!this.isLockable) {
-			this.setBlockName("blockMicroChest" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.MICRO_CHEST + this.textureName);
 		} else {
-			this.setBlockName("blockMicroChestLocked" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.MICRO_CHEST_LOCKED + this.textureName);
 		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}

@@ -53,9 +53,9 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 		this.isLockable = isLockable;
 		this.textureName = textureName;
 		if (!this.isLockable) {
-			this.setBlockName("blockFilterChest" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.FILTER_CHEST + this.textureName);
 		} else {
-			this.setBlockName("blockFilterChestLocked" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.FILTER_CHEST_LOCKED + this.textureName);
 		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
