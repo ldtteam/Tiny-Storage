@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.item;
 import java.util.List;
 
 import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.reference.Names;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +37,7 @@ public class ItemStorageComponent extends Item {
 
 	public ItemStorageComponent() {
 		super();
-		this.setUnlocalizedName("storageComponent");
+		this.setUnlocalizedName(Names.Items.STORAGE_COMPONENT);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(TabTinyStorage.creativeTab);

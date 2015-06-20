@@ -34,7 +34,10 @@ public class Messages {
         public static final String PEACEFUL_CHEST_DESC_2 = "tooltip.tinystorage:peacefulChest.description2";
         public static final String QUARRY_CHEST_DESC_1 = "tooltip.tinystorage:quarryChestPrefix.mode";
         public static final String QUARRY_CHEST_DESC_2 = "tooltip.tinystorage:quarryChestPrefix.modeA";
-
+        public static final String DEBUG_TOOL_MODE_TIP_1 = "tooltip.tinystorage:debugTool.modetipA";
+        public static final String DEBUG_TOOL_MODE_TIP_2  = "tooltip.tinystorage:debugTool.modetipB";
+        public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
+        public static final String DEBUG_TOOL_CASE  = "tooltip.tinystorage:debugTool.case";
     }
 
 	public static final class Config {

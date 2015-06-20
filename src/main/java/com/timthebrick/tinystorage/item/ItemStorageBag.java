@@ -31,7 +31,7 @@ public class ItemStorageBag extends Item {
 
     public ItemStorageBag () {
         super();
-        this.setUnlocalizedName("storageBag");
+        this.setUnlocalizedName(Names.Items.STORAGE_BAG);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(TabTinyStorage.creativeTab);

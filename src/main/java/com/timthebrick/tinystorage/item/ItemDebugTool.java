@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.reference.Names;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -63,7 +64,7 @@ public class ItemDebugTool extends Item implements IKeyBound {
 
     public ItemDebugTool () {
         super();
-        this.setUnlocalizedName("debugTool");
+        this.setUnlocalizedName(Names.Items.DEBUG_TOOL);
         this.setMaxDamage(0);
         this.setCreativeTab(TabTinyStorage.creativeTab);
         this.setMaxStackSize(1);
@@ -72,8 +73,8 @@ public class ItemDebugTool extends Item implements IKeyBound {
     @Override
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean flag) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
-        list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipA") + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipB"));
-        list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.mode") + ": " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
+        list.add(StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_MODE_TIP_2));
+        list.add(StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_MODE) + ": " + StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_CASE + operationMode.ordinal()));
     }
 
     @Override

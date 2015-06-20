@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 
 import cpw.mods.fml.relauncher.Side;
@@ -24,7 +25,7 @@ public class ItemChestFilter extends Item {
 
 	public ItemChestFilter() {
 		super();
-		this.setUnlocalizedName("chestFilter");
+		this.setUnlocalizedName(Names.Items.CHEST_FILTER);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
