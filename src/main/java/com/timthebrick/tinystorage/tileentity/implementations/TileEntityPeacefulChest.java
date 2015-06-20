@@ -121,8 +121,6 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
     public String getInventoryName () {
         if (this.hasCustomName()) {
             return this.getCustomName();
-        } else if (this.hasUniqueOwner()) {
-            return Names.Containers.PEACEFUL_CHEST_LOCKED;
         } else {
             return Names.Containers.PEACEFUL_CHEST;
         }

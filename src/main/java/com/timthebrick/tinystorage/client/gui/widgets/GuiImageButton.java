@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
@@ -14,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 
 public class GuiImageButton extends GuiButton implements IButtonTooltip {
@@ -39,12 +39,12 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
 
 		if (appearances == null) {
 			appearances = new HashMap<EnumPair, ButtonAppearance>();
-			this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Names.ButtonTooltips.ACCESS_MODE_TITLE, Names.ButtonTooltips.ACCESS_MODE_BLOCKED);
-			this.registerApp(1, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_ONLY, Names.ButtonTooltips.ACCESS_MODE_TITLE, Names.ButtonTooltips.ACCESS_MODE_INPUT_ONLY);
-			this.registerApp(2, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.OUTPUT_ONLY, Names.ButtonTooltips.ACCESS_MODE_TITLE, Names.ButtonTooltips.ACCESS_MODE_OUTPUT_ONLY);
-			this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Names.ButtonTooltips.ACCESS_MODE_TITLE, Names.ButtonTooltips.ACCESS_MODE_BOTH);
-			this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Names.ButtonTooltips.DELETE_STACK_TITLE, Names.ButtonTooltips.DELETE_STACK_FALSE);
-			this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Names.ButtonTooltips.DELETE_STACK_TITLE, Names.ButtonTooltips.DELETE_STACK_TRUE);
+			this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BLOCKED);
+			this.registerApp(1, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_INPUT_ONLY);
+			this.registerApp(2, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.OUTPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_OUTPUT_ONLY);
+			this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BOTH);
+			this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_FALSE);
+			this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
 		}
 	}
 

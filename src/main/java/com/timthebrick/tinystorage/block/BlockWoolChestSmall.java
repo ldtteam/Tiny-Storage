@@ -46,9 +46,9 @@ public class BlockWoolChestSmall extends BlockWoolChest {
 	public BlockWoolChestSmall(boolean isLockable) {
 		super(Material.cloth, isLockable);
 		if (!this.isLockable) {
-			this.setBlockName("blockWoolChestSmall");
+			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_SMALL);
 		} else {
-			this.setBlockName("blockWoolChestSmallLocked");
+			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_SMALL_LOCKED);
 		}
 	}
 

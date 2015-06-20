@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
+import com.timthebrick.tinystorage.reference.Colours;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -36,11 +37,11 @@ public class GuiTinyChest extends GuiTinyStorage {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		if (tileEntity.hasOwner()) {
-			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + tileEntity.getOwner(), 8, 6, 4210752);
+			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + tileEntity.getOwner(), 8, 6, Colours.INV_GRAY);
 		} else {
-			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, 4210752);
+			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, Colours.INV_GRAY);
 		}
-		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
+		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
 		this.drawFG();
 	}
 

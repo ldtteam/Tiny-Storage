@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.tileentity;
 import java.util.EnumMap;
 import java.util.Map;
 
+import com.timthebrick.tinystorage.util.IOwnable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +21,7 @@ import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.util.NBTHelper;
 
-public class TileEntityTinyStorage extends TileEntity {
+public class TileEntityTinyStorage extends TileEntity implements IOwnable{
 
 	private final Map<ButtonSettings, Enum<?>> settings = new EnumMap<ButtonSettings, Enum<?>>(ButtonSettings.class);
 

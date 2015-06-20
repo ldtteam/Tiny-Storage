@@ -6,6 +6,7 @@ import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageSpawnParticle;
+import com.timthebrick.tinystorage.reference.Messages;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -306,8 +308,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
     public void genFirstLayer (EntityPlayer player) {
         if (yCoord - opDepth < 1) {
             opDepth = yCoord - 1;
-            PlayerHelper.sendChatMessage(player, "The chest is too deep to function fully, setting the depth to: " + opDepth + " blocks deep");
-            //TinyStorageLog.info("Setting new depth to: " + opDepth);
+            PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.QUARRY_CHEST_DEPTH, opDepth, Messages.Chat.QUARRY_CHEST_DEPTH_BLOCKS));
         }
         currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
     }

@@ -2,9 +2,7 @@ package com.timthebrick.tinystorage.block;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.reference.*;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestLarge;
@@ -28,7 +26,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -41,7 +41,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 	public BlockQuarryChest(Material mat) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockQuarryChest");
+		this.setBlockName(Names.UnlocalisedBlocks.QUARRY_CHEST);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 
@@ -117,7 +117,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 						player.openGui(TinyStorage.instance, GUIs.QUARRY_CHEST.ordinal(), world, x, y, z);
 					} else {
-						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
 					}
 				} else {
 					player.openGui(TinyStorage.instance, GUIs.QUARRY_CHEST.ordinal(), world, x, y, z);

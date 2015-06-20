@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.block;
 
 import java.util.Random;
 
+import com.timthebrick.tinystorage.reference.Names;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -33,7 +34,7 @@ public class BlockDraw extends BlockContainer {
 	public BlockDraw(Material mat, String textureName) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockDraw" + textureName);
+		this.setBlockName(Names.UnlocalisedBlocks.DRAW + textureName);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 		this.textureName = textureName;
 	}

@@ -1,16 +1,16 @@
 package com.timthebrick.tinystorage.proxy;
 
 public interface IProxy {
-	
-	public abstract ClientProxy getClientProxy();
 
-	public abstract void initRenderingAndTextures();
+    ClientProxy getClientProxy ();
 
-	public abstract void registerEventHandlers();
+    void initRenderingAndTextures ();
 
-	public abstract void registerKeyBindings();
+    void registerEventHandlers ();
 
-	public abstract void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch);
+    void registerKeyBindings ();
 
-	public abstract String getMinecraftVersion();
+    void playSound (String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch);
+
+    String getMinecraftVersion ();
 }

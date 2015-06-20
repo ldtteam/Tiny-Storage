@@ -8,6 +8,7 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.GUIs;
+import com.timthebrick.tinystorage.reference.Messages;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
@@ -30,7 +31,9 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -69,7 +72,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 						TinyStorageLog.info(tileEntity.getUniqueOwner());
 						player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
 					} else {
-						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
 					}
 				} else {
 					player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);

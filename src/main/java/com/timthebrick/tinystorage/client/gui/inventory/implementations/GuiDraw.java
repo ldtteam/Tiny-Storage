@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
+import com.timthebrick.tinystorage.reference.Colours;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.inventory.implementations.ContainerDraw;
@@ -26,8 +27,8 @@ public class GuiDraw extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 3, 4210752);
-		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, 4210752);
+		fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 3, Colours.INV_GRAY);
+		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
 	}
 
 	@Override

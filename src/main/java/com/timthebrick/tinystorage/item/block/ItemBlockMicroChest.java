@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.item.block;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -32,7 +33,7 @@ public class ItemBlockMicroChest extends ItemBlock{
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockMicroChest) {
 			BlockMicroChest block = (BlockMicroChest) Block.getBlockFromItem(itemStack.getItem());
 			if(block.getIsLockable()){
-				list.add(StatCollector.translateToLocal("tooltip.tinystorage:microChestPrefix.locked"));
+				list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
 			}
 		}
 	}
