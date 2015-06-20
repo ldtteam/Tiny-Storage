@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<modid>TinyStorage</modid>
+    <mcversion>1.7.10</mcversion>
+	<group>com.timthebrick.tinystorage</group>
+	<version>1.12.2</version>
+	<isDev>false</isDev>
+</config>
