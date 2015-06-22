@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -153,11 +154,6 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     }
 
     @Override
-    public void readSyncedNBT (NBTTagCompound tagCompound) {
-        super.readSyncedNBT(tagCompound);
-    }
-
-    @Override
     public void writeToNBT (NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         NBTTagList itemList = new NBTTagList();
@@ -177,6 +173,26 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     @Override
     public void writeSyncedNBT (NBTTagCompound tagCompound) {
         super.writeSyncedNBT(tagCompound);
+        int res = 0;
+        for (int slot = 0; slot < getSizeInventory(); slot++) {
+            if (getStackInSlot(slot) != null) {
+                res |= (1 << slot);
+            }
+        }
+        tagCompound.setInteger("SlotsFilled", res);
+    }
+
+    @Override
+    public void readSyncedNBT (NBTTagCompound tagCompound) {
+        super.readSyncedNBT(tagCompound);
+        int slots = tagCompound.getInteger("SlotsFilled");
+        for (int slot = 0; slot < getSizeInventory(); slot++) {
+            if ((slots & (1 << slot)) != 0) {
+                setInventorySlotContents(slot, new ItemStack(Blocks.stone));
+            }else{
+                setInventorySlotContents(slot, null);
+            }
+        }
     }
 
     @Override
