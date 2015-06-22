@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
-import com.timthebrick.tinystorage.util.ArrayHelper;
+import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;

@@ -1,7 +1,6 @@
 package com.timthebrick.tinystorage.network.message;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +10,7 @@ import net.minecraft.world.World;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.Utils;
+import com.timthebrick.tinystorage.util.EnumHelper;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -63,12 +62,12 @@ public class MessageConfigButton implements IMessage, IMessageHandler<MessageCon
 			if(entity != null && entity instanceof TileEntityTinyStorage){
 				TileEntityTinyStorage te = (TileEntityTinyStorage) entity;
 				if (event.option.ordinal() == ButtonSettings.AUTOMATED_SIDE_ACCESS.ordinal()){
-					Enum<?> newState = Utils.rotateEnum( te.accessMode, event.rotationDirection, event.option.getPossibleValues() );
+					Enum<?> newState = EnumHelper.rotateEnum(te.accessMode, event.rotationDirection, event.option.getPossibleValues());
 					te.accessMode = AccessMode.values()[newState.ordinal()];
 					te.markDirty();
 					world.markBlockForUpdate((int)event.xCoord,(int) event.yCoord, (int)event.zCoord);
 				}else if (event.option.ordinal() == ButtonSettings.DELETE_LAST_STACK.ordinal() && te instanceof TileEntityTrashChest){
-					Enum<?> newState = Utils.rotateEnum(((TileEntityTrashChest) te).deleteStack, event.rotationDirection, event.option.getPossibleValues() );
+					Enum<?> newState = EnumHelper.rotateEnum(((TileEntityTrashChest) te).deleteStack, event.rotationDirection, event.option.getPossibleValues());
 					((TileEntityTrashChest) te).deleteStack = BooleanMode.values()[newState.ordinal()];
 					te.markDirty();
 					world.markBlockForUpdate((int)event.xCoord,(int) event.yCoord, (int)event.zCoord);

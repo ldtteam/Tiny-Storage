@@ -26,8 +26,8 @@ import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityVacuumChestSmall;
-import com.timthebrick.tinystorage.util.MathHelper;
-import com.timthebrick.tinystorage.util.Vector3;
+import com.timthebrick.tinystorage.util.math.MathHelper;
+import com.timthebrick.tinystorage.util.math.Vector3;
 
 public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISidedInventory {
 

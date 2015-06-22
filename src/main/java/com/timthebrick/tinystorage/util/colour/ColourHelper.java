@@ -1,9 +1,15 @@
-package com.timthebrick.tinystorage.util;
+package com.timthebrick.tinystorage.util.colour;
 
 import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ColourHelper {
 

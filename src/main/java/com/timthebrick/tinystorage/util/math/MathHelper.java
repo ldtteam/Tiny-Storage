@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.util;
+package com.timthebrick.tinystorage.util.math;
 
 import net.minecraft.entity.Entity;
 

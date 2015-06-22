@@ -1,8 +1,6 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageSpawnParticle;
@@ -11,6 +9,9 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.*;
+import com.timthebrick.tinystorage.util.math.CircleHelper;
+import com.timthebrick.tinystorage.util.math.MathHelper;
+import com.timthebrick.tinystorage.util.math.Vector3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

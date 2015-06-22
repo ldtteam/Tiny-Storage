@@ -46,7 +46,7 @@ public class SlotSpecificInput extends SlotTinyStorage {
 
     @Override
     public int getSlotStackLimit () {
-        return 64;
+        return 1;
     }
 
 }

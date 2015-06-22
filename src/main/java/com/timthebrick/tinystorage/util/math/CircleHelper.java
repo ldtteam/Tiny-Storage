@@ -1,9 +1,10 @@
-package com.timthebrick.tinystorage.util;
+package com.timthebrick.tinystorage.util.math;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import com.timthebrick.tinystorage.util.EntryMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 

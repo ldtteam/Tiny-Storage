@@ -1,15 +1,12 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerBookCase;
+import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.ArrayHelper;
-import com.timthebrick.tinystorage.util.CommonSoundHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
+import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,14 +15,14 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
-import java.util.Arrays;
-
 public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedInventory {
 
     public int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;
+    public int slotsFilled;
+    public int[] bookColours = new int[ContainerBookCase.INVENTORY_SIZE];
 
     public TileEntityBookCase () {
         super();
@@ -124,6 +121,19 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
         super.updateEntity();
         if (++ticksSinceSync % 20 * 4 == 0) {
             worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
+            slotsFilled = 0;
+            for (int slot = 0; slot < getSizeInventory(); slot++) {
+                if (getStackInSlot(slot) != null) {
+                    slotsFilled |= (1 << slot);
+                    //TinyStorageLog.info("Slot: " + slot + " filled");
+                    if (Colours.itemColourMap.containsKey(getStackInSlot(slot).getItem())) {
+                        //TinyStorageLog.info("Item in slot: " + slot + " has colour map");
+                        bookColours[slot] = Colours.itemColourMap.get(getStackInSlot(slot).getItem()).getColour();
+                    }
+                } else {
+                    bookColours[slot] = 0;
+                }
+            }
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             this.markDirty();
         }
@@ -173,26 +183,15 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     @Override
     public void writeSyncedNBT (NBTTagCompound tagCompound) {
         super.writeSyncedNBT(tagCompound);
-        int res = 0;
-        for (int slot = 0; slot < getSizeInventory(); slot++) {
-            if (getStackInSlot(slot) != null) {
-                res |= (1 << slot);
-            }
-        }
-        tagCompound.setInteger("SlotsFilled", res);
+        tagCompound.setInteger("SlotsFilled", slotsFilled);
+        tagCompound.setIntArray("SlotColours", bookColours);
     }
 
     @Override
     public void readSyncedNBT (NBTTagCompound tagCompound) {
         super.readSyncedNBT(tagCompound);
-        int slots = tagCompound.getInteger("SlotsFilled");
-        for (int slot = 0; slot < getSizeInventory(); slot++) {
-            if ((slots & (1 << slot)) != 0) {
-                setInventorySlotContents(slot, new ItemStack(Blocks.stone));
-            }else{
-                setInventorySlotContents(slot, null);
-            }
-        }
+        slotsFilled = tagCompound.getInteger("SlotsFilled");
+        bookColours = tagCompound.getIntArray("SlotColours");
     }
 
     @Override

@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 import com.timthebrick.tinystorage.reference.Messages;
 import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.util.EnumHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -34,7 +35,6 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChes
 import com.timthebrick.tinystorage.util.IKeyBound;
 import com.timthebrick.tinystorage.util.NBTHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
-import com.timthebrick.tinystorage.util.Utils;
 
 public class ItemDebugTool extends Item implements IKeyBound {
 
@@ -263,7 +263,7 @@ public class ItemDebugTool extends Item implements IKeyBound {
         if (key == Key.MODE) {
             if (itemStack.getItem() instanceof ItemDebugTool) {
                 OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(itemStack, "operationMode")];
-                Enum<?> newState = Utils.rotateEnum(operationMode, player.isSneaking(), OperationMode.OPERATION_MODE.getPossibleValues());
+                Enum<?> newState = EnumHelper.rotateEnum(operationMode, player.isSneaking(), OperationMode.OPERATION_MODE.getPossibleValues());
                 operationMode = OperationModeSettings.values()[newState.ordinal()];
                 NBTHelper.setInteger(itemStack, "operationMode", operationMode.ordinal());
                 PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.DEBUG_TOOL_MODE) + ": " + StatCollector.translateToLocal(Messages.Chat.DEBUG_TOOL_CASE + operationMode.ordinal()));

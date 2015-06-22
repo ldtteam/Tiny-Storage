@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.item;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.reference.*;
-import com.timthebrick.tinystorage.util.ColourHelper;
+import com.timthebrick.tinystorage.util.colour.ColourHelper;
 import com.timthebrick.tinystorage.util.ItemHelper;
 import com.timthebrick.tinystorage.util.NBTHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;

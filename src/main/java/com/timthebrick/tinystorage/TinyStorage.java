@@ -5,10 +5,7 @@ import com.timthebrick.tinystorage.core.UnlocalizedNameDump;
 import com.timthebrick.tinystorage.handler.ConfigurationHandler;
 import com.timthebrick.tinystorage.handler.CraftingEventHandler;
 import com.timthebrick.tinystorage.handler.GuiHandler;
-import com.timthebrick.tinystorage.init.ModBlocks;
-import com.timthebrick.tinystorage.init.ModItems;
-import com.timthebrick.tinystorage.init.Recipes;
-import com.timthebrick.tinystorage.init.TileEntities;
+import com.timthebrick.tinystorage.init.*;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.proxy.IProxy;
 import com.timthebrick.tinystorage.reference.References;
@@ -69,6 +66,7 @@ public class TinyStorage {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		TinyStorageLog.info("Starting post init - Nearly there now!");
+		TinyStorageInitaliser.postInit(event);
 		TinyStorageLog.info("Finished post init - Finally finished storing all the things!");
 	}
 
