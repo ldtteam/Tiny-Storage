@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.tileentity.implementations;
 import java.util.List;
 import java.util.Random;
 
+import com.timthebrick.tinystorage.util.*;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
@@ -36,10 +37,6 @@ import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityPeacefulChestSmall;
-import com.timthebrick.tinystorage.util.InventoryHelper;
-import com.timthebrick.tinystorage.util.ItemHelper;
-import com.timthebrick.tinystorage.util.Settings;
-import com.timthebrick.tinystorage.util.StackHelper;
 
 public class TileEntityPeacefulChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -60,13 +57,13 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
         this.state = (byte) metaData;
         if (metaData == 0) {
             inventory = new ItemStack[ContainerPeacefulChest.SMALL_INVENTORY_SIZE];
-            inventorySlots = new int[]{1, 2, 3, 4, 5, 6, 7};
+            inventorySlots = ArrayHelper.fillIntArray(1, 7, true);
         } else if (metaData == 1) {
             inventory = new ItemStack[ContainerPeacefulChest.MEDIUM_INVENTORY_SIZE];
-            inventorySlots = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+            inventorySlots = ArrayHelper.fillIntArray(1, 14, true);
         } else if (metaData == 2) {
             inventory = new ItemStack[ContainerPeacefulChest.LARGE_INVENTORY_SIZE];
-            inventorySlots = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
+            inventorySlots = ArrayHelper.fillIntArray(1, 21, true);
         }
         this.random = new Random();
     }

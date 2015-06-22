@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import com.timthebrick.tinystorage.util.ArrayHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -16,6 +17,8 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.StackHelper;
 
+import java.lang.reflect.Array;
+
 public class TileEntityFilterChest extends TileEntityTinyStorage implements ISidedInventory {
 
 	public float lidAngle;
@@ -30,13 +33,13 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
 		this.state = (byte) metaData;
 		if (metaData == 0) {
 			inventory = new ItemStack[ContainerFilterChest.SMALL_INVENTORY_SIZE];
-			sides = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			sides = ArrayHelper.fillIntArray(1, 9, true);
 		} else if (metaData == 1) {
 			inventory = new ItemStack[ContainerFilterChest.MEDIUM_INVENTORY_SIZE];
-			sides = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+			sides = ArrayHelper.fillIntArray(2, 15, true);
 		} else if (metaData == 2) {
 			inventory = new ItemStack[ContainerFilterChest.LARGE_INVENTORY_SIZE];
-			sides = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+			sides = ArrayHelper.fillIntArray(3, 23, true);
 		}
 	}
 

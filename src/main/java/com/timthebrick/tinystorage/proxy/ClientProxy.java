@@ -34,6 +34,7 @@ public class ClientProxy extends CommonProxy {
 		RenderIDs.clayChestMedium = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.clayChestLarge = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.quarryChest = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.bookCase = RenderingRegistry.getNextAvailableRenderId();
 
 		// Tiny Chests
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestStone), new ItemRendererTinyChest("Stone", false));

@@ -1,19 +1,9 @@
 package com.timthebrick.tinystorage.init;
 
+import com.timthebrick.tinystorage.tileentity.implementations.*;
 import net.minecraft.tileentity.TileEntity;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityClayChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPeacefulChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChest;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestLarge;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestMedium;
 import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityClayChestSmall;
@@ -89,6 +79,8 @@ public class TileEntities {
 		registerTileEntityWithAlternatives(TileEntityQuarryChestSmall.class, "blockQuarryChestSmall", "tileEntityQuarryChestSmall");
 		registerTileEntityWithAlternatives(TileEntityQuarryChestMedium.class, "blockQuarryChestMedium", "tileEntityQuarryChestMedium");
 		registerTileEntityWithAlternatives(TileEntityQuarryChestLarge.class, "blockQuarryChestLarge", "tileEntityQuarryChestLarge");
+
+		registerTileEntity(TileEntityBookCase.class, "tileEntityBookCase");
 	}
 	
 	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){

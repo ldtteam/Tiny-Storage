@@ -1,6 +1,10 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import com.timthebrick.tinystorage.inventory.implementations.ContainerBookCase;
+import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.ArrayHelper;
+import com.timthebrick.tinystorage.util.CommonSoundHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -8,23 +12,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import com.timthebrick.tinystorage.inventory.implementations.ContainerDraw;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.CommonSoundHelper;
+import java.util.Arrays;
 
-public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInventory {
+public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedInventory {
 
     public int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;
-    private boolean playSoundEvent;
 
-    public TileEntityDraw () {
+    public TileEntityBookCase () {
         super();
-        inventory = new ItemStack[ContainerDraw.INVENTORY_SIZE];
-        sides = ArrayHelper.fillIntArray(0, ContainerDraw.INVENTORY_SIZE - 1, true);
+        inventory = new ItemStack[ContainerBookCase.INVENTORY_SIZE];
+        sides = ArrayHelper.fillIntArray(0, ContainerBookCase.INVENTORY_SIZE - 1, true);
     }
 
     @Override
@@ -96,14 +96,12 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     @Override
     public void openInventory () {
         ++numPlayersUsing;
-        playSoundEvent = true;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
     }
 
     @Override
     public void closeInventory () {
         --numPlayersUsing;
-        playSoundEvent = true;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
     }
 
@@ -115,20 +113,9 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     @Override
     public void updateEntity () {
         super.updateEntity();
-
         if (++ticksSinceSync % 20 * 4 == 0) {
             worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
         }
-
-        double adjustedXCoord, adjustedZCoord;
-
-        if (numPlayersUsing >= 0 && playSoundEvent) {
-            adjustedXCoord = xCoord + 0.5D;
-            adjustedZCoord = zCoord + 0.5D;
-            CommonSoundHelper.playSoundAt(Minecraft.getMinecraft().thePlayer, "drawOpen", 1.5F, 0.5F, 3F);
-            playSoundEvent = false;
-        }
-
     }
 
     @Override
@@ -184,5 +171,4 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     public boolean canExtractItem (int slotID, ItemStack stack, int blockSide) {
         return true;
     }
-
 }

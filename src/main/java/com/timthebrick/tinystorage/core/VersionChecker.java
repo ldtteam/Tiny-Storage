@@ -157,7 +157,7 @@ public class VersionChecker implements Runnable {
 	public static void sendIMCOutdatedMessage() {
 		if (Loader.isModLoaded("VersionChecker")) {
 			NBTTagCompound compound = new NBTTagCompound();
-			compound.setString("modDisplayName", "BuildCraft");
+			compound.setString("modDisplayName", References.MOD_NAME);
 			compound.setString("oldVersion", VERSION);
 			compound.setString("newVersion", getRecommendedVersion());
 
