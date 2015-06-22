@@ -5,12 +5,16 @@ import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.ArrayHelper;
 import com.timthebrick.tinystorage.util.CommonSoundHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 import java.util.Arrays;
 
@@ -75,7 +79,7 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
 
     @Override
     public String getInventoryName () {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.DRAW;
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.BOOKCASE;
     }
 
     @Override
@@ -106,8 +110,11 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     }
 
     @Override
-    public boolean isItemValidForSlot (int p_94041_1_, ItemStack p_94041_2_) {
-        return true;
+    public boolean isItemValidForSlot (int slotID, ItemStack stack) {
+        if (stack.getItem() instanceof ItemBook || stack.getItem() instanceof ItemEditableBook || stack.getItem() instanceof ItemEnchantedBook || stack.getItem() instanceof ItemWritableBook) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -115,6 +122,8 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
         super.updateEntity();
         if (++ticksSinceSync % 20 * 4 == 0) {
             worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            this.markDirty();
         }
     }
 
@@ -130,7 +139,6 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
 
     @Override
     public void readFromNBT (NBTTagCompound tagCompound) {
-        super.readFromNBT(tagCompound);
         NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
@@ -139,6 +147,13 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
             }
         }
+        super.readFromNBT(tagCompound);
+        readSyncedNBT(tagCompound);
+    }
+
+    @Override
+    public void readSyncedNBT (NBTTagCompound tagCompound) {
+        super.readSyncedNBT(tagCompound);
     }
 
     @Override
@@ -155,6 +170,19 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
             }
         }
         tagCompound.setTag("Inventory", itemList);
+        writeSyncedNBT(tagCompound);
+    }
+
+    @Override
+    public void writeSyncedNBT (NBTTagCompound tagCompound) {
+        super.writeSyncedNBT(tagCompound);
+    }
+
+    @Override
+    public Packet getDescriptionPacket () {
+        NBTTagCompound syncData = new NBTTagCompound();
+        this.writeSyncedNBT(syncData);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
     }
 
     @Override

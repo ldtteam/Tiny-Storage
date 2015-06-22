@@ -1,7 +1,9 @@
 package com.timthebrick.tinystorage.client.renderer.tileentity;
 
+import com.timthebrick.tinystorage.block.BlockBookCase;
 import com.timthebrick.tinystorage.block.BlockDraw;
 import com.timthebrick.tinystorage.client.renderer.model.ModelBookCase;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityBookCase;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
@@ -33,8 +35,8 @@ public class TileEntityRendererBookCase extends TileEntitySpecialRenderer{
             World world = tileEntityBookCase.getWorldObj();
             Block block = world.getBlock(tileEntityBookCase.xCoord, tileEntityBookCase.yCoord, tileEntityBookCase.zCoord);
 
-            if (block instanceof BlockDraw) {
-                textureName = ((BlockDraw) block).getTextureName();
+            if (block instanceof BlockBookCase) {
+                textureName = ((BlockBookCase) block).getTextureName();
             }
 
             this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/bookcases/bookCase" + textureName + ".png"));
@@ -62,6 +64,7 @@ public class TileEntityRendererBookCase extends TileEntitySpecialRenderer{
 
             GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
             modelBookCase.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+            //TinyStorageLog.info(tileEntityBookCase.getStackInSlot(0));
             modelBookCase.renderBooks(tileEntityBookCase, 0.0625F);
             GL11.glDisable(GL12.GL_RESCALE_NORMAL);
             GL11.glPopMatrix();

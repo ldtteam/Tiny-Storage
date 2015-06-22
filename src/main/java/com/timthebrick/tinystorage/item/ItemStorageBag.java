@@ -35,7 +35,7 @@ public class ItemStorageBag extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(TabTinyStorage.creativeTab);
-
+        this.setMaxStackSize(1);
     }
 
     @Override

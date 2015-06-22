@@ -21,6 +21,7 @@ public class Names {
 		public static final String CLAY_CHEST_LOCKED = "clayChestLocked";
 		public static final String QUARRY_CHEST = "quarryChest";
 		public static final String DENSE_BLOCK = "denseBlock";
+		public static final String BOOKCASE = "bookCase";
 	}
 
 	public static final class UnlocalisedBlocks{
@@ -46,10 +47,11 @@ public class Names {
         public static final String CLAY_CHEST_SMALL_LOCKED = "blockClayChestSmallLocked";
         public static final String CLAY_CHEST_MEDIUM = "blockClayMediumChest";
         public static final String CLAY_CHEST_MEDIUM_LOCKED = "blockClayChestMediumLocked";
-        public static final String CLAY_CHEST_LARGE = "blockClayLLargeChest";
+        public static final String CLAY_CHEST_LARGE = "blockClayLargeChest";
         public static final String CLAY_CHEST_LARGE_LOCKED = "blockClayChestLargeLocked";
         public static final String QUARRY_CHEST = "blockQuarryChest";
         public static final String DENSE_BLOCK = "blockDenseBlock";
+        public static final String BOOKCASE = "blockBookCase";
     }
 
 	
@@ -101,6 +103,7 @@ public class Names {
 		public static final String CLAY_CHEST = "container.tinystorage:" + Blocks.CLAY_CHEST_LOCKED;
 		public static final String QUARRY_CHEST = "container.tinystorage:" + Blocks.QUARRY_CHEST;
 		public static final String STORAGE_BAG = "container.tinystorage:" + Items.STORAGE_BAG;
+        public static final String BOOKCASE = "container.tinystorage:" + Blocks.BOOKCASE;
 	}
 
 	public static final class Keys{

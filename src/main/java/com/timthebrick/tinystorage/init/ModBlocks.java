@@ -135,6 +135,9 @@ public class ModBlocks {
 	public static Block blockMicroChestJunglePlankLocked = new BlockMicroChest(Material.wood, "JunglePlank", true);
 	public static Block blockMicroChestSprucePlankLocked = new BlockMicroChest(Material.wood, "SprucePlank", true);
 
+	//Book cases
+    public static Block blockBookCaseOakLog = new BlockBookCase(Material.wood, "OakLog");
+
 	// Misc
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
 	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
@@ -260,6 +263,9 @@ public class ModBlocks {
 		registerBlock(blockMicroChestBirchPlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "BirchPlank");
 		registerBlock(blockMicroChestJunglePlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "JunglePlank");
 		registerBlock(blockMicroChestSprucePlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "SprucePlank");
+
+        //Book cases
+        registerBlock(blockBookCaseOakLog, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "OakLog");
 
 		// Misc
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);

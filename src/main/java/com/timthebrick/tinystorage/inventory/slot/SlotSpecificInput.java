@@ -1,9 +1,11 @@
 package com.timthebrick.tinystorage.inventory.slot;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 
@@ -15,15 +17,16 @@ public class SlotSpecificInput extends SlotTinyStorage {
     public SlotSpecificInput (IInventory inv, int id, int x, int y, Class<? extends Item> filterItem) {
         super(inv, id, x, y);
         this.filterItem = filterItem;
-        filterItemAdvanced = null;
+        this.filterItemAdvanced = null;
     }
 
-    public SlotSpecificInput (IInventory inv, int id, int x, int y, Class<? extends Item>... filterItem) {
+    public SlotSpecificInput (IInventory inv, int id, int x, int y, Class<? extends Item>... filterItems) {
         super(inv, id, x, y);
-        filterItem = null;
-        Class<? extends Item> items[] = filterItem;
+        this.filterItem = null;
+        Class<? extends Item> items[] = filterItems;
+        filterItemAdvanced = new ArrayList<Class<? extends Item>>();
         for (int i = 0; i < items.length; i++) {
-            filterItemAdvanced.add(items[i]);
+            this.filterItemAdvanced.add(items[i]);
         }
     }
 

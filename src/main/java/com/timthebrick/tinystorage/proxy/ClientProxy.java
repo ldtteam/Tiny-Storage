@@ -4,6 +4,7 @@ import com.timthebrick.tinystorage.client.renderer.item.*;
 import com.timthebrick.tinystorage.client.renderer.tileentity.*;
 import com.timthebrick.tinystorage.tileentity.implementations.*;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.timthebrick.tinystorage.client.handler.KeyInputEventHandler;
@@ -151,6 +152,9 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestBirchPlankLocked), new ItemRendererVacuumChest("BirchPlank", true));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestJunglePlankLocked), new ItemRendererVacuumChest("JunglePlank", true));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockVacuumChestSprucePlankLocked), new ItemRendererVacuumChest("SprucePlank", true));
+
+		//Book Cases
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseOakLog), new ItemRendererBookCase("OakLog"));
 		
 		// Misc
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());
@@ -170,6 +174,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVacuumChest.class, new TileEntityRendererVacuumChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityClayChest.class, new TileEntityRendererClayChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityQuarryChest.class, new TileEntityRendererQuarryChest());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBookCase.class, new TileEntityRendererBookCase());
 
 	}
 	
