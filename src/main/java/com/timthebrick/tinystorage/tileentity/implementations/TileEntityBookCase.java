@@ -119,15 +119,15 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     @Override
     public void updateEntity () {
         super.updateEntity();
-        if (++ticksSinceSync % 20 * 4 == 0) {
+        if (++ticksSinceSync % 20 * 2 == 0) {
             worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
+        }
+        if (!worldObj.isRemote) {
             slotsFilled = 0;
             for (int slot = 0; slot < getSizeInventory(); slot++) {
                 if (getStackInSlot(slot) != null) {
                     slotsFilled |= (1 << slot);
-                    //TinyStorageLog.info("Slot: " + slot + " filled");
                     if (Colours.itemColourMap.containsKey(getStackInSlot(slot).getItem())) {
-                        //TinyStorageLog.info("Item in slot: " + slot + " has colour map");
                         bookColours[slot] = Colours.itemColourMap.get(getStackInSlot(slot).getItem()).getColour();
                     }
                 } else {

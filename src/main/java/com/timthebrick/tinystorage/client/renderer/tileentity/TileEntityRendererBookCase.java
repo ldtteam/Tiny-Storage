@@ -64,7 +64,6 @@ public class TileEntityRendererBookCase extends TileEntitySpecialRenderer{
 
             GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
             modelBookCase.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-            //TinyStorageLog.info(tileEntityBookCase.getStackInSlot(0));
             modelBookCase.renderBooks(tileEntityBookCase, 0.0625F);
             GL11.glDisable(GL12.GL_RESCALE_NORMAL);
             GL11.glPopMatrix();
