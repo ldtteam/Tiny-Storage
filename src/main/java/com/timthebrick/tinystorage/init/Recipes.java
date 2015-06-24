@@ -43,8 +43,8 @@ public class Recipes {
 		// Tiny Chests
 		registerLockableChestRecipes(ModBlocks.blockTinyChestOakLog, ModBlocks.blockTinyChestOakLogLocked, Blocks.log, 0);
 		registerLockableChestRecipes(ModBlocks.blockTinyChestSpruceLog, ModBlocks.blockTinyChestSpruceLogLocked, Blocks.log, 1);
-		registerLockableChestRecipes(ModBlocks.blockTinyChestBirchLog, ModBlocks.blockTinyChestBirchLogLocked, Blocks.log, 1);
-		registerLockableChestRecipes(ModBlocks.blockTinyChestJungleLog, ModBlocks.blockTinyChestJungleLogLocked, Blocks.log, 2);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestBirchLog, ModBlocks.blockTinyChestBirchLogLocked, Blocks.log, 2);
+		registerLockableChestRecipes(ModBlocks.blockTinyChestJungleLog, ModBlocks.blockTinyChestJungleLogLocked, Blocks.log, 3);
 		registerLockableChestRecipes(ModBlocks.blockTinyChestAcaciaLog, ModBlocks.blockTinyChestAcaciaLogLocked, Blocks.log2, 0);
 		registerLockableChestRecipes(ModBlocks.blockTinyChestOakPlank, ModBlocks.blockTinyChestOakPlankLocked, Blocks.planks, 0);
 		registerLockableChestRecipes(ModBlocks.blockTinyChestSprucePlank, ModBlocks.blockTinyChestSprucePlankLocked, Blocks.planks, 1);
@@ -306,6 +306,14 @@ public class Recipes {
 		registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 0), "OSO", "OEO", "OSO", 'O', new ItemStack(Blocks.obsidian), 'S', new ItemStack(Blocks.cobblestone), 'E', new ItemStack(Items.ender_pearl));
         registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 1), "DDD", "DDD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 1));
         registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 2), "DDD", "DDD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 2));
+
+		//Book Cases
+        
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseOakPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseSprucePlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseJunglePlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 2), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 3), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 4), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
 	}
 
 	private static void registerLockableChestRecipes(Block normalOutput, Block lockedOutput, Block material) {
