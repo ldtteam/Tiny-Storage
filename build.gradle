@@ -82,9 +82,9 @@ curse {
 
     if (System.getenv().CURSEAPIKEY != null)
     {
-        if (!build_mode.toString().trim().equals("SYNC"))
+        if (!config.build_mode.toString().trim().equals("SYNC"))
         {
-            if ((build_mode.toString().trim().equals("RELEASE") && System.getenv().TRAVIS_BRANCH.toString().toLowerCase().contains("master")))
+            if ((config.build_mode.toString().trim().equals("RELEASE") && System.getenv().TRAVIS_BRANCH.toString().toLowerCase().contains("master")))
             {
                 projectId = System.getenv().CURSEPROJECTID
                 apiKey = System.getenv().CURSEAPIKEY
