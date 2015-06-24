@@ -93,7 +93,7 @@ curse {
             }
             else
             {
-                logger.lifecycle("Cannot run the CurseUpload sequence. Curse upload is only done on the Development-Branch when in Debug mode, or on any other branch in Release mode. Current Branch: " + System.getenv().TRAVIS_BRANCH.toString() + " - Current build mode: " + build_mode.toString())
+                logger.lifecycle("Cannot run the CurseUpload sequence. Curse upload is only done on the Development-Branch when in Debug mode, or on any other branch in Release mode. Current Branch: " + System.getenv().TRAVIS_BRANCH.toString() + " - Current build mode: " + config.build_mode.toString())
             }
         }
         else
