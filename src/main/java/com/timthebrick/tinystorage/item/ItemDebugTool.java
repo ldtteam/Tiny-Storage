@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.util.EnumHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -32,240 +35,239 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityWoolChes
 import com.timthebrick.tinystorage.util.IKeyBound;
 import com.timthebrick.tinystorage.util.NBTHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
-import com.timthebrick.tinystorage.util.Utils;
 
 public class ItemDebugTool extends Item implements IKeyBound {
 
-	private IIcon icon;
+    private IIcon icon;
 
-	public enum OperationMode {
-		OPERATION_MODE(EnumSet.allOf(OperationModeSettings.class));
+    public enum OperationMode {
+        OPERATION_MODE(EnumSet.allOf(OperationModeSettings.class));
 
-		private final EnumSet<? extends Enum<?>> values;
+        private final EnumSet<? extends Enum<?>> values;
 
-		OperationMode(@Nonnull EnumSet<? extends Enum<?>> possibleOptions) {
-			if (possibleOptions.isEmpty()) {
-				throw new IllegalArgumentException("Tried to instantiate an empty setting.");
-			}
+        OperationMode (@Nonnull EnumSet<? extends Enum<?>> possibleOptions) {
+            if (possibleOptions.isEmpty()) {
+                throw new IllegalArgumentException("Tried to instantiate an empty setting.");
+            }
 
-			this.values = possibleOptions;
-		}
+            this.values = possibleOptions;
+        }
 
-		public EnumSet<? extends Enum<?>> getPossibleValues() {
-			return this.values;
-		}
-	}
+        public EnumSet<? extends Enum<?>> getPossibleValues () {
+            return this.values;
+        }
+    }
 
-	public enum OperationModeSettings {
-		RENDER_AREA, ROTATE_CHEST, DOWNGRADE_CHEST
-	}
+    public enum OperationModeSettings {
+        RENDER_AREA, ROTATE_CHEST, DOWNGRADE_CHEST
+    }
 
-	public ItemDebugTool() {
-		super();
-		this.setUnlocalizedName("debugTool");
-		this.setMaxDamage(0);
-		this.setCreativeTab(TabTinyStorage.creativeTab);
-		this.setMaxStackSize(1);
-	}
+    public ItemDebugTool () {
+        super();
+        this.setUnlocalizedName(Names.Items.DEBUG_TOOL);
+        this.setMaxDamage(0);
+        this.setCreativeTab(TabTinyStorage.creativeTab);
+        this.setMaxStackSize(1);
+    }
 
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
-		OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
-		list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipA") + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.modetipB"));
-		list.add(StatCollector.translateToLocal("tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
-	}
+    @Override
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean flag) {
+        OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
+        list.add(StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_MODE_TIP_2));
+        list.add(StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_MODE) + ": " + StatCollector.translateToLocal(Messages.ItemTooltips.DEBUG_TOOL_CASE + operationMode.ordinal()));
+    }
 
-	@Override
-	public void registerIcons(IIconRegister register) {
-		this.itemIcon = register.registerIcon(References.MOD_ID.toLowerCase() + ":debugTool");
-	}
+    @Override
+    public void registerIcons (IIconRegister register) {
+        this.itemIcon = register.registerIcon(References.MOD_ID.toLowerCase() + ":debugTool");
+    }
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		return super.onItemRightClick(stack, world, player);
-	}
+    @Override
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player) {
+        return super.onItemRightClick(stack, world, player);
+    }
 
-	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote && player.isSneaking()) {
-			if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
-				TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
-				OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
-				if (operationMode == OperationModeSettings.ROTATE_CHEST) {
-					ForgeDirection dir = tileEntity.getOrientation();
-					tileEntity.setOrientation(dir.getRotation(ForgeDirection.DOWN));
-					tileEntity.markDirty();
-					world.markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-				} else if (operationMode == OperationModeSettings.DOWNGRADE_CHEST) {
-					if (tileEntity != null && tileEntity instanceof TileEntityTinyChest) {
-						TileEntityTinyChest newChest;
-						TileEntityTinyChest tinyChest = (TileEntityTinyChest) tileEntity;
-						if (tinyChest.getState() - 1 < 0) {
-							return true;
-						}
-						newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
-						if (newChest == null) {
-							return true;
-						}
-						world.setTileEntity(x, y, z, newChest);
-						world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
-						world.markBlockForUpdate(x, y, z);
-						newChest.markDirty();
-						return true;
-					} else if (tileEntity != null && tileEntity instanceof TileEntityPeacefulChest) {
-						TinyStorageLog.info("Peaceful Chest");
-						TileEntityPeacefulChest newChest;
-						TileEntityPeacefulChest tinyChest = (TileEntityPeacefulChest) tileEntity;
-						if (tinyChest.getState() - 1 < 0) {
-							return true;
-						}
-						newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
-						if (newChest == null) {
-							return true;
-						}
-						world.setTileEntity(x, y, z, newChest);
-						world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
-						world.markBlockForUpdate(x, y, z);
-						newChest.markDirty();
-						return true;
-					} else if (tileEntity != null && tileEntity instanceof TileEntityPiggyBank) {
-						TileEntityPiggyBank newChest;
-						TileEntityPiggyBank tinyChest = (TileEntityPiggyBank) tileEntity;
-						if (tinyChest.getState() - 1 < 0) {
-							return true;
-						}
-						newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
-						if (newChest == null) {
-							return true;
-						}
-						world.setTileEntity(x, y, z, newChest);
-						world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
-						world.markBlockForUpdate(x, y, z);
-						newChest.markDirty();
-						return true;
-					} else if (tileEntity != null && tileEntity instanceof TileEntityWoolChest) {
-						TileEntityWoolChest newChest;
-						TileEntityWoolChest tinyChest = (TileEntityWoolChest) tileEntity;
-						int metaData = world.getBlockMetadata(x, y, z);
-						if (tinyChest.getState() - 1 < 0) {
-							return true;
-						}
-						newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
-						if (newChest == null) {
-							return true;
-						}
-						if (newChest.getUniqueOwner() == "") {
-							if (newChest.getState() == 0) {
-								world.setBlock(x, y, z, ModBlocks.blockWoolChestSmall, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 1) {
-								world.setBlock(x, y, z, ModBlocks.blockWoolChestMedium, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 2) {
-								world.setBlock(x, y, z, ModBlocks.blockWoolChestLarge, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else {
-								return true;
-							}
-						} else {
-							if (newChest.getState() == 0) {
-								world.setBlock(x, y, z, ModBlocks.blockWoolChestSmallLocked, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 1) {
-								world.setBlock(x, y, z, ModBlocks.blockWoolChestMediumLocked, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 2) {
-								world.setBlock(x, y, z, ModBlocks.blockWoolChestLargeLocked, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else {
-								return true;
-							}
-						}
-					} else if (tileEntity != null && tileEntity instanceof TileEntityClayChest) {
-						TileEntityClayChest newChest;
-						TileEntityClayChest clayChest = (TileEntityClayChest) tileEntity;
-						int metaData = world.getBlockMetadata(x, y, z);
-						if (clayChest.getState() - 1 < 0) {
-							return true;
-						}
-						newChest = clayChest.applyDowngradeClick(world, this, clayChest.getState() - 1, player);
-						if (newChest == null) {
-							return true;
-						}
-						if (newChest.getUniqueOwner() == "") {
-							if (newChest.getState() == 0) {
-								world.setBlock(x, y, z, ModBlocks.blockClayChestSmall, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 1) {
-								world.setBlock(x, y, z, ModBlocks.blockClayChestMedium, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 2) {
-								world.setBlock(x, y, z, ModBlocks.blockClayChestLarge, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else {
-								return true;
-							}
-						} else {
-							if (newChest.getState() == 0) {
-								world.setBlock(x, y, z, ModBlocks.blockClayChestSmallLocked, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 1) {
-								world.setBlock(x, y, z, ModBlocks.blockClayChestMediumLocked, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else if (newChest.getState() == 2) {
-								world.setBlock(x, y, z, ModBlocks.blockClayChestLargeLocked, metaData, 3);
-								world.setTileEntity(x, y, z, newChest);
-								return true;
-							} else {
-								return true;
-							}
-						}
-					}else if (tileEntity != null && tileEntity instanceof TileEntityVacuumChest) {
-						TileEntityVacuumChest newChest;
-						TileEntityVacuumChest tinyChest = (TileEntityVacuumChest) tileEntity;
-						if (tinyChest.getState() - 1 < 0) {
-							return true;
-						}
-						newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
-						if (newChest == null) {
-							return true;
-						}
-						world.setTileEntity(x, y, z, newChest);
-						world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
-						world.markBlockForUpdate(x, y, z);
-						newChest.markDirty();
-						return true;
-					}
-				} else {
-					// Other operation modes here
-				}
-				return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean onItemUseFirst (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        if (!world.isRemote && player.isSneaking()) {
+            if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
+                TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
+                OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
+                if (operationMode == OperationModeSettings.ROTATE_CHEST) {
+                    ForgeDirection dir = tileEntity.getOrientation();
+                    tileEntity.setOrientation(dir.getRotation(ForgeDirection.DOWN));
+                    tileEntity.markDirty();
+                    world.markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+                } else if (operationMode == OperationModeSettings.DOWNGRADE_CHEST) {
+                    if (tileEntity != null && tileEntity instanceof TileEntityTinyChest) {
+                        TileEntityTinyChest newChest;
+                        TileEntityTinyChest tinyChest = (TileEntityTinyChest) tileEntity;
+                        if (tinyChest.getState() - 1 < 0) {
+                            return true;
+                        }
+                        newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
+                        if (newChest == null) {
+                            return true;
+                        }
+                        world.setTileEntity(x, y, z, newChest);
+                        world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+                        world.markBlockForUpdate(x, y, z);
+                        newChest.markDirty();
+                        return true;
+                    } else if (tileEntity != null && tileEntity instanceof TileEntityPeacefulChest) {
+                        TinyStorageLog.info("Peaceful Chest");
+                        TileEntityPeacefulChest newChest;
+                        TileEntityPeacefulChest tinyChest = (TileEntityPeacefulChest) tileEntity;
+                        if (tinyChest.getState() - 1 < 0) {
+                            return true;
+                        }
+                        newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
+                        if (newChest == null) {
+                            return true;
+                        }
+                        world.setTileEntity(x, y, z, newChest);
+                        world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+                        world.markBlockForUpdate(x, y, z);
+                        newChest.markDirty();
+                        return true;
+                    } else if (tileEntity != null && tileEntity instanceof TileEntityPiggyBank) {
+                        TileEntityPiggyBank newChest;
+                        TileEntityPiggyBank tinyChest = (TileEntityPiggyBank) tileEntity;
+                        if (tinyChest.getState() - 1 < 0) {
+                            return true;
+                        }
+                        newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
+                        if (newChest == null) {
+                            return true;
+                        }
+                        world.setTileEntity(x, y, z, newChest);
+                        world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+                        world.markBlockForUpdate(x, y, z);
+                        newChest.markDirty();
+                        return true;
+                    } else if (tileEntity != null && tileEntity instanceof TileEntityWoolChest) {
+                        TileEntityWoolChest newChest;
+                        TileEntityWoolChest tinyChest = (TileEntityWoolChest) tileEntity;
+                        int metaData = world.getBlockMetadata(x, y, z);
+                        if (tinyChest.getState() - 1 < 0) {
+                            return true;
+                        }
+                        newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
+                        if (newChest == null) {
+                            return true;
+                        }
+                        if (newChest.getUniqueOwner() == "") {
+                            if (newChest.getState() == 0) {
+                                world.setBlock(x, y, z, ModBlocks.blockWoolChestSmall, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 1) {
+                                world.setBlock(x, y, z, ModBlocks.blockWoolChestMedium, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 2) {
+                                world.setBlock(x, y, z, ModBlocks.blockWoolChestLarge, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else {
+                                return true;
+                            }
+                        } else {
+                            if (newChest.getState() == 0) {
+                                world.setBlock(x, y, z, ModBlocks.blockWoolChestSmallLocked, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 1) {
+                                world.setBlock(x, y, z, ModBlocks.blockWoolChestMediumLocked, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 2) {
+                                world.setBlock(x, y, z, ModBlocks.blockWoolChestLargeLocked, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else {
+                                return true;
+                            }
+                        }
+                    } else if (tileEntity != null && tileEntity instanceof TileEntityClayChest) {
+                        TileEntityClayChest newChest;
+                        TileEntityClayChest clayChest = (TileEntityClayChest) tileEntity;
+                        int metaData = world.getBlockMetadata(x, y, z);
+                        if (clayChest.getState() - 1 < 0) {
+                            return true;
+                        }
+                        newChest = clayChest.applyDowngradeClick(world, this, clayChest.getState() - 1, player);
+                        if (newChest == null) {
+                            return true;
+                        }
+                        if (newChest.getUniqueOwner() == "") {
+                            if (newChest.getState() == 0) {
+                                world.setBlock(x, y, z, ModBlocks.blockClayChestSmall, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 1) {
+                                world.setBlock(x, y, z, ModBlocks.blockClayChestMedium, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 2) {
+                                world.setBlock(x, y, z, ModBlocks.blockClayChestLarge, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else {
+                                return true;
+                            }
+                        } else {
+                            if (newChest.getState() == 0) {
+                                world.setBlock(x, y, z, ModBlocks.blockClayChestSmallLocked, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 1) {
+                                world.setBlock(x, y, z, ModBlocks.blockClayChestMediumLocked, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else if (newChest.getState() == 2) {
+                                world.setBlock(x, y, z, ModBlocks.blockClayChestLargeLocked, metaData, 3);
+                                world.setTileEntity(x, y, z, newChest);
+                                return true;
+                            } else {
+                                return true;
+                            }
+                        }
+                    } else if (tileEntity != null && tileEntity instanceof TileEntityVacuumChest) {
+                        TileEntityVacuumChest newChest;
+                        TileEntityVacuumChest tinyChest = (TileEntityVacuumChest) tileEntity;
+                        if (tinyChest.getState() - 1 < 0) {
+                            return true;
+                        }
+                        newChest = tinyChest.applyDowngradeClick(world, this, tinyChest.getState() - 1, player);
+                        if (newChest == null) {
+                            return true;
+                        }
+                        world.setTileEntity(x, y, z, newChest);
+                        world.setBlockMetadataWithNotify(x, y, z, newChest.getState(), 3);
+                        world.markBlockForUpdate(x, y, z);
+                        newChest.markDirty();
+                        return true;
+                    }
+                } else {
+                    // Other operation modes here
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public void doKeyBindingAction(EntityPlayer player, ItemStack itemStack, Key key) {
-		if (key == Key.MODE) {
-			if (itemStack.getItem() instanceof ItemDebugTool) {
-				OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(itemStack, "operationMode")];
-				Enum<?> newState = Utils.rotateEnum(operationMode, player.isSneaking(), OperationMode.OPERATION_MODE.getPossibleValues());
-				operationMode = OperationModeSettings.values()[newState.ordinal()];
-				NBTHelper.setInteger(itemStack, "operationMode", operationMode.ordinal());
-				PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal("tooltip.tinystorage:debugTool.mode") + ": " + StatCollector.translateToLocal("tooltip.tinystorage:debugTool.case" + operationMode.ordinal()));
-			}
-		}
-	}
+    @Override
+    public void doKeyBindingAction (EntityPlayer player, ItemStack itemStack, Key key) {
+        if (key == Key.MODE) {
+            if (itemStack.getItem() instanceof ItemDebugTool) {
+                OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(itemStack, "operationMode")];
+                Enum<?> newState = EnumHelper.rotateEnum(operationMode, player.isSneaking(), OperationMode.OPERATION_MODE.getPossibleValues());
+                operationMode = OperationModeSettings.values()[newState.ordinal()];
+                NBTHelper.setInteger(itemStack, "operationMode", operationMode.ordinal());
+                PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.DEBUG_TOOL_MODE) + ": " + StatCollector.translateToLocal(Messages.Chat.DEBUG_TOOL_CASE + operationMode.ordinal()));
+            }
+        }
+    }
 }

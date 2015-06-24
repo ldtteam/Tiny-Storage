@@ -1,10 +1,12 @@
 package com.timthebrick.tinystorage.handler;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -82,9 +84,9 @@ public class PlayerEventHandler {
 			return;
 		}
 		if (VersionChecker.needsUpdateNoticeAndMarkAsSeen()) {
-			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:update"));
-			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:new_version", VersionChecker.getRecommendedVersion(), TinyStorage.proxy.getMinecraftVersion()));
-			player.addChatMessage(new ChatComponentTranslation("update.tinystorage:download"));
+			PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.MOD_UPDATE));
+			PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.MOD_VERSION, VersionChecker.getRecommendedVersion(), TinyStorage.proxy.getMinecraftVersion()));
+			PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.MOD_DOWNLOAD));
 			PlayerHelper.sendChatMessage(player, " ");
 		}
 		nagged = true;

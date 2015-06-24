@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.tileentity.implementations;
 
 import java.util.Random;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import com.timthebrick.tinystorage.init.ModItems;
@@ -299,13 +301,13 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 					}
 				}
 			} else {
-				PlayerHelper.sendChatMessage(player, "This Piggy Bank is full!");
+				PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.PIGGY_BANK_FULL));
 			}
 		} else {
 			if (this.getNextFreeSlot() == 0) {
-				PlayerHelper.sendChatMessage(player, "No items currently stored");
+				PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.PIGGY_BANK_EMPTY));
 			} else {
-				PlayerHelper.sendChatMessage(player, "Items currently stored: ");
+				PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.PIGGY_BANK_CURRENT_CONTENTS));
 				for (int i = 0; i < this.getNextFreeSlot(); i++) {
 					PlayerHelper.sendChatMessage(player, getStackInSlot(i).getDisplayName() + " : " + getStackInSlot(i).stackSize);
 				}
@@ -317,7 +319,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 		double adjustedXCoord, adjustedZCoord;
 		adjustedXCoord = xCoord + 0.5D;
 		adjustedZCoord = zCoord + 0.5D;
-		PlayerHelper.sendChatMessage(player, "This Piggy Bank does not belong to you! Back off!");
+		PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.PIGGY_BANK_NOT_OWNED));
 		worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.PIG_DEATH, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 	}
 

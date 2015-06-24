@@ -4,10 +4,14 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerQuarryChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageSpawnParticle;
+import com.timthebrick.tinystorage.reference.Messages;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.*;
+import com.timthebrick.tinystorage.util.math.CircleHelper;
+import com.timthebrick.tinystorage.util.math.MathHelper;
+import com.timthebrick.tinystorage.util.math.Vector3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,6 +22,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -301,7 +306,11 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         return false;
     }
 
-    public void genFirstLayer () {
+    public void genFirstLayer (EntityPlayer player) {
+        if (yCoord - opDepth < 1) {
+            opDepth = yCoord - 1;
+            PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.QUARRY_CHEST_DEPTH, opDepth, Messages.Chat.QUARRY_CHEST_DEPTH_BLOCKS));
+        }
         currentLayer = CircleHelper.genCircle(xCoord, yCoord - currentY, zCoord, worldObj, opRadius);
     }
 

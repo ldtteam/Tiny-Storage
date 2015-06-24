@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.block;
 import java.util.List;
 import java.util.Random;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -17,7 +18,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -65,7 +68,7 @@ public abstract class BlockClayChest extends BlockContainer implements ITileEnti
 						TinyStorageLog.info(tileEntity.getUniqueOwner());
 						player.openGui(TinyStorage.instance, GUIs.CLAY_CHEST.ordinal(), world, x, y, z);
 					} else {
-						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
 					}
 				} else {
 					player.openGui(TinyStorage.instance, GUIs.CLAY_CHEST.ordinal(), world, x, y, z);
@@ -213,7 +216,7 @@ public abstract class BlockClayChest extends BlockContainer implements ITileEnti
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockClayChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
 	}
 
 	@Override

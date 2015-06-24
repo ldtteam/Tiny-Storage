@@ -135,6 +135,18 @@ public class ModBlocks {
 	public static Block blockMicroChestJunglePlankLocked = new BlockMicroChest(Material.wood, "JunglePlank", true);
 	public static Block blockMicroChestSprucePlankLocked = new BlockMicroChest(Material.wood, "SprucePlank", true);
 
+	//Book cases
+    public static Block blockBookCaseOakLog = new BlockBookCase(Material.wood, "OakLog");
+	public static Block blockBookCaseAcaciaLog = new BlockBookCase(Material.wood, "AcaciaLog");
+	public static Block blockBookCaseBirchLog = new BlockBookCase(Material.wood, "BirchLog");
+	public static Block blockBookCaseJungleLog = new BlockBookCase(Material.wood, "JungleLog");
+	public static Block blockBookCaseSpruceLog = new BlockBookCase(Material.wood, "SpruceLog");
+    public static Block blockBookCaseOakPlank = new BlockBookCase(Material.wood, "OakPlank");
+    public static Block blockBookCaseAcaciaPlank = new BlockBookCase(Material.wood, "AcaciaPlank");
+    public static Block blockBookCaseBirchPlank = new BlockBookCase(Material.wood, "BirchPlank");
+    public static Block blockBookCaseJunglePlank = new BlockBookCase(Material.wood, "JunglePlank");
+    public static Block blockBookCaseSprucePlank = new BlockBookCase(Material.wood, "SprucePlank");
+
 	// Misc
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
 	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
@@ -260,6 +272,18 @@ public class ModBlocks {
 		registerBlock(blockMicroChestBirchPlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "BirchPlank");
 		registerBlock(blockMicroChestJunglePlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "JunglePlank");
 		registerBlock(blockMicroChestSprucePlankLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "SprucePlank");
+
+        //Book cases
+        registerBlock(blockBookCaseOakLog, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "OakLog");
+        registerBlock(blockBookCaseAcaciaLog, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "AcaciaLog");
+        registerBlock(blockBookCaseBirchLog, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "BirchLog");
+        registerBlock(blockBookCaseJungleLog, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "JungleLog");
+        registerBlock(blockBookCaseSpruceLog, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "SpruceLog");
+        registerBlock(blockBookCaseOakPlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "OakPlank");
+        registerBlock(blockBookCaseAcaciaPlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "AcaciaPlank");
+        registerBlock(blockBookCaseBirchPlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "BirchPlank");
+        registerBlock(blockBookCaseJunglePlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "JunglePlank");
+        registerBlock(blockBookCaseSprucePlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "SprucePlank");
 
 		// Misc
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);

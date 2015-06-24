@@ -10,8 +10,9 @@ import com.timthebrick.tinystorage.reference.References;
 public class TabTinyStorage {
 
 	public static final CreativeTabs creativeTab = new CreativeTabs(References.MOD_ID.toLowerCase()) {
-		public Item getTabIconItem() {
-			return (new ItemStack(ModBlocks.blockTinyChestStone, 1, 0).getItem());
+		@Override
+		public Item getTabIconItem () {
+			return new ItemStack(ModBlocks.blockWoolChestLarge, 1, 9).getItem();
 		}
 	};
 }

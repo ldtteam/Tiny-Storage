@@ -35,6 +35,11 @@ public class Recipes {
 		// Chest Wrench
 		registerShapedRecipe(new ItemStack(ModItems.itemDebugTool, 1), "I I", " C ", " I ", 'I', new ItemStack(Items.iron_ingot, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 
+		//Storage Bags
+		registerShapedRecipe(new ItemStack(ModItems.itemStorageBag, 1, 0), " W ", "WCW", "WWW", 'W', new ItemStack(Blocks.wool, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
+        registerShapedRecipe(new ItemStack(ModItems.itemStorageBag, 1, 1), " W ", "WCW", "WWW", 'W', new ItemStack(Blocks.wool, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModItems.itemStorageBag, 1, 2), " W ", "WCW", "WWW", 'W', new ItemStack(Blocks.wool, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
+
 		// Tiny Chests
 		registerLockableChestRecipes(ModBlocks.blockTinyChestOakLog, ModBlocks.blockTinyChestOakLogLocked, Blocks.log, 0);
 		registerLockableChestRecipes(ModBlocks.blockTinyChestSpruceLog, ModBlocks.blockTinyChestSpruceLogLocked, Blocks.log, 1);
@@ -291,6 +296,11 @@ public class Recipes {
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestJunglePlank, ModBlocks.blockVacuumChestJunglePlankLocked, Blocks.planks, 3);
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestAcaciaPlank, ModBlocks.blockVacuumChestAcaciaPlankLocked, Blocks.planks, 4);
 		registerLockableVacuumChestRecipes(ModBlocks.blockVacuumChestStone, ModBlocks.blockVacuumChestStoneLocked, Blocks.stone);
+
+		//Quarry Chests
+		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 0), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 0), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModBlocks.blockVacuumChestStone, 1, 0));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 1), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 1), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModBlocks.blockVacuumChestStone, 1, 1));
+		registerShapedRecipe(new ItemStack(ModBlocks.blockQuarryChest, 1, 2), "DED", "DSD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 2), 'E', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModBlocks.blockVacuumChestStone, 1, 2));
 
 		//Dense Blocks
 		registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 0), "OSO", "OEO", "OSO", 'O', new ItemStack(Blocks.obsidian), 'S', new ItemStack(Blocks.cobblestone), 'E', new ItemStack(Items.ender_pearl));

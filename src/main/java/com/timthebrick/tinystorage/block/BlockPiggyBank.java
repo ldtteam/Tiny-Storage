@@ -48,7 +48,7 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 	public BlockPiggyBank(Material mat) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName("blockPiggyBank");
+		this.setBlockName(Names.UnlocalisedBlocks.PIGGY_BANK);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 
@@ -254,8 +254,7 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		// blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase()
-		// + ":blockTinyChest");
+		blockIcon = null;
 	}
 
 	@Override

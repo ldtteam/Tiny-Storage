@@ -6,10 +6,7 @@ import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.reference.GUIs;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.reference.RenderIDs;
+import com.timthebrick.tinystorage.reference.*;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
@@ -30,7 +27,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -46,9 +45,9 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 		this.isLockable = isLockable;
 		this.textureName = textureName;
 		if (!this.isLockable) {
-			this.setBlockName("blockMicroChest" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.MICRO_CHEST + this.textureName);
 		} else {
-			this.setBlockName("blockMicroChestLocked" + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.MICRO_CHEST_LOCKED + this.textureName);
 		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
@@ -106,7 +105,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 						player.openGui(TinyStorage.instance, GUIs.MICRO_CHEST.ordinal(), world, x, y, z);
 					} else {
-						PlayerHelper.sendChatMessage(player, "This chest does not belong to you! Back off!");
+						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
 					}
 				} else {
 					player.openGui(TinyStorage.instance, GUIs.MICRO_CHEST.ordinal(), world, x, y, z);
@@ -241,7 +240,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockMicroChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
 	}
 
 	@Override

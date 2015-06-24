@@ -16,4 +16,5 @@ public class RenderIDs {
 	public static int clayChestMedium;
 	public static int clayChestLarge;
 	public static int quarryChest;
+	public static int bookCase;
 }

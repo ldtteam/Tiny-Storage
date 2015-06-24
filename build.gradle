@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.14.0-Dev1"
+version = "1.15.0-Dev1"
 group= "com.timthebrick.tinystorage" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "TinyStorage"
 
@@ -49,5 +49,12 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+	exclude '**/Thumbs.db'
+}
+
+jar {
+        manifest {
+        attributes 'FMLAT': 'TinyStorage_at.cfg'
     }
 }

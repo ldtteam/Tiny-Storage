@@ -5,6 +5,7 @@ import java.util.List;
 import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.block.BlockTinyChest;
 
+import com.timthebrick.tinystorage.reference.Messages;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -29,18 +30,17 @@ public class ItemBlockFilterChest extends ItemBlock {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
-
 		if (metaData == 0) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.small"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_SMALL));
 		} else if (metaData == 1) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.medium"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_MEDIUM));
 		} else if (metaData == 2) {
-			list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.large"));
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LARGE));
 		}
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockFilterChest) {
 			BlockFilterChest block = (BlockFilterChest) Block.getBlockFromItem(itemStack.getItem());
 			if(block.getIsLockable()){
-				list.add(StatCollector.translateToLocal("tooltip.tinystorage:filterChestPrefix.locked"));
+				list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
 			}
 		}
 	}

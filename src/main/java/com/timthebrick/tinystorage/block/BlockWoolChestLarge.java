@@ -2,8 +2,11 @@ package com.timthebrick.tinystorage.block;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.reference.Names;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -21,14 +24,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockWoolChestLarge extends BlockWoolChest {
 	
 	public BlockWoolChestLarge(boolean isLockable) {
-		super(Material.cloth, isLockable);
-		if (!this.isLockable) {
-			this.setBlockName("blockWoolChestLarge");
-		} else {
-			this.setBlockName("blockWoolChestLargeLocked");
-		}
-	}
-
+        super(Material.cloth, isLockable);
+        if (!this.isLockable) {
+            this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_LARGE);
+        } else {
+            this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_LARGE_LOCKED);
+        }
+    }
+    
 	@Override
 	public TileEntity createNewTileEntity(World world, int metaData) {
 		return new TileEntityWoolChestLarge();

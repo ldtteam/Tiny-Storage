@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.item;
 
 import com.timthebrick.tinystorage.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,7 +15,7 @@ public class ItemChestLock extends Item {
 
 	public ItemChestLock() {
 		super();
-		this.setUnlocalizedName("chestLock");
+		this.setUnlocalizedName(Names.Items.CHEST_LOCK);
 		this.setMaxDamage(0);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}

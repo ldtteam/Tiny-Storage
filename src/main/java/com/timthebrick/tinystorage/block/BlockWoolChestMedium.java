@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.block;
 
 import java.util.List;
 
+import com.timthebrick.tinystorage.reference.Names;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -24,9 +25,9 @@ public class BlockWoolChestMedium extends BlockWoolChest {
 	public BlockWoolChestMedium(boolean isLockable) {
 		super(Material.cloth, isLockable);
 		if (!this.isLockable) {
-			this.setBlockName("blockWoolChestMedium");
+			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_MEDIUM);
 		} else {
-			this.setBlockName("blockWoolChestMediumLocked");
+			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_MEDIUM_LOCKED);
 		}
 	}
 

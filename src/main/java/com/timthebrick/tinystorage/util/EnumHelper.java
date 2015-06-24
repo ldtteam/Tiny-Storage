@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.util;
 
 import java.util.EnumSet;
 
-public class Utils {
+public class EnumHelper {
 
 	public static <T extends Enum> T rotateEnum(T ce, boolean backwards, EnumSet ValidOptions) {
 		do {
