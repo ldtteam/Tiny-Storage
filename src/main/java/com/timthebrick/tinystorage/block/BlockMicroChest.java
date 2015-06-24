@@ -240,7 +240,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockMicroChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
 	}
 
 	@Override

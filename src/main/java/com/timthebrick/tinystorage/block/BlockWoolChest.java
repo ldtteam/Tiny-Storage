@@ -220,7 +220,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockWoolChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
 	}
 
 	@Override

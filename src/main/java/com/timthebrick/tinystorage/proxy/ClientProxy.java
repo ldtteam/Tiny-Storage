@@ -155,6 +155,15 @@ public class ClientProxy extends CommonProxy {
 
 		//Book Cases
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseOakLog), new ItemRendererBookCase("OakLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseAcaciaLog), new ItemRendererBookCase("AcaciaLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseBirchLog), new ItemRendererBookCase("BirchLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseJungleLog), new ItemRendererBookCase("JungleLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseSpruceLog), new ItemRendererBookCase("SpruceLog"));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseOakPlank), new ItemRendererBookCase("OakPlank"));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseAcaciaPlank), new ItemRendererBookCase("AcaciaPlank"));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseBirchPlank), new ItemRendererBookCase("BirchPlank"));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseJunglePlank), new ItemRendererBookCase("JunglePlank"));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseSprucePlank), new ItemRendererBookCase("SprucePlank"));
 		
 		// Misc
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());

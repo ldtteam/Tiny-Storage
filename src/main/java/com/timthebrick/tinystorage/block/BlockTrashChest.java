@@ -193,7 +193,7 @@ public class BlockTrashChest extends BlockContainer implements ITileEntityProvid
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockTinyChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":Obsidian");
 	}
 
 	@Override

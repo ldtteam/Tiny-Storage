@@ -192,7 +192,7 @@ public class BlockBookCase extends BlockContainer implements ITileEntityProvider
 
     @Override
     public void registerBlockIcons (IIconRegister iconRegister) {
-        blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockBookCase");
+        blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
     }
 
     @Override

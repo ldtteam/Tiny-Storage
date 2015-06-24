@@ -236,7 +236,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockQuarryChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":Obsidian");
 	}
 
 	@Override

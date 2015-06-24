@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.inventory.slot;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.util.StackHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

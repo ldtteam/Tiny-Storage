@@ -228,7 +228,7 @@ public class BlockPeacefulChest extends BlockContainer implements ITileEntityPro
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":blockPeacefulChest");
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":Obsidian");
 	}
 
 	@Override

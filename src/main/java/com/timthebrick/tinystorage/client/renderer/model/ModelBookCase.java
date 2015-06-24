@@ -347,126 +347,126 @@ public class ModelBookCase extends ModelBase {
 
     public void renderBooks (TileEntityBookCase tileEntity, float f1) {
         if ((tileEntity.slotsFilled & (1 << 0)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[0]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[0] * tileEntity.bookMultiply[0]));
             colour.performGLColour3f();
             Book1.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book1Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 1)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[1]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[1] * tileEntity.bookMultiply[1]));
             colour.performGLColour3f();
             Book2.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book2Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 2)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[2]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[2] * tileEntity.bookMultiply[2]));
             colour.performGLColour3f();
             Book3.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book3Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 3)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[3]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[3] * tileEntity.bookMultiply[3]));
             colour.performGLColour3f();
             Book4.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book4Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 4)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[4]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[4] * tileEntity.bookMultiply[4]));
             colour.performGLColour3f();
             Book5.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book5Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 5)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[5]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[5] * tileEntity.bookMultiply[5]));
             colour.performGLColour3f();
             Book6.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book6Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 6)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[6]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[6] * tileEntity.bookMultiply[6]));
             colour.performGLColour3f();
             Book7.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book7Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 7)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[7]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[7] * tileEntity.bookMultiply[7]));
             colour.performGLColour3f();
             Book8.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book8Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 8)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[8]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[8] * tileEntity.bookMultiply[8]));
             colour.performGLColour3f();
             Book9.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book9Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 9)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[9]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[9] * tileEntity.bookMultiply[9]));
             colour.performGLColour3f();
             Book10.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book10Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 10)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[10]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[10] * tileEntity.bookMultiply[10]));
             colour.performGLColour3f();
             Book11.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book11Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 11)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[11]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[11] * tileEntity.bookMultiply[11]));
             colour.performGLColour3f();
             Book12.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book12Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 12)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[12]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[12] * tileEntity.bookMultiply[12]));
             colour.performGLColour3f();
             Book13.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book13Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 13)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[13]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[13] * tileEntity.bookMultiply[13]));
             colour.performGLColour3f();
             Book14.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book14Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 14)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[14]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[14] * tileEntity.bookMultiply[14]));
             colour.performGLColour3f();
             Book15.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book15Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 15)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[15]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[15] * tileEntity.bookMultiply[15]));
             colour.performGLColour3f();
             Book16.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book16Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 16)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[16]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[16] * tileEntity.bookMultiply[16]));
             colour.performGLColour3f();
             Book17.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Book17Top.render(f1);
         }
         if ((tileEntity.slotsFilled & (1 << 17)) != 0) {
-            Colour colour = new Colour(tileEntity.bookColours[17]);
+            Colour colour = new Colour((int) (tileEntity.bookColours[17] * tileEntity.bookMultiply[17]));
             colour.performGLColour3f();
             Book18.render(f1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

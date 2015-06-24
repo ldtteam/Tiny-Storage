@@ -285,6 +285,17 @@ tile.blockVacuumChestLockedBirchPlank.name=Vacuum Chest - Birch Plank
 tile.blockVacuumChestLockedJunglePlank.name=Vacuum Chest - Jungle Plank
 tile.blockVacuumChestLockedSprucePlank.name=Vacuum Chest - Spruce Plank
 
+tile.blockBookCaseOakLog.name=Book Case - Oak Log
+tile.blockBookCaseAcaciaLog.name=Book Case - Acacia Log
+tile.blockBookCaseBirchLog.name=Book Case - Birch Log
+tile.blockBookCaseJungleLog.name=Book Case - Jungle Log
+tile.blockBookCaseSpruceLog.name=Book Case - Spruce Log
+tile.blockBookCaseOakPlank.name=Book Case - Oak Plank
+tile.blockBookCaseAcaciaPlank.name=Book Case - Acacia Plank
+tile.blockBookCaseBirchPlank.name=Book Case - Birch Plank
+tile.blockBookCaseJunglePlank.name=Book Case - Jungle Plank
+tile.blockBookCaseSprucePlank.name=Book Case - Spruce Plank
+
 tile.blockDrawOakLog.name=Chest of Draws - Oak Log
 tile.blockTrashChest.name=Trash Chest
 tile.blockPiggyBank.name=Piggy Bank

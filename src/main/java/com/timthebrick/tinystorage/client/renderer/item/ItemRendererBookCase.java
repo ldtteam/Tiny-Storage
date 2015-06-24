@@ -47,14 +47,14 @@ public class ItemRendererBookCase implements IItemRenderer {
                 break;
             }
             case EQUIPPED_FIRST_PERSON: {
-                transX = -0.15F;
-                transY = -2.2F;
-                transZ = -2F;
+                transX = 0.1F;
+                transY = -2.5F;
+                transZ = -1.5F;
                 renderBookCase(1.0F + transX, 1.0F + transY, 1.0F + transZ, scale);
                 break;
             }
             case INVENTORY: {
-                renderBookCase(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
+                renderBookCase(0.25F + transX, -0.9F + transY, 0.0F + transZ, scale);
                 break;
             }
             default:

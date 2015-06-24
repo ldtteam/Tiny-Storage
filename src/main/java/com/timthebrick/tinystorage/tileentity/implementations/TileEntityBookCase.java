@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerBookCase;
 import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
@@ -9,11 +8,16 @@ import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import scala.util.control.TailCalls;
+
+import java.util.Random;
 
 public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -23,11 +27,14 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     private int[] sides;
     public int slotsFilled;
     public int[] bookColours = new int[ContainerBookCase.INVENTORY_SIZE];
+    public float[] bookMultiply = new float[ContainerBookCase.INVENTORY_SIZE];
+    private Random random;
 
     public TileEntityBookCase () {
         super();
         inventory = new ItemStack[ContainerBookCase.INVENTORY_SIZE];
         sides = ArrayHelper.fillIntArray(0, ContainerBookCase.INVENTORY_SIZE - 1, true);
+        random = new Random();
     }
 
     @Override
@@ -129,9 +136,13 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
                     slotsFilled |= (1 << slot);
                     if (Colours.itemColourMap.containsKey(getStackInSlot(slot).getItem())) {
                         bookColours[slot] = Colours.itemColourMap.get(getStackInSlot(slot).getItem()).getColour();
+                        if(bookMultiply[slot] == 0){
+                            bookMultiply[slot] = random.nextFloat();
+                        }
                     }
                 } else {
                     bookColours[slot] = 0;
+                    bookMultiply[slot] = 0;
                 }
             }
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -153,7 +164,7 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     public void readFromNBT (NBTTagCompound tagCompound) {
         NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
             byte slot = tag.getByte("Slot");
             if (slot >= 0 && slot < inventory.length) {
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
@@ -183,6 +194,14 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     @Override
     public void writeSyncedNBT (NBTTagCompound tagCompound) {
         super.writeSyncedNBT(tagCompound);
+        NBTTagList colourMultiply = new NBTTagList();
+        for(int i = 0; i < ContainerBookCase.INVENTORY_SIZE; i++){
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setInteger("Slot", i);
+            tag.setFloat("Multi", bookMultiply[i]);
+            colourMultiply.appendTag(tag);
+        }
+        tagCompound.setTag("ColourMultiplier", colourMultiply);
         tagCompound.setInteger("SlotsFilled", slotsFilled);
         tagCompound.setIntArray("SlotColours", bookColours);
     }
@@ -190,6 +209,14 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
     @Override
     public void readSyncedNBT (NBTTagCompound tagCompound) {
         super.readSyncedNBT(tagCompound);
+        NBTTagList tagList = tagCompound.getTagList("ColourMultiplier", 10);
+        for(int i = 0; i < tagList.tagCount(); i++){
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
+            int slot = tag.getInteger("Slot");
+            if(slot > 0 && slot < ContainerBookCase.INVENTORY_SIZE){
+                bookMultiply[i] = tag.getFloat("Multi");
+            }
+        }
         slotsFilled = tagCompound.getInteger("SlotsFilled");
         bookColours = tagCompound.getIntArray("SlotColours");
     }

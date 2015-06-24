@@ -254,8 +254,7 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		// blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase()
-		// + ":blockTinyChest");
+		blockIcon = null;
 	}
 
 	@Override
