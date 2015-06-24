@@ -45,9 +45,9 @@ public class Names {
         public static final String VACUUM_CHEST_LOCKED = "blockVacuumChestLocked";
         public static final String CLAY_CHEST_SMALL = "blockClayChestSmall";
         public static final String CLAY_CHEST_SMALL_LOCKED = "blockClayChestSmallLocked";
-        public static final String CLAY_CHEST_MEDIUM = "blockClayMediumChest";
+        public static final String CLAY_CHEST_MEDIUM = "blockClayChestMedium";
         public static final String CLAY_CHEST_MEDIUM_LOCKED = "blockClayChestMediumLocked";
-        public static final String CLAY_CHEST_LARGE = "blockClayLargeChest";
+        public static final String CLAY_CHEST_LARGE = "blockClayChestLarge";
         public static final String CLAY_CHEST_LARGE_LOCKED = "blockClayChestLargeLocked";
         public static final String QUARRY_CHEST = "blockQuarryChest";
         public static final String DENSE_BLOCK = "blockDenseBlock";

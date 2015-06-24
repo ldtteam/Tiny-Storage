@@ -308,11 +308,11 @@ public class Recipes {
         registerShapedRecipe(new ItemStack(ModBlocks.blockDenseBlock, 1, 2), "DDD", "DDD", "DDD", 'D', new ItemStack(ModBlocks.blockDenseBlock, 1, 2));
 
 		//Book Cases
-        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseOakLog), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.log, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
-        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseSpruceLog), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.log, 1, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
-        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseJungleLog), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.log, 1, 2), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
-        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchLog), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.log, 1, 3), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
-        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchLog), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.log2, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseOakLog), " S ", " C ", " S ", 'S', new ItemStack(Blocks.log, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseSpruceLog), " S ", " C ", " S ", 'S', new ItemStack(Blocks.log, 1, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseJungleLog), " S ", " C ", " S ", 'S', new ItemStack(Blocks.log, 1, 2), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchLog), " S ", " C ", " S ", 'S', new ItemStack(Blocks.log, 1, 3), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchLog), " S ", " C ", " S ", 'S', new ItemStack(Blocks.log2, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseOakPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseSprucePlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseJunglePlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 2), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
