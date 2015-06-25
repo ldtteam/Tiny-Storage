@@ -15,14 +15,18 @@ import java.util.concurrent.TimeUnit;
 
 public class TinyStorageInitaliser {
 
-    public static void postInit (FMLPostInitializationEvent event) {
+    public static void postInit(FMLPostInitializationEvent event) {
+        doColourMap();
+    }
+
+    private static void doColourMap() {
         Stopwatch watch = Stopwatch.createStarted();
         Iterator<Item> iterator = Item.itemRegistry.iterator();
         while (iterator.hasNext()) {
             Item item = iterator.next();
             if (item instanceof ItemBook || item instanceof ItemEditableBook || item instanceof ItemEnchantedBook || item instanceof ItemWritableBook) {
-                if(item != null) {
-                    if(Colours.itemColourMap == null){
+                if (item != null) {
+                    if (Colours.itemColourMap == null) {
                         Colours.itemColourMap = new HashMap<Item, Colour>();
                     }
                     Colour colour = ColourSampler.getColourSampleFromItemStack(new ItemStack(item));

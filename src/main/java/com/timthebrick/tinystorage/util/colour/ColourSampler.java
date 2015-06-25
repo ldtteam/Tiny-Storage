@@ -38,7 +38,7 @@ public class ColourSampler {
             }
             IconPlaceHolder pIcon = (IconPlaceHolder) pStack.getItem().getIcon(pStack, 0);
             try {
-                Colour tSample = calculateAverageColour(ImageIO.read((InputStream) Minecraft.getMinecraft().getResourceManager().getResource(pIcon.iIconLocation).getInputStream()));
+                Colour tSample = calculateAverageColour(ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(pIcon.iIconLocation).getInputStream()));
 
                 return tSample;
             } catch (IOException e) {
@@ -107,32 +107,5 @@ public class ColourSampler {
             return pColour2.getColourGreenInt() - pColour1.getColourGreenInt();
         }
         return Math.abs(pColour1.getAngleInDegrees() - pColour2.getAngleInDegrees());
-        /*
-        if ((pColour1.getColourRedInt() > pColour1.getColourBlueInt() * 2) && (pColour1.getColourRedInt() > pColour1.getColourGreenInt() * 2))
-        {
-            if((pColour1.getColourRedInt() > pColour2.getColourRedInt()))
-                return  pColour1.getColourRedInt() - pColour2.getColourRedInt();
-            return pColour2.getColourRedInt() - pColour1.getColourRedInt();
-        }
-        if ((pColour1.getColourBlueInt() > pColour1.getColourRedInt() * 2) && (pColour1.getColourBlueInt() > pColour1.getColourGreenInt() * 2))
-        {
-            if((pColour1.getColourBlueInt() > pColour2.getColourBlueInt()))
-                return  pColour1.getColourBlueInt() - pColour2.getColourBlueInt();
-            return pColour2.getColourBlueInt() - pColour1.getColourBlueInt();
-        }
-        if ((pColour1.getColourGreenInt() > pColour1.getColourBlueInt() * 2) && (pColour1.getColourGreenInt() > pColour1.getColourRedInt() * 2))
-        {
-            if((pColour1.getColourGreenInt() > pColour2.getColourGreenInt()))
-                return  pColour1.getColourGreenInt() - pColour2.getColourGreenInt();
-            return pColour2.getColourGreenInt() - pColour1.getColourGreenInt();
-        }
-        int tRed1 = pColour1.getColourRedInt();
-        int tRed2 = pColour2.getColourRedInt();
-        int tRedMean = (tRed1 + tRed2) >> 1;
-        int tRed = tRed1 - tRed2;
-        int tGreen = pColour1.getColourGreenInt() - pColour2.getColourGreenInt();
-        int tBlue = pColour1.getColourBlueInt() - pColour2.getColourBlueInt();
-        return Math.sqrt((((512+tRedMean)*tRed*tRed)>>8) + 4*tGreen*tGreen + (((767-tRedMean)*tBlue*tBlue)>>8));
-        */
     }
 }
