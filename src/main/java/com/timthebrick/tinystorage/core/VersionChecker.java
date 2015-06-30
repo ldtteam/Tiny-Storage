@@ -45,15 +45,12 @@ public class VersionChecker implements Runnable {
 		if (!isOutdated() || sentIMCOutdatedMessage) {
 			return false;
 		}
-
 		Property property = ConfigurationHandler.config.get("vars", "version.seen", VERSION);
 		property.comment = "indicates the last version the user has been informed about and will suppress further notices on it.";
 		String seenVersion = property.getString();
-
 		if (recommendedVersion == null || recommendedVersion.equals(seenVersion)) {
 			return false;
 		}
-
 		property.set(recommendedVersion);
 		ConfigurationHandler.config.save();
 		return true;
@@ -65,13 +62,10 @@ public class VersionChecker implements Runnable {
 
 	public static void versionCheck() {
 		try {
-
 			if ("0.0.0".equals(VERSION)) {
 				return;
 			}
-			
 			String version = VERSION;
-			
 			if(VERSION.contains("-Dev")){
 				String verTokens[] = VERSION.split("-");
 				version = verTokens[0];
@@ -80,23 +74,18 @@ public class VersionChecker implements Runnable {
 			HttpURLConnection conn = null;
 			while (location != null && !location.isEmpty()) {
 				URL url = new URL(location);
-
 				if (conn != null) {
 					conn.disconnect();
 				}
-
 				conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11 (.NET CLR 3.5.30729)");
 				conn.connect();
 				location = conn.getHeaderField("Location");
 			}
-
 			if (conn == null) {
 				throw new NullPointerException();
 			}
-
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
 			String line;
 			String mcVersion = TinyStorage.proxy.getMinecraftVersion();
 			while ((line = reader.readLine()) != null) {
@@ -104,7 +93,7 @@ public class VersionChecker implements Runnable {
 				if (mcVersion.matches(tokens[0])) {
 					if (References.MOD_ID.matches(tokens[1])) {
 						recommendedVersion = tokens[2];
-						if (version.matches(tokens[2]) && (!VERSION.contains("-Dev"))) {
+						if (version.split(":")[0].matches(tokens[2]) && (!VERSION.contains("-Dev"))) {
 							TinyStorageLog.trace("Using the latest version [" + getVersion() + "] for Minecraft " + mcVersion);
 							currentVersion = EnumUpdateState.CURRENT;
 							return;
@@ -112,11 +101,9 @@ public class VersionChecker implements Runnable {
 					}
 				}
 			}
-
 			TinyStorageLog.warn("Using outdated version [" + VERSION + "] for Minecraft " + mcVersion + ". Consider updating to " + recommendedVersion + ".");
 			currentVersion = EnumUpdateState.OUTDATED;
 			sendIMCOutdatedMessage();
-
 			conn.disconnect();
 			reader.close();
 		} catch (Exception e) {
@@ -128,17 +115,13 @@ public class VersionChecker implements Runnable {
 
 	@Override
 	public void run() {
-
 		int count = 0;
 		currentVersion = null;
-
 		TinyStorageLog.info("Beginning version check");
-
 		try {
 			while ((count < 3) && ((currentVersion == null) || (currentVersion == EnumUpdateState.CONNECTION_ERROR))) {
 				versionCheck();
 				count++;
-
 				if (currentVersion == EnumUpdateState.CONNECTION_ERROR) {
 					TinyStorageLog.info("Version check attempt " + count + " failed, trying again in 10 seconds");
 					Thread.sleep(10000);
@@ -147,7 +130,6 @@ public class VersionChecker implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		if (currentVersion == EnumUpdateState.CONNECTION_ERROR) {
 			TinyStorageLog.info("Version check failed");
 		}
@@ -160,10 +142,8 @@ public class VersionChecker implements Runnable {
 			compound.setString("modDisplayName", References.MOD_NAME);
 			compound.setString("oldVersion", VERSION);
 			compound.setString("newVersion", getRecommendedVersion());
-
 			compound.setString("updateUrl", "http://minecraft.curseforge.com/mc-mods/227712-tiny-storage");
 			compound.setBoolean("isDirectLink", false);
-
 			FMLInterModComms.sendRuntimeMessage("TinyStorage", "VersionChecker", "addUpdate", compound);
 			sentIMCOutdatedMessage = true;
 		}
