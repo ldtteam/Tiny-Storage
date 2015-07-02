@@ -41,7 +41,7 @@ public class GuiTrashChest extends GuiTinyStorage {
     protected void drawGuiContainerForegroundLayer (int x, int y) {
         fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 3, Colours.INV_GRAY);
         fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
-        drawFG();
+        drawFG(0, 0, x, y);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class GuiTrashChest extends GuiTinyStorage {
         this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiTrashChest.png"));
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
-        drawBG();
+        drawBG(0, 0, x, y);
         this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
     }
 
@@ -61,16 +61,16 @@ public class GuiTrashChest extends GuiTinyStorage {
     }
 
     @Override
-    public void drawFG () {
-        super.drawFG();
+    public void drawFG (int ox, int oy, int x, int y) {
+        super.drawFG(ox, oy, x, y);
         if (this.deleteLastStack != null) {
             this.deleteLastStack.set(this.tileEntity.deleteStack);
         }
     }
 
     @Override
-    public void drawBG () {
-        super.drawBG();
+    public void drawBG (int ox, int oy, int x, int y) {
+        super.drawBG(ox, oy, x, y);
         if (this.deleteLastStack != null) {
             this.deleteLastStack.setVisibility(true);
         }

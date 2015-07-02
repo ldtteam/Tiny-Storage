@@ -40,7 +40,7 @@ public class GuiVacuumChest extends GuiTinyStorage{
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, Colours.INV_GRAY);
 		}
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
-		this.drawFG();
+		this.drawFG(0, 0, x, y);
 	}
 
 	@Override
@@ -55,18 +55,18 @@ public class GuiVacuumChest extends GuiTinyStorage{
 		}
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
-		drawBG();
+		drawBG(0, 0, x, y);
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
 	}
 	
 	@Override
-	public void drawFG() {
-		super.drawFG();
+	public void drawFG(int ox, int oy, int x, int y) {
+		super.drawFG(ox, oy, x, y);
 	}
 	
 	@Override
-	public void drawBG() {
-		super.drawBG();
+	public void drawBG(int ox, int oy, int x, int y) {
+		super.drawBG(ox, oy, x, y);
 	}
 
 	@Override

@@ -65,7 +65,7 @@ public class GuiFilterChest extends GuiTinyStorage {
 				}
 			}
 		}
-		drawFG();
+		drawFG(0, 0, x, y);
 	}
 
 	@Override
@@ -80,18 +80,18 @@ public class GuiFilterChest extends GuiTinyStorage {
 		}
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
-		drawBG();
+		drawBG(0, 0, x, y);
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
 	}
 	
 	@Override
-	public void drawFG() {
-		super.drawFG();
+	public void drawFG(int ox, int oy, int x, int y) {
+		super.drawFG(ox, oy, x, y);
 	}
 	
 	@Override
-	public void drawBG() {
-		super.drawBG();
+	public void drawBG(int ox, int oy, int x, int y) {
+		super.drawBG(ox, oy, x, y);
 	}
 
 	@Override

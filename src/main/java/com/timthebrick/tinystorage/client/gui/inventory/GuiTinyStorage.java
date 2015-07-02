@@ -1,30 +1,22 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
-import java.util.List;
-
+import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
+import com.timthebrick.tinystorage.client.gui.widgets.IButtonTooltip;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
+import com.timthebrick.tinystorage.network.PacketHandler;
+import com.timthebrick.tinystorage.network.message.MessageConfigButton;
+import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
-
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
-import com.timthebrick.tinystorage.client.gui.widgets.IButtonTooltip;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.inventory.ContainerTinyStorage;
-import com.timthebrick.tinystorage.network.PacketHandler;
-import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
 
 public class GuiTinyStorage extends GuiContainer {
 
@@ -165,7 +157,7 @@ public class GuiTinyStorage extends GuiContainer {
     }
 
     @Override
-    protected final void drawGuiContainerForegroundLayer(int x, int y) {
+    protected void drawGuiContainerForegroundLayer(int x, int y) {
         int ox = this.guiLeft; // (width - xSize) / 2;
         int oy = this.guiTop; // (height - ySize) / 2;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -186,7 +178,7 @@ public class GuiTinyStorage extends GuiContainer {
         }
     }
 
-    public void drawBG() {
+    public void drawBG(int ox, int oy, int x, int y) {
         this.handleButtonVisibility();
     }
 
@@ -204,7 +196,7 @@ public class GuiTinyStorage extends GuiContainer {
     }
 
     protected void mouseWheelEvent(int x, int y, int wheel) {
-        
+
     }
 
     @Override
