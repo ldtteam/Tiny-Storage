@@ -297,7 +297,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 		super.readFromNBT(tagCompound);
 		NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
 		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+			NBTTagCompound tag = tagList.getCompoundTagAt(i);
 			byte slot = tag.getByte("Slot");
 			if (slot >= 0 && slot < inventory.length) {
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);

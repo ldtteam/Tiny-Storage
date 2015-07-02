@@ -35,31 +35,14 @@ public class TinyStorage {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		TinyStorageLog.info("Starting pre init - Preparing to store all the things!");
-		developmentEnvironment = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
-		if (developmentEnvironment){
-			TinyStorageLog.info("Development Environment detected; some features may not work the same as in a normal game");
-		}
-		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-		PacketHandler.init();
-		proxy.registerKeyBindings();
-		ModBlocks.init();
-		ModItems.init();
-		if (developmentEnvironment) {
-			UnlocalizedNameDump.dumpBlockNames(new File(event.getModConfigurationDirectory(), References.MOD_ID + "_BlockUnlocalizedNames.txt"));
-			UnlocalizedNameDump.dumpItemNames(new File(event.getModConfigurationDirectory(), References.MOD_ID + "_ItemUnlocalizedNames.txt"));
-		}
+		TinyStorageInitaliser.preInit(event);
 		TinyStorageLog.info("Finished pre init - Still storing all the things!");
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		TinyStorageLog.info("Starting init - Continuing to store all the things!");
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-		TileEntities.init();
-		proxy.initRenderingAndTextures();
-		proxy.registerEventHandlers();
-		CraftingEventHandler.init();
-		Recipes.init();
+		TinyStorageInitaliser.init(event);
 		TinyStorageLog.info("Finished init - Still!? storing all the things!");
 	}
 
