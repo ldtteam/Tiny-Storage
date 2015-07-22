@@ -48,7 +48,8 @@ minecraft {
 }
 
 dependencies {
-
+	//Maven uploader
+    deployerJars 'org.apache.maven.wagon:wagon-ftp:2.2'
 }
 
 processResources
