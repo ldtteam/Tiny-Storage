@@ -138,13 +138,16 @@ curse {
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
-        if(System.getenv().TRAVIS_BRANCH.toString().contains("Dev"))
+
+        if(System.getenv().TRAVIS_BRANCH.toString().toLower().contains("dev"))
         {
+            logger.lifecycle("Setting MavenRepo as Snapshot")
             snapshotRepository(url: "ftp://mavenrepo.orionminecraft.com"){
                 authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
             }
         }
         else {
+            logger.lifecycle("Setting MavenRepo as publish")
             repository(url: "ftp://mavenrepo.orionminecraft.com") {
                 authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
             }
