@@ -11,6 +11,7 @@ import com.timthebrick.tinystorage.init.TinyStorageInitaliser;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.util.IGuiScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -24,11 +25,12 @@ import org.lwjgl.opengl.GL12;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiTinyStorage extends GuiContainer {
+public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
 
     private GuiImageButton accessMode;
+    protected GuiScrollBar scrollBar;
     private TileEntityTinyStorage tileEntity;
-    protected List widgets = new ArrayList();
+    protected List<IGuiWidget> widgets = new ArrayList<IGuiWidget>();
 
     public GuiTinyStorage(Container container, TileEntityTinyStorage te) {
         super(container);
@@ -36,7 +38,6 @@ public class GuiTinyStorage extends GuiContainer {
     }
 
     public void addWidgets() {
-
     }
 
     public void addButtons() {
@@ -77,36 +78,28 @@ public class GuiTinyStorage extends GuiContainer {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         String[] var4 = Msg.split("\n");
-
         if (var4.length > 0) {
             int var5 = 0;
             int var6;
             int var7;
-
             for (var6 = 0; var6 < var4.length; ++var6) {
                 var7 = this.fontRendererObj.getStringWidth(var4[var6]);
-
                 if (var7 > var5) {
                     var5 = var7;
                 }
             }
-
             var6 = par2 + 12;
             var7 = par3 - 12;
             int var9 = 8;
-
             if (var4.length > 1) {
                 var9 += 2 + (var4.length - 1) * 10;
             }
-
             if (this.guiTop + var7 + var9 + 6 > this.height) {
                 var7 = this.height - var9 - this.guiTop - 6;
             }
-
             if (forceWidth > 0) {
                 var5 = forceWidth;
             }
-
             this.zLevel = 300.0F;
             itemRender.zLevel = 300.0F;
             int var10 = -267386864;
@@ -121,25 +114,19 @@ public class GuiTinyStorage extends GuiContainer {
             this.drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, var6 + var5 + 3, var7 + var9 + 3 - 1, var11, var12);
             this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 - 3 + 1, var11, var11);
             this.drawGradientRect(var6 - 3, var7 + var9 + 2, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
-
             for (int var13 = 0; var13 < var4.length; ++var13) {
                 String var14 = var4[var13];
-
                 if (var13 == 0) {
                     var14 = '\u00a7' + Integer.toHexString(15) + var14;
                 } else {
                     var14 = "\u00a77" + var14;
                 }
-
                 this.fontRendererObj.drawStringWithShadow(var14, var6, var7, -1);
-
                 if (var13 == 0) {
                     var7 += 2;
                 }
-
                 var7 += 10;
             }
-
             this.zLevel = 0.0F;
             itemRender.zLevel = 0.0F;
         }
@@ -158,7 +145,9 @@ public class GuiTinyStorage extends GuiContainer {
     }
 
     protected void handleWidgetVisibility() {
-
+        if (this.scrollBar != null) {
+            this.scrollBar.setVisibility(true);
+        }
     }
 
     @Override
@@ -178,19 +167,15 @@ public class GuiTinyStorage extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
-
     }
 
     public void drawFG(int ox, int oy, int x, int y) {
         if (this.accessMode != null) {
             this.accessMode.set(this.tileEntity.accessMode);
         }
-        for (Object c : this.widgets) {
-            if (c instanceof IGuiWidget) {
-                IGuiWidget widget = (IGuiWidget) c;
-                if (widget.isVisible()) {
-                    widget.drawWidget(this, xSize, ySize);
-                }
+        for (IGuiWidget widget : this.widgets) {
+            if (widget.isVisible()) {
+                widget.drawWidget(this, xSize, ySize);
             }
         }
     }
@@ -203,20 +188,32 @@ public class GuiTinyStorage extends GuiContainer {
     @Override
     public void handleMouseInput() {
         super.handleMouseInput();
-        int i = Mouse.getEventDWheel();
-        if (i != 0 && isShiftKeyDown()) {
-            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
-            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-            this.mouseWheelEvent(x, y, i / Math.abs(i));
+        int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+        int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+        int b = Mouse.getEventButton();
+        int delta = Mouse.getEventDWheel();
+        if (delta != 0) {
+            mouseWheelEvent(x, y, delta);
         }
-    }
-
-    protected void mouseWheelEvent(int x, int y, int wheel) {
-
     }
 
     @Override
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
+        if (!widgets.isEmpty()) {
+            if (scrollBar != null) {
+                scrollBar.mouseClicked(xCoord, yCoord, btn);
+            }
+            for (IGuiWidget widget : widgets) {
+                if (widget instanceof GuiScrollBar) {
+                    GuiScrollBar scroll = (GuiScrollBar) widget;
+                    if (scroll.mouseClicked(xCoord, yCoord, btn)) {
+                        scrollBar = scroll;
+                        return;
+                    }
+                }
+                widget.mouseClicked(xCoord, yCoord, btn);
+            }
+        }
         if (btn == 1) {
             for (Object o : this.buttonList) {
                 GuiButton guibutton = (GuiButton) o;
@@ -227,6 +224,72 @@ public class GuiTinyStorage extends GuiContainer {
             }
         }
         super.mouseClicked(xCoord, yCoord, btn);
+    }
+
+    @Override
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        if (scrollBar != null) {
+            scrollBar.mouseMovedOrUp(x, y, button);
+            scrollBar = null;
+        }
+        super.mouseMovedOrUp(x, y, button);
+    }
+
+    @Override
+    protected void mouseClickMove(int x, int y, int button, long time) {
+        if (scrollBar != null) {
+            scrollBar.mouseClickMove(x, y, button, time);
+            return;
+        }
+        super.mouseClickMove(x, y, button, time);
+    }
+
+    protected void mouseWheelEvent(int x, int y, int delta) {
+        if (!widgets.isEmpty()) {
+            for (IGuiWidget widget : widgets) {
+                if (widget instanceof GuiScrollBar) {
+                    GuiScrollBar scrollBar = (GuiScrollBar) widget;
+                    scrollBar.mouseWheel(x, y, delta);
+                }
+                widget.mouseWheel(x, y, delta);
+            }
+        }
+    }
+
+    public void addWidget(IGuiWidget widget) {
+        widgets.add(widget);
+        if (widget instanceof GuiScrollBar) {
+            ((GuiScrollBar) widget).adjustPosition();
+        }
+    }
+
+    public void removeWidget(IGuiWidget widget) {
+        widgets.remove(widget);
+        if (widget instanceof GuiScrollBar) {
+            if (scrollBar == (GuiScrollBar) widget) {
+                scrollBar = null;
+            }
+        }
+    }
+
+    @Override
+    public int getGuiLeft() {
+        return guiLeft;
+    }
+
+    @Override
+    public int getGuiTop() {
+        return guiTop;
+    }
+
+    @Override
+    public int getXSize() {
+        return xSize;
+    }
+
+    @Override
+    public int getYSize() {
+        return ySize;
     }
 
     @Override

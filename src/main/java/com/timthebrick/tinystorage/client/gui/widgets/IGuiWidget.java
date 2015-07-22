@@ -38,6 +38,20 @@ public interface IGuiWidget {
      */
     boolean isVisible();
 
+    /**
+     * Sets the visibility of the widget
+     * @param vis
+     */
+    void setVisibility(boolean vis);
+
+    boolean mouseClicked(int xPos, int yPos, int btn);
+
+    boolean mouseClickMove(int x, int y, int button, long time);
+
+    void mouseMovedOrUp(int x, int y, int button);
+
+    void mouseWheel(int x, int y, int delta);
+
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
 }

@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiImpossibleChest extends GuiTinyStorage {
 
-    private GuiScrollBar scrollBar;
     private TileEntityImpossibleChest tileEntity;
 
     public GuiImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
@@ -24,9 +23,9 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void addWidgets() {
-        super.addWidgets();
-        this.scrollBar = new GuiScrollBar(174, 18, 106);
+        this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
         this.widgets.add(scrollBar);
+        super.addWidgets();
     }
 
     @Override

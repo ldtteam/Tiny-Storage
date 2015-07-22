@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.reference.Colours;
 import org.lwjgl.opengl.GL11;
 
@@ -19,7 +20,6 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChes
 public class GuiTinyChest extends GuiTinyStorage {
 
 	private TileEntityTinyChest tileEntity;
-	private GuiScrollBar scrollBar;
 
 	public GuiTinyChest(InventoryPlayer inventoryPlayer, TileEntityTinyChest tileEntity) {
 		super(new ContainerTinyChest(inventoryPlayer, tileEntity), tileEntity);
@@ -38,17 +38,14 @@ public class GuiTinyChest extends GuiTinyStorage {
 
 	@Override
 	public void addWidgets() {
-		super.addWidgets();
-		this.scrollBar = new GuiScrollBar(10, 0, 106);
-        this.widgets.add(scrollBar);
+		this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
+		this.addWidget(scrollBar);
+        super.addWidgets();
 	}
 
     @Override
     protected void handleWidgetVisibility() {
         super.handleWidgetVisibility();
-        if(this.scrollBar != null) {
-            this.scrollBar.setVisibility(true);
-        }
     }
 
     @Override
@@ -85,12 +82,14 @@ public class GuiTinyChest extends GuiTinyStorage {
 	
 	@Override
 	public void drawBG(int ox, int oy, int x, int y) {
+        handleWidgetVisibility();
 		super.drawBG(ox, oy, x, y);
 	}
 
 	@Override
 	public void initGui() {
-		super.initGui();
+        super.initGui();
+        this.addWidgets();
 	}
 
 }
