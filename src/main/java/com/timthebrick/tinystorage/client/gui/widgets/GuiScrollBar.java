@@ -1,111 +1,145 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.IScrollSource;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 
-public class GuiScrollBar implements IScrollSource {
+import java.awt.event.*;
 
-    private int displayX = 0;
-    private int displayY = 0;
-    private int width = 12;
-    private int height = 16;
-    private int pageSize = 1;
+public class GuiScrollBar extends Gui implements IGuiWidget, MouseListener, MouseWheelListener {
 
-    private int maxScroll = 0;
-    private int minScroll = 0;
-    private int currentScroll = 0;
+    /**
+     * The height of the scroll bar (max distance scrolled)
+     */
+    public int scrollHeight;
+    /**
+     * True if this control is enabled, false to disable.
+     */
+    public boolean enabled;
+    /**
+     * Hides the control completely if false.
+     */
+    public boolean visible;
+    /**
+     * The current scroll position of the bar
+     */
+    public int currScroll;
+    /**
+     * The X Position of the widget
+     */
+    public int xPosition;
 
-    public void draw(GuiTinyStorage gui) {
-        gui.bindTexture("minecraft", "gui/container/creative_inventory/tabs.png");
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        if (this.getRange() == 0) {
-            gui.drawTexturedModalRect(this.displayX, this.displayY, 232 + this.width, 0, this.width, 15);
-        } else {
-            int offset = (this.currentScroll - this.minScroll) * (this.height - 15) / this.getRange();
-            gui.drawTexturedModalRect(this.displayX, offset + this.displayY, 232, 0, this.width, 15);
-        }
+    /**
+     * The Y Position of the widget
+     */
+    public int yPosition;
+
+    /**
+     * @param x The X Postition of  the scroll bar
+     * @param y The Y Position of the scroll bar
+     * @param scrollHeight The max scrollable distance
+     */
+    public GuiScrollBar(int x, int y, int scrollHeight) {
+        this.scrollHeight = scrollHeight;
     }
 
-    public int getRange() {
-        return this.maxScroll - this.minScroll;
-    }
-
-    public int getLeft() {
-        return this.displayX;
-    }
-
-    public GuiScrollBar setLeft(int v) {
-        this.displayX = v;
-        return this;
-    }
-
-    public int getTop() {
-        return this.displayY;
-    }
-
-    public GuiScrollBar setTop(int v) {
-        this.displayY = v;
-        return this;
-    }
-
-    public int getWidth() {
-        return this.width;
-    }
-
-    public GuiScrollBar setWidth(int v) {
-        this.width = v;
-        return this;
-    }
-
-    public int getHeight() {
-        return this.height;
-    }
-
-    public GuiScrollBar setHeight(int v) {
-        this.height = v;
-        return this;
-    }
-
-    public void setRange(int min, int max, int pageSize) {
-        this.minScroll = min;
-        this.maxScroll = max;
-        this.pageSize = pageSize;
-
-        if (this.minScroll > this.maxScroll) {
-            this.maxScroll = this.minScroll;
-        }
-
-        this.applyRange();
-    }
-
-    private void applyRange() {
-        this.currentScroll = Math.max(Math.min(this.currentScroll, this.maxScroll), this.minScroll);
+    public void setVisibility(boolean vis) {
+        this.visible = vis;
+        this.enabled = vis;
     }
 
     @Override
-    public int getCurrentScroll() {
-        return this.currentScroll;
+    public void drawWidget(Minecraft minecraft) {
+
     }
 
-    public void click(GuiTinyStorage gui, int x, int y) {
-        if (this.getRange() == 0) {
-            return;
-        }
-
-        if (x > this.displayX && x <= this.displayX + this.width) {
-            if (y > this.displayY && y <= this.displayY + this.height) {
-                this.currentScroll = (y - this.displayY);
-                this.currentScroll = this.minScroll + ((this.currentScroll * 2 * this.getRange() / this.height));
-                this.currentScroll = (this.currentScroll + 1) >> 1;
-                this.applyRange();
-            }
-        }
+    @Override
+    public int xPos() {
+        return this.xPosition;
     }
 
-    public void wheel(int delta) {
-        delta = Math.max(Math.min(-delta, 1), -1);
-        this.currentScroll += delta * this.pageSize;
-        this.applyRange();
+    @Override
+    public int yPos() {
+        return this.yPosition;
+    }
+
+    @Override
+    public int getWidth() {
+        return 12;
+    }
+
+    @Override
+    public int getHeight() {
+        return 15;
+    }
+
+    public int getScrollProgress() {
+        return (currScroll / scrollHeight) * 100;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+
+    /**
+     * Invoked when the mouse button has been clicked (pressed
+     * and released) on a component.
+     *
+     * @param e
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    /**
+     * Invoked when a mouse button has been pressed on a component.
+     *
+     * @param e
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    /**
+     * Invoked when a mouse button has been released on a component.
+     *
+     * @param e
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    /**
+     * Invoked when the mouse enters a component.
+     *
+     * @param e
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    /**
+     * Invoked when the mouse exits a component.
+     *
+     * @param e
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    /**
+     * Invoked when the mouse wheel is rotated.
+     *
+     * @param e
+     * @see MouseWheelEvent
+     */
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+
     }
 }

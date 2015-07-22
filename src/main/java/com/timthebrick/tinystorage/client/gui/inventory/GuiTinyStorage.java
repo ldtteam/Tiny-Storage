@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.client.gui.inventory;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
 import com.timthebrick.tinystorage.client.gui.widgets.IButtonTooltip;
+import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.network.PacketHandler;
@@ -18,15 +19,22 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GuiTinyStorage extends GuiContainer {
 
-    protected GuiScrollBar scrollBar = null;
     private GuiImageButton accessMode;
     private TileEntityTinyStorage tileEntity;
+    protected List widgets = new ArrayList();
 
     public GuiTinyStorage(Container container, TileEntityTinyStorage te) {
         super(container);
         this.tileEntity = te;
+    }
+
+    public void addWidgets(){
+
     }
 
     public void addButtons() {
@@ -40,9 +48,6 @@ public class GuiTinyStorage extends GuiContainer {
     public void drawScreen(int mouseX, int mouseY, float btn) {
         super.drawScreen(mouseX, mouseY, btn);
         boolean hasClicked = Mouse.isButtonDown(0);
-        if (hasClicked && this.scrollBar != null) {
-            this.scrollBar.click(this, mouseX - this.guiLeft, mouseY - this.guiTop);
-        }
         for (Object c : this.buttonList) {
             if (c instanceof IButtonTooltip) {
                 IButtonTooltip tooltip = (IButtonTooltip) c;
@@ -154,6 +159,7 @@ public class GuiTinyStorage extends GuiContainer {
     public void initGui() {
         super.initGui();
         this.addButtons();
+        this.addWidgets();
     }
 
     @Override
@@ -161,9 +167,6 @@ public class GuiTinyStorage extends GuiContainer {
         int ox = this.guiLeft; // (width - xSize) / 2;
         int oy = this.guiTop; // (height - ySize) / 2;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        if (this.scrollBar != null) {
-            this.scrollBar.draw(this);
-        }
         this.drawFG(ox, oy, x, y);
     }
 
@@ -175,6 +178,16 @@ public class GuiTinyStorage extends GuiContainer {
     public void drawFG(int ox, int oy, int x, int y) {
         if (this.accessMode != null) {
             this.accessMode.set(this.tileEntity.accessMode);
+        }
+        for (Object c : this.widgets) {
+            if (c instanceof IGuiWidget) {
+                IGuiWidget widget = (IGuiWidget) c;
+                int xWidget = widget.xPos();
+                int yWidget = widget.yPos();
+                if (widget.isVisible()) {
+                    widget.drawWidget(this.mc, xWidget, yWidget);
+                }
+            }
         }
     }
 
@@ -190,8 +203,6 @@ public class GuiTinyStorage extends GuiContainer {
             int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
             int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
             this.mouseWheelEvent(x, y, i / Math.abs(i));
-        } else if (i != 0 && this.scrollBar != null) {
-            this.scrollBar.wheel(i);
         }
     }
 
@@ -226,5 +237,4 @@ public class GuiTinyStorage extends GuiContainer {
         ResourceLocation loc = new ResourceLocation(base, "textures/" + file);
         this.mc.getTextureManager().bindTexture(loc);
     }
-
 }

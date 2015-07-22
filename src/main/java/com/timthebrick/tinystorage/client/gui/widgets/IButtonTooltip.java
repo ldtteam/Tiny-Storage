@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-public interface IButtonTooltip {
+public interface IButtonTooltip{
 	
 	/**
 	 * returns the tooltip message.
