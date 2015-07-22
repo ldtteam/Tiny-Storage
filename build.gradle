@@ -26,6 +26,14 @@ buildscript {
     }
 }
 
+repositories {
+    mavenCentral()
+	maven { //My own repo (used for uploading and dependency)
+        name 'OrionMavenRepo'
+        url 'http://mavenrepo.orionminecraft.com/'
+    }
+}
+
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 apply plugin: 'maven'
@@ -161,7 +169,6 @@ uploadArchives {
                 }
             }
         }
-
     }
 }
 
