@@ -6,6 +6,8 @@ import com.timthebrick.tinystorage.client.gui.widgets.IButtonTooltip;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.init.TinyStorageInitaliser;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
@@ -33,7 +35,7 @@ public class GuiTinyStorage extends GuiContainer {
         this.tileEntity = te;
     }
 
-    public void addWidgets(){
+    public void addWidgets() {
 
     }
 
@@ -155,6 +157,10 @@ public class GuiTinyStorage extends GuiContainer {
         }
     }
 
+    protected void handleWidgetVisibility() {
+
+    }
+
     @Override
     public void initGui() {
         super.initGui();
@@ -182,10 +188,8 @@ public class GuiTinyStorage extends GuiContainer {
         for (Object c : this.widgets) {
             if (c instanceof IGuiWidget) {
                 IGuiWidget widget = (IGuiWidget) c;
-                int xWidget = widget.xPos();
-                int yWidget = widget.yPos();
                 if (widget.isVisible()) {
-                    widget.drawWidget(this.mc, xWidget, yWidget);
+                    widget.drawWidget(this, xSize, ySize);
                 }
             }
         }
@@ -193,6 +197,7 @@ public class GuiTinyStorage extends GuiContainer {
 
     public void drawBG(int ox, int oy, int x, int y) {
         this.handleButtonVisibility();
+        this.handleWidgetVisibility();
     }
 
     @Override

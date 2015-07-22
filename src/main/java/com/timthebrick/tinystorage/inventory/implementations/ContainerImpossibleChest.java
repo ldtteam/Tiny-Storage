@@ -7,6 +7,8 @@ import net.minecraft.inventory.Container;
 
 public class ContainerImpossibleChest extends ContainerTinyStorage {
 
+    public static final int INVENTORY_SIZE = 0;
+
     public ContainerImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
     }
 }

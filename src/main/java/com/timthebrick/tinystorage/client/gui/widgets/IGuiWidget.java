@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 
 public interface IGuiWidget {
 
@@ -37,6 +38,6 @@ public interface IGuiWidget {
      */
     boolean isVisible();
 
-    void drawWidget(Minecraft minecraft);
+    void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
 }

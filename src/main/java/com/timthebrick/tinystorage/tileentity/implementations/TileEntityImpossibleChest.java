@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
 import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
@@ -24,7 +25,7 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
 
     public TileEntityImpossibleChest() {
         super();
-        inventory = new ItemStack[ContainerImpossibleChest.SMALL_INVENTORY_SIZE];
+        inventory = new ItemStack[ContainerImpossibleChest.INVENTORY_SIZE];
         sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
     }
 

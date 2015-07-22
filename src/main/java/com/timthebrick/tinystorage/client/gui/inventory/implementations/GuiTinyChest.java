@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
+import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
 import com.timthebrick.tinystorage.reference.Colours;
 import org.lwjgl.opengl.GL11;
 
@@ -18,6 +19,7 @@ import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChes
 public class GuiTinyChest extends GuiTinyStorage {
 
 	private TileEntityTinyChest tileEntity;
+	private GuiScrollBar scrollBar;
 
 	public GuiTinyChest(InventoryPlayer inventoryPlayer, TileEntityTinyChest tileEntity) {
 		super(new ContainerTinyChest(inventoryPlayer, tileEntity), tileEntity);
@@ -35,6 +37,21 @@ public class GuiTinyChest extends GuiTinyStorage {
 	}
 
 	@Override
+	public void addWidgets() {
+		super.addWidgets();
+		this.scrollBar = new GuiScrollBar(10, 0, 106);
+        this.widgets.add(scrollBar);
+	}
+
+    @Override
+    protected void handleWidgetVisibility() {
+        super.handleWidgetVisibility();
+        if(this.scrollBar != null) {
+            this.scrollBar.setVisibility(true);
+        }
+    }
+
+    @Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		if (tileEntity.hasOwner()) {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + tileEntity.getOwner(), 8, 6, Colours.INV_GRAY);

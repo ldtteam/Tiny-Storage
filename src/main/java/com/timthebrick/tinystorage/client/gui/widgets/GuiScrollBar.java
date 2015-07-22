@@ -1,11 +1,12 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import net.minecraft.client.Minecraft;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.reference.References;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ResourceLocation;
 
-import java.awt.event.*;
-
-public class GuiScrollBar extends Gui implements IGuiWidget, MouseListener, MouseWheelListener {
+public class GuiScrollBar extends Gui implements IGuiWidget{
 
     /**
      * The height of the scroll bar (max distance scrolled)
@@ -34,7 +35,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget, MouseListener, Mous
     public int yPosition;
 
     /**
-     * @param x The X Postition of  the scroll bar
+     * @param x The X Position of  the scroll bar
      * @param y The Y Position of the scroll bar
      * @param scrollHeight The max scrollable distance
      */
@@ -48,8 +49,12 @@ public class GuiScrollBar extends Gui implements IGuiWidget, MouseListener, Mous
     }
 
     @Override
-    public void drawWidget(Minecraft minecraft) {
-
+    public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
+        guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
+        int xStart = (guiScreen.width - xScreenSize) / 2;
+        int yStart = (guiScreen.height - yScreenSize) / 2;
+        //TinyStorageLog.info(xPosition);
+        this.drawTexturedModalRect(xPosition, 0, 0, 0, getWidth(), getHeight());
     }
 
     @Override
@@ -79,67 +84,5 @@ public class GuiScrollBar extends Gui implements IGuiWidget, MouseListener, Mous
     @Override
     public boolean isVisible() {
         return this.visible;
-    }
-
-    /**
-     * Invoked when the mouse button has been clicked (pressed
-     * and released) on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when a mouse button has been pressed on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when a mouse button has been released on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when the mouse enters a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when the mouse exits a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when the mouse wheel is rotated.
-     *
-     * @param e
-     * @see MouseWheelEvent
-     */
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-
     }
 }
