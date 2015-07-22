@@ -91,6 +91,10 @@ jar {
     }
 }
 
+artifacts {
+    archives devJar
+}
+
 curse {
     dependsOn 'reobf'
 
