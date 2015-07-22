@@ -91,6 +91,16 @@ jar {
     }
 }
 
+task devJar(type: Jar, dependsOn: 'classes') {
+    from(sourceSets.main.output) {
+        include '**'
+    }
+
+    extension = 'jar'
+    classifier = 'dev'
+}
+
+
 artifacts {
     archives devJar
 }
