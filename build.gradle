@@ -139,22 +139,12 @@ uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
 
-        if(System.getenv().TRAVIS_BRANCH.toString().toLowerCase().contains("dev"))
-        {
-            logger.lifecycle("Setting MavenRepo as Snapshot")
-            snapshotRepository(url: "ftp://mavenrepo.orionminecraft.com"){
-                authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
-            }
-        }
-        else {
             logger.lifecycle("Setting MavenRepo as publish")
             repository(url: "ftp://mavenrepo.orionminecraft.com") {
                 authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
-            }
-        }
-
-        pom {
-            groupId = project.group
+ 
+       pom {
+           groupId = project.group
             version = project.version
             artifactId = project.archivesBaseName
         }
