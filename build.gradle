@@ -107,3 +107,60 @@ curse {
         logger.lifecycle("Cannot run the CurseUpload sequence. No API-Key was available.")
     }
 }
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployerJars
+        if(System.getenv().TRAVIS_BRANCH.toString().contains("Dev"))
+        {
+            snapshotRepository(url: "ftp://mavenrepo.orionminecraft.com"){
+                authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+            }
+        }
+        else {
+            repository(url: "ftp://mavenrepo.orionminecraft.com") {
+                authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+            }
+        }
+
+        pom {
+            groupId = project.group
+            version = project.version
+            artifactId = project.archivesBaseName
+        }
+
+        pom.project {
+            name project.archivesBaseName
+            packaging 'jar'
+            description 'Tiny Storage'
+            url 'https://github.com/Tim020/Tiny-Storage'
+
+            scm {
+                url 'https://github.com/Tim020/Tiny-Storage'
+                connection 'scm:git:git://github.com/Tim020/Tiny-Storage.git'
+                developerConnection 'scm:git:git@github.com/Tim020/Tiny-Storage.git'
+            }
+
+            issueManagement {
+                system 'github'
+                url 'https://github.com/Tim020/Tiny-Storage/issues'
+            }
+
+            developers {
+                developer {
+                    id 'TimtheBrick'
+                    name 'Tim'
+                    roles {
+                        role 'developer'
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+//The external task that executes the uploadAtchives function.
+task('uploadJars', dependsOn: uploadArchives) {
+    description = "uploads JARs"
+}
