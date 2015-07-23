@@ -20,6 +20,7 @@ public class ContainerTinyStorage extends Container {
 	public boolean canInteractWith(EntityPlayer entityPlayer) {
 		return true;
 	}
+
 	@Override
 	protected boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
 		boolean slotFound = false;

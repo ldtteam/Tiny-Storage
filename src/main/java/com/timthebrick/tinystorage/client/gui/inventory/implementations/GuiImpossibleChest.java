@@ -100,8 +100,12 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     public void handleWidgetFunctionality(IGuiWidget widget) {
         TinyStorageLog.info(widget.toString());
         if (this.container instanceof ContainerImpossibleChest) {
-            ContainerImpossibleChest impossibleChest = (ContainerImpossibleChest) this.container;
-            impossibleChest.doStuffTest();
+            if(widget instanceof GuiScrollBar){
+                GuiScrollBar scrollBar = (GuiScrollBar) widget;
+                ContainerImpossibleChest impossibleChest = (ContainerImpossibleChest) this.container;
+                impossibleChest.doStuffTest(scrollBar.getScrollPos());
+            }
+
         }
         super.handleWidgetFunctionality(widget);
     }
