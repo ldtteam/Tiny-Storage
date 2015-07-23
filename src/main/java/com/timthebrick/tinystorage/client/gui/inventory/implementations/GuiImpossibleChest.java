@@ -96,7 +96,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     }
 
     @Override
-    protected void handleWidgetVisibility() {
+    public void handleWidgetVisibility() {
         if (this.scrollBar != null) {
             this.scrollBar.setVisibility(true);
         }

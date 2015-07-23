@@ -1,9 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
-import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
-import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
-import com.timthebrick.tinystorage.client.gui.widgets.IButtonTooltip;
-import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
+import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
@@ -25,25 +22,17 @@ import org.lwjgl.opengl.GL12;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
+public class GuiTinyStorage extends GuiContainer implements IGuiScreen, IWidgetProvider {
 
+    private Container container;
     private GuiImageButton accessMode;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidget> widgets = new ArrayList<IGuiWidget>();
 
     public GuiTinyStorage(Container container, TileEntityTinyStorage te) {
         super(container);
+        this.container = container;
         this.tileEntity = te;
-    }
-
-    public void addWidgets() {
-    }
-
-    public void addButtons() {
-        this.accessMode = new GuiImageButton(this.guiLeft - 18, this.guiTop + 8, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED);
-        if (tileEntity.hasUniqueOwner()) {
-            this.buttonList.add(accessMode);
-        }
     }
 
     @Override
@@ -143,7 +132,8 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
         }
     }
 
-    protected void handleWidgetVisibility() {
+    @Override
+    public void handleWidgetVisibility() {
     }
 
     @Override
@@ -151,6 +141,17 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
         super.initGui();
         this.addButtons();
         this.addWidgets();
+    }
+
+    @Override
+    public void addWidgets() {
+    }
+
+    public void addButtons() {
+        this.accessMode = new GuiImageButton(this.guiLeft - 18, this.guiTop + 8, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED);
+        if (tileEntity.hasUniqueOwner()) {
+            this.buttonList.add(accessMode);
+        }
     }
 
     @Override
@@ -230,12 +231,13 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
         }
     }
 
+    @Override
     public void addWidget(IGuiWidget widget) {
         widgets.add(widget);
         widget.adjustPosition();
-
     }
 
+    @Override
     public void removeWidget(IGuiWidget widget) {
         widgets.remove(widget);
     }

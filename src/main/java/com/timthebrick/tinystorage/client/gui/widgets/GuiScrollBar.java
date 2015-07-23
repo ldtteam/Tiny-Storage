@@ -83,10 +83,9 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void adjustPosition() {
-        TinyStorageLog.info("Adjust position");
         xPosition = xOrigin + gui.getGuiLeft();
         yPosition = yOrigin + gui.getGuiTop();
-        wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax());
+        wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax() + getHeight());
     }
 
     public void setScrollPos(int scrollPos) {
@@ -132,9 +131,12 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         if (scrollToPos > 0 && this.isEnabled() && shouldScroll) {
             if (scrollToPos != getScrollPos()) {
                 if (getScrollPos() > scrollToPos) {
-                    scrollBy(-1);
+                    scrollBy(-2);
                 } else {
-                    scrollBy(1);
+                    scrollBy(2);
+                }
+                if(getScrollPos() <= scrollToPos + 2 && getScrollPos() >= scrollToPos - 2){
+                    setScrollPos(scrollToPos);
                 }
             } else {
                 shouldScroll = false;
@@ -173,7 +175,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public void mouseWheel(int x, int y, int delta) {
         if (this.isEnabled() && wholeArea.contains(x, y)) {
-            scrollBy(-Integer.signum(delta));
+            scrollBy(-Integer.signum(delta) * 2);
         }
     }
 
