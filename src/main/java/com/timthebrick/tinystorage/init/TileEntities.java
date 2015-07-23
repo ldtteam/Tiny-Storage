@@ -81,6 +81,7 @@ public class TileEntities {
 		registerTileEntityWithAlternatives(TileEntityQuarryChestLarge.class, "blockQuarryChestLarge", "tileEntityQuarryChestLarge");
 
 		registerTileEntity(TileEntityBookCase.class, "tileEntityBookCase");
+		registerTileEntity(TileEntityImpossibleChest.class, "tileEntityImpossibleChest");
 	}
 	
 	private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id){

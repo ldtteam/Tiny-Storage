@@ -49,6 +49,9 @@ public class GuiHandler implements IGuiHandler {
         }else if (id == GUIs.BOOKCASE.ordinal()) {
             TileEntityBookCase tileEntityBookCase = (TileEntityBookCase) world.getTileEntity(x, y, z);
             return new ContainerBookCase(entityPlayer.inventory, tileEntityBookCase);
+        }else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
+            TileEntityImpossibleChest tileEntityImpossibleChest = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
+            return new ContainerImpossibleChest(entityPlayer.inventory, tileEntityImpossibleChest);
         }
         return null;
     }
@@ -90,6 +93,9 @@ public class GuiHandler implements IGuiHandler {
         }else if (id == GUIs.BOOKCASE.ordinal()) {
             TileEntityBookCase tileEntityBookCase = (TileEntityBookCase) world.getTileEntity(x, y, z);
             return new GuiBookCase(entityPlayer.inventory, tileEntityBookCase);
+        }else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
+            TileEntityImpossibleChest tileEntityImpossibleChest = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
+            return new GuiImpossibleChest(entityPlayer.inventory, tileEntityImpossibleChest);
         }
         return null;
     }

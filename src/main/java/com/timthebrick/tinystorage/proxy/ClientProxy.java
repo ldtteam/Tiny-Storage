@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.proxy;
 import com.timthebrick.tinystorage.client.renderer.item.*;
 import com.timthebrick.tinystorage.client.renderer.tileentity.*;
 import com.timthebrick.tinystorage.tileentity.implementations.*;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -36,6 +37,7 @@ public class ClientProxy extends CommonProxy {
 		RenderIDs.clayChestLarge = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.quarryChest = RenderingRegistry.getNextAvailableRenderId();
 		RenderIDs.bookCase = RenderingRegistry.getNextAvailableRenderId();
+		RenderIDs.impossibleChest = RenderingRegistry.getNextAvailableRenderId();
 
 		// Tiny Chests
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTinyChestStone), new ItemRendererTinyChest("Stone", false));
@@ -170,6 +172,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockPiggyBank), new ItemRendererPiggyBank());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockPeacefulChest), new ItemRendererPeacefulChest());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockQuarryChest), new ItemRendererQuarryChest());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockImpossibleChest), new ItemRendererImpossibleChest(false));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockImpossibleChestLocked), new ItemRendererImpossibleChest(true));
 
 		// TileEntity binding
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyChest.class, new TileEntityRendererTinyChest());
@@ -184,6 +188,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityClayChest.class, new TileEntityRendererClayChest());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityQuarryChest.class, new TileEntityRendererQuarryChest());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBookCase.class, new TileEntityRendererBookCase());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityImpossibleChest.class, new TileEntityRendererImpossibleChest());
 
 	}
 	

@@ -39,11 +39,10 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
     protected String textureName;
     private boolean isLockable;
 
-    public BlockImpossibleChest(Material mat, String textureName, boolean isLockable) {
+    public BlockImpossibleChest(Material mat, boolean isLockable) {
         super(mat);
         this.setHardness(2.5f);
         this.isLockable = isLockable;
-        this.textureName = textureName;
         if (!this.isLockable) {
             this.setBlockName(Names.UnlocalisedBlocks.IMPOSSIBLE_CHEST + this.textureName);
         } else {
@@ -245,13 +244,6 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
     @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
         blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
-    }
-
-    @Override
-    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-        for (int meta = 0; meta < 3; meta++) {
-            list.add(new ItemStack(item, 1, meta));
-        }
     }
 
     @Override

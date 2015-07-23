@@ -153,6 +153,8 @@ public class ModBlocks {
 	public static Block blockPeacefulChest = new BlockPeacefulChest(Material.rock);
 	public static Block blockQuarryChest = new BlockQuarryChest(Material.rock);
 	public static Block blockDenseBlock = new BlockDenseMaterial(Material.rock);
+	public static Block blockImpossibleChest = new BlockImpossibleChest(Material.rock, false);
+    public static Block blockImpossibleChestLocked = new BlockImpossibleChest(Material.rock, true);
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -291,6 +293,8 @@ public class ModBlocks {
 		registerBlock(blockPeacefulChest, ItemBlockPeacefulChest.class, Names.Blocks.PEACEFUL_CHEST);
 		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
 		registerBlock(blockDenseBlock, ItemBlockDenseMaterial.class, Names.Blocks.DENSE_BLOCK);
+        registerBlock(blockImpossibleChest, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST);
+        registerBlock(blockImpossibleChestLocked, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST);
 	}
 
 	/**
