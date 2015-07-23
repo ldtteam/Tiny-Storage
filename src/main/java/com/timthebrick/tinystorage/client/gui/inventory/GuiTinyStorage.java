@@ -200,17 +200,14 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
     @Override
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
-            if (scrollBar != null) {
-                scrollBar.mouseClicked(xCoord, yCoord, btn);
-            }
             for (IGuiWidget widget : widgets) {
-                if (widget instanceof GuiScrollBar) {
+                /*if (widget instanceof GuiScrollBar) {
                     GuiScrollBar scroll = (GuiScrollBar) widget;
                     if (scroll.mouseClicked(xCoord, yCoord, btn)) {
                         scrollBar = scroll;
                         return;
                     }
-                }
+                }*/
                 widget.mouseClicked(xCoord, yCoord, btn);
             }
         }
@@ -228,19 +225,11 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
 
     @Override
     protected void mouseMovedOrUp(int x, int y, int button) {
-        if (scrollBar != null) {
-            scrollBar.mouseMovedOrUp(x, y, button);
-            scrollBar = null;
-        }
         super.mouseMovedOrUp(x, y, button);
     }
 
     @Override
     protected void mouseClickMove(int x, int y, int button, long time) {
-        if (scrollBar != null) {
-            scrollBar.mouseClickMove(x, y, button, time);
-            return;
-        }
         super.mouseClickMove(x, y, button, time);
     }
 

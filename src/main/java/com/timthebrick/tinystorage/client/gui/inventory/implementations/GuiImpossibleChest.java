@@ -62,6 +62,32 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     }
 
     @Override
+    protected void mouseClicked(int xCoord, int yCoord, int btn) {
+        if (scrollBar != null) {
+            scrollBar.mouseClicked(xCoord, yCoord, btn);
+        }
+        super.mouseClicked(xCoord, yCoord, btn);
+    }
+
+    @Override
+    protected void mouseClickMove(int x, int y, int button, long time) {
+        if (scrollBar != null) {
+            scrollBar.mouseClickMove(x, y, button, time);
+            return;
+        }
+        super.mouseClickMove(x, y, button, time);
+    }
+
+    @Override
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        if (scrollBar != null) {
+            scrollBar.mouseMovedOrUp(x, y, button);
+            scrollBar = null;
+        }
+        super.mouseMovedOrUp(x, y, button);
+    }
+
+    @Override
     public void initGui() {
         super.initGui();
         this.addWidgets();

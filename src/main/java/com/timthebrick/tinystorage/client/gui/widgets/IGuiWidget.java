@@ -52,11 +52,23 @@ public interface IGuiWidget {
     boolean isVisible();
 
     /**
+     *
+     * @return true if the user can interact with the widget
+     */
+    boolean isEnabled();
+
+    /**
      * Sets the visibility of the widget
      *
      * @param vis
      */
     void setVisibility(boolean vis);
+
+    /**
+     * Sets whether the control is enabled or not
+     * @param enabled
+     */
+    void setEnabled(boolean enabled);
 
     boolean mouseClicked(int xPos, int yPos, int btn);
 
