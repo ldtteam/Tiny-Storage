@@ -138,11 +138,10 @@ curse {
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
-
             logger.lifecycle("Setting MavenRepo as publish")
             repository(url: "ftp://mavenrepo.orionminecraft.com") {
-                authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())}
- 
+                authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+			}
         pom {
            groupId = project.group
             version = project.version
