@@ -4,7 +4,11 @@ import net.minecraft.entity.Entity;
 
 public class MathHelper {
 
-    public static int CalcModuloIncSign (int pInput, int pModulo) {
+    public static int roundToNearestInterval(int i, int j) {
+        return Math.round(i / j) * j;
+    }
+
+    public static int CalcModuloIncSign(int pInput, int pModulo) {
         int tResult = pInput % pModulo;
         if (pInput < 0) {
             tResult *= -1;
@@ -12,7 +16,7 @@ public class MathHelper {
         return tResult;
     }
 
-    public static Vector3 getDirectionVector (Vector3 currentPos, Vector3 finalPos) {
+    public static Vector3 getDirectionVector(Vector3 currentPos, Vector3 finalPos) {
         Vector3 finalVector = finalPos.copy().subtract(currentPos);
 
         if (finalVector.mag() > 1) {
@@ -21,23 +25,23 @@ public class MathHelper {
         return finalVector;
     }
 
-    public static Vector3 getMotionFromPosition(Vector3 currentPos, Vector3 finalPos, double modifier){
+    public static Vector3 getMotionFromPosition(Vector3 currentPos, Vector3 finalPos, double modifier) {
         Vector3 finalVector = getDirectionVector(currentPos, finalPos);
         finalVector.x *= modifier;
         finalVector.y *= modifier;
         finalVector.z *= modifier;
-        return  finalVector;
+        return finalVector;
     }
 
-    public static Vector3 getMotionFomDirection (Vector3 direction, float modifier) {
+    public static Vector3 getMotionFomDirection(Vector3 direction, float modifier) {
         Vector3 finalVector = direction.copy();
         finalVector.x *= modifier;
         finalVector.y *= modifier;
         finalVector.z *= modifier;
-        return  finalVector;
+        return finalVector;
     }
 
-    public static void setEntityMotionFromVector (Entity entity, Vector3 originalPosVector, float modifier) {
+    public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
         Vector3 entityVector = Vector3.fromEntityCenter(entity);
         Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
 
@@ -49,7 +53,7 @@ public class MathHelper {
         entity.motionZ = finalVector.z * modifier;
     }
 
-    public static void setEntityVelocityFromVector (Entity entity, Vector3 originalPosVector, double modifier) {
+    public static void setEntityVelocityFromVector(Entity entity, Vector3 originalPosVector, double modifier) {
         Vector3 entityVector = Vector3.fromEntityCenter(entity);
         Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
 

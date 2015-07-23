@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.util.math.MathHelper;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -13,54 +14,51 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     /**
      * The current height the bar is scrolled to
      */
-    protected int scrollPos;
+    private int scrollPos;
     /**
      * The height of the scroll bar (max distance scrolled)
      */
-    protected int scrollMax;
+    private int scrollMax;
     /**
      * The position to scroll to when clicked
      */
-    protected int scrollToPos;
+    private int scrollToPos;
     /**
      * Whether or not the scroll bar should scroll
      */
-    protected boolean shouldScroll;
+    private boolean shouldScroll;
     /**
      * True if this control is enabled, false to disable.
      */
-    protected boolean enabled;
+    private boolean enabled;
     /**
      * Hides the control completely if false.
      */
-    protected boolean visible;
+    private boolean visible;
     /**
      * The X Position of the widget
      */
-    public int xPosition;
+    private int xPosition;
     /**
      * The Y Position of the widget
      */
-    public int yPosition;
+    private int yPosition;
     /**
      * The X Origin of the widget
      */
-    protected int xOrigin;
+    private int xOrigin;
     /**
      * The Y Origin of the widget
      */
-    protected int yOrigin;
+    private int yOrigin;
     /**
      * The area within which the scroll bar can be used
      */
-    protected Rectangle wholeArea;
+    private Rectangle wholeArea;
     /**
      * The widget provider for this IGuiWidget
      */
-    protected IWidgetProvider widgetProvider;
-    protected boolean pressedUp;
-    protected boolean pressedDown;
-    protected boolean pressedThumb;
+    private IWidgetProvider widgetProvider;
     /**
      * The direction to scroll the bar
      */
@@ -86,11 +84,6 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax() + getHeight());
     }
 
-    public void setScrollPos(int scrollPos) {
-        this.scrollPos = limitPos(scrollPos);
-        this.widgetProvider.handleWidgetFunctionality(this);
-    }
-
     public void scrollBy(int amount) {
         setScrollPos(scrollPos + amount);
     }
@@ -101,18 +94,6 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     public void scrollTo(int scrollPos) {
         scrollToPos = Math.max(0, Math.min(scrollPos, scrollMax));
-    }
-
-    protected int limitPos(int pos) {
-        return Math.max(0, Math.min(pos, scrollMax));
-    }
-
-    public int getScrollMax() {
-        return scrollMax;
-    }
-
-    public int getScrollPos() {
-        return scrollPos;
     }
 
     public void setEnabled(boolean enabled) {
@@ -153,7 +134,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     public boolean mouseClicked(int x, int y, int button) {
         if (this.isEnabled() && wholeArea.contains(x, y)) {
             shouldScroll = true;
-            scrollTo(y - widgetProvider.getGuiTop() - yOrigin);
+            scrollTo(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
         }
         return false;
     }
@@ -165,16 +146,13 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void mouseMovedOrUp(int x, int y, int button) {
-        pressedUp = false;
-        pressedDown = false;
-        pressedThumb = false;
         scrollDir = 0;
     }
 
     @Override
     public void mouseWheel(int x, int y, int delta) {
         if (this.isEnabled() && wholeArea.contains(x, y)) {
-            scrollBy(-Integer.signum(delta) * 2);
+            scrollBy(-Integer.signum(delta) * 4);
         }
     }
 
@@ -205,7 +183,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public int getHeight() {
-        return 15;
+        return 14;
     }
 
     @Override
@@ -216,6 +194,19 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public int getScrollMax() {
+        return scrollMax;
+    }
+
+    public int getScrollPos() {
+        return scrollPos;
+    }
+
+    private void setScrollPos(int scrollPos) {
+        this.scrollPos = Math.max(0, Math.min(scrollPos, scrollMax));
+        this.widgetProvider.handleWidgetFunctionality(this);
     }
 
     @Override
