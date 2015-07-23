@@ -22,9 +22,9 @@ import org.lwjgl.opengl.GL12;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiTinyStorage extends GuiContainer implements IGuiScreen, IWidgetProvider {
+public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
-    private Container container;
+    public Container container;
     private GuiImageButton accessMode;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidget> widgets = new ArrayList<IGuiWidget>();
@@ -240,6 +240,10 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen, IWidgetP
     @Override
     public void removeWidget(IGuiWidget widget) {
         widgets.remove(widget);
+    }
+
+    @Override
+    public void handleWidgetFunctionality(IGuiWidget widget) {
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.util.IGuiScreen;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -57,9 +55,9 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
      */
     protected Rectangle wholeArea;
     /**
-     * The GuiScreen class that the widget is in
+     * The widget provider for this IGuiWidget
      */
-    protected IGuiScreen gui;
+    protected IWidgetProvider widgetProvider;
     protected boolean pressedUp;
     protected boolean pressedDown;
     protected boolean pressedThumb;
@@ -73,8 +71,8 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
      * @param y            The Y Position of the scroll bar (relative to GUI)
      * @param scrollHeight The max scrollable distance (height of background - this gets adjusted)
      */
-    public GuiScrollBar(IGuiScreen gui, int x, int y, int scrollHeight) {
-        this.gui = gui;
+    public GuiScrollBar(IWidgetProvider widgetProvider, int x, int y, int scrollHeight) {
+        this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;
         setEnabled(true);
@@ -83,13 +81,14 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void adjustPosition() {
-        xPosition = xOrigin + gui.getGuiLeft();
-        yPosition = yOrigin + gui.getGuiTop();
+        xPosition = xOrigin + widgetProvider.getGuiLeft();
+        yPosition = yOrigin + widgetProvider.getGuiTop();
         wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax() + getHeight());
     }
 
     public void setScrollPos(int scrollPos) {
         this.scrollPos = limitPos(scrollPos);
+        this.widgetProvider.handleWidgetFunctionality(this);
     }
 
     public void scrollBy(int amount) {
@@ -135,7 +134,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
                 } else {
                     scrollBy(2);
                 }
-                if(getScrollPos() <= scrollToPos + 2 && getScrollPos() >= scrollToPos - 2){
+                if (getScrollPos() <= scrollToPos + 2 && getScrollPos() >= scrollToPos - 2) {
                     setScrollPos(scrollToPos);
                 }
             } else {
@@ -154,7 +153,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     public boolean mouseClicked(int x, int y, int button) {
         if (this.isEnabled() && wholeArea.contains(x, y)) {
             shouldScroll = true;
-            scrollTo(y - gui.getGuiTop() - yOrigin);
+            scrollTo(y - widgetProvider.getGuiTop() - yOrigin);
         }
         return false;
     }
@@ -217,5 +216,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "GuiScrollBar | xOrigin: " + xOrigin + " | yOrigin: " + yOrigin + " | xPosition: " + xPosition + " | yPosition: " + yPosition + " | scrollMax: " + getScrollMax() + " | scrollPos: " + getScrollPos() + " | Visible: " + isVisible() + " | Enabled: " + isEnabled();
     }
 }

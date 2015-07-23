@@ -82,4 +82,7 @@ public interface IGuiWidget {
 
     void adjustPosition();
 
+    @Override
+    String toString();
+
 }

@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
+import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Colours;
@@ -31,7 +32,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
             TinyStorageLog.info("Creating scroll bar");
             this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
             this.addWidget(scrollBar);
-        }else{
+        } else {
             scrollBar.adjustPosition();
         }
         super.addWidgets();
@@ -93,6 +94,16 @@ public class GuiImpossibleChest extends GuiTinyStorage {
             scrollBar = null;
         }
         super.mouseMovedOrUp(x, y, button);
+    }
+
+    @Override
+    public void handleWidgetFunctionality(IGuiWidget widget) {
+        TinyStorageLog.info(widget.toString());
+        if (this.container instanceof ContainerImpossibleChest) {
+            ContainerImpossibleChest impossibleChest = (ContainerImpossibleChest) this.container;
+            impossibleChest.doStuffTest();
+        }
+        super.handleWidgetFunctionality(widget);
     }
 
     @Override

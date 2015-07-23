@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.inventory.implementations;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityImpossibleChest;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,5 +11,9 @@ public class ContainerImpossibleChest extends ContainerTinyStorage {
     public static final int INVENTORY_SIZE = 0;
 
     public ContainerImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
+    }
+
+    public void doStuffTest(){
+        TinyStorageLog.info("Hey look, this works!");
     }
 }
