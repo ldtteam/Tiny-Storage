@@ -28,7 +28,6 @@ import java.util.List;
 public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
 
     private GuiImageButton accessMode;
-    protected GuiScrollBar scrollBar;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidget> widgets = new ArrayList<IGuiWidget>();
 
@@ -145,9 +144,6 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
     }
 
     protected void handleWidgetVisibility() {
-        if (this.scrollBar != null) {
-            this.scrollBar.setVisibility(true);
-        }
     }
 
     @Override
@@ -201,13 +197,6 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
             for (IGuiWidget widget : widgets) {
-                /*if (widget instanceof GuiScrollBar) {
-                    GuiScrollBar scroll = (GuiScrollBar) widget;
-                    if (scroll.mouseClicked(xCoord, yCoord, btn)) {
-                        scrollBar = scroll;
-                        return;
-                    }
-                }*/
                 widget.mouseClicked(xCoord, yCoord, btn);
             }
         }
@@ -236,10 +225,6 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
     protected void mouseWheelEvent(int x, int y, int delta) {
         if (!widgets.isEmpty()) {
             for (IGuiWidget widget : widgets) {
-                if (widget instanceof GuiScrollBar) {
-                    GuiScrollBar scrollBar = (GuiScrollBar) widget;
-                    scrollBar.mouseWheel(x, y, delta);
-                }
                 widget.mouseWheel(x, y, delta);
             }
         }
@@ -247,18 +232,12 @@ public class GuiTinyStorage extends GuiContainer implements IGuiScreen {
 
     public void addWidget(IGuiWidget widget) {
         widgets.add(widget);
-        if (widget instanceof GuiScrollBar) {
-            ((GuiScrollBar) widget).adjustPosition();
-        }
+        widget.adjustPosition();
+
     }
 
     public void removeWidget(IGuiWidget widget) {
         widgets.remove(widget);
-        if (widget instanceof GuiScrollBar) {
-            if (scrollBar == (GuiScrollBar) widget) {
-                scrollBar = null;
-            }
-        }
     }
 
     @Override

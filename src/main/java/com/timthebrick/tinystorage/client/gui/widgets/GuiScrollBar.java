@@ -6,6 +6,7 @@ import com.timthebrick.tinystorage.util.IGuiScreen;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -19,6 +20,14 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
      * The height of the scroll bar (max distance scrolled)
      */
     protected int scrollMax;
+    /**
+     * The position to scroll to when clicked
+     */
+    protected int scrollToPos;
+    /**
+     * Whether or not the scroll bar should scroll
+     */
+    protected boolean shouldScroll;
     /**
      * True if this control is enabled, false to disable.
      */
@@ -68,10 +77,13 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         this.gui = gui;
         this.xOrigin = x;
         this.yOrigin = y;
+        setEnabled(true);
         setScrollMax(scrollHeight - getHeight());
     }
 
+    @Override
     public void adjustPosition() {
+        TinyStorageLog.info("Adjust position");
         xPosition = xOrigin + gui.getGuiLeft();
         yPosition = yOrigin + gui.getGuiTop();
         wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax());
@@ -89,6 +101,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         this.scrollMax = scrollMax;
     }
 
+    public void scrollTo(int scrollPos) {
+        scrollToPos = Math.max(0, Math.min(scrollPos, scrollMax));
+    }
+
     protected int limitPos(int pos) {
         return Math.max(0, Math.min(pos, scrollMax));
     }
@@ -101,7 +117,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         return scrollPos;
     }
 
-    public void setEnabled(boolean enabled){
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -111,25 +127,43 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
-        this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), 0, 0, getWidth(), getHeight());
+        if (scrollToPos > 0 && this.isEnabled() && shouldScroll) {
+            if (scrollToPos != getScrollPos()) {
+                if (getScrollPos() > scrollToPos) {
+                    scrollBy(-1);
+                } else {
+                    scrollBy(1);
+                }
+            } else {
+                shouldScroll = false;
+                scrollToPos = 0;
+            }
+        }
+        if (this.isEnabled()) {
+            this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), 0, 0, getWidth(), getHeight());
+        } else {
+            this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), getWidth(), 0, getWidth(), getHeight());
+        }
     }
 
     @Override
     public boolean mouseClicked(int x, int y, int button) {
-        TinyStorageLog.info("Mouse Clicked: " + x + ", " + y + ", " + button);
-        return isDragActive();
+        if (this.isEnabled() && wholeArea.contains(x, y)) {
+            shouldScroll = true;
+            scrollTo(y - gui.getGuiTop() - yOrigin);
+        }
+        return false;
     }
 
     @Override
     public boolean mouseClickMove(int x, int y, int button, long time) {
-        TinyStorageLog.info("Mosue Click Move: " + x + ", " + y + ", " + button + ", " + time);
         return false;
     }
 
     @Override
     public void mouseMovedOrUp(int x, int y, int button) {
-        TinyStorageLog.info("Mouse move or up: " + x + ", " + y + ", " + button);
         pressedUp = false;
         pressedDown = false;
         pressedThumb = false;
@@ -138,13 +172,9 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void mouseWheel(int x, int y, int delta) {
-        if (!isDragActive() && wholeArea.contains(x, y)) {
+        if (this.isEnabled() && wholeArea.contains(x, y)) {
             scrollBy(-Integer.signum(delta));
         }
-    }
-
-    public boolean isDragActive() {
-        return false;
     }
 
     @Override

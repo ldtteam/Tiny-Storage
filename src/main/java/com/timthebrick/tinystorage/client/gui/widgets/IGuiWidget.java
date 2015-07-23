@@ -80,4 +80,6 @@ public interface IGuiWidget {
 
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
+    void adjustPosition();
+
 }

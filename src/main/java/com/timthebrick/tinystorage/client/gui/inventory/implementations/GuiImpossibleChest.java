@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
@@ -15,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiImpossibleChest extends GuiTinyStorage {
 
     private TileEntityImpossibleChest tileEntity;
+    protected GuiScrollBar scrollBar;
 
     public GuiImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
         super(new ContainerImpossibleChest(inventoryPlayer, tileEntity), tileEntity);
@@ -25,8 +27,13 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void addWidgets() {
-        this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
-        this.addWidget(scrollBar);
+        if (scrollBar == null) {
+            TinyStorageLog.info("Creating scroll bar");
+            this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
+            this.addWidget(scrollBar);
+        }else{
+            scrollBar.adjustPosition();
+        }
         super.addWidgets();
     }
 
@@ -58,6 +65,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void drawBG(int ox, int oy, int x, int y) {
+        handleWidgetVisibility();
         super.drawBG(ox, oy, x, y);
     }
 
@@ -85,6 +93,14 @@ public class GuiImpossibleChest extends GuiTinyStorage {
             scrollBar = null;
         }
         super.mouseMovedOrUp(x, y, button);
+    }
+
+    @Override
+    protected void handleWidgetVisibility() {
+        if (this.scrollBar != null) {
+            this.scrollBar.setVisibility(true);
+        }
+        super.handleWidgetVisibility();
     }
 
     @Override
