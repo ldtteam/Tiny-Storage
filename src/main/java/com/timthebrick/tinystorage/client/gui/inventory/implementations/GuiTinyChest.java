@@ -31,11 +31,6 @@ public class GuiTinyChest extends GuiTinyStorage {
 	}
 
     @Override
-    protected void handleWidgetVisibility() {
-        super.handleWidgetVisibility();
-    }
-
-    @Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		if (tileEntity.hasOwner()) {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + tileEntity.getOwner(), 8, 6, Colours.INV_GRAY);
@@ -69,14 +64,12 @@ public class GuiTinyChest extends GuiTinyStorage {
 	
 	@Override
 	public void drawBG(int ox, int oy, int x, int y) {
-        handleWidgetVisibility();
 		super.drawBG(ox, oy, x, y);
 	}
 
 	@Override
 	public void initGui() {
         super.initGui();
-        this.addWidgets();
 	}
 
 }
