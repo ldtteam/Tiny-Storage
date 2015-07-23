@@ -1,21 +1,15 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.reference.Colours;
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
+import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import org.lwjgl.opengl.GL11;
 
 public class GuiTinyChest extends GuiTinyStorage {
 
@@ -34,13 +28,6 @@ public class GuiTinyChest extends GuiTinyStorage {
 			xSize = 176;
 			ySize = 169;
 		}
-	}
-
-	@Override
-	public void addWidgets() {
-		this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
-		this.addWidget(scrollBar);
-        super.addWidgets();
 	}
 
     @Override

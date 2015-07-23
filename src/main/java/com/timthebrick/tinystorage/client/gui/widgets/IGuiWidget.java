@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
 public interface IGuiWidget {
@@ -18,6 +17,20 @@ public interface IGuiWidget {
      * @return yPosition
      */
     int yPos();
+
+    /**
+     *Gets the gui relative x position of the widget
+     *
+     * @return xOrigin
+     */
+    int getXOrigin();
+
+    /**
+     * Gets the gui relative y position of the widget
+     *
+     * @return yOrigin
+     */
+    int getYOrigin();
 
     /**
      * Width of the object.
@@ -40,6 +53,7 @@ public interface IGuiWidget {
 
     /**
      * Sets the visibility of the widget
+     *
      * @param vis
      */
     void setVisibility(boolean vis);

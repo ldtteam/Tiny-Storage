@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.util.IGuiScreen;
@@ -58,22 +57,16 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
      * @param scrollHeight The max scrollable distance
      */
     public GuiScrollBar(IGuiScreen gui, int x, int y, int scrollHeight) {
-        this.scrollMax = scrollHeight;
         this.gui = gui;
         this.xOrigin = x;
         this.yOrigin = y;
-        setScrollMax(scrollHeight);
+        setScrollMax(scrollHeight - getHeight());
     }
 
     public void adjustPosition() {
         xPosition = xOrigin + gui.getGuiLeft();
         yPosition = yOrigin + gui.getGuiTop();
-        TinyStorageLog.info(gui.getGuiLeft() + ", " + gui.getGuiTop());
-        wholeArea = new Rectangle(xOrigin + gui.getXSize(), yPosition, getWidth(), getScrollMax());
-    }
-
-    public int getScrollPos() {
-        return scrollPos;
+        wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax());
     }
 
     public void setScrollPos(int scrollPos) {
@@ -84,13 +77,21 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         setScrollPos(scrollPos + amount);
     }
 
+
+    public void setScrollMax(int scrollMax) {
+        this.scrollMax = scrollMax;
+    }
+
+    protected int limitPos(int pos) {
+        return Math.max(0, Math.min(pos, scrollMax));
+    }
+
     public int getScrollMax() {
         return scrollMax;
     }
 
-    public void setScrollMax(int scrollMax) {
-        this.scrollMax = scrollMax;
-        setScrollPos(scrollPos);
+    public int getScrollPos() {
+        return scrollPos;
     }
 
     public void setVisibility(boolean vis) {
@@ -101,7 +102,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
-        this.drawTexturedModalRect(xPosition, yPosition + getScrollPos(), 0, 0, getWidth(), getHeight());
+        this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), 0, 0, getWidth(), getHeight());
     }
 
     public boolean mouseClicked(int x, int y, int button) {
@@ -129,10 +130,6 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         return false;
     }
 
-    protected int limitPos(int pos) {
-        return Math.max(0, Math.min(pos, scrollMax));
-    }
-
     @Override
     public int xPos() {
         return this.xPosition;
@@ -141,6 +138,16 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public int yPos() {
         return this.yPosition;
+    }
+
+    @Override
+    public int getXOrigin() {
+        return xOrigin;
+    }
+
+    @Override
+    public int getYOrigin() {
+        return yOrigin;
     }
 
     @Override

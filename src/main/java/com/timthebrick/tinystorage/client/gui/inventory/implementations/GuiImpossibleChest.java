@@ -19,12 +19,14 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     public GuiImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
         super(new ContainerImpossibleChest(inventoryPlayer, tileEntity), tileEntity);
         this.tileEntity = tileEntity;
+        xSize = 194;
+        ySize = 222;
     }
 
     @Override
     public void addWidgets() {
         this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
-        this.widgets.add(scrollBar);
+        this.addWidget(scrollBar);
         super.addWidgets();
     }
 
@@ -42,7 +44,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiFilterChestSmall.png"));
+        this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiImpossibleChest.png"));
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
         drawBG(0, 0, x, y);
@@ -62,5 +64,6 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     public void initGui() {
         super.initGui();
+        this.addWidgets();
     }
 }
