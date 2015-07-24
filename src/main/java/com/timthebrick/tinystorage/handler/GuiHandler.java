@@ -51,7 +51,9 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerBookCase(entityPlayer.inventory, tileEntityBookCase);
         }else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
             TileEntityImpossibleChest tileEntityImpossibleChest = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
-            return new ContainerImpossibleChest(entityPlayer.inventory, tileEntityImpossibleChest);
+            ContainerImpossibleChest containerImpossibleChest = new ContainerImpossibleChest(entityPlayer.inventory, tileEntityImpossibleChest);
+            tileEntityImpossibleChest.setContainer(containerImpossibleChest);
+            return containerImpossibleChest;
         }
         return null;
     }

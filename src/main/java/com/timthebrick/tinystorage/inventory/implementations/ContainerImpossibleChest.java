@@ -88,17 +88,35 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
 
     @Override
     public void handleWidgetInteraction(IGuiWidget widget) {
-        if (widget instanceof GuiScrollBar) {
-            GuiScrollBar scrollBar = (GuiScrollBar) widget;
-            int startRow = scrollBar.getScrollPos() / 4;
+        if (tileEntity.getWorldObj().isRemote) {
+            TinyStorageLog.info("Client thread");
+            if (widget instanceof GuiScrollBar) {
+                GuiScrollBar scrollBar = (GuiScrollBar) widget;
+                int startRow = scrollBar.getScrollPos() / 4;
+                this.inventorySlots.clear();
+                this.inventoryItemStacks.clear();
 
+                // Add chest slots to inventory
+                for (int chestRowIndex = 0; chestRowIndex < DISPLAYABLE_ROW_SIZE; chestRowIndex++) {
+                    for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
+                        Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
+                        this.addSlotToContainer(slot);
+                        TinyStorageLog.info("Slot added client side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
+                    }
+                }
+            }
+        } else {
+            TinyStorageLog.info("Server thread");
+            int startRow = tileEntity.scrollPos / 4;
             this.inventorySlots.clear();
             this.inventoryItemStacks.clear();
 
             // Add chest slots to inventory
             for (int chestRowIndex = 0; chestRowIndex < DISPLAYABLE_ROW_SIZE; chestRowIndex++) {
                 for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
-                    this.addSlotToContainer(new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18));
+                    Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
+                    this.addSlotToContainer(slot);
+                    TinyStorageLog.info("Slot added server side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                 }
             }
         }

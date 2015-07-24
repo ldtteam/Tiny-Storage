@@ -1,5 +1,7 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
+import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Names;
@@ -16,12 +18,14 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileEntityImpossibleChest extends TileEntityTinyStorage implements ISidedInventory {
 
+    private ContainerImpossibleChest container;
     public float lidAngle;
     public float prevLidAngle;
     public int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;
+    public int scrollPos;
 
     public TileEntityImpossibleChest() {
         super();
@@ -255,5 +259,16 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
             return true;
         }
         return false;
+    }
+
+    public void handleWidgetInteraction(int scrollPos) {
+        if(container != null){
+            this.scrollPos = scrollPos;
+            container.handleWidgetInteraction(null);
+        }
+    }
+
+    public void setContainer(ContainerImpossibleChest container) {
+        this.container = container;
     }
 }
