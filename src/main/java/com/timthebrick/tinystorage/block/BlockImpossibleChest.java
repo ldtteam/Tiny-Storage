@@ -36,7 +36,6 @@ import java.util.Random;
 
 public class BlockImpossibleChest extends BlockContainer implements ITileEntityProvider {
 
-    protected String textureName;
     private boolean isLockable;
 
     public BlockImpossibleChest(Material mat, boolean isLockable) {
@@ -44,9 +43,9 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
         this.setHardness(2.5f);
         this.isLockable = isLockable;
         if (!this.isLockable) {
-            this.setBlockName(Names.UnlocalisedBlocks.IMPOSSIBLE_CHEST + this.textureName);
+            this.setBlockName(Names.UnlocalisedBlocks.IMPOSSIBLE_CHEST);
         } else {
-            this.setBlockName(Names.UnlocalisedBlocks.IMPOSSIBLE_CHEST_LOCKED + this.textureName);
+            this.setBlockName(Names.UnlocalisedBlocks.IMPOSSIBLE_CHEST_LOCKED);
         }
         this.setCreativeTab(TabTinyStorage.creativeTab);
     }

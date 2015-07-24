@@ -294,7 +294,7 @@ public class ModBlocks {
 		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
 		registerBlock(blockDenseBlock, ItemBlockDenseMaterial.class, Names.Blocks.DENSE_BLOCK);
         registerBlock(blockImpossibleChest, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST);
-        registerBlock(blockImpossibleChestLocked, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST);
+        registerBlock(blockImpossibleChestLocked, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST_LOCKED);
 	}
 
 	/**

@@ -302,6 +302,8 @@ tile.blockPiggyBank.name=Piggy Bank
 tile.blockPeacefulChest.name=Peaceful Chest
 tile.blockQuarryChest.name=Singularity Chest
 tile.blockDenseBlock.name=Dense Block
+tile.blockImpossibleChest.name=Impossible Chest
+tile.blockImpossibleChestLocked.name=Impossible Chest
 
 #Items
 item.storageComponent.name=Storage Component
@@ -327,6 +329,8 @@ container.tinystorage:vacuumChest=Vacuum Chest
 container.tinystorage:vacuumChestLocked=Locking Vacuum Chest
 container.tinystorge:quarryChest=Black Hole Singularity Chest
 container.tinystorage:storageBag=Storage Bag
+container.tinystorage:impossibleChest=Impossible Chest
+container.tinystorage:impossibleChestLocked=Locking Impossible Chest
 
 #Tooltips
 tooltip.tinystorage:itemSize.small=Tier 1
@@ -340,6 +344,7 @@ tooltip.tinystorage:peacefulChest.description1=Passively generates mob drops in 
 tooltip.tinystorage:peacefulChest.description2=Simply place down and provide with a sword of choice!
 tooltip.tinystorage:quarryChestPrefix.mode=A very dense core at the centre of this chest breaks all blocks around it
 tooltip.tinystorage:quarryChestPrefix.modeA=And pulls them into its inventory
+tooltip.tinystorage:impossibleChest=It's bigger on the inside!
 
 tooltip.tinystorage:debugTool.modetipA=Press
 tooltip.tinystorage:debugTool.modetipB=to change the mode of operation (Shift cycles backwards)

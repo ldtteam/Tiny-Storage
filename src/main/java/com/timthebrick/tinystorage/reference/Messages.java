@@ -38,6 +38,7 @@ public class Messages {
         public static final String DEBUG_TOOL_MODE_TIP_2  = "tooltip.tinystorage:debugTool.modetipB";
         public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
         public static final String DEBUG_TOOL_CASE  = "tooltip.tinystorage:debugTool.case";
+        public static final String IMPOSSIBLE_CHEST = "tooltip.tinystorage:impossibleChest";
     }
 
 	public static final class Config {
