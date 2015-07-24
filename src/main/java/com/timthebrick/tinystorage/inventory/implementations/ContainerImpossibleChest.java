@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.inventory.implementations;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
@@ -49,6 +48,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
         for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
             this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
         }
+
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
 
     @Override
     public ItemStack slotClick(int slotNum, int mouseButton, int modifier, EntityPlayer player) {
-        TinyStorageLog.info("Slot " + slotNum + " clicked");
+        TinyStorageLog.info("Slot " + slotNum + " clicked | Slot Index: " + this.getSlot(slotNum).getSlotIndex() + " | Slot Number: " + this.getSlot(slotNum).slotNumber);
         return super.slotClick(slotNum, mouseButton, modifier, player);
     }
 
@@ -92,14 +92,8 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
             GuiScrollBar scrollBar = (GuiScrollBar) widget;
             int startRow = scrollBar.getScrollPos() / 4;
 
-            for (Object obj : this.inventorySlots) {
-                if (obj instanceof Slot) {
-                    TinyStorageLog.info(((Slot) obj).slotNumber + ", " + ((Slot) obj).getSlotIndex());
-                }
-            }
-
             this.inventorySlots.clear();
-            //this.inventoryItemStacks.clear();
+            this.inventoryItemStacks.clear();
 
             // Add chest slots to inventory
             for (int chestRowIndex = 0; chestRowIndex < DISPLAYABLE_ROW_SIZE; chestRowIndex++) {
@@ -107,18 +101,6 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                     this.addSlotToContainer(new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18));
                 }
             }
-
-            // Add player inventory to inventory
-            for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
-                for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
-                    this.addSlotToContainer(new Slot(inventory, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 140 + inventoryRowIndex * 18));
-                }
-            }
-            // Add player hotbar to inventory
-            for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
-                this.addSlotToContainer(new Slot(inventory, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
-            }
-
         }
     }
 }

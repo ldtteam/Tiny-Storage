@@ -1,10 +1,7 @@
 package com.timthebrick.tinystorage.network;
 
 import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.network.message.MessageKeyPressed;
-import com.timthebrick.tinystorage.network.message.MessageSoundEvent;
-import com.timthebrick.tinystorage.network.message.MessageSpawnParticle;
+import com.timthebrick.tinystorage.network.message.*;
 import com.timthebrick.tinystorage.reference.References;
 
 import cpw.mods.fml.common.network.NetworkRegistry;

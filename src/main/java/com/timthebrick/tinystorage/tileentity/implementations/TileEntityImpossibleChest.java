@@ -26,7 +26,7 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
     public TileEntityImpossibleChest() {
         super();
         inventory = new ItemStack[ContainerImpossibleChest.INVENTORY_SIZE];
-        sides = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        sides = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
     }
 
     @Override

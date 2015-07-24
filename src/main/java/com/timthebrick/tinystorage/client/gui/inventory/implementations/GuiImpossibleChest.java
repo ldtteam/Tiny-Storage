@@ -4,13 +4,13 @@ import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityImpossibleChest;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -30,7 +30,6 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     public void addWidgets() {
         if (scrollBar == null) {
-            TinyStorageLog.info("Creating scroll bar");
             this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
             this.addWidget(scrollBar);
         } else {
@@ -99,7 +98,6 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void handleWidgetFunctionality(IGuiWidget widget) {
-        TinyStorageLog.info(widget.toString());
         if (this.container instanceof IWidgetReceptor) {
             ((IWidgetReceptor) container).handleWidgetInteraction(widget);
         }

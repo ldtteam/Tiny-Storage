@@ -32,4 +32,5 @@ public interface IWidgetProvider extends IGuiScreen {
      * Called whenever a widget does something
      */
     void handleWidgetFunctionality(IGuiWidget widget);
+
 }
