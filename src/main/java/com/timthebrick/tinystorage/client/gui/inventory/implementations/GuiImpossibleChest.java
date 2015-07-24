@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
+import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Colours;
@@ -99,13 +100,8 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     public void handleWidgetFunctionality(IGuiWidget widget) {
         TinyStorageLog.info(widget.toString());
-        if (this.container instanceof ContainerImpossibleChest) {
-            if(widget instanceof GuiScrollBar){
-                GuiScrollBar scrollBar = (GuiScrollBar) widget;
-                ContainerImpossibleChest impossibleChest = (ContainerImpossibleChest) this.container;
-                impossibleChest.doStuffTest(scrollBar.getScrollPos());
-            }
-
+        if (this.container instanceof IWidgetReceptor) {
+            ((IWidgetReceptor) container).handleWidgetInteraction(widget);
         }
         super.handleWidgetFunctionality(widget);
     }
