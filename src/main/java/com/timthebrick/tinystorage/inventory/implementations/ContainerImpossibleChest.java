@@ -54,6 +54,8 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
     @Override
     public void onContainerClosed(EntityPlayer entityPlayer) {
         super.onContainerClosed(entityPlayer);
+        tileEntity.markDirty();
+        tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
         tileEntity.closeInventory();
     }
 
@@ -77,19 +79,20 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                 slot.onSlotChanged();
             }
         }
+        this.detectAndSendChanges();
         return newItemStack;
     }
 
     @Override
     public ItemStack slotClick(int slotNum, int mouseButton, int modifier, EntityPlayer player) {
         TinyStorageLog.info("Slot " + slotNum + " clicked | Slot Index: " + this.getSlot(slotNum).getSlotIndex() + " | Slot Number: " + this.getSlot(slotNum).slotNumber);
+        this.detectAndSendChanges();
         return super.slotClick(slotNum, mouseButton, modifier, player);
     }
 
     @Override
     public void handleWidgetInteraction(IGuiWidget widget) {
         if (tileEntity.getWorldObj().isRemote) {
-            TinyStorageLog.info("Client thread");
             if (widget instanceof GuiScrollBar) {
                 GuiScrollBar scrollBar = (GuiScrollBar) widget;
                 int startRow = scrollBar.getScrollPos() / 4;
@@ -104,9 +107,21 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                         TinyStorageLog.info("Slot added client side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                     }
                 }
+
+                for (Object obj : this.inventorySlots) {
+                    if(obj != null) {
+                        if (obj instanceof Slot) {
+                            Slot slot = (Slot) obj;
+                            TinyStorageLog.info(slot.getSlotIndex());
+                            if(slot.getStack() != null){
+                                TinyStorageLog.info(slot.getStack().toString());
+                            }
+                        }
+                    }
+                }
+
             }
         } else {
-            TinyStorageLog.info("Server thread");
             int startRow = tileEntity.scrollPos / 4;
             this.inventorySlots.clear();
             this.inventoryItemStacks.clear();
@@ -119,6 +134,23 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                     TinyStorageLog.info("Slot added server side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                 }
             }
+
+            for (Object obj : this.inventorySlots) {
+                if(obj != null) {
+                    if (obj instanceof Slot) {
+                        Slot slot = (Slot) obj;
+                        TinyStorageLog.info(slot.getSlotIndex());
+                        if(slot.getStack() != null){
+                            TinyStorageLog.info(slot.getStack().toString());
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    @Override
+    public boolean canDragIntoSlot(Slot slot) {
+        return false;
     }
 }

@@ -1,8 +1,10 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.reference.Names;
 import com.timthebrick.tinystorage.reference.Sounds;
@@ -196,6 +198,7 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
         for (int i = 0; i < inventory.length; i++) {
             ItemStack stack = inventory[i];
             if (stack != null) {
+                TinyStorageLog.info("Saving NBT | Slot: " + i + " with stack: " + stack.toString());
                 NBTTagCompound tag = new NBTTagCompound();
                 tag.setByte("Slot", (byte) i);
                 stack.writeToNBT(tag);
