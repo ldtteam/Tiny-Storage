@@ -16,9 +16,8 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
     protected ItemStack[] inventory;
     protected String customName;
 
-    public InventoryStorageBag (ItemStack itemStack) {
+    public InventoryStorageBag(ItemStack itemStack) {
         parentItemStack = itemStack;
-
         int size;
         if (itemStack.getItemDamage() == 1) {
             size = ContainerStorageBag.MEDIUM_BAG_INVENTORY_ROWS * ContainerStorageBag.MEDIUM_BAG_INVENTORY_COLUMNS;
@@ -27,26 +26,22 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
         } else {
             size = ContainerStorageBag.SMALL_BAG_INVENTORY_ROWS * ContainerStorageBag.SMALL_BAG_INVENTORY_COLUMNS;
         }
-
         inventory = new ItemStack[size];
-
         readFromNBT(itemStack.getTagCompound());
     }
 
-    public void onGuiSaved (EntityPlayer entityPlayer) {
+    public void onGuiSaved(EntityPlayer entityPlayer) {
         parentItemStack = findParentItemStack(entityPlayer);
-
         if (parentItemStack != null) {
             save();
         }
     }
 
-    public ItemStack findParentItemStack (EntityPlayer entityPlayer) {
+    public ItemStack findParentItemStack(EntityPlayer entityPlayer) {
         if (NBTHelper.hasUUID(parentItemStack)) {
             UUID parentItemStackUUID = new UUID(parentItemStack.getTagCompound().getLong(Names.NBT.UUID_MOST_SIG), parentItemStack.getTagCompound().getLong(Names.NBT.UUID_LEAST_SIG));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
-
                 if (NBTHelper.hasUUID(itemStack)) {
                     if (itemStack.getTagCompound().getLong(Names.NBT.UUID_MOST_SIG) == parentItemStackUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(Names.NBT.UUID_LEAST_SIG) == parentItemStackUUID.getLeastSignificantBits()) {
                         return itemStack;
@@ -54,41 +49,37 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
                 }
             }
         }
-
         return null;
     }
 
-    public boolean matchesUUID (UUID uuid) {
+    public boolean matchesUUID(UUID uuid) {
         return NBTHelper.hasUUID(parentItemStack) && parentItemStack.getTagCompound().getLong(Names.NBT.UUID_LEAST_SIG) == uuid.getLeastSignificantBits() && parentItemStack.getTagCompound().getLong(Names.NBT.UUID_MOST_SIG) == uuid.getMostSignificantBits();
     }
 
-    public void save () {
+    public void save() {
         NBTTagCompound nbtTagCompound = parentItemStack.getTagCompound();
-
         if (nbtTagCompound == null) {
             nbtTagCompound = new NBTTagCompound();
-
             UUID uuid = UUID.randomUUID();
             nbtTagCompound.setLong(Names.NBT.UUID_MOST_SIG, uuid.getMostSignificantBits());
             nbtTagCompound.setLong(Names.NBT.UUID_LEAST_SIG, uuid.getLeastSignificantBits());
         }
-
         writeToNBT(nbtTagCompound);
         parentItemStack.setTagCompound(nbtTagCompound);
     }
 
     @Override
-    public int getSizeInventory () {
+    public int getSizeInventory() {
         return inventory.length;
     }
 
     @Override
-    public ItemStack getStackInSlot (int slotIndex) {
+    public ItemStack getStackInSlot(int slotIndex) {
         return inventory[slotIndex];
     }
 
     @Override
-    public ItemStack decrStackSize (int slotIndex, int decrementAmount) {
+    public ItemStack decrStackSize(int slotIndex, int decrementAmount) {
         ItemStack itemStack = getStackInSlot(slotIndex);
         if (itemStack != null) {
             if (itemStack.stackSize <= decrementAmount) {
@@ -100,12 +91,11 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
                 }
             }
         }
-
         return itemStack;
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing (int slotIndex) {
+    public ItemStack getStackInSlotOnClosing(int slotIndex) {
         if (inventory[slotIndex] != null) {
             ItemStack itemStack = inventory[slotIndex];
             inventory[slotIndex] = null;
@@ -116,49 +106,49 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
     }
 
     @Override
-    public void setInventorySlotContents (int slotIndex, ItemStack itemStack) {
+    public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
         inventory[slotIndex] = itemStack;
     }
 
     @Override
-    public String getInventoryName () {
+    public String getInventoryName() {
         return this.hasCustomName() ? this.getCustomName() : Names.Containers.STORAGE_BAG;
     }
 
     @Override
-    public boolean hasCustomInventoryName () {
+    public boolean hasCustomInventoryName() {
         return false;
     }
 
     @Override
-    public int getInventoryStackLimit () {
+    public int getInventoryStackLimit() {
         return 64;
     }
 
     @Override
-    public void markDirty () {
+    public void markDirty() {
     }
 
     @Override
-    public boolean isUseableByPlayer (EntityPlayer entityPlayer) {
+    public boolean isUseableByPlayer(EntityPlayer entityPlayer) {
         return true;
     }
 
     @Override
-    public void openInventory () {
+    public void openInventory() {
     }
 
     @Override
-    public void closeInventory () {
+    public void closeInventory() {
     }
 
     @Override
-    public boolean isItemValidForSlot (int slotIndex, ItemStack itemStack) {
+    public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public void readFromNBT (NBTTagCompound nbtTagCompound) {
+    public void readFromNBT(NBTTagCompound nbtTagCompound) {
         if (nbtTagCompound != null && nbtTagCompound.hasKey(Names.NBT.ITEMS)) {
             // Read in the ItemStacks in the inventory from NBT
             if (nbtTagCompound.hasKey(Names.NBT.ITEMS)) {
@@ -183,7 +173,7 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound nbtTagCompound) {
+    public void writeToNBT(NBTTagCompound nbtTagCompound) {
         // Write the ItemStacks in the inventory to NBT
         NBTTagList tagList = new NBTTagList();
         for (int currentIndex = 0; currentIndex < inventory.length; ++currentIndex) {
@@ -198,15 +188,15 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
     }
 
     @Override
-    public String getTagLabel () {
+    public String getTagLabel() {
         return "InventoryStorageBag";
     }
 
-    public boolean hasCustomName () {
+    public boolean hasCustomName() {
         return customName != null && customName.length() > 0;
     }
 
-    public String getCustomName () {
+    public String getCustomName() {
         return customName;
     }
 }

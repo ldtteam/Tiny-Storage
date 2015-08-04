@@ -119,7 +119,6 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                         }
                     }
                 }
-
             }
         } else {
             int startRow = tileEntity.scrollPos / 4;

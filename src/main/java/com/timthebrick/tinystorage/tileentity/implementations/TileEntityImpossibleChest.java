@@ -1,8 +1,5 @@
 package com.timthebrick.tinystorage.tileentity.implementations;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
-import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
