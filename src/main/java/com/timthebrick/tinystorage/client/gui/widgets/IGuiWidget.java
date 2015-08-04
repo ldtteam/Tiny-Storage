@@ -19,7 +19,7 @@ public interface IGuiWidget {
     int yPos();
 
     /**
-     *Gets the gui relative x position of the widget
+     * Gets the gui relative x position of the widget
      *
      * @return xOrigin
      */
@@ -52,7 +52,6 @@ public interface IGuiWidget {
     boolean isVisible();
 
     /**
-     *
      * @return true if the user can interact with the widget
      */
     boolean isEnabled();
@@ -66,6 +65,7 @@ public interface IGuiWidget {
 
     /**
      * Sets whether the control is enabled or not
+     *
      * @param enabled
      */
     void setEnabled(boolean enabled);

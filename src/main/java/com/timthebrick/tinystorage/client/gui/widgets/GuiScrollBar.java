@@ -54,7 +54,11 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     /**
      * The area within which the scroll bar can be used
      */
-    private Rectangle wholeArea;
+    private Rectangle scrollArea;
+    /**
+     * The area that the entire inventory is within
+     */
+    private Rectangle containerArea;
     /**
      * The widget provider for this IGuiWidget
      */
@@ -81,11 +85,16 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
-        wholeArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax() + getHeight());
+        scrollArea = new Rectangle(xPosition, yPosition, getWidth(), getScrollMax() + getHeight());
+        containerArea = new Rectangle(widgetProvider.getInvLeft() + widgetProvider.getGuiLeft(), widgetProvider.getInvTop() + widgetProvider.getGuiTop(), widgetProvider.getInvWidth(), widgetProvider.getInvHeight());
     }
 
     public void scrollBy(int amount) {
         setScrollPos(scrollPos + amount);
+    }
+
+    public void scrollByNoUpdate(int amount) {
+        setScrollPosNoUpdate(scrollPos + amount);
     }
 
     public void setScrollMax(int scrollMax) {
@@ -111,9 +120,9 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         if (scrollToPos > 0 && this.isEnabled() && shouldScroll) {
             if (scrollToPos != getScrollPos()) {
                 if (getScrollPos() > scrollToPos) {
-                    scrollBy(-2);
+                    scrollByNoUpdate(-2);
                 } else {
-                    scrollBy(2);
+                    scrollByNoUpdate(2);
                 }
                 if (getScrollPos() <= scrollToPos + 2 && getScrollPos() >= scrollToPos - 2) {
                     setScrollPos(scrollToPos);
@@ -132,7 +141,9 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public boolean mouseClicked(int x, int y, int button) {
-        if (this.isEnabled() && wholeArea.contains(x, y)) {
+        if (this.isEnabled() && this.shouldScroll == true && containerArea.contains(x, y)) {
+            scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
+        } else if (this.isEnabled() && scrollArea.contains(x, y)) {
             shouldScroll = true;
             scrollTo(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
         }
@@ -151,7 +162,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void mouseWheel(int x, int y, int delta) {
-        if (this.isEnabled() && wholeArea.contains(x, y)) {
+        if (this.isEnabled() && scrollArea.contains(x, y)) {
             scrollBy(-Integer.signum(delta) * 4);
         }
     }
@@ -202,6 +213,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     public int getScrollPos() {
         return scrollPos;
+    }
+
+    private void setScrollPosNoUpdate(int scrollPos) {
+        this.scrollPos = Math.max(0, Math.min(scrollPos, scrollMax));
     }
 
     private void setScrollPos(int scrollPos) {

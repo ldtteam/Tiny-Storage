@@ -1,8 +1,8 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.util.IGuiScreen;
+import com.timthebrick.tinystorage.util.IGuiScreenAdvanced;
 
-public interface IWidgetProvider extends IGuiScreen {
+public interface IWidgetProvider extends IGuiScreenAdvanced {
 
     /**
      * Add the widgets to the gui

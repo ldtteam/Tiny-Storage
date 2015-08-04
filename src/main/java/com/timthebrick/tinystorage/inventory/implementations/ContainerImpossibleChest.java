@@ -86,7 +86,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
 
     @Override
     public ItemStack slotClick(int slotNum, int mouseButton, int modifier, EntityPlayer player) {
-        TinyStorageLog.info("Slot " + slotNum + " clicked | Slot Index: " + this.getSlot(slotNum).getSlotIndex() + " | Slot Number: " + this.getSlot(slotNum).slotNumber);
+        //TinyStorageLog.info("Slot " + slotNum + " clicked | Slot Index: " + this.getSlot(slotNum).getSlotIndex() + " | Slot Number: " + this.getSlot(slotNum).slotNumber);
         this.detectAndSendChanges();
         return super.slotClick(slotNum, mouseButton, modifier, player);
     }

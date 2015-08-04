@@ -280,4 +280,24 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         ResourceLocation loc = new ResourceLocation(base, "textures/" + file);
         this.mc.getTextureManager().bindTexture(loc);
     }
+
+    @Override
+    public int getInvLeft() {
+        return 0;
+    }
+
+    @Override
+    public int getInvTop() {
+        return 0;
+    }
+
+    @Override
+    public int getInvWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getInvHeight() {
+        return 0;
+    }
 }

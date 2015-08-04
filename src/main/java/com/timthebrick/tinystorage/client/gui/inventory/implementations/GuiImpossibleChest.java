@@ -6,7 +6,6 @@ import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
 import com.timthebrick.tinystorage.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
-import com.timthebrick.tinystorage.network.message.MessageConfigButton;
 import com.timthebrick.tinystorage.network.message.MessageScrollBar;
 import com.timthebrick.tinystorage.reference.Colours;
 import com.timthebrick.tinystorage.reference.Names;
@@ -14,7 +13,6 @@ import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityImpossibleChest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -103,7 +101,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     public void handleWidgetFunctionality(IGuiWidget widget) {
         if (this.container instanceof IWidgetReceptor) {
-            if(widget instanceof GuiScrollBar) {
+            if (widget instanceof GuiScrollBar) {
                 PacketHandler.INSTANCE.sendToServer(new MessageScrollBar(Minecraft.getMinecraft().thePlayer, ((GuiScrollBar) widget).getScrollPos(), this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord));
             }
             ((IWidgetReceptor) container).handleWidgetInteraction(widget);
@@ -123,5 +121,25 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     public void initGui() {
         super.initGui();
         this.addWidgets();
+    }
+
+    @Override
+    public int getInvLeft() {
+        return 7;
+    }
+
+    @Override
+    public int getInvTop() {
+        return 17;
+    }
+
+    @Override
+    public int getInvWidth() {
+        return 162;
+    }
+
+    @Override
+    public int getInvHeight() {
+        return 108;
     }
 }
