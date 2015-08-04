@@ -54,6 +54,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
     @Override
     public void onContainerClosed(EntityPlayer entityPlayer) {
         super.onContainerClosed(entityPlayer);
+        this.detectAndSendChanges();
         tileEntity.markDirty();
         tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
         tileEntity.closeInventory();
@@ -107,18 +108,6 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                         TinyStorageLog.info("Slot added client side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                     }
                 }
-
-                for (Object obj : this.inventorySlots) {
-                    if(obj != null) {
-                        if (obj instanceof Slot) {
-                            Slot slot = (Slot) obj;
-                            TinyStorageLog.info(slot.getSlotIndex());
-                            if(slot.getStack() != null){
-                                TinyStorageLog.info(slot.getStack().toString());
-                            }
-                        }
-                    }
-                }
             }
         } else {
             int startRow = tileEntity.scrollPos / 4;
@@ -131,18 +120,6 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                     Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
                     this.addSlotToContainer(slot);
                     TinyStorageLog.info("Slot added server side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
-                }
-            }
-
-            for (Object obj : this.inventorySlots) {
-                if(obj != null) {
-                    if (obj instanceof Slot) {
-                        Slot slot = (Slot) obj;
-                        TinyStorageLog.info(slot.getSlotIndex());
-                        if(slot.getStack() != null){
-                            TinyStorageLog.info(slot.getStack().toString());
-                        }
-                    }
                 }
             }
         }

@@ -209,11 +209,13 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
     @Override
     public void readSyncedNBT(NBTTagCompound tag) {
         super.readSyncedNBT(tag);
+        scrollPos = tag.getInteger("scrollPos");
     }
 
     @Override
     public void writeSyncedNBT(NBTTagCompound tag) {
         super.writeSyncedNBT(tag);
+        tag.setInteger("scrollPos", scrollPos);
     }
 
     @Override
