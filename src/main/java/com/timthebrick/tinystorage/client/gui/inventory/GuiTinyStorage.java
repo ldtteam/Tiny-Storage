@@ -60,6 +60,14 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         }
     }
 
+    @Override
+    public void updateScreen() {
+        for(IGuiWidget widget : widgets){
+            widget.updateWidget();
+        }
+        super.updateScreen();
+    }
+
     public void drawTooltip(int par2, int par3, int forceWidth, String Msg) {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);

@@ -105,7 +105,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                     for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
                         Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
                         this.addSlotToContainer(slot);
-                        TinyStorageLog.info("Slot added client side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
+                        //TinyStorageLog.info("Slot added client side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                     }
                 }
             }
@@ -119,7 +119,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                 for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
                     Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
                     this.addSlotToContainer(slot);
-                    TinyStorageLog.info("Slot added server side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
+                    //TinyStorageLog.info("Slot added server side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                 }
             }
         }

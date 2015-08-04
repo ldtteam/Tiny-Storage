@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
+import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.reference.References;
 import com.timthebrick.tinystorage.util.math.MathHelper;
 import net.minecraft.client.gui.Gui;
@@ -117,7 +118,16 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
-        if (scrollToPos > 0 && this.isEnabled() && shouldScroll) {
+        if (this.isEnabled()) {
+            this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), 0, 0, getWidth(), getHeight());
+        } else {
+            this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), getWidth(), 0, getWidth(), getHeight());
+        }
+    }
+
+    @Override
+    public void updateWidget() {
+        if (scrollToPos >= 0 && this.isEnabled() && shouldScroll) {
             if (scrollToPos != getScrollPos()) {
                 if (getScrollPos() > scrollToPos) {
                     scrollByNoUpdate(-2);
@@ -132,11 +142,6 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
                 scrollToPos = 0;
             }
         }
-        if (this.isEnabled()) {
-            this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), 0, 0, getWidth(), getHeight());
-        } else {
-            this.drawTexturedModalRect(xOrigin, yOrigin + getScrollPos(), getWidth(), 0, getWidth(), getHeight());
-        }
     }
 
     @Override
@@ -144,7 +149,9 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         if (this.isEnabled() && this.shouldScroll == true && containerArea.contains(x, y)) {
             scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
         } else if (this.isEnabled() && scrollArea.contains(x, y)) {
+            //TinyStorageLog.info(x + ", " + y + " | " + scrollArea.getMinX() + ", " + scrollArea.getMaxX() + ", " + scrollArea.getMinY() + ", " + scrollArea.getMaxY());
             shouldScroll = true;
+            TinyStorageLog.info(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
             scrollTo(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
         }
         return false;
