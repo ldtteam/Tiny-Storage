@@ -3,7 +3,6 @@ package com.timthebrick.tinystorage.inventory.implementations;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
 import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.inventory.ContainerTinyStorage;
 import com.timthebrick.tinystorage.inventory.slot.SlotTinyStorage;
 import com.timthebrick.tinystorage.tileentity.implementations.TileEntityImpossibleChest;
@@ -20,31 +19,32 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
     public static final int DISPLAYABLE_ROW_SIZE = 6;
 
     private TileEntityImpossibleChest tileEntity;
-    private InventoryPlayer inventory;
+    private InventoryPlayer inventoryPlayer;
     private int chestInventoryRows;
     private int chestInventoryColumns;
 
     public ContainerImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
         this.tileEntity = tileEntity;
+        this.inventoryPlayer = inventoryPlayer;
         tileEntity.openInventory();
         chestInventoryRows = INVENTORY_ROWS;
         chestInventoryColumns = INVENTORY_COLUMNS;
 
-        // Add chest slots to inventory
+        // Add chest slots to inventoryPlayer
         for (int chestRowIndex = 0; chestRowIndex < DISPLAYABLE_ROW_SIZE; chestRowIndex++) {
             for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
                 this.addSlotToContainer(new SlotTinyStorage(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18));
             }
         }
 
-        // Add player inventory to inventory
+        // Add player inventoryPlayer to inventoryPlayer
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
                 this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 140 + inventoryRowIndex * 18));
             }
         }
 
-        // Add player hotbar to inventory
+        // Add player hotbar to inventoryPlayer
         for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
             this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
         }
@@ -100,7 +100,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                 this.inventorySlots.clear();
                 this.inventoryItemStacks.clear();
 
-                // Add chest slots to inventory
+                // Add chest slots to inventoryPlayer
                 for (int chestRowIndex = 0; chestRowIndex < DISPLAYABLE_ROW_SIZE; chestRowIndex++) {
                     for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
                         Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
@@ -108,19 +108,43 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                         //TinyStorageLog.info("Slot added client side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                     }
                 }
+
+                // Add player inventoryPlayer to inventoryPlayer
+                for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
+                    for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
+                        this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 140 + inventoryRowIndex * 18));
+                    }
+                }
+
+                // Add player hotbar to inventoryPlayer
+                for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
+                    this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
+                }
             }
         } else {
             int startRow = tileEntity.scrollPos / 4;
             this.inventorySlots.clear();
             this.inventoryItemStacks.clear();
 
-            // Add chest slots to inventory
+            // Add chest slots to inventoryPlayer
             for (int chestRowIndex = 0; chestRowIndex < DISPLAYABLE_ROW_SIZE; chestRowIndex++) {
                 for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
                     Slot slot = new SlotTinyStorage(tileEntity, (startRow * INVENTORY_COLUMNS) + chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 18 + chestRowIndex * 18);
                     this.addSlotToContainer(slot);
                     //TinyStorageLog.info("Slot added server side, ID: " + slot.slotNumber + " | Index: " + slot.getSlotIndex());
                 }
+            }
+
+            // Add player inventoryPlayer to inventoryPlayer
+            for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
+                for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
+                    this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 140 + inventoryRowIndex * 18));
+                }
+            }
+
+            // Add player hotbar to inventoryPlayer
+            for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
+                this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
             }
         }
     }
