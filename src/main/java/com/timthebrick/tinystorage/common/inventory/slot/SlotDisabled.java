@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.common.inventory.slot;
 
-import com.timthebrick.tinystorage.common.util.ResourceLocationHelper;
+import com.timthebrick.tinystorage.util.ResourceLocationHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

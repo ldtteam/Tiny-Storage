@@ -4,7 +4,7 @@ import com.timthebrick.tinystorage.common.inventory.implementations.ContainerBoo
 import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.common.util.math.ArrayHelper;
+import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.*;

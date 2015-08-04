@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.common.tileentity;
 import java.util.EnumMap;
 import java.util.Map;
 
-import com.timthebrick.tinystorage.common.util.IOwnable;
+import com.timthebrick.tinystorage.util.IOwnable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;

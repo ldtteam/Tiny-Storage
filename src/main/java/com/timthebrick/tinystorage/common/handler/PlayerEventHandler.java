@@ -9,13 +9,13 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.block.BlockClayChest;
 import com.timthebrick.tinystorage.common.block.BlockWoolChest;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.core.VersionChecker;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.common.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;

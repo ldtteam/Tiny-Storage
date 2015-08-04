@@ -8,7 +8,7 @@ import java.net.URL;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Property;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.handler.ConfigurationHandler;
 import com.timthebrick.tinystorage.common.reference.References;
 

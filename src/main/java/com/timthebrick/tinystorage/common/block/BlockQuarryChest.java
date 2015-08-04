@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.common.block;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.*;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
@@ -8,7 +8,7 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityQ
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestSmall;
-import com.timthebrick.tinystorage.common.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;

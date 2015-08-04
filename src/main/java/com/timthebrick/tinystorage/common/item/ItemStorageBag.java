@@ -1,12 +1,12 @@
 package com.timthebrick.tinystorage.common.item;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.*;
-import com.timthebrick.tinystorage.common.util.colour.ColourHelper;
-import com.timthebrick.tinystorage.common.util.ItemHelper;
-import com.timthebrick.tinystorage.common.util.NBTHelper;
-import com.timthebrick.tinystorage.common.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.colour.ColourHelper;
+import com.timthebrick.tinystorage.util.ItemHelper;
+import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

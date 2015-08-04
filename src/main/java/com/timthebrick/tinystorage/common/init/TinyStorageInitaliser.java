@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.common.init;
 
 import com.google.common.base.Stopwatch;
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.core.UnlocalizedNameDump;
 import com.timthebrick.tinystorage.common.handler.ConfigurationHandler;
@@ -10,8 +10,8 @@ import com.timthebrick.tinystorage.common.handler.GuiHandler;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.common.util.colour.Colour;
-import com.timthebrick.tinystorage.common.util.colour.ColourSampler;
+import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.colour.ColourSampler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

@@ -24,9 +24,9 @@ import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankSmall;
-import com.timthebrick.tinystorage.common.util.ItemHelper;
-import com.timthebrick.tinystorage.common.util.PlayerHelper;
-import com.timthebrick.tinystorage.common.util.StackHelper;
+import com.timthebrick.tinystorage.util.ItemHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.StackHelper;
 
 public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISidedInventory {
 

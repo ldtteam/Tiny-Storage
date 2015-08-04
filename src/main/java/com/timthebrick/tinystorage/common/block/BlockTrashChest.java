@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.common.block;
 import java.util.List;
 import java.util.Random;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.GUIs;
 import com.timthebrick.tinystorage.common.reference.Names;

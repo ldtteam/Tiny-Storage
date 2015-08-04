@@ -1,13 +1,13 @@
 package com.timthebrick.tinystorage.common.handler;
 
 import com.timthebrick.tinystorage.common.item.crafting.RecipeStorageBags;
-import com.timthebrick.tinystorage.common.util.IOwnable;
-import com.timthebrick.tinystorage.common.util.ItemHelper;
+import com.timthebrick.tinystorage.util.IOwnable;
+import com.timthebrick.tinystorage.util.ItemHelper;
 import net.minecraft.item.ItemStack;
 
 import com.timthebrick.tinystorage.common.item.ItemDebugTool;
 import com.timthebrick.tinystorage.common.item.ItemDebugTool.OperationModeSettings;
-import com.timthebrick.tinystorage.common.util.NBTHelper;
+import com.timthebrick.tinystorage.util.NBTHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;

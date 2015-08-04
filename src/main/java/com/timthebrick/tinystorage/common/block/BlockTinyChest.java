@@ -23,7 +23,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
@@ -32,7 +32,7 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityT
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestSmall;
-import com.timthebrick.tinystorage.common.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

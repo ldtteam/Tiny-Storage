@@ -5,13 +5,13 @@ import java.io.File;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
-import com.timthebrick.tinystorage.common.TinyStorage;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.core.VersionChecker;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.common.util.ConfigurationHelper;
-import com.timthebrick.tinystorage.common.util.Settings;
+import com.timthebrick.tinystorage.util.ConfigurationHelper;
+import com.timthebrick.tinystorage.util.Settings;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

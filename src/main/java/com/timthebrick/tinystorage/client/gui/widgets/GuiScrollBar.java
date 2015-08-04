@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.common.util.math.MathHelper;
+import com.timthebrick.tinystorage.util.math.MathHelper;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -148,8 +148,8 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     public boolean mouseClicked(int x, int y, int button) {
         if (this.isEnabled() && this.shouldScroll == true && containerArea.contains(x, y)) {
             scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
+            notifyOfChange();
         } else if (this.isEnabled() && scrollArea.contains(x, y)) {
-            //TinyStorageLog.info(x + ", " + y + " | " + scrollArea.getMinX() + ", " + scrollArea.getMaxX() + ", " + scrollArea.getMinY() + ", " + scrollArea.getMaxY());
             shouldScroll = true;
             TinyStorageLog.info(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
             scrollTo(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
@@ -228,6 +228,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     private void setScrollPos(int scrollPos) {
         this.scrollPos = Math.max(0, Math.min(scrollPos, scrollMax));
+        this.widgetProvider.handleWidgetFunctionality(this);
+    }
+
+    private void notifyOfChange(){
         this.widgetProvider.handleWidgetFunctionality(this);
     }
 

@@ -195,7 +195,7 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
         for (int i = 0; i < inventory.length; i++) {
             ItemStack stack = inventory[i];
             if (stack != null) {
-                TinyStorageLog.info("Saving NBT | Slot: " + i + " with stack: " + stack.toString());
+                //TinyStorageLog.info("Saving NBT | Slot: " + i + " with stack: " + stack.toString());
                 NBTTagCompound tag = new NBTTagCompound();
                 tag.setByte("Slot", (byte) i);
                 stack.writeToNBT(tag);
