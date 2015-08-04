@@ -1,29 +1,23 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.Colours;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTrashChest;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.common.inventory.implementations.ContainerTrashChest;
+import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTrashChest;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 

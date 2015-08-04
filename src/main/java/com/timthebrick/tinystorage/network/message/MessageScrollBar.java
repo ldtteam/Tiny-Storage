@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.network.message;
 
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityImpossibleChest;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityImpossibleChest;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

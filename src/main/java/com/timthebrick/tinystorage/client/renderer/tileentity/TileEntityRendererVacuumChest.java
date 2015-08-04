@@ -13,13 +13,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.timthebrick.tinystorage.block.BlockVacuumChest;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.item.ItemDebugTool;
-import com.timthebrick.tinystorage.item.ItemDebugTool.OperationModeSettings;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityVacuumChest;
-import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.common.block.BlockVacuumChest;
+import com.timthebrick.tinystorage.common.item.ItemDebugTool;
+import com.timthebrick.tinystorage.common.item.ItemDebugTool.OperationModeSettings;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityVacuumChest;
+import com.timthebrick.tinystorage.common.util.NBTHelper;
 
 public class TileEntityRendererVacuumChest extends TileEntitySpecialRenderer {
 

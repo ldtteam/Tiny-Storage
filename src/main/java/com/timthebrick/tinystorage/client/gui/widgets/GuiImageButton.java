@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
-import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.common.reference.Messages;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 
 public class GuiImageButton extends GuiButton implements IButtonTooltip {
 

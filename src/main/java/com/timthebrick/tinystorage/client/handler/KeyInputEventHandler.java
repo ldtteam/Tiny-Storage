@@ -3,17 +3,14 @@ package com.timthebrick.tinystorage.client.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.settings.KeyBindings;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageKeyPressed;
-import com.timthebrick.tinystorage.reference.Key;
-import com.timthebrick.tinystorage.util.IKeyBound;
+import com.timthebrick.tinystorage.common.reference.Key;
+import com.timthebrick.tinystorage.common.util.IKeyBound;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

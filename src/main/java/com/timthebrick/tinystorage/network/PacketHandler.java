@@ -1,8 +1,8 @@
 package com.timthebrick.tinystorage.network;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.network.message.*;
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;

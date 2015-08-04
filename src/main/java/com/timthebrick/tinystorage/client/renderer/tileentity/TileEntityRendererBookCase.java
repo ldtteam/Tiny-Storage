@@ -1,15 +1,11 @@
 package com.timthebrick.tinystorage.client.renderer.tileentity;
 
-import com.timthebrick.tinystorage.block.BlockBookCase;
-import com.timthebrick.tinystorage.block.BlockDraw;
+import com.timthebrick.tinystorage.common.block.BlockBookCase;
 import com.timthebrick.tinystorage.client.renderer.model.ModelBookCase;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityBookCase;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityBookCase;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;

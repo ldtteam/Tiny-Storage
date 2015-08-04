@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.network.message;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTrashChest;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.EnumHelper;
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.common.util.EnumHelper;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;

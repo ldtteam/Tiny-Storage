@@ -1,11 +1,11 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
-import com.timthebrick.tinystorage.reference.Colours;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.common.inventory.implementations.ContainerTinyChest;
+import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;

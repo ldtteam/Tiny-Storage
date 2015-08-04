@@ -1,7 +1,6 @@
 package com.timthebrick.tinystorage.network.message;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityQuarryChest;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

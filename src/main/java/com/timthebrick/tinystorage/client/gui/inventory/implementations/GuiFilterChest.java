@@ -1,12 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.reference.Colours;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import com.timthebrick.tinystorage.common.reference.Colours;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
@@ -15,11 +9,11 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerFilterChest;
-import com.timthebrick.tinystorage.inventory.slot.SlotRestrictedInput;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
+import com.timthebrick.tinystorage.common.inventory.implementations.ContainerFilterChest;
+import com.timthebrick.tinystorage.common.inventory.slot.SlotRestrictedInput;
+import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityFilterChest;
 
 public class GuiFilterChest extends GuiTinyStorage {
 

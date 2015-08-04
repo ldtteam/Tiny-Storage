@@ -1,18 +1,15 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.Colours;
 import org.lwjgl.opengl.GL11;
 
-import com.timthebrick.tinystorage.inventory.implementations.ContainerDraw;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerFilterChest;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
+import com.timthebrick.tinystorage.common.inventory.implementations.ContainerDraw;
+import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 

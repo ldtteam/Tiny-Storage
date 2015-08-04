@@ -3,11 +3,9 @@ package com.timthebrick.tinystorage.client.renderer.tileentity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.timthebrick.tinystorage.block.BlockMicroChest;
-import com.timthebrick.tinystorage.block.BlockTinyChest;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityMicroChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.common.block.BlockMicroChest;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityMicroChest;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelChest;

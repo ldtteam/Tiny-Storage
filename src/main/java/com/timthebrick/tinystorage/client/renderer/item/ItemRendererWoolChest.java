@@ -7,7 +7,7 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 
 import cpw.mods.fml.client.FMLClientHandler;
 

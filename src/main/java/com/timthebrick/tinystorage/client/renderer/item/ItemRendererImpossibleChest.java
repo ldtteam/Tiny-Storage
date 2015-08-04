@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.renderer.item;
 
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.item.ItemStack;

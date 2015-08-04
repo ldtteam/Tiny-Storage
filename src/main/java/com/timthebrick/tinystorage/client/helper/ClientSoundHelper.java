@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.helper;
 
 import net.minecraft.client.audio.PositionedSoundRecord;
 
-import com.timthebrick.tinystorage.util.ResourceLocationHelper;
+import com.timthebrick.tinystorage.common.util.ResourceLocationHelper;
 
 import cpw.mods.fml.client.FMLClientHandler;
 

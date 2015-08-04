@@ -1,9 +1,7 @@
 package com.timthebrick.tinystorage.client.renderer.tileentity;
 
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityQuarryChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
-import com.timthebrick.tinystorage.tileentity.implementations.sub.TileEntityQuarryChestLarge;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityQuarryChest;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
