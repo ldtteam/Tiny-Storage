@@ -1,7 +1,9 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -17,8 +19,10 @@ public class GuiAnimationVertical extends GuiAnimation {
      * @param width           The width of the animation
      * @param height          The height of the animation
      * @param updateFrequency The frequency with which to update the animation
+     * @param direction       The direction to animate in
+     * @param colour          The colour to change the grayscale to
      */
-    public GuiAnimationVertical(IWidgetProvider widgetProvider, int x, int y, int backgroundX, int backgroundY, int width, int height, int updateFrequency, AnimationDirection direction) {
+    public GuiAnimationVertical(IWidgetProvider widgetProvider, int x, int y, int backgroundX, int backgroundY, int width, int height, int updateFrequency, AnimationDirection direction, Colour colour) {
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;
@@ -30,12 +34,14 @@ public class GuiAnimationVertical extends GuiAnimation {
         this.height = height;
         this.updateFrequency = updateFrequency;
         this.direction = direction;
+        this.colour = colour;
         setEnabled(true);
     }
 
     @Override
     public void updateWidget() {
-        if(this.shouldAnimate) {
+        if (this.shouldAnimate) {
+            //TinyStorageLog.info(progress);
             lifeCycle++;
             if (lifeCycle % updateFrequency == 0) {
                 progress++;
@@ -60,9 +66,10 @@ public class GuiAnimationVertical extends GuiAnimation {
 
     @Override
     public void drawAnimationForeground(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        //GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        this.colour.performGLColour4f();
         guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiAnimations.png"));
-        if(shouldAnimate) {
+        if (shouldAnimate) {
             if (direction == AnimationDirection.BOTTOM_UP) {
                 if (progress > height) {
                     this.drawTexturedModalRect(xOrigin, yOrigin + (progress - height), foregroundTextureX, foregroundTextureY + (progress - height), width, height - (progress - height));

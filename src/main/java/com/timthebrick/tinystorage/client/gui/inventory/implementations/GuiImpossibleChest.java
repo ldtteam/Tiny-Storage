@@ -10,6 +10,7 @@ import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityImpossibleChest;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -31,7 +32,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void addWidgets() {
-        if(collector == null){
+        if (collector == null) {
             collector = new GuiAnimationCollector(10);
         }
         if (scrollBar == null) {
@@ -42,11 +43,11 @@ public class GuiImpossibleChest extends GuiTinyStorage {
         }
         for (int i = 0; i < ContainerImpossibleChest.INVENTORY_COLUMNS; i++) {
             if (i % 2 == 0) {
-                GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.BOTTOM_UP);
+                GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.BOTTOM_UP, new Colour(47, 80, 123));
                 this.collector.addAnimationComponent(guiAnimationVertical);
                 this.addWidget(guiAnimationVertical);
             } else {
-                GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.TOP_DOWN);
+                GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 35, 0, 18, 108, 2, AnimationDirection.TOP_DOWN, new Colour(47, 80, 123));
                 this.collector.addAnimationComponent(guiAnimationVertical);
                 this.addWidget(guiAnimationVertical);
             }
@@ -88,7 +89,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void updateScreen() {
-        if(collector.animationList.size() > 0){
+        if (collector.animationList.size() > 0) {
             collector.updateCollector();
         }
         super.updateScreen();

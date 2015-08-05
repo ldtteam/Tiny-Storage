@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.Gui;
 
 public abstract class GuiAnimation extends Gui implements IGuiAnimation {
@@ -75,8 +76,12 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     protected AnimationDirection direction;
     /**
      * Whether the animation has started or not
-      */
+     */
     protected boolean shouldAnimate;
+    /**
+     * The desired colour for the animation
+     */
+    protected Colour colour;
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -94,7 +99,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
         shouldAnimate = false;
     }
 
-    public void startAnimation(){
+    public void startAnimation() {
         shouldAnimate = true;
     }
 
