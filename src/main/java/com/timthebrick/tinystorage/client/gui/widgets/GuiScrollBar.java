@@ -68,6 +68,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
      * The direction to scroll the bar
      */
     protected int scrollDir;
+    /**
+     * The amount of pixels to move the bar on each update
+     */
+    private final int SCROLL_AMOUNT = 1;
 
     /**
      * @param x            The X Position of  the scroll bar (relative to GUI)
@@ -130,11 +134,11 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         if (scrollToPos >= 0 && this.isEnabled() && shouldScroll) {
             if (scrollToPos != getScrollPos()) {
                 if (getScrollPos() > scrollToPos) {
-                    scrollByNoUpdate(-2);
+                    scrollByNoUpdate(-SCROLL_AMOUNT);
                 } else {
-                    scrollByNoUpdate(2);
+                    scrollByNoUpdate(SCROLL_AMOUNT);
                 }
-                if (getScrollPos() <= scrollToPos + 2 && getScrollPos() >= scrollToPos - 2) {
+                if (getScrollPos() <= scrollToPos + SCROLL_AMOUNT && getScrollPos() >= scrollToPos - SCROLL_AMOUNT) {
                     setScrollPos(scrollToPos);
                 }
             } else {
@@ -169,8 +173,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
 
     @Override
     public void mouseWheel(int x, int y, int delta) {
-        if (this.isEnabled() && scrollArea.contains(x, y)) {
-            scrollBy(-Integer.signum(delta) * 4);
+        if (this.isEnabled() && scrollArea.contains(x, y) && !shouldScroll) {
+            TinyStorageLog.info(getScrollPos() + ((-Integer.signum(delta) * 4)));
+            scrollTo(getScrollPos() + ((-Integer.signum(delta) * 4)));
+            shouldScroll = true;
         }
     }
 
@@ -231,7 +237,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         this.widgetProvider.handleWidgetFunctionality(this);
     }
 
-    private void notifyOfChange(){
+    private void notifyOfChange() {
         this.widgetProvider.handleWidgetFunctionality(this);
     }
 
