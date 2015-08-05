@@ -19,14 +19,14 @@ public interface IWidgetProvider extends IGuiScreenAdvanced {
      *
      * @param widget The widget to add
      */
-    void addWidget(IGuiWidget widget);
+    void addWidget(IGuiWidgetSimple widget);
 
     /**
      * Remove a widget from the GUI
      *
      * @param widget The widget to remove
      */
-    void removeWidget(IGuiWidget widget);
+    void removeWidget(IGuiWidgetSimple widget);
 
     /**
      * Called whenever a widget does something

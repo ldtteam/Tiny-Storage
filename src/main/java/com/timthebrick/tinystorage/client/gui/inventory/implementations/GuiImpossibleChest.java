@@ -1,9 +1,8 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
-import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
-import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
+import com.timthebrick.tinystorage.client.gui.widgets.*;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageScrollBar;
@@ -36,6 +35,13 @@ public class GuiImpossibleChest extends GuiTinyStorage {
             this.addWidget(scrollBar);
         } else {
             scrollBar.adjustPosition();
+        }
+        for (int i = 0; i < ContainerImpossibleChest.INVENTORY_COLUMNS; i++) {
+            if (i % 2 == 0) {
+                this.addWidget(new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.BOTTOM_UP));
+            } else {
+                this.addWidget(new GuiAnimationVertical(this, 7 + (i * 18), 17, 35, 0, 18, 108, 2, AnimationDirection.TOP_DOWN));
+            }
         }
         super.addWidgets();
     }
@@ -98,7 +104,6 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     protected void mouseMovedOrUp(int x, int y, int button) {
         if (scrollBar != null) {
             scrollBar.mouseMovedOrUp(x, y, button);
-            scrollBar = null;
         }
         super.mouseMovedOrUp(x, y, button);
     }
@@ -118,6 +123,11 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     public void handleWidgetVisibility() {
         if (this.scrollBar != null) {
             this.scrollBar.setVisibility(true);
+        }
+        for (IGuiAnimation animation : this.animations) {
+            if (animation != null) {
+                animation.setVisibility(true);
+            }
         }
         super.handleWidgetVisibility();
     }

@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import net.minecraft.client.gui.GuiScreen;
 
-public interface IGuiWidget {
+public interface IGuiWidget extends IGuiWidgetSimple{
 
     /**
      * x Location for the object.
@@ -80,11 +80,6 @@ public interface IGuiWidget {
 
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
-    void updateWidget();
-
     void adjustPosition();
-
-    @Override
-    String toString();
 
 }

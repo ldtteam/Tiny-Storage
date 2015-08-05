@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.util.math.MathHelper;
 import net.minecraft.client.gui.Gui;
@@ -74,9 +73,10 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     private final int SCROLL_AMOUNT = 1;
 
     /**
-     * @param x            The X Position of  the scroll bar (relative to GUI)
-     * @param y            The Y Position of the scroll bar (relative to GUI)
-     * @param scrollHeight The max scrollable distance (height of background - this gets adjusted)
+     * @param widgetProvider The provider that adds this object to it
+     * @param x              The X Position of  the scroll bar (relative to GUI)
+     * @param y              The Y Position of the scroll bar (relative to GUI)
+     * @param scrollHeight   The max scrollable distance (height of background - this gets adjusted)
      */
     public GuiScrollBar(IWidgetProvider widgetProvider, int x, int y, int scrollHeight) {
         this.widgetProvider = widgetProvider;
@@ -110,10 +110,12 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
         scrollToPos = Math.max(0, Math.min(scrollPos, scrollMax));
     }
 
+    @Override
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
+    @Override
     public void setVisibility(boolean vis) {
         this.visible = vis;
     }
@@ -155,7 +157,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
             notifyOfChange();
         } else if (this.isEnabled() && scrollArea.contains(x, y)) {
             shouldScroll = true;
-            TinyStorageLog.info(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
+            //TinyStorageLog.info(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
             scrollTo(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
         }
         return false;
@@ -174,7 +176,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public void mouseWheel(int x, int y, int delta) {
         if (this.isEnabled() && scrollArea.contains(x, y) && !shouldScroll) {
-            TinyStorageLog.info(getScrollPos() + ((-Integer.signum(delta) * 4)));
+            //TinyStorageLog.info(getScrollPos() + ((-Integer.signum(delta) * 4)));
             scrollTo(getScrollPos() + ((-Integer.signum(delta) * 4)));
             shouldScroll = true;
         }

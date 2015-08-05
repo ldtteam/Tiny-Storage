@@ -3,9 +3,9 @@ package com.timthebrick.tinystorage.client.gui.inventory;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -25,6 +25,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     private GuiImageButton accessMode;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidget> widgets = new ArrayList<IGuiWidget>();
+    protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
 
     public GuiTinyStorage(Container container, TileEntityTinyStorage te) {
         super(container);
@@ -58,7 +59,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     @Override
     public void updateScreen() {
-        for(IGuiWidget widget : widgets){
+        for (IGuiWidget widget : widgets) {
             widget.updateWidget();
         }
         super.updateScreen();
@@ -180,6 +181,16 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
                 widget.drawWidget(this, xSize, ySize);
             }
         }
+        for (IGuiAnimation animation : this.animations) {
+            if (animation.isVisible()) {
+                animation.drawAnimationBackground(this, xSize, ySize);
+            }
+        }
+        for (IGuiAnimation animation : this.animations) {
+            if (animation.isVisible()) {
+                animation.drawAnimationForeground(this, xSize, ySize);
+            }
+        }
     }
 
     public void drawBG(int ox, int oy, int x, int y) {
@@ -237,14 +248,25 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     }
 
     @Override
-    public void addWidget(IGuiWidget widget) {
-        widgets.add(widget);
-        widget.adjustPosition();
+    public void addWidget(IGuiWidgetSimple widget) {
+        if (widget instanceof IGuiAnimation) {
+            animations.add((IGuiAnimation) widget);
+            widgets.add((IGuiWidget) widget);
+            ((IGuiWidget) widget).adjustPosition();
+        } else {
+            widgets.add((IGuiWidget) widget);
+            ((IGuiWidget) widget).adjustPosition();
+        }
     }
 
     @Override
-    public void removeWidget(IGuiWidget widget) {
-        widgets.remove(widget);
+    public void removeWidget(IGuiWidgetSimple widget) {
+        if (widget instanceof IGuiAnimation) {
+            animations.remove(widget);
+            widgets.remove(widget);
+        } else {
+            widgets.remove(widget);
+        }
     }
 
     @Override
