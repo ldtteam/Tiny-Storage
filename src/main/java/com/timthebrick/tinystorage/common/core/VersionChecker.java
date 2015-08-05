@@ -93,7 +93,7 @@ public class VersionChecker implements Runnable {
 				if (mcVersion.matches(tokens[0])) {
 					if (References.MOD_ID.matches(tokens[1])) {
 						recommendedVersion = tokens[2];
-						if (version.split(":")[0].matches(tokens[2]) && (!VERSION.contains("-Dev"))) {
+						if (version.split("_")[0].matches(recommendedVersion) && (!VERSION.contains("-Dev"))) {
 							TinyStorageLog.trace("Using the latest version [" + getVersion() + "] for Minecraft " + mcVersion);
 							currentVersion = EnumUpdateState.CURRENT;
 							return;
