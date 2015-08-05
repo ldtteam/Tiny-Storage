@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.util;
+package com.timthebrick.tinystorage.client.gui.inventory;
 
 public interface IGuiScreen {
 

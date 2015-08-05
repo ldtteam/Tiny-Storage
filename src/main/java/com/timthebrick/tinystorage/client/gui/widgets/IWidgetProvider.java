@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.util.IGuiScreenAdvanced;
+import com.timthebrick.tinystorage.client.gui.inventory.IGuiScreenAdvanced;
 
 public interface IWidgetProvider extends IGuiScreenAdvanced {
 

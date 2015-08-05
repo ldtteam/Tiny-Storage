@@ -73,6 +73,10 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
      * The direction to animate in
      */
     protected AnimationDirection direction;
+    /**
+     * Whether the animation has started or not
+      */
+    protected boolean shouldAnimate;
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -87,6 +91,11 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
+        shouldAnimate = false;
+    }
+
+    public void startAnimation(){
+        shouldAnimate = true;
     }
 
     @Override

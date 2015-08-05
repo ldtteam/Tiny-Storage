@@ -20,6 +20,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     private TileEntityImpossibleChest tileEntity;
     protected GuiScrollBar scrollBar;
+    protected GuiAnimationCollector collector;
 
     public GuiImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
         super(new ContainerImpossibleChest(inventoryPlayer, tileEntity), tileEntity);
@@ -30,6 +31,9 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void addWidgets() {
+        if(collector == null){
+            collector = new GuiAnimationCollector(10);
+        }
         if (scrollBar == null) {
             this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
             this.addWidget(scrollBar);
@@ -38,9 +42,13 @@ public class GuiImpossibleChest extends GuiTinyStorage {
         }
         for (int i = 0; i < ContainerImpossibleChest.INVENTORY_COLUMNS; i++) {
             if (i % 2 == 0) {
-                this.addWidget(new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.BOTTOM_UP));
+                GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.BOTTOM_UP);
+                this.collector.addAnimationComponent(guiAnimationVertical);
+                this.addWidget(guiAnimationVertical);
             } else {
-                this.addWidget(new GuiAnimationVertical(this, 7 + (i * 18), 17, 35, 0, 18, 108, 2, AnimationDirection.TOP_DOWN));
+                GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.TOP_DOWN);
+                this.collector.addAnimationComponent(guiAnimationVertical);
+                this.addWidget(guiAnimationVertical);
             }
         }
         super.addWidgets();
@@ -80,6 +88,9 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void updateScreen() {
+        if(collector.animationList.size() > 0){
+            collector.updateCollector();
+        }
         super.updateScreen();
     }
 

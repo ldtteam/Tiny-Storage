@@ -35,13 +35,15 @@ public class GuiAnimationVertical extends GuiAnimation {
 
     @Override
     public void updateWidget() {
-        lifeCycle++;
-        if (lifeCycle % updateFrequency == 0) {
-            progress++;
-        }
-        if (progress == height * 2) {
-            progress = 0;
-            lifeCycle = 0;
+        if(this.shouldAnimate) {
+            lifeCycle++;
+            if (lifeCycle % updateFrequency == 0) {
+                progress++;
+            }
+            if (progress == height * 2) {
+                progress = 0;
+                lifeCycle = 0;
+            }
         }
     }
 
@@ -60,17 +62,19 @@ public class GuiAnimationVertical extends GuiAnimation {
     public void drawAnimationForeground(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiAnimations.png"));
-        if (direction == AnimationDirection.BOTTOM_UP) {
-            if (progress > height) {
-                this.drawTexturedModalRect(xOrigin, yOrigin + (progress - height), foregroundTextureX, foregroundTextureY + (progress - height), width, height - (progress - height));
-            } else {
-                this.drawTexturedModalRect(xOrigin, yOrigin + (height - progress), foregroundTextureX, foregroundTextureY + (height - progress), width, progress);
-            }
-        } else if (direction == AnimationDirection.TOP_DOWN) {
-            if (progress > height) {
-                this.drawTexturedModalRect(xOrigin, yOrigin, foregroundTextureX, foregroundTextureY, width, height + (height - progress));
-            } else {
-                this.drawTexturedModalRect(xOrigin, yOrigin, foregroundTextureX, foregroundTextureY, width, progress);
+        if(shouldAnimate) {
+            if (direction == AnimationDirection.BOTTOM_UP) {
+                if (progress > height) {
+                    this.drawTexturedModalRect(xOrigin, yOrigin + (progress - height), foregroundTextureX, foregroundTextureY + (progress - height), width, height - (progress - height));
+                } else {
+                    this.drawTexturedModalRect(xOrigin, yOrigin + (height - progress), foregroundTextureX, foregroundTextureY + (height - progress), width, progress);
+                }
+            } else if (direction == AnimationDirection.TOP_DOWN) {
+                if (progress > height) {
+                    this.drawTexturedModalRect(xOrigin, yOrigin, foregroundTextureX, foregroundTextureY, width, height + (height - progress));
+                } else {
+                    this.drawTexturedModalRect(xOrigin, yOrigin, foregroundTextureX, foregroundTextureY, width, progress);
+                }
             }
         }
     }
