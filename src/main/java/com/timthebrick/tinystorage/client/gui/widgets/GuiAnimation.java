@@ -99,6 +99,12 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
         shouldAnimate = false;
     }
 
+    @Override
+    public boolean isRunning(){
+        return shouldAnimate;
+    }
+
+    @Override
     public void startAnimation() {
         shouldAnimate = true;
     }

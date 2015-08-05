@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageScrollBar;
@@ -21,7 +22,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     private TileEntityImpossibleChest tileEntity;
     protected GuiScrollBar scrollBar;
-    protected GuiAnimationCollector collector;
+    private int ticksExisted;
 
     public GuiImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
         super(new ContainerImpossibleChest(inventoryPlayer, tileEntity), tileEntity);
@@ -32,9 +33,6 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void addWidgets() {
-        if (collector == null) {
-            collector = new GuiAnimationCollector(10);
-        }
         if (scrollBar == null) {
             this.scrollBar = new GuiScrollBar(this, 174, 18, 106);
             this.addWidget(scrollBar);
@@ -44,11 +42,9 @@ public class GuiImpossibleChest extends GuiTinyStorage {
         for (int i = 0; i < ContainerImpossibleChest.INVENTORY_COLUMNS; i++) {
             if (i % 2 == 0) {
                 GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 0, 0, 18, 108, 2, AnimationDirection.BOTTOM_UP, new Colour(47, 80, 123));
-                this.collector.addAnimationComponent(guiAnimationVertical);
                 this.addWidget(guiAnimationVertical);
             } else {
                 GuiAnimationVertical guiAnimationVertical = new GuiAnimationVertical(this, 7 + (i * 18), 17, 35, 0, 18, 108, 2, AnimationDirection.TOP_DOWN, new Colour(47, 80, 123));
-                this.collector.addAnimationComponent(guiAnimationVertical);
                 this.addWidget(guiAnimationVertical);
             }
         }
@@ -89,10 +85,20 @@ public class GuiImpossibleChest extends GuiTinyStorage {
 
     @Override
     public void updateScreen() {
-        if (collector.animationList.size() > 0) {
-            collector.updateCollector();
-        }
         super.updateScreen();
+        boolean foundStoppedAnimation = false;
+        for (IGuiAnimation animation : animations) {
+            if (!animation.isRunning()) {
+                foundStoppedAnimation = true;
+                ticksExisted++;
+                if (ticksExisted % 10 == 0) {
+                    animation.startAnimation();
+                }
+            }
+        }
+        if (!foundStoppedAnimation) {
+            ticksExisted = 0;
+        }
     }
 
     @Override

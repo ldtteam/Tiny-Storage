@@ -180,8 +180,11 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
         NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound tag = tagList.getCompoundTagAt(i);
-            byte slot = tag.getByte("Slot");
+            int slot = tag.getInteger("Slot");
             if (slot >= 0 && slot < inventory.length) {
+                if (ItemStack.loadItemStackFromNBT(tag) != null) {
+                    TinyStorageLog.info("Loading item stack from NBT | Slot: " + slot + ", Stack: " + (ItemStack.loadItemStackFromNBT(tag).toString()));
+                }
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
             }
         }
@@ -195,9 +198,9 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
         for (int i = 0; i < inventory.length; i++) {
             ItemStack stack = inventory[i];
             if (stack != null) {
-                //TinyStorageLog.info("Saving NBT | Slot: " + i + " with stack: " + stack.toString());
+                TinyStorageLog.info("Writing item stack to NBT | Slot: " + i + ", Stack: " + stack.toString());
                 NBTTagCompound tag = new NBTTagCompound();
-                tag.setByte("Slot", (byte) i);
+                tag.setInteger("Slot", i);
                 stack.writeToNBT(tag);
                 itemList.appendTag(tag);
             }
@@ -209,13 +212,11 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
     @Override
     public void readSyncedNBT(NBTTagCompound tag) {
         super.readSyncedNBT(tag);
-        scrollPos = tag.getInteger("scrollPos");
     }
 
     @Override
     public void writeSyncedNBT(NBTTagCompound tag) {
         super.writeSyncedNBT(tag);
-        tag.setInteger("scrollPos", scrollPos);
     }
 
     @Override
@@ -264,7 +265,7 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
     }
 
     public void handleWidgetInteraction(int scrollPos) {
-        if(container != null){
+        if (container != null) {
             this.scrollPos = scrollPos;
             container.handleWidgetInteraction(null);
         }

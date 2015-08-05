@@ -46,9 +46,9 @@ public class ItemRendererImpossibleChest implements IItemRenderer {
         // }
 
         if (!isLocked) {
-            FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chest/impossibleChest.png"));
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chestImpossible.png"));
         } else {
-            FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chest/impossibleChest.png"));
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chestImpossible.png"));
         }
 
         // Translate and render

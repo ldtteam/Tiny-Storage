@@ -49,6 +49,9 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
             this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
         }
 
+        this.detectAndSendChanges();
+        tileEntity.markDirty();
+        tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
     }
 
     @Override
@@ -81,14 +84,22 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
             }
         }
         this.detectAndSendChanges();
+        tileEntity.markDirty();
+        tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
         return newItemStack;
     }
 
     @Override
     public ItemStack slotClick(int slotNum, int mouseButton, int modifier, EntityPlayer player) {
-        //TinyStorageLog.info("Slot " + slotNum + " clicked | Slot Index: " + this.getSlot(slotNum).getSlotIndex() + " | Slot Number: " + this.getSlot(slotNum).slotNumber);
         this.detectAndSendChanges();
+        tileEntity.markDirty();
+        tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
         return super.slotClick(slotNum, mouseButton, modifier, player);
+    }
+
+    public void clearInventory(){
+        this.inventorySlots.clear();
+        this.inventoryItemStacks.clear();
     }
 
     @Override
@@ -147,6 +158,9 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
                 this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 198));
             }
         }
+        this.detectAndSendChanges();
+        tileEntity.markDirty();
+        tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
     }
 
     @Override

@@ -33,9 +33,9 @@ public class TileEntityRendererImpossibleChest extends TileEntitySpecialRenderer
             if (block instanceof BlockImpossibleChest) {
                 BlockImpossibleChest blockImpossibleChest = (BlockImpossibleChest) block;
                 if (!blockImpossibleChest.getIsLockable()) {
-                    this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chest/impossibleChest.png"));
+                    this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chestImpossible.png"));
                 } else {
-                    this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chest/impossibleChest.png"));
+                    this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/locked/chestImpossible.png"));
                 }
             }
 

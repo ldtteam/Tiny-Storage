@@ -153,11 +153,12 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public boolean mouseClicked(int x, int y, int button) {
         if (this.isEnabled() && this.shouldScroll == true && containerArea.contains(x, y)) {
+            notifyOfChange();
             scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
             notifyOfChange();
         } else if (this.isEnabled() && scrollArea.contains(x, y)) {
+            notifyOfChange();
             shouldScroll = true;
-            //TinyStorageLog.info(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
             scrollTo(MathHelper.roundToNearestInterval(y - widgetProvider.getGuiTop() - yOrigin, 4));
         }
         return false;
@@ -176,7 +177,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
     @Override
     public void mouseWheel(int x, int y, int delta) {
         if (this.isEnabled() && scrollArea.contains(x, y) && !shouldScroll) {
-            //TinyStorageLog.info(getScrollPos() + ((-Integer.signum(delta) * 4)));
+            notifyOfChange();
             scrollTo(getScrollPos() + ((-Integer.signum(delta) * 4)));
             shouldScroll = true;
         }

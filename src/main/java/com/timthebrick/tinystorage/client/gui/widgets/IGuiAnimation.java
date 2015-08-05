@@ -16,5 +16,7 @@ public interface IGuiAnimation extends IGuiWidget {
 
     void drawAnimationBackground(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
+    boolean isRunning();
+
     void startAnimation();
 }
