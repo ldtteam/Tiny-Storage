@@ -13,7 +13,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Recipes {
 
-	protected static final String[] dyes = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "LightGray", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
+	private static final String[] dyes = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "LightGray", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Crafting Recipes");
