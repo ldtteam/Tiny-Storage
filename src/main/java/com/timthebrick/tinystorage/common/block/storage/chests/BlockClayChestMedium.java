@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.storage.chests;
 
 import com.timthebrick.tinystorage.common.reference.Names;
 import net.minecraft.block.material.Material;

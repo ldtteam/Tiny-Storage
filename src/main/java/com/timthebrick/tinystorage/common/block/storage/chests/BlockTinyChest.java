@@ -1,16 +1,9 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.storage.chests;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
+import java.util.List;
+import java.util.Random;
+
 import com.timthebrick.tinystorage.common.reference.*;
-import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityQuarryChest;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestLarge;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestMedium;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestSmall;
-import com.timthebrick.tinystorage.util.PlayerHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -25,33 +18,51 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.List;
-import java.util.Random;
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestLarge;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestMedium;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestSmall;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
-public class BlockQuarryChest extends BlockContainer implements ITileEntityProvider {
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-	public BlockQuarryChest(Material mat) {
+public class BlockTinyChest extends BlockContainer implements ITileEntityProvider {
+
+	protected String textureName;
+	private boolean isLockable;
+
+	public BlockTinyChest(Material mat, String textureName, boolean isLockable) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName(Names.UnlocalisedBlocks.QUARRY_CHEST);
+		this.isLockable = isLockable;
+		this.textureName = textureName;
+		if (!this.isLockable) {
+			this.setBlockName(Names.UnlocalisedBlocks.TINY_CHEST + this.textureName);
+		} else {
+			this.setBlockName(Names.UnlocalisedBlocks.TINY_CHEST_LOCKED + this.textureName);
+		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int metaData) {
 		if (metaData == 0) {
-			return new TileEntityQuarryChestSmall();
+			return new TileEntityTinyChestSmall();
 		} else if (metaData == 1) {
-			return new TileEntityQuarryChestMedium();
+			return new TileEntityTinyChestMedium();
 		} else if (metaData == 2) {
-			return new TileEntityQuarryChestLarge();
+			return new TileEntityTinyChestLarge();
 		}
 		return null;
 	}
@@ -99,7 +110,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.quarryChest;
+		return RenderIDs.tinyChest;
 	}
 
 	@Override
@@ -110,16 +121,16 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 		if (world.isRemote) {
 			return true;
 		} else {
-			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
-				TileEntityQuarryChest tileEntity = (TileEntityQuarryChest) world.getTileEntity(x, y, z);
+			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
+				TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {
 					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
-						player.openGui(TinyStorage.instance, GUIs.QUARRY_CHEST.ordinal(), world, x, y, z);
+						player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
 					}
 				} else {
-					player.openGui(TinyStorage.instance, GUIs.QUARRY_CHEST.ordinal(), world, x, y, z);
+					player.openGui(TinyStorage.instance, GUIs.TINY_CHEST.ordinal(), world, x, y, z);
 				}
 			}
 			return true;
@@ -135,8 +146,8 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
-		if (world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
-			TileEntityQuarryChest tileEntity = (TileEntityQuarryChest) world.getTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
+			TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
 				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
@@ -149,6 +160,12 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 		} else {
 			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 		}
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		dropInventory(world, x, y, z);
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	@Override
@@ -166,25 +183,48 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
 			}
-
+			
 			if (itemStack.hasDisplayName()) {
 				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
 			}
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
 
-			if (!world.isRemote && entityLiving instanceof EntityPlayer) {
-				if (world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
-					((TileEntityQuarryChest) world.getTileEntity(x, y, z)).genFirstLayer((EntityPlayer) entityLiving);
+			if (this.isLockable) {
+				if (entityLiving instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) entityLiving;
+					if (!PlayerHelper.isPlayerFake(player)) {
+						((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
+						((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
+						((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setAccessMode(AccessMode.DISABLED);
+					} else {
+						TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
+						world.removeTileEntity(x, y, z);
+						world.setBlockToAir(x, y, z);
+						if (itemStack != null && itemStack.stackSize > 0) {
+							Random rand = new Random();
+
+							float dX = rand.nextFloat() * 0.8F + 0.1F;
+							float dY = rand.nextFloat() * 0.8F + 0.1F;
+							float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+							EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+
+							if (itemStack.hasTagCompound()) {
+								entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+							}
+
+							float factor = 0.05F;
+							entityItem.motionX = rand.nextGaussian() * factor;
+							entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+							entityItem.motionZ = rand.nextGaussian() * factor;
+							world.spawnEntityInWorld(entityItem);
+							itemStack.stackSize = 0;
+						}
+					}
 				}
 			}
 		}
-	}
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		dropInventory(world, x, y, z);
-		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	protected void dropInventory(World world, int x, int y, int z) {
@@ -222,6 +262,11 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 	}
 
 	@Override
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
+	}
+
+	@Override
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
 		for (int meta = 0; meta < 3; meta++) {
 			list.add(new ItemStack(item, 1, meta));
@@ -234,13 +279,11 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":Obsidian");
-	}
-
-	@Override
 	public String getTextureName() {
 		return textureName;
 	}
 
+	public boolean getIsLockable() {
+		return isLockable;
+	}
 }

@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 
-import com.timthebrick.tinystorage.common.block.BlockWoolChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockWoolChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

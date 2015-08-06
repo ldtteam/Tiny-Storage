@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.timthebrick.tinystorage.common.block.*;
+import com.timthebrick.tinystorage.common.block.storage.BlockBookCase;
+import com.timthebrick.tinystorage.common.block.storage.BlockPiggyBank;
+import com.timthebrick.tinystorage.common.block.storage.chests.*;
 import com.timthebrick.tinystorage.common.item.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -147,14 +150,17 @@ public class ModBlocks {
     public static Block blockBookCaseJunglePlank = new BlockBookCase(Material.wood, "JunglePlank");
     public static Block blockBookCaseSprucePlank = new BlockBookCase(Material.wood, "SprucePlank");
 
-	// Misc
+	// Misc Storage
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
 	public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
 	public static Block blockPeacefulChest = new BlockPeacefulChest(Material.rock);
 	public static Block blockQuarryChest = new BlockQuarryChest(Material.rock);
-	public static Block blockDenseBlock = new BlockDenseMaterial(Material.rock);
 	public static Block blockImpossibleChest = new BlockImpossibleChest(Material.rock, false);
     public static Block blockImpossibleChestLocked = new BlockImpossibleChest(Material.rock, true);
+
+	//Misc Blocks
+	public static Block blockDenseBlock = new BlockDenseMaterial(Material.rock);
+	public static Block blockBlueLog = new BlockBlueLog();
 
 	public static void init() {
 		TinyStorageLog.info("Initialising Blocks");
@@ -287,14 +293,17 @@ public class ModBlocks {
         registerBlock(blockBookCaseJunglePlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "JunglePlank");
         registerBlock(blockBookCaseSprucePlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "SprucePlank");
 
-		// Misc
+		// Misc Storage
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);
 		registerBlock(blockPiggyBank, ItemBlockPiggyBank.class, Names.Blocks.PIGGY_BANK);
 		registerBlock(blockPeacefulChest, ItemBlockPeacefulChest.class, Names.Blocks.PEACEFUL_CHEST);
 		registerBlock(blockQuarryChest, ItemBlockQuarryChest.class, Names.Blocks.QUARRY_CHEST);
-		registerBlock(blockDenseBlock, ItemBlockDenseMaterial.class, Names.Blocks.DENSE_BLOCK);
         registerBlock(blockImpossibleChest, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST);
         registerBlock(blockImpossibleChestLocked, ItemBlockImpossibleChest.class, Names.Blocks.IMPOSSIBLE_CHEST_LOCKED);
+
+		//Misc Blocks
+		registerBlock(blockDenseBlock, ItemBlockDenseMaterial.class, Names.Blocks.DENSE_BLOCK);
+		registerBlock(blockBlueLog, Names.Blocks.BLUE_LOG);
 	}
 
 	/**

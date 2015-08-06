@@ -1,29 +1,19 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.storage.chests;
 
 import java.util.List;
 import java.util.Random;
 
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
-import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityPiggyBank;
-import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankLarge;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankMedium;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankSmall;
-import com.timthebrick.tinystorage.util.PlayerHelper;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.timthebrick.tinystorage.common.reference.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -31,28 +21,41 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockPiggyBank extends BlockContainer implements ITileEntityProvider {
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityPeacefulChest;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPeacefulChestLarge;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPeacefulChestMedium;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPeacefulChestSmall;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
-	public BlockPiggyBank(Material mat) {
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class BlockPeacefulChest extends BlockContainer implements ITileEntityProvider {
+
+	public BlockPeacefulChest(Material mat) {
 		super(mat);
 		this.setHardness(2.5f);
-		this.setBlockName(Names.UnlocalisedBlocks.PIGGY_BANK);
+		this.setBlockName(Names.UnlocalisedBlocks.PEACEFUL_CHEST);
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int metaData) {
 		if (metaData == 0) {
-			return new TileEntityPiggyBankSmall();
+			return new TileEntityPeacefulChestSmall();
 		} else if (metaData == 1) {
-			return new TileEntityPiggyBankMedium();
+			return new TileEntityPeacefulChestMedium();
 		} else if (metaData == 2) {
-			return new TileEntityPiggyBankLarge();
+			return new TileEntityPeacefulChestLarge();
 		}
 		return null;
 	}
@@ -89,27 +92,6 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
-			return true;
-		}
-		if (world.isRemote) {
-			return true;
-		}
-		if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
-			TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
-			if (te.hasUniqueOwner()) {
-				if (te.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
-					te.handlePlayerInteraction(player);
-				} else {
-					te.handBadPlayerInteraction(player);
-				}
-			}
-		}
-		return true;
-	}
-
-	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
@@ -121,7 +103,31 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public int getRenderType() {
-		return -1;
+		return RenderIDs.peacefulChest;
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+			return true;
+		}
+		if (world.isRemote) {
+			return true;
+		} else {
+			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPeacefulChest) {
+				TileEntityPeacefulChest tileEntity = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
+				if (tileEntity.hasUniqueOwner()) {
+					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+						player.openGui(TinyStorage.instance, GUIs.PEACEFUL_CHEST.ordinal(), world, x, y, z);
+					} else {
+						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
+					}
+				} else {
+					player.openGui(TinyStorage.instance, GUIs.PEACEFUL_CHEST.ordinal(), world, x, y, z);
+				}
+			}
+			return true;
+		}
 	}
 
 	@Override
@@ -133,8 +139,8 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
-		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
-			TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityPeacefulChest) {
+			TileEntityPeacefulChest tileEntity = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
 				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
@@ -147,12 +153,6 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		} else {
 			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 		}
-	}
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		dropInventory(world, x, y, z);
-		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	@Override
@@ -170,45 +170,25 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 			} else if (facing == 3) {
 				direction = ForgeDirection.WEST.ordinal();
 			}
-			
+
 			if (itemStack.hasDisplayName()) {
 				((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
 			}
 
 			((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
-
-			if (entityLiving instanceof EntityPlayer) {
-				EntityPlayer player = (EntityPlayer) entityLiving;
-				if (!PlayerHelper.isPlayerFake(player)) {
-					((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
-					((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
-				} else {
-					TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
-					world.removeTileEntity(x, y, z);
-					world.setBlockToAir(x, y, z);
-					if (itemStack != null && itemStack.stackSize > 0) {
-						Random rand = new Random();
-
-						float dX = rand.nextFloat() * 0.8F + 0.1F;
-						float dY = rand.nextFloat() * 0.8F + 0.1F;
-						float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-						EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
-
-						if (itemStack.hasTagCompound()) {
-							entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
-						}
-
-						float factor = 0.05F;
-						entityItem.motionX = rand.nextGaussian() * factor;
-						entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-						entityItem.motionZ = rand.nextGaussian() * factor;
-						world.spawnEntityInWorld(entityItem);
-						itemStack.stackSize = 0;
-					}
-				}
-			}			
 		}
+	}
+
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		if ((entity instanceof EntityXPOrb)) {
+			entity.setDead();
+		}
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		dropInventory(world, x, y, z);
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	protected void dropInventory(World world, int x, int y, int z) {
@@ -247,7 +227,7 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = null;
+		blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":Obsidian");
 	}
 
 	@Override
@@ -262,4 +242,8 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		return metaData;
 	}
 
+	@Override
+	public String getTextureName() {
+		return textureName;
+	}
 }

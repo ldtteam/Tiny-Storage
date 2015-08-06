@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.common.item.block;
 
-import com.timthebrick.tinystorage.common.block.BlockImpossibleChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockImpossibleChest;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

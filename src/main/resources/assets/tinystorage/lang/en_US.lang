@@ -336,6 +336,7 @@ container.tinystorage:impossibleChestLocked=Locking Impossible Chest
 tooltip.tinystorage:itemSize.small=Tier 1
 tooltip.tinystorage:itemSize.medium=Tier 2
 tooltip.tinystorage:itemSize.large=Tier 3
+tooltip.tinystorage:itemSize.unstable=Unstable
 tooltip.tinystorage:blockSize.small=Small
 tooltip.tinystorage:blockSize.medium=Medium
 tooltip.tinystorage:blockSize.large=Large

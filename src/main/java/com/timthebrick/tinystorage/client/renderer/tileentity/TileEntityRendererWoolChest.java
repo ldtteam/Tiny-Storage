@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.timthebrick.tinystorage.common.block.BlockWoolChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockWoolChest;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityWoolChest;
 

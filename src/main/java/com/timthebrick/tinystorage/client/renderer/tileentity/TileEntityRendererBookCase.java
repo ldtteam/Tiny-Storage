@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.renderer.tileentity;
 
-import com.timthebrick.tinystorage.common.block.BlockBookCase;
+import com.timthebrick.tinystorage.common.block.storage.BlockBookCase;
 import com.timthebrick.tinystorage.client.renderer.model.ModelBookCase;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityBookCase;

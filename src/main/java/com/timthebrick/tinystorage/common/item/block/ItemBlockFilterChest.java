@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.common.item.block;
 
 import java.util.List;
 
-import com.timthebrick.tinystorage.common.block.BlockFilterChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockFilterChest;
 
 import com.timthebrick.tinystorage.common.reference.Messages;
 import net.minecraft.block.Block;

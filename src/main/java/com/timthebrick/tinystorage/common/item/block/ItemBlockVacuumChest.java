@@ -10,7 +10,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import com.timthebrick.tinystorage.common.block.BlockVacuumChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockVacuumChest;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

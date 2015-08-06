@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.storage;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;

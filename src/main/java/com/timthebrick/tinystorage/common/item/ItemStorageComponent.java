@@ -31,7 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemStorageComponent extends Item {
 
-	public static final String[] nameSuffix = new String[] { "Small", "Medium", "Large" };
+	public static final String[] nameSuffix = new String[] { "Small", "Medium", "Large", "Unstable" };
 	private IIcon[] icons;
 
 	public ItemStorageComponent() {
@@ -231,7 +231,7 @@ public class ItemStorageComponent extends Item {
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
@@ -245,12 +245,14 @@ public class ItemStorageComponent extends Item {
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_2));
 		} else if (metaData == 2) {
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_3));
+		}else if(metaData == 3){
+			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_SPECIAL_1));
 		}
 	}
 
 	@Override
 	public IIcon getIconFromDamage(int metaData) {
-		int j = MathHelper.clamp_int(metaData, 0, 2);
+		int j = MathHelper.clamp_int(metaData, 0, 3);
 		return this.icons[j];
 	}
 

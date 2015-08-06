@@ -1,32 +1,31 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.storage.chests;
 
 import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.RenderIDs;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityWoolChestSmall;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.timthebrick.tinystorage.common.reference.RenderIDs;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityWoolChestMedium;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-public class BlockWoolChestMedium extends BlockWoolChest {
+public class BlockWoolChestSmall extends BlockWoolChest {
 	
-	public BlockWoolChestMedium(boolean isLockable) {
+	public BlockWoolChestSmall(boolean isLockable) {
 		super(Material.cloth, isLockable);
 		if (!this.isLockable) {
-			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_MEDIUM);
+			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_SMALL);
 		} else {
-			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_MEDIUM_LOCKED);
+			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_SMALL_LOCKED);
 		}
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int metaData) {
-		return new TileEntityWoolChestMedium();
+		return new TileEntityWoolChestSmall();
 	}
 
 	@Override
@@ -48,11 +47,12 @@ public class BlockWoolChestMedium extends BlockWoolChest {
 	}
 
 	public void updateChestBounds(int meta) {
-		setBlockBounds(0.125f, 0.0f, 0.125f, 1F - 0.125f, 0.72f, 1F - 0.125f);
+		setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.60f, 0.8f);
 	}
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.woolChestMedium;
+		return RenderIDs.woolChestSmall;
 	}
+
 }

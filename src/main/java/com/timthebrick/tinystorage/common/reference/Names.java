@@ -24,6 +24,7 @@ public class Names {
 		public static final String BOOKCASE = "bookCase";
 		public static final String IMPOSSIBLE_CHEST = "impossibleChest";
 		public static final String IMPOSSIBLE_CHEST_LOCKED = "impossibleChestLocked";
+		public static final String BLUE_LOG = "blueLog";
 	}
 
 	public static final class UnlocalisedBlocks{
@@ -56,7 +57,8 @@ public class Names {
         public static final String BOOKCASE = "blockBookCase";
 		public static final String IMPOSSIBLE_CHEST = "blockImpossibleChest";
 		public static final String IMPOSSIBLE_CHEST_LOCKED = "blockImpossibleChestLocked";
-    }
+		public static final String BLUE_LOG = "blockBlueLog";
+	}
 
 	
 	public static final class Items{

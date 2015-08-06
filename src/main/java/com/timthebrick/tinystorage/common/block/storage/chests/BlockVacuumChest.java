@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.storage.chests;
 
 import java.util.List;
 import java.util.Random;
@@ -10,6 +10,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,29 +31,30 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityFilterChest;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityFilterChestLarge;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityFilterChestMedium;
-import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityFilterChestSmall;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityVacuumChest;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestLarge;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestMedium;
+import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestSmall;
+import com.timthebrick.tinystorage.util.InventoryHelper;
 import com.timthebrick.tinystorage.util.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockFilterChest extends BlockContainer implements ITileEntityProvider {
+public class BlockVacuumChest extends BlockContainer implements ITileEntityProvider {
 
 	protected String textureName;
 	private boolean isLockable;
 
-	public BlockFilterChest(Material mat, String textureName, boolean isLockable) {
+	public BlockVacuumChest(Material mat, String textureName, boolean isLockable) {
 		super(mat);
 		this.setHardness(2.5f);
 		this.isLockable = isLockable;
 		this.textureName = textureName;
 		if (!this.isLockable) {
-			this.setBlockName(Names.UnlocalisedBlocks.FILTER_CHEST + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.VACUUM_CHEST + this.textureName);
 		} else {
-			this.setBlockName(Names.UnlocalisedBlocks.FILTER_CHEST_LOCKED + this.textureName);
+			this.setBlockName(Names.UnlocalisedBlocks.VACUUM_CHEST_LOCKED + this.textureName);
 		}
 		this.setCreativeTab(TabTinyStorage.creativeTab);
 	}
@@ -60,11 +62,11 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 	@Override
 	public TileEntity createNewTileEntity(World world, int metaData) {
 		if (metaData == 0) {
-			return new TileEntityFilterChestSmall();
+			return new TileEntityVacuumChestSmall();
 		} else if (metaData == 1) {
-			return new TileEntityFilterChestMedium();
+			return new TileEntityVacuumChestMedium();
 		} else if (metaData == 2) {
-			return new TileEntityFilterChestLarge();
+			return new TileEntityVacuumChestLarge();
 		}
 		return null;
 	}
@@ -112,22 +114,27 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.filterChest;
+		return RenderIDs.vacuumChest;
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
 			return true;
+		}
+		if (world.isRemote) {
+			return true;
 		} else {
-			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityFilterChest) {
-				if (((TileEntityFilterChest) world.getTileEntity(x, y, z)).hasUniqueOwner()) {
-					if (((TileEntityFilterChest) world.getTileEntity(x, y, z)).getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
-						player.openGui(TinyStorage.instance, GUIs.FILTER_CHEST.ordinal(), world, x, y, z);
+			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityVacuumChest) {
+				TileEntityVacuumChest tileEntity = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
+				if (tileEntity.hasUniqueOwner()) {
+					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+						player.openGui(TinyStorage.instance, GUIs.VACUUM_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
 					}
 				} else {
-					player.openGui(TinyStorage.instance, GUIs.FILTER_CHEST.ordinal(), world, x, y, z);
+					player.openGui(TinyStorage.instance, GUIs.VACUUM_CHEST.ordinal(), world, x, y, z);
 				}
 			}
 			return true;
@@ -143,8 +150,8 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
-		if (world.getTileEntity(x, y, z) instanceof TileEntityFilterChest) {
-			TileEntityFilterChest tileEntity = (TileEntityFilterChest) world.getTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityVacuumChest) {
+			TileEntityVacuumChest tileEntity = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
 				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
@@ -156,6 +163,25 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			}
 		} else {
 			return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+		}
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		super.onEntityCollidedWithBlock(world, x, y, z, entity);
+		if (!world.isRemote) {
+			if (entity instanceof EntityItem) {
+				if (world.getTileEntity(x, y, z) instanceof TileEntityVacuumChest) {
+					TileEntityVacuumChest tileEntity = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
+					ItemStack itemStack = ((EntityItem) entity).getEntityItem();
+					ItemStack itemstack1 = InventoryHelper.invInsert(tileEntity, itemStack, 2);
+					if ((itemstack1 != null) && (itemstack1.stackSize != 0)) {
+						((EntityItem) entity).setEntityItemStack(itemstack1);
+					} else {
+						((EntityItem) entity).setDead();
+					}
+				}
+			}
 		}
 	}
 
@@ -231,40 +257,29 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 			return;
 		}
 
-		if (tileEntity instanceof TileEntityFilterChest) {
-			TileEntityFilterChest teChest = (TileEntityFilterChest) tileEntity;
+		IInventory inventory = (IInventory) tileEntity;
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack itemStack = inventory.getStackInSlot(i);
 
-			IInventory inventory = (IInventory) tileEntity;
+			if (itemStack != null && itemStack.stackSize > 0) {
+				Random rand = new Random();
 
-			for (int i = 0; i < inventory.getSizeInventory(); i++) {
-				if (teChest.getState() == 0 && i == 0)
-					continue;
-				if (teChest.getState() == 1 && i == 0 || i == 1)
-					continue;
-				if (teChest.getState() == 2 && i == 0 || i == 1 || i == 2)
-					continue;
-				ItemStack itemStack = inventory.getStackInSlot(i);
+				float dX = rand.nextFloat() * 0.8F + 0.1F;
+				float dY = rand.nextFloat() * 0.8F + 0.1F;
+				float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
-				if (itemStack != null && itemStack.stackSize > 0) {
-					Random rand = new Random();
+				EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
 
-					float dX = rand.nextFloat() * 0.8F + 0.1F;
-					float dY = rand.nextFloat() * 0.8F + 0.1F;
-					float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-					EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
-
-					if (itemStack.hasTagCompound()) {
-						entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
-					}
-
-					float factor = 0.05F;
-					entityItem.motionX = rand.nextGaussian() * factor;
-					entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-					entityItem.motionZ = rand.nextGaussian() * factor;
-					world.spawnEntityInWorld(entityItem);
-					itemStack.stackSize = 0;
+				if (itemStack.hasTagCompound()) {
+					entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
 				}
+
+				float factor = 0.05F;
+				entityItem.motionX = rand.nextGaussian() * factor;
+				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+				entityItem.motionZ = rand.nextGaussian() * factor;
+				world.spawnEntityInWorld(entityItem);
+				itemStack.stackSize = 0;
 			}
 		}
 	}
@@ -282,6 +297,14 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 	}
 
 	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+		super.randomDisplayTick(world, x, y, z, random);
+		if ((random.nextInt(2) == 0)) {
+			world.spawnParticle("portal", x + random.nextFloat(), y + 1.1F, z + random.nextFloat(), 0.0D, 0.05D, 0.0D);
+		}
+	}
+
+	@Override
 	public int damageDropped(int metaData) {
 		return metaData;
 	}
@@ -294,5 +317,4 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
 	public boolean getIsLockable() {
 		return isLockable;
 	}
-
 }

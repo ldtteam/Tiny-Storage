@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.client.renderer.tileentity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.timthebrick.tinystorage.common.block.BlockDraw;
+import com.timthebrick.tinystorage.common.block.storage.BlockDraw;
 import com.timthebrick.tinystorage.client.renderer.model.ModelDraw;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;

@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.common.block.BlockClayChest;
-import com.timthebrick.tinystorage.common.block.BlockWoolChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockClayChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockWoolChest;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.core.VersionChecker;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;

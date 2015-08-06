@@ -8,8 +8,8 @@ import java.io.UnsupportedEncodingException;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
-import com.timthebrick.tinystorage.common.block.BlockClayChest;
-import com.timthebrick.tinystorage.common.block.BlockWoolChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockClayChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockWoolChest;
 import com.timthebrick.tinystorage.common.init.ModBlocks;
 import com.timthebrick.tinystorage.common.init.ModItems;
 

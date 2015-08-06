@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.timthebrick.tinystorage.common.block.BlockClayChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockClayChest;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityClayChest;
 

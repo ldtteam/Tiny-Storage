@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
@@ -22,6 +23,7 @@ public class Recipes {
 		registerShapelessRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 		registerShapelessRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 		registerShapelessRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
+		registerShapedRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 3), "DSD", "SPS", "DSD", 'D', new ItemStack(Items.diamond), 'P', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
 
 		// Chest Filters
 		registerShapedRecipe(new ItemStack(ModItems.itemChestFilter, 3, 0), "sss", "l l", "sss", 's', new ItemStack(Items.stick, 1), 'l', new ItemStack(Items.string, 1));
@@ -160,9 +162,9 @@ public class Recipes {
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 16; j++) {
 					if (i != j) {
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestSmall, 1, j), new ItemStack(ModBlocks.blockWoolChestSmall, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestMedium, 1, j), new ItemStack(ModBlocks.blockWoolChestMedium, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestLarge, 1, j), new ItemStack(ModBlocks.blockWoolChestLarge, 1, i), "dye" + dyes[j]));
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestSmall, 1, j), new ItemStack(ModBlocks.blockWoolChestSmall, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestMedium, 1, j), new ItemStack(ModBlocks.blockWoolChestMedium, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestLarge, 1, j), new ItemStack(ModBlocks.blockWoolChestLarge, 1, i), "dye" + dyes[j]);
 					}
 				}
 			}
@@ -181,15 +183,15 @@ public class Recipes {
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 16; j++) {
 					if (i != j) {
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestSmallLocked, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestMediumLocked, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestLargeLocked, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestSmall, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestMedium, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestLarge, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]));
-					}
-				}
-			}
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestSmallLocked, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestMediumLocked, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestLargeLocked, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestSmall, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestMedium, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockWoolChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockWoolChestLarge, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]);
+                    }
+                }
+            }
 		}
 
 		// Clay Chests
@@ -205,12 +207,12 @@ public class Recipes {
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 16; j++) {
 					if (i != j) {
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestSmall, 1, j), new ItemStack(ModBlocks.blockClayChestSmall, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestMedium, 1, j), new ItemStack(ModBlocks.blockClayChestMedium, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestLarge, 1, j), new ItemStack(ModBlocks.blockClayChestLarge, 1, i), "dye" + dyes[j]));
-					}
-				}
-			}
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestSmall, 1, j), new ItemStack(ModBlocks.blockClayChestSmall, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestMedium, 1, j), new ItemStack(ModBlocks.blockClayChestMedium, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestLarge, 1, j), new ItemStack(ModBlocks.blockClayChestLarge, 1, i), "dye" + dyes[j]);
+                    }
+                }
+            }
 		}
 
 		// Clay Chests Locked
@@ -226,15 +228,15 @@ public class Recipes {
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 16; j++) {
 					if (i != j) {
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockClayChestSmallLocked, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockClayChestMediumLocked, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockClayChestLargeLocked, 1, i), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockClayChestSmall, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockClayChestMedium, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]));
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockClayChestLarge, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]));
-					}
-				}
-			}
+						registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockClayChestSmallLocked, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockClayChestMediumLocked, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockClayChestLargeLocked, 1, i), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestSmallLocked, 1, j), new ItemStack(ModBlocks.blockClayChestSmall, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestMediumLocked, 1, j), new ItemStack(ModBlocks.blockClayChestMedium, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]);
+                        registerShapelessOreRecipe(new ItemStack(ModBlocks.blockClayChestLargeLocked, 1, j), new ItemStack(ModBlocks.blockClayChestLarge, 1, i), new ItemStack(ModItems.itemChestLock, 1), "dye" + dyes[j]);
+                    }
+                }
+            }
 		}
 
 		// Micro Chests - Logs
@@ -318,6 +320,31 @@ public class Recipes {
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseJunglePlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 2), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 3), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseBirchPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 4), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
+
+		//Blue Log
+        registerShapedOreRecipe(new ItemStack(ModBlocks.blockBlueLog, 8, 0), "LLL", "LDL", "LLL", 'L', "logWood", 'D', "dyeBlue");
+
+        //Impossible Chest
+        registerShapedRecipe(new ItemStack(ModBlocks.blockImpossibleChest), "LLL", "LSL", "LLL", 'L', new ItemStack(ModBlocks.blockBlueLog), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 3));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockImpossibleChestLocked), new ItemStack(ModBlocks.blockImpossibleChest), new ItemStack(ModItems.itemChestLock));
+	}
+
+	private static void registerShapelessOreRecipe(ItemStack output, Object... recipe){
+		TinyStorageLog.info("Creating shapeless ore recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
+		try {
+			GameRegistry.addRecipe(new ShapelessOreRecipe(output, recipe));
+		} catch (Exception e) {
+			TinyStorageLog.error(e);
+		}
+	}
+
+	private static void registerShapedOreRecipe(ItemStack output, Object... recipe){
+		TinyStorageLog.info("Creating shaped ore recipe recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
+		try {
+			GameRegistry.addRecipe(new ShapedOreRecipe(output, recipe));
+		} catch (Exception e) {
+			TinyStorageLog.error(e);
+		}
 	}
 
 	private static void registerLockableChestRecipes(Block normalOutput, Block lockedOutput, Block material) {
