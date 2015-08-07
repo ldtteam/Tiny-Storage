@@ -182,9 +182,6 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
             NBTTagCompound tag = tagList.getCompoundTagAt(i);
             int slot = tag.getInteger("Slot");
             if (slot >= 0 && slot < inventory.length) {
-                if (ItemStack.loadItemStackFromNBT(tag) != null) {
-                    TinyStorageLog.info("Loading item stack from NBT | Slot: " + slot + ", Stack: " + (ItemStack.loadItemStackFromNBT(tag).toString()));
-                }
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
             }
         }
@@ -198,7 +195,6 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
         for (int i = 0; i < inventory.length; i++) {
             ItemStack stack = inventory[i];
             if (stack != null) {
-                TinyStorageLog.info("Writing item stack to NBT | Slot: " + i + ", Stack: " + stack.toString());
                 NBTTagCompound tag = new NBTTagCompound();
                 tag.setInteger("Slot", i);
                 stack.writeToNBT(tag);

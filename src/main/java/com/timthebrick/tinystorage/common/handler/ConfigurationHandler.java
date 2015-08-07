@@ -26,12 +26,9 @@ public class ConfigurationHandler {
 			TinyStorageLog.info("In a development environment, re-generating default configuration file.");
 			if (configFile.exists()) {
 				configFile.delete();
-				config = new Configuration(configFile);
-				loadConfig();
-			} else {
-				config = new Configuration(configFile);
-				loadConfig();
 			}
+			config = new Configuration(configFile);
+			loadConfig();
 		} else {
 			if (config == null) {
 				config = new Configuration(configFile);

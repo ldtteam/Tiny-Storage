@@ -3,8 +3,10 @@ package com.timthebrick.tinystorage.common.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.timthebrick.tinystorage.common.block.*;
+import com.timthebrick.tinystorage.common.block.material.BlockBlueLog;
+import com.timthebrick.tinystorage.common.block.material.BlockDenseMaterial;
 import com.timthebrick.tinystorage.common.block.storage.BlockBookCase;
+import com.timthebrick.tinystorage.common.block.storage.BlockDraw;
 import com.timthebrick.tinystorage.common.block.storage.BlockPiggyBank;
 import com.timthebrick.tinystorage.common.block.storage.chests.*;
 import com.timthebrick.tinystorage.common.item.block.*;
@@ -149,6 +151,18 @@ public class ModBlocks {
     public static Block blockBookCaseBirchPlank = new BlockBookCase(Material.wood, "BirchPlank");
     public static Block blockBookCaseJunglePlank = new BlockBookCase(Material.wood, "JunglePlank");
     public static Block blockBookCaseSprucePlank = new BlockBookCase(Material.wood, "SprucePlank");
+    
+    //Draws
+    public static Block blockDrawOakLog = new BlockDraw(Material.wood, "OakLog");
+    public static Block blockDrawAcaciaLog = new BlockDraw(Material.wood, "AcaciaLog");
+    public static Block blockDrawBirchLog = new BlockDraw(Material.wood, "BirchLog");
+    public static Block blockDrawJungleLog = new BlockDraw(Material.wood, "JungleLog");
+    public static Block blockDrawSpruceLog = new BlockDraw(Material.wood, "SpruceLog");
+    public static Block blockDrawOakPlank = new BlockDraw(Material.wood, "OakPlank");
+    public static Block blockDrawAcaciaPlank = new BlockDraw(Material.wood, "AcaciaPlank");
+    public static Block blockDrawBirchPlank = new BlockDraw(Material.wood, "BirchPlank");
+    public static Block blockDrawJunglePlank = new BlockDraw(Material.wood, "JunglePlank");
+    public static Block blockDrawSprucePlank = new BlockDraw(Material.wood, "SprucePlank");
 
 	// Misc Storage
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
@@ -292,6 +306,18 @@ public class ModBlocks {
         registerBlock(blockBookCaseBirchPlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "BirchPlank");
         registerBlock(blockBookCaseJunglePlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "JunglePlank");
         registerBlock(blockBookCaseSprucePlank, ItemBlockBookCase.class, Names.Blocks.BOOKCASE + "SprucePlank");
+
+        //Draws
+        registerBlock(blockDrawOakLog, ItemBlockDraw.class, Names.Blocks.DRAW + "OakLog");
+        registerBlock(blockDrawAcaciaLog, ItemBlockDraw.class, Names.Blocks.DRAW + "AcaciaLog");
+        registerBlock(blockDrawBirchLog, ItemBlockDraw.class, Names.Blocks.DRAW + "BirchLog");
+        registerBlock(blockDrawJungleLog, ItemBlockDraw.class, Names.Blocks.DRAW + "JungleLog");
+        registerBlock(blockDrawSpruceLog, ItemBlockDraw.class, Names.Blocks.DRAW + "SpruceLog");
+        registerBlock(blockDrawOakPlank, ItemBlockDraw.class, Names.Blocks.DRAW + "OakPlank");
+        registerBlock(blockDrawAcaciaPlank, ItemBlockDraw.class, Names.Blocks.DRAW + "AcaciaPlank");
+        registerBlock(blockDrawBirchPlank, ItemBlockDraw.class, Names.Blocks.DRAW + "BirchPlank");
+        registerBlock(blockDrawJunglePlank, ItemBlockDraw.class, Names.Blocks.DRAW + "JunglePlank");
+        registerBlock(blockDrawSprucePlank, ItemBlockDraw.class, Names.Blocks.DRAW + "SprucePlank");
 
 		// Misc Storage
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);

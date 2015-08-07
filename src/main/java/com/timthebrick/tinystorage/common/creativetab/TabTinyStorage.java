@@ -12,7 +12,7 @@ public class TabTinyStorage {
 	public static final CreativeTabs creativeTab = new CreativeTabs(References.MOD_ID.toLowerCase()) {
 		@Override
 		public Item getTabIconItem () {
-			return new ItemStack(ModBlocks.blockWoolChestLarge, 1, 9).getItem();
+			return new ItemStack(ModBlocks.blockImpossibleChest).getItem();
 		}
 	};
 }

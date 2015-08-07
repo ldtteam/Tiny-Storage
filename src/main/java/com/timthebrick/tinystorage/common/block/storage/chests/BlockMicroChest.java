@@ -93,7 +93,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
 			return true;
 		} else {

@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.common.block;
+package com.timthebrick.tinystorage.common.block.material;
 
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.Names;

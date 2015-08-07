@@ -56,7 +56,7 @@ public abstract class BlockClayChest extends BlockContainer implements ITileEnti
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) || (player.isSneaking() && player.getHeldItem() != null)) {
 			return true;
 		} else {

@@ -171,6 +171,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
+        this.drawBG(0, 0, x, y);
     }
 
     public void drawFG(int ox, int oy, int x, int y) {

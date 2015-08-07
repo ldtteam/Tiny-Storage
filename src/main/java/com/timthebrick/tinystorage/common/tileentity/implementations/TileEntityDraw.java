@@ -20,6 +20,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     private ItemStack[] inventory;
     private int[] sides;
     private boolean playSoundEvent;
+    public int rowOpened;
 
     public TileEntityDraw () {
         super();

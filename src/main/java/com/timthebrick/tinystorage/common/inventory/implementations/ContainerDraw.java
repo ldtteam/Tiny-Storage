@@ -28,14 +28,18 @@ public class ContainerDraw extends ContainerTinyStorage {
 		chestInventoryColumns = INVENTORY_COLUMNS;
 
 		// Add slots to inventory
-		for (int i = 0; i < 3; i++) {
-			this.addSlotToContainer(new SlotTinyStorage(tileEntity, i, 62 + (18 * i), 12));
-		}
-		for (int i = 0; i < 3; i++) {
-			this.addSlotToContainer(new SlotTinyStorage(tileEntity, 3 + i, 62 + (18 * i), 34));
-		}
-		for (int i = 0; i < 3; i++) {
-			this.addSlotToContainer(new SlotTinyStorage(tileEntity, 6 + i, 62 + (18 * i), 56));
+		if(tileEntity.rowOpened == 0) {
+			for (int i = 0; i < 3; i++) {
+				this.addSlotToContainer(new SlotTinyStorage(tileEntity, i, 62 + (18 * i), 12));
+			}
+		}else if(tileEntity.rowOpened == 1) {
+			for (int i = 0; i < 3; i++) {
+				this.addSlotToContainer(new SlotTinyStorage(tileEntity, 3 + i, 62 + (18 * i), 34));
+			}
+		}else if(tileEntity.rowOpened == 2) {
+			for (int i = 0; i < 3; i++) {
+				this.addSlotToContainer(new SlotTinyStorage(tileEntity, 6 + i, 62 + (18 * i), 56));
+			}
 		}
 
 		// Add player inventory to inventory

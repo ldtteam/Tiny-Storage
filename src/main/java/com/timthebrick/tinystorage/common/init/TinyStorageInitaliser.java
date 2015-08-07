@@ -76,5 +76,6 @@ public class TinyStorageInitaliser {
             }
         }
         TinyStorageLog.info("Colour mapping done after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        watch.stop();
     }
 }

@@ -35,7 +35,7 @@ public class PlayerEventHandler {
 			if (!PlayerHelper.isPlayerFake(player)) {
 				if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
 					if (TinyStorage.instance.developmentEnvironment) {
-						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Block");
+						//TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Block");
 					}
 					Block block = world.getBlock(x, y, z);
 					TileEntity te = world.getTileEntity(x, y, z);
@@ -65,11 +65,11 @@ public class PlayerEventHandler {
 					}
 				} else if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
 					if (TinyStorage.instance.developmentEnvironment) {
-						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Left Click Block");
+						//TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Left Click Block");
 					}
 				} else if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
 					if (TinyStorage.instance.developmentEnvironment) {
-						TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Air");
+						//TinyStorageLog.info("Trying to handle a PlayerInteractEvent - Right Click Air");
 					}
 				}
 			}
