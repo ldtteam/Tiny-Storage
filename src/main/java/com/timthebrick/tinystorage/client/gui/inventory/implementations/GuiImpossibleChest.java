@@ -3,7 +3,6 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageScrollBar;
@@ -127,7 +126,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     }
 
     @Override
-    public void handleWidgetFunctionality(IGuiWidget widget) {
+    public void handleWidgetFunctionality(IGuiWidgetAdvanced widget) {
         if (this.container instanceof IWidgetReceptor) {
             if (widget instanceof GuiScrollBar) {
                 PacketHandler.INSTANCE.sendToServer(new MessageScrollBar(Minecraft.getMinecraft().thePlayer, ((GuiScrollBar) widget).getScrollPos(), this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord));

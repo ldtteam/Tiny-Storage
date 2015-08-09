@@ -31,7 +31,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
      */
     protected int yOrigin;
     /**
-     * The widget provider for this IGuiWidget
+     * The widget provider for this IGuiWidgetAdvanced
      */
     protected IWidgetProvider widgetProvider;
     /**

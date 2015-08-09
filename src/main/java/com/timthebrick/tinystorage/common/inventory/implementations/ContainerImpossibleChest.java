@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.common.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.GuiScrollBar;
-import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
+import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidgetAdvanced;
 import com.timthebrick.tinystorage.client.gui.widgets.IWidgetReceptor;
 import com.timthebrick.tinystorage.common.inventory.ContainerTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.slot.SlotTinyStorage;
@@ -103,7 +103,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
     }
 
     @Override
-    public void handleWidgetInteraction(IGuiWidget widget) {
+    public void handleWidgetInteraction(IGuiWidgetAdvanced widget) {
         if (tileEntity.getWorldObj().isRemote) {
             if (widget instanceof GuiScrollBar) {
                 GuiScrollBar scrollBar = (GuiScrollBar) widget;

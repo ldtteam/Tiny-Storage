@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import net.minecraft.client.gui.GuiScreen;
 
-public interface IGuiAnimation extends IGuiWidget {
+public interface IGuiAnimation extends IGuiWidgetAdvanced {
 
     int backgroundTextureX();
 

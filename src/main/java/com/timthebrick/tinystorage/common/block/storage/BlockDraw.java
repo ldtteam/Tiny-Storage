@@ -1,10 +1,13 @@
 package com.timthebrick.tinystorage.common.block.storage;
 
-import java.awt.*;
-import java.util.Random;
-
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
+import com.timthebrick.tinystorage.common.reference.GUIs;
 import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.reference.RenderIDs;
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -24,13 +27,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.common.reference.GUIs;
-import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.common.reference.RenderIDs;
-import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
+import java.util.Random;
 
 public class BlockDraw extends BlockContainer {
 

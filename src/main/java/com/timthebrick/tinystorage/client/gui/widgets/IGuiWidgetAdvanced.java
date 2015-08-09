@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import net.minecraft.client.gui.GuiScreen;
 
-public interface IGuiWidget extends IGuiWidgetSimple{
+public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
 
     /**
      * x Location for the object.

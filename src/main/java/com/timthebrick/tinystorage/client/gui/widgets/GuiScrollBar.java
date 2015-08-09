@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class GuiScrollBar extends Gui implements IGuiWidget {
+public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
 
     /**
      * The current height the bar is scrolled to
@@ -60,7 +60,7 @@ public class GuiScrollBar extends Gui implements IGuiWidget {
      */
     private Rectangle containerArea;
     /**
-     * The widget provider for this IGuiWidget
+     * The widget provider for this IGuiWidgetAdvanced
      */
     private IWidgetProvider widgetProvider;
     /**

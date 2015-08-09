@@ -31,6 +31,6 @@ public interface IWidgetProvider extends IGuiScreenAdvanced {
     /**
      * Called whenever a widget does something
      */
-    void handleWidgetFunctionality(IGuiWidget widget);
+    void handleWidgetFunctionality(IGuiWidgetAdvanced widget);
 
 }

@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.client.gui.inventory;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
@@ -16,7 +17,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     public Container container;
     private GuiImageButton accessMode;
     private TileEntityTinyStorage tileEntity;
-    protected List<IGuiWidget> widgets = new ArrayList<IGuiWidget>();
+    protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
     protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
 
     public GuiTinyStorage(Container container, TileEntityTinyStorage te) {
@@ -56,17 +56,23 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
                 }
             }
         }
+        for (IGuiWidgetAdvanced widget : widgets) {
+            if (widget instanceof IGuiWidgetBackground) {
+                // TinyStorageLog.info(getGuiLeft() + ", " + getXSize() + " | " + getGuiTop() + ", " + getYSize());
+                widget.drawWidget(this, xSize, ySize);
+            }
+        }
     }
 
     @Override
     public void updateScreen() {
-        for (IGuiWidget widget : widgets) {
+        for (IGuiWidgetAdvanced widget : widgets) {
             widget.updateWidget();
         }
         super.updateScreen();
     }
 
-    public void drawTooltip(int par2, int par3, int forceWidth, String Msg) {
+    public void drawTooltip(int x, int y, int forceWidth, String Msg) {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
@@ -83,8 +89,8 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
                     var5 = var7;
                 }
             }
-            var6 = par2 + 12;
-            var7 = par3 - 12;
+            var6 = x + 12;
+            var7 = y - 12;
             int var9 = 8;
             if (var4.length > 1) {
                 var9 += 2 + (var4.length - 1) * 10;
@@ -178,7 +184,10 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         if (this.accessMode != null) {
             this.accessMode.set(this.tileEntity.accessMode);
         }
-        for (IGuiWidget widget : this.widgets) {
+        for (IGuiWidgetAdvanced widget : this.widgets) {
+            if (widget instanceof IGuiWidgetBackground) {
+                continue;
+            }
             if (widget.isVisible()) {
                 widget.drawWidget(this, xSize, ySize);
             }
@@ -215,7 +224,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     @Override
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
-            for (IGuiWidget widget : widgets) {
+            for (IGuiWidgetAdvanced widget : widgets) {
                 widget.mouseClicked(xCoord, yCoord, btn);
             }
         }
@@ -243,7 +252,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     protected void mouseWheelEvent(int x, int y, int delta) {
         if (!widgets.isEmpty()) {
-            for (IGuiWidget widget : widgets) {
+            for (IGuiWidgetAdvanced widget : widgets) {
                 widget.mouseWheel(x, y, delta);
             }
         }
@@ -253,11 +262,11 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     public void addWidget(IGuiWidgetSimple widget) {
         if (widget instanceof IGuiAnimation) {
             animations.add((IGuiAnimation) widget);
-            widgets.add((IGuiWidget) widget);
-            ((IGuiWidget) widget).adjustPosition();
+            widgets.add((IGuiWidgetAdvanced) widget);
+            ((IGuiWidgetAdvanced) widget).adjustPosition();
         } else {
-            widgets.add((IGuiWidget) widget);
-            ((IGuiWidget) widget).adjustPosition();
+            widgets.add((IGuiWidgetAdvanced) widget);
+            ((IGuiWidgetAdvanced) widget).adjustPosition();
         }
     }
 
@@ -272,7 +281,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     }
 
     @Override
-    public void handleWidgetFunctionality(IGuiWidget widget) {
+    public void handleWidgetFunctionality(IGuiWidgetAdvanced widget) {
     }
 
     @Override

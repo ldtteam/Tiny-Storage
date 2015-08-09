@@ -1,13 +1,12 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.References;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-public class GuiSlot extends Gui implements IGuiWidget {
+public class GuiSlot extends Gui implements IGuiWidgetBackground {
 
     /**
      * True if this control is enabled, false to disable.
@@ -34,7 +33,7 @@ public class GuiSlot extends Gui implements IGuiWidget {
      */
     protected int yOrigin;
     /**
-     * The widget provider for this IGuiWidget
+     * The widget provider for this IGuiWidgetAdvanced
      */
     protected IWidgetProvider widgetProvider;
 
@@ -49,7 +48,7 @@ public class GuiSlot extends Gui implements IGuiWidget {
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         GL11.glColor3f(1.0F, 1.0F, 1.0F);
         guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
-        this.drawTexturedModalRect(xOrigin, yOrigin, 0, 14, getWidth(), getHeight());
+        this.drawTexturedModalRect(xPosition, yPosition, 0, 14, getWidth(), getHeight());
     }
 
     @Override

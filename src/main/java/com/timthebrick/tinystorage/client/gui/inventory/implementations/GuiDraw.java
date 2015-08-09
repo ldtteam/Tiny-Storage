@@ -1,9 +1,8 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.GuiSlot;
-import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidget;
+import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidgetAdvanced;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Colours;
 import org.lwjgl.opengl.GL11;
@@ -13,7 +12,6 @@ import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -80,7 +78,7 @@ public class GuiDraw extends GuiTinyStorage {
 
     @Override
     public void handleWidgetVisibility() {
-        for (IGuiWidget widget : this.widgets) {
+        for (IGuiWidgetAdvanced widget : this.widgets) {
             if (widget instanceof GuiSlot) {
                 widget.setVisibility(true);
             }
