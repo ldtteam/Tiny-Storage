@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.common.block.storage;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.GUIs;
 import com.timthebrick.tinystorage.common.reference.Names;
@@ -61,47 +62,44 @@ public class BlockDraw extends BlockContainer {
         return RenderIDs.draw;
     }
 
-    /*
-    [14:42:04] [Client thread/INFO] [Tiny Storage]: 0.49209595, 0.7013855, 0.0
-    [14:42:04] [Client thread/INFO] [Tiny Storage]: NORTH
-    [14:42:05] [Client thread/INFO] [Tiny Storage]: 1.0, 0.7095413, 0.4985962
-    [14:42:05] [Client thread/INFO] [Tiny Storage]: EAST
-    [14:42:06] [Client thread/INFO] [Tiny Storage]: 0.47946167, 0.70111465, 1.0
-    [14:42:06] [Client thread/INFO] [Tiny Storage]: SOUTH
-    [14:42:07] [Client thread/INFO] [Tiny Storage]: 0.0, 0.7023468, 0.5088806
-    [14:42:07] [Client thread/INFO] [Tiny Storage]: WEST
-     */
-
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
-        /*
-        if (world.isRemote) {
-            TinyStorageLog.info(subX + ", " + subY + ", " + subZ);
-            if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
-                TileEntityDraw tileEntity = (TileEntityDraw) world.getTileEntity(x, y, z);
-                TinyStorageLog.info(tileEntity.getOrientation().toString());
-            }
-        }
-        */
         if ((player.isSneaking() && player.getCurrentEquippedItem() != null) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
             return true;
         } else {
             if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
                 TileEntityDraw tileEntityDraw = (TileEntityDraw) world.getTileEntity(x, y, z);
-                if (tileEntityDraw.getOrientation() == ForgeDirection.NORTH) {
-                    if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 10 && subY <= (1F / 16) * 12) {
+                if ((tileEntityDraw.getOrientation() == ForgeDirection.NORTH && subZ == (1F / 16)) || (tileEntityDraw.getOrientation() == ForgeDirection.SOUTH && subZ == (1F / 16) * 14)) {
+                    if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 10 && subY < (1F / 16) * 13) {
                         tileEntityDraw.rowOpened = 0;
-                        if(!world.isRemote) {
+                        if (!world.isRemote) {
                             player.openGui(TinyStorage.instance, GUIs.DRAW.ordinal(), world, x, y, z);
                         }
-                    } else if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 6 && subY <= (1F / 16) * 8) {
+                    } else if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 6 && subY < (1F / 16) * 9) {
                         tileEntityDraw.rowOpened = 1;
-                        if(!world.isRemote) {
+                        if (!world.isRemote) {
                             player.openGui(TinyStorage.instance, GUIs.DRAW.ordinal(), world, x, y, z);
                         }
-                    } else if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 2 && subY <= (1F / 16) * 4) {
+                    } else if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 2 && subY < (1F / 16) * 5) {
                         tileEntityDraw.rowOpened = 2;
-                        if(!world.isRemote) {
+                        if (!world.isRemote) {
+                            player.openGui(TinyStorage.instance, GUIs.DRAW.ordinal(), world, x, y, z);
+                        }
+                    }
+                } else if ((tileEntityDraw.getOrientation() == ForgeDirection.EAST && subX == (1F / 16) * 14) || (tileEntityDraw.getOrientation() == ForgeDirection.WEST) && subX == (1F / 16)) {
+                    if (subZ >= (1F / 16) * 2 && subZ <= (1F / 16) * 14 && subY >= (1F / 16) * 10 && subY < (1F / 16) * 13) {
+                        tileEntityDraw.rowOpened = 0;
+                        if (!world.isRemote) {
+                            player.openGui(TinyStorage.instance, GUIs.DRAW.ordinal(), world, x, y, z);
+                        }
+                    } else if (subZ >= (1F / 16) * 2 && subZ <= (1F / 16) * 14 && subY >= (1F / 16) * 6 && subY < (1F / 16) * 9) {
+                        tileEntityDraw.rowOpened = 1;
+                        if (!world.isRemote) {
+                            player.openGui(TinyStorage.instance, GUIs.DRAW.ordinal(), world, x, y, z);
+                        }
+                    } else if (subZ >= (1F / 16) * 2 && subZ <= (1F / 16) * 14 && subY >= (1F / 16) * 2 && subY < (1F / 16) * 5) {
+                        tileEntityDraw.rowOpened = 2;
+                        if (!world.isRemote) {
                             player.openGui(TinyStorage.instance, GUIs.DRAW.ordinal(), world, x, y, z);
                         }
                     }
@@ -139,40 +137,30 @@ public class BlockDraw extends BlockContainer {
             } else if (facing == 3) {
                 direction = ForgeDirection.WEST.ordinal();
             }
-
             if (itemStack.hasDisplayName()) {
                 ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
             }
-
             ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
         }
     }
 
     protected void dropInventory(World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
-
         if (!(tileEntity instanceof IInventory)) {
             return;
         }
-
         IInventory inventory = (IInventory) tileEntity;
-
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack itemStack = inventory.getStackInSlot(i);
-
             if (itemStack != null && itemStack.stackSize > 0) {
                 Random rand = new Random();
-
                 float dX = rand.nextFloat() * 0.8F + 0.1F;
                 float dY = rand.nextFloat() * 0.8F + 0.1F;
                 float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
                 EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
-
                 if (itemStack.hasTagCompound()) {
                     entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
                 }
-
                 float factor = 0.05F;
                 entityItem.motionX = rand.nextGaussian() * factor;
                 entityItem.motionY = rand.nextGaussian() * factor + 0.2F;

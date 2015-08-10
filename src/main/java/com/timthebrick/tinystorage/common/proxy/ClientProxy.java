@@ -164,6 +164,18 @@ public class ClientProxy extends CommonProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseBirchPlank), new ItemRendererBookCase("BirchPlank"));
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseJunglePlank), new ItemRendererBookCase("JunglePlank"));
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseSprucePlank), new ItemRendererBookCase("SprucePlank"));
+
+		//Draws
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakLog), new ItemRendererDraw("OakLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaLog), new ItemRendererDraw("AcaciaLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchLog), new ItemRendererDraw("BirchLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJungleLog), new ItemRendererDraw("JungleLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSpruceLog), new ItemRendererDraw("SpruceLog"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakPlank), new ItemRendererDraw("OakPlank"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaPlank), new ItemRendererDraw("AcaciaPlank"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchPlank), new ItemRendererDraw("BirchPlank"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJunglePlank), new ItemRendererDraw("JunglePlank"));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSprucePlank), new ItemRendererDraw("SprucePlank"));
 		
 		// Misc
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());

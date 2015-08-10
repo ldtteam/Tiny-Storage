@@ -1,7 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.GuiSlot;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidgetAdvanced;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Colours;
@@ -31,20 +30,6 @@ public class GuiDraw extends GuiTinyStorage {
 
     @Override
     public void addWidgets() {
-        TinyStorageLog.info(tileEntity.rowOpened);
-        for (int i = 0; i < 3; i++) {
-            TinyStorageLog.info(i);
-            if (tileEntity.rowOpened == 0) {
-                GuiSlot slot = new GuiSlot(this, 61 + i * 18, 11);
-                this.addWidget(slot);
-            } else if (tileEntity.rowOpened == 1) {
-                GuiSlot slot = new GuiSlot(this, 61 + i * 18, 33);
-                this.addWidget(slot);
-            } else if (tileEntity.rowOpened == 2) {
-                GuiSlot slot = new GuiSlot(this, 61 + i * 18, 55);
-                this.addWidget(slot);
-            }
-        }
         super.addWidgets();
     }
 
@@ -58,7 +43,15 @@ public class GuiDraw extends GuiTinyStorage {
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw.png"));
+        if(this.tileEntity.rowOpened == 0){
+            this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw_1.png"));
+        }else if(this.tileEntity.rowOpened == 1){
+            this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw_2.png"));
+        }else if(this.tileEntity.rowOpened == 2){
+            this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw_3.png"));
+        }else{
+            this.mc.thePlayer.closeScreen();
+        }
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
         drawBG(0, 0, x, y);
@@ -78,11 +71,6 @@ public class GuiDraw extends GuiTinyStorage {
 
     @Override
     public void handleWidgetVisibility() {
-        for (IGuiWidgetAdvanced widget : this.widgets) {
-            if (widget instanceof GuiSlot) {
-                widget.setVisibility(true);
-            }
-        }
     }
 
     @Override

@@ -38,6 +38,12 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     public void drawScreen(int mouseX, int mouseY, float btn) {
         super.drawScreen(mouseX, mouseY, btn);
         boolean hasClicked = Mouse.isButtonDown(0);
+        for (IGuiWidgetAdvanced widget : widgets) {
+            if (widget instanceof IGuiWidgetBackground) {
+                // TinyStorageLog.info(getGuiLeft() + ", " + getXSize() + " | " + getGuiTop() + ", " + getYSize());
+                widget.drawWidget(this, xSize, ySize);
+            }
+        }
         for (Object c : this.buttonList) {
             if (c instanceof IButtonTooltip) {
                 IButtonTooltip tooltip = (IButtonTooltip) c;
@@ -54,12 +60,6 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
                         }
                     }
                 }
-            }
-        }
-        for (IGuiWidgetAdvanced widget : widgets) {
-            if (widget instanceof IGuiWidgetBackground) {
-                // TinyStorageLog.info(getGuiLeft() + ", " + getXSize() + " | " + getGuiTop() + ", " + getYSize());
-                widget.drawWidget(this, xSize, ySize);
             }
         }
     }
