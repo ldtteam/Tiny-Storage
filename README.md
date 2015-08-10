@@ -6,17 +6,22 @@ Dev: [![Build Status](https://travis-ci.org/Tim020/Tiny-Storage.svg?branch=Dev)]
 Minecraft Mod:- Adds tiny storage options to the game!
 
 CurseForge link: 
+
 http://minecraft.curseforge.com/mc-mods/227712-tiny-storage
 
 Mods.IO link: 
+
 https://mods.io/mods/1138-tiny-storage
 
 Nightly builds (may not be stable!): 
+
 http://mavenrepo.orionminecraft.com/com/timthebrick/tinystorage/
 
 Find me on Espernet: 
+
 #TinyStorage
 
 Thanks:
-OrionDevelopment: 
- - https://github.com/OrionDevelopment
+
+ - OrionDevelopment: 
+  - https://github.com/OrionDevelopment
