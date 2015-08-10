@@ -8,6 +8,7 @@ public class Names {
 		public static final String FILTER_CHEST = "filterChest";
 		public static final String FILTER_CHEST_LOCKED = "filterChestLocked";
 		public static final String DRAW = "draw";
+		public static final String DRAW_LOCKED = "drawLocked";
 		public static final String TRASH_CHEST = "trashChest";
 		public static final String MICRO_CHEST = "microChest";
 		public static final String MICRO_CHEST_LOCKED = "microChestLocked";
@@ -33,6 +34,7 @@ public class Names {
         public static final String FILTER_CHEST = "blockFilterChest";
         public static final String FILTER_CHEST_LOCKED = "blockFilterChestLocked";
         public static final String DRAW = "blockDraw";
+		public static final String DRAW_LOCKED = "blockDrawLocked";
         public static final String TRASH_CHEST = "blockTrashChest";
         public static final String MICRO_CHEST = "blockMicroChest";
         public static final String MICRO_CHEST_LOCKED = "blockMicroChestLocked";
@@ -96,6 +98,7 @@ public class Names {
 		public static final String FILTER_CHEST = "container.tinystorage:" + Blocks.FILTER_CHEST;
 		public static final String FILTER_CHEST_LOCKED = "container.tinystorage:" + Blocks.FILTER_CHEST_LOCKED;
 		public static final String DRAW = "container.tinystorage:" + Blocks.DRAW;
+        public static final String DRAW_LOCKED = "container.tinystorage:" + Blocks.DRAW_LOCKED;
 		public static final String TRASH_CHEST = "container.tinystorage:" + Blocks.TRASH_CHEST;
 		public static final String MICRO_CHEST = "container.tinystorage:" + Blocks.MICRO_CHEST;
 		public static final String MICRO_CHEST_LOCKED = "container.tinystorage:" + Blocks.MICRO_CHEST_LOCKED;

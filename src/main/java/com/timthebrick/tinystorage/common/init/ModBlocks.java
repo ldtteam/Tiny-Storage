@@ -153,16 +153,27 @@ public class ModBlocks {
     public static Block blockBookCaseSprucePlank = new BlockBookCase(Material.wood, "SprucePlank");
     
     //Draws
-    public static Block blockDrawOakLog = new BlockDraw(Material.wood, "OakLog");
-    public static Block blockDrawAcaciaLog = new BlockDraw(Material.wood, "AcaciaLog");
-    public static Block blockDrawBirchLog = new BlockDraw(Material.wood, "BirchLog");
-    public static Block blockDrawJungleLog = new BlockDraw(Material.wood, "JungleLog");
-    public static Block blockDrawSpruceLog = new BlockDraw(Material.wood, "SpruceLog");
-    public static Block blockDrawOakPlank = new BlockDraw(Material.wood, "OakPlank");
-    public static Block blockDrawAcaciaPlank = new BlockDraw(Material.wood, "AcaciaPlank");
-    public static Block blockDrawBirchPlank = new BlockDraw(Material.wood, "BirchPlank");
-    public static Block blockDrawJunglePlank = new BlockDraw(Material.wood, "JunglePlank");
-    public static Block blockDrawSprucePlank = new BlockDraw(Material.wood, "SprucePlank");
+    public static Block blockDrawOakLog = new BlockDraw(Material.wood, "OakLog", false);
+    public static Block blockDrawAcaciaLog = new BlockDraw(Material.wood, "AcaciaLog", false);
+    public static Block blockDrawBirchLog = new BlockDraw(Material.wood, "BirchLog", false);
+    public static Block blockDrawJungleLog = new BlockDraw(Material.wood, "JungleLog", false);
+    public static Block blockDrawSpruceLog = new BlockDraw(Material.wood, "SpruceLog", false);
+    public static Block blockDrawOakPlank = new BlockDraw(Material.wood, "OakPlank", false);
+    public static Block blockDrawAcaciaPlank = new BlockDraw(Material.wood, "AcaciaPlank", false);
+    public static Block blockDrawBirchPlank = new BlockDraw(Material.wood, "BirchPlank", false);
+    public static Block blockDrawJunglePlank = new BlockDraw(Material.wood, "JunglePlank", false);
+    public static Block blockDrawSprucePlank = new BlockDraw(Material.wood, "SprucePlank", false);
+
+	public static Block blockDrawOakLogLocked = new BlockDraw(Material.wood, "OakLog", true);
+	public static Block blockDrawAcaciaLogLocked = new BlockDraw(Material.wood, "AcaciaLog", true);
+	public static Block blockDrawBirchLogLocked = new BlockDraw(Material.wood, "BirchLog", true);
+	public static Block blockDrawJungleLogLocked = new BlockDraw(Material.wood, "JungleLog", true);
+	public static Block blockDrawSpruceLogLocked = new BlockDraw(Material.wood, "SpruceLog", true);
+	public static Block blockDrawOakPlankLocked = new BlockDraw(Material.wood, "OakPlank", true);
+	public static Block blockDrawAcaciaPlankLocked = new BlockDraw(Material.wood, "AcaciaPlank", true);
+	public static Block blockDrawBirchPlankLocked = new BlockDraw(Material.wood, "BirchPlank", true);
+	public static Block blockDrawJunglePlankLocked = new BlockDraw(Material.wood, "JunglePlank", true);
+	public static Block blockDrawSprucePlankLocked = new BlockDraw(Material.wood, "SprucePlank", true);
 
 	// Misc Storage
 	public static Block blockTrashChest = new BlockTrashChest(Material.rock);
@@ -318,6 +329,17 @@ public class ModBlocks {
         registerBlock(blockDrawBirchPlank, ItemBlockDraw.class, Names.Blocks.DRAW + "BirchPlank");
         registerBlock(blockDrawJunglePlank, ItemBlockDraw.class, Names.Blocks.DRAW + "JunglePlank");
         registerBlock(blockDrawSprucePlank, ItemBlockDraw.class, Names.Blocks.DRAW + "SprucePlank");
+
+		registerBlock(blockDrawOakLogLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "OakLog");
+		registerBlock(blockDrawAcaciaLogLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "AcaciaLog");
+		registerBlock(blockDrawBirchLogLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "BirchLog");
+		registerBlock(blockDrawJungleLogLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "JungleLog");
+		registerBlock(blockDrawSpruceLogLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "SpruceLog");
+		registerBlock(blockDrawOakPlankLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "OakPlank");
+		registerBlock(blockDrawAcaciaPlankLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "AcaciaPlank");
+		registerBlock(blockDrawBirchPlankLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "BirchPlank");
+		registerBlock(blockDrawJunglePlankLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "JunglePlank");
+		registerBlock(blockDrawSprucePlankLocked, ItemBlockDraw.class, Names.Blocks.DRAW_LOCKED + "SprucePlank");
 
 		// Misc Storage
 		registerBlock(blockTrashChest, ItemBlockTrashChest.class, Names.Blocks.TRASH_CHEST);

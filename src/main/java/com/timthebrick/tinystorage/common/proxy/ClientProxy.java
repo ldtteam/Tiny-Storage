@@ -165,17 +165,28 @@ public class ClientProxy extends CommonProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseJunglePlank), new ItemRendererBookCase("JunglePlank"));
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockBookCaseSprucePlank), new ItemRendererBookCase("SprucePlank"));
 
-		//Draws
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakLog), new ItemRendererDraw("OakLog"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaLog), new ItemRendererDraw("AcaciaLog"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchLog), new ItemRendererDraw("BirchLog"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJungleLog), new ItemRendererDraw("JungleLog"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSpruceLog), new ItemRendererDraw("SpruceLog"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakPlank), new ItemRendererDraw("OakPlank"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaPlank), new ItemRendererDraw("AcaciaPlank"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchPlank), new ItemRendererDraw("BirchPlank"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJunglePlank), new ItemRendererDraw("JunglePlank"));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSprucePlank), new ItemRendererDraw("SprucePlank"));
+		//Draws - Unlocked
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakLog), new ItemRendererDraw("OakLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaLog), new ItemRendererDraw("AcaciaLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchLog), new ItemRendererDraw("BirchLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJungleLog), new ItemRendererDraw("JungleLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSpruceLog), new ItemRendererDraw("SpruceLog", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakPlank), new ItemRendererDraw("OakPlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaPlank), new ItemRendererDraw("AcaciaPlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchPlank), new ItemRendererDraw("BirchPlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJunglePlank), new ItemRendererDraw("JunglePlank", false));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSprucePlank), new ItemRendererDraw("SprucePlank", false));
+
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakLogLocked), new ItemRendererDraw("OakLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaLogLocked), new ItemRendererDraw("AcaciaLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchLogLocked), new ItemRendererDraw("BirchLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJungleLogLocked), new ItemRendererDraw("JungleLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSpruceLogLocked), new ItemRendererDraw("SpruceLog", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawOakPlankLocked), new ItemRendererDraw("OakPlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawAcaciaPlankLocked), new ItemRendererDraw("AcaciaPlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawBirchPlankLocked), new ItemRendererDraw("BirchPlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawJunglePlankLocked), new ItemRendererDraw("JunglePlank", true));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockDrawSprucePlankLocked), new ItemRendererDraw("SprucePlank", true));
 		
 		// Misc
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.blockTrashChest), new ItemRendererTrashChest());

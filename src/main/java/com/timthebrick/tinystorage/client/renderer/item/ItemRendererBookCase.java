@@ -54,7 +54,7 @@ public class ItemRendererBookCase implements IItemRenderer {
                 break;
             }
             case INVENTORY: {
-                renderBookCase(0.25F + transX, -0.6F + transY, 0.0F + transZ, scale);
+                renderBookCase(0.25F + transX, -0.95F + transY, 0.0F + transZ, scale);
                 break;
             }
             default:

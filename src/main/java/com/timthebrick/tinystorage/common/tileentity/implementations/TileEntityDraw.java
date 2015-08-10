@@ -76,7 +76,13 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
 
     @Override
     public String getInventoryName () {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.DRAW;
+        if (this.hasCustomName()) {
+            return this.getCustomName();
+        } else if (this.hasUniqueOwner()) {
+            return Names.Containers.DRAW_LOCKED;
+        } else {
+            return Names.Containers.DRAW;
+        }
     }
 
     @Override

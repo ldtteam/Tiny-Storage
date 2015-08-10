@@ -15,10 +15,12 @@ public class ItemRendererDraw implements IItemRenderer {
 
 	private final ModelDraw modelDraw;
 	private String textureName;
+    private boolean isLocked;
 
-	public ItemRendererDraw(String textureName) {
+	public ItemRendererDraw(String textureName, boolean isLocked) {
 		modelDraw = new ModelDraw();
 		this.textureName = textureName;
+        this.isLocked = isLocked;
 	}
 
 	@Override
@@ -38,7 +40,11 @@ public class ItemRendererDraw implements IItemRenderer {
 		// Translating
 		float transX = 0F, transY = 0F, transZ = 0F;
 
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/draws/draw" + textureName + ".png"));
+        if(!isLocked) {
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/draws/unlocked/draw" + textureName + ".png"));
+        }else{
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/draws/locked/draw" + textureName + ".png"));
+        }
 
 		switch (type) {
 		case ENTITY: {
@@ -57,7 +63,7 @@ public class ItemRendererDraw implements IItemRenderer {
 			break;
 		}
 		case INVENTORY: {
-			renderDraw(0.0F + transX, -0.075F + transY, 0.0F + transZ, scale);
+			renderDraw(0.0F + transX, -1.025F + transY, 0.0F + transZ, scale);
 			break;
 		}
 		default:
