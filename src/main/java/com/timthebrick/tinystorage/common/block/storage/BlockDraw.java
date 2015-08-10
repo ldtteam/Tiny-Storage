@@ -1,14 +1,14 @@
 package com.timthebrick.tinystorage.common.block.storage;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.common.reference.GUIs;
-import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.common.reference.RenderIDs;
+import com.timthebrick.tinystorage.common.reference.*;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -33,13 +34,19 @@ import java.util.Random;
 public class BlockDraw extends BlockContainer {
 
     protected String textureName;
+    private boolean isLockable;
 
-    public BlockDraw(Material mat, String textureName) {
+    public BlockDraw(Material mat, String textureName, boolean isLockable) {
         super(mat);
         this.setHardness(2.5f);
-        this.setBlockName(Names.UnlocalisedBlocks.DRAW + textureName);
-        this.setCreativeTab(TabTinyStorage.creativeTab);
         this.textureName = textureName;
+        this.isLockable = isLockable;
+        if (!this.isLockable) {
+            this.setBlockName(Names.UnlocalisedBlocks.DRAW + this.textureName);
+        } else {
+            this.setBlockName(Names.UnlocalisedBlocks.DRAW_LOCKED + this.textureName);
+        }
+        this.setCreativeTab(TabTinyStorage.creativeTab);
     }
 
     @Override
@@ -69,6 +76,12 @@ public class BlockDraw extends BlockContainer {
         } else {
             if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
                 TileEntityDraw tileEntityDraw = (TileEntityDraw) world.getTileEntity(x, y, z);
+                if (tileEntityDraw.hasUniqueOwner()) {
+                    if (!tileEntityDraw.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                        PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
+                        return true;
+                    }
+                }
                 if ((tileEntityDraw.getOrientation() == ForgeDirection.NORTH && subZ == (1F / 16)) || (tileEntityDraw.getOrientation() == ForgeDirection.SOUTH && subZ == (1F / 16) * 14)) {
                     if (subX >= (1F / 16) * 2 && subX <= (1F / 16) * 14 && subY >= (1F / 16) * 10 && subY < (1F / 16) * 13) {
                         tileEntityDraw.rowOpened = 0;
@@ -141,6 +154,41 @@ public class BlockDraw extends BlockContainer {
                 ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
             }
             ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOrientation(direction);
+
+            if (this.isLockable) {
+                if (entityLiving instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer) entityLiving;
+                    if (!PlayerHelper.isPlayerFake(player)) {
+                        ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setUniqueOwner(entityLiving.getUniqueID().toString() + player.getDisplayName());
+                        ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setOwner(player.getDisplayName());
+                        ((TileEntityTinyStorage) world.getTileEntity(x, y, z)).setAccessMode(AccessMode.DISABLED);
+                    } else {
+                        TinyStorageLog.error("Something (not a player) just tried to place a locked chest!" + " | " + entityLiving.toString());
+                        world.removeTileEntity(x, y, z);
+                        world.setBlockToAir(x, y, z);
+                        if (itemStack != null && itemStack.stackSize > 0) {
+                            Random rand = new Random();
+
+                            float dX = rand.nextFloat() * 0.8F + 0.1F;
+                            float dY = rand.nextFloat() * 0.8F + 0.1F;
+                            float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+                            EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+
+                            if (itemStack.hasTagCompound()) {
+                                entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+                            }
+
+                            float factor = 0.05F;
+                            entityItem.motionX = rand.nextGaussian() * factor;
+                            entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+                            entityItem.motionZ = rand.nextGaussian() * factor;
+                            world.spawnEntityInWorld(entityItem);
+                            itemStack.stackSize = 0;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -194,8 +242,30 @@ public class BlockDraw extends BlockContainer {
     }
 
     @Override
+    public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
+            TileEntityDraw tileEntity = (TileEntityDraw) world.getTileEntity(x, y, z);
+            if (tileEntity.hasUniqueOwner()) {
+                if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                    return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+                } else {
+                    return -1F;
+                }
+            } else {
+                return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+            }
+        } else {
+            return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
+        }
+    }
+
+    @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
         blockIcon = iconRegister.registerIcon(References.MOD_ID.toLowerCase() + ":" + textureName);
+    }
+
+    public boolean getIsLockable(){
+        return isLockable;
     }
 
     @Override
