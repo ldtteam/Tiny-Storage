@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.util;
 import java.util.Comparator;
 import java.util.UUID;
 
-import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.common.reference.Names;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

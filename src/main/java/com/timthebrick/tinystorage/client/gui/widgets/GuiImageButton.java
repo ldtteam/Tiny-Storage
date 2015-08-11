@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
-import com.timthebrick.tinystorage.reference.Messages;
+import com.timthebrick.tinystorage.common.reference.Messages;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 
 public class GuiImageButton extends GuiButton implements IButtonTooltip {
 
@@ -64,32 +64,25 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
 	@Override
 	public void drawButton(Minecraft minecraft, int par2, int par3) {
 		if (this.visible) {
+			minecraft.renderEngine.bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiButtonImages.png"));
 			int iconIndex = this.getIconIndex();
-
 			if (this.halfSize) {
 				this.width = 8;
 				this.height = 8;
-
 				GL11.glPushMatrix();
 				GL11.glTranslatef(this.xPosition, this.yPosition, 0.0F);
 				GL11.glScalef(0.5f, 0.5f, 0.5f);
-
 				if (this.enabled) {
 					GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 				} else {
 					GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
 				}
-
-				minecraft.renderEngine.bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/ButtonImages.png"));
 				this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
-
 				int uv_y = (int) Math.floor(iconIndex / 16);
 				int uv_x = iconIndex - uv_y * 16;
-
 				this.drawTexturedModalRect(0, 0, 256 - 16, 256 - 16, 16, 16);
 				this.drawTexturedModalRect(0, 0, uv_x * 16, uv_y * 16, 16, 16);
 				this.mouseDragged(minecraft, par2, par3);
-
 				GL11.glPopMatrix();
 			} else {
 				if (this.enabled) {
@@ -97,13 +90,9 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
 				} else {
 					GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
 				}
-
-				minecraft.renderEngine.bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/ButtonImages.png"));
 				this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
-
 				int uv_y = (int) Math.floor(iconIndex / 16);
 				int uv_x = iconIndex - uv_y * 16;
-
 				this.drawTexturedModalRect(this.xPosition, this.yPosition, 256 - 16, 256 - 16, 16, 16);
 				this.drawTexturedModalRect(this.xPosition, this.yPosition, uv_x * 16, uv_y * 16, 16, 16);
 				this.mouseDragged(minecraft, par2, par3);
@@ -141,7 +130,6 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
 			if (buttonAppearance == null) {
 				return "No Such Message";
 			}
-
 			displayName = buttonAppearance.displayName;
 			displayValue = buttonAppearance.displayValue;
 		}

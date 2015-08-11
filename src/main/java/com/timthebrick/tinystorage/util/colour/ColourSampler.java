@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.util.colour;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,6 @@ import net.minecraft.util.EnumChatFormatting;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 
 public class ColourSampler {

@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.client.renderer.item;
 
 import com.timthebrick.tinystorage.client.renderer.model.ModelBookCase;
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -54,7 +54,7 @@ public class ItemRendererBookCase implements IItemRenderer {
                 break;
             }
             case INVENTORY: {
-                renderBookCase(0.25F + transX, -0.9F + transY, 0.0F + transZ, scale);
+                renderBookCase(0.25F + transX, -0.95F + transY, 0.0F + transZ, scale);
                 break;
             }
             default:

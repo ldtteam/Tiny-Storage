@@ -1,7 +1,5 @@
 package com.timthebrick.tinystorage.util.math;
 
-import scala.actors.threadpool.Arrays;
-
 public class ArrayHelper {
     /**
      * @param startVal  The value to start at

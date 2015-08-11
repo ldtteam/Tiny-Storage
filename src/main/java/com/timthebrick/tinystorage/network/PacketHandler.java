@@ -1,11 +1,8 @@
 package com.timthebrick.tinystorage.network;
 
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.network.message.MessageKeyPressed;
-import com.timthebrick.tinystorage.network.message.MessageSoundEvent;
-import com.timthebrick.tinystorage.network.message.MessageSpawnParticle;
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.network.message.*;
+import com.timthebrick.tinystorage.common.reference.References;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -21,5 +18,6 @@ public class PacketHandler {
 		INSTANCE.registerMessage(MessageConfigButton.class, MessageConfigButton.class, 1, Side.SERVER);
 		INSTANCE.registerMessage(MessageKeyPressed.class, MessageKeyPressed.class, 2, Side.SERVER);
         INSTANCE.registerMessage(MessageSpawnParticle.class, MessageSpawnParticle.class, 3, Side.CLIENT);
+		INSTANCE.registerMessage(MessageScrollBar.class, MessageScrollBar.class, 4, Side.SERVER);
 	}
 }

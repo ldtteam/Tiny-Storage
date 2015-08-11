@@ -2,13 +2,10 @@ package com.timthebrick.tinystorage.util.math;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import com.timthebrick.tinystorage.util.EntryMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 
 /**
  * Created by Orion Created on 31.05.2015 13:32

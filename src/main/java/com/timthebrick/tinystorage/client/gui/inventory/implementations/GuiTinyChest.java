@@ -1,19 +1,15 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.reference.Colours;
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.gui.inventory.GuiContainer;
+import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.common.inventory.implementations.ContainerTinyChest;
+import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
+import org.lwjgl.opengl.GL11;
 
 public class GuiTinyChest extends GuiTinyStorage {
 
@@ -34,7 +30,7 @@ public class GuiTinyChest extends GuiTinyStorage {
 		}
 	}
 
-	@Override
+    @Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		if (tileEntity.hasOwner()) {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + tileEntity.getOwner(), 8, 6, Colours.INV_GRAY);
@@ -42,7 +38,7 @@ public class GuiTinyChest extends GuiTinyStorage {
 			fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 6, Colours.INV_GRAY);
 		}
 		fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
-		this.drawFG();
+		this.drawFG(0, 0, x, y);
 	}
 
 	@Override
@@ -57,23 +53,23 @@ public class GuiTinyChest extends GuiTinyStorage {
 		}
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
-		drawBG();
+		drawBG(0, 0, x, y);
 		this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
 	}
 	
 	@Override
-	public void drawFG() {
-		super.drawFG();
+	public void drawFG(int ox, int oy, int x, int y) {
+		super.drawFG(ox, oy, x, y);
 	}
 	
 	@Override
-	public void drawBG() {
-		super.drawBG();
+	public void drawBG(int ox, int oy, int x, int y) {
+		super.drawBG(ox, oy, x, y);
 	}
 
 	@Override
 	public void initGui() {
-		super.initGui();
+        super.initGui();
 	}
 
 }

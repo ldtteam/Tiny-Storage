@@ -11,10 +11,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.timthebrick.tinystorage.block.BlockFilterChest;
-import com.timthebrick.tinystorage.block.BlockTinyChest;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
+import com.timthebrick.tinystorage.common.block.storage.chests.BlockFilterChest;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityFilterChest;
 
 public class TileEntityRendererFilterChest extends TileEntitySpecialRenderer {
 

@@ -4,7 +4,7 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
-import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.common.reference.Names;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

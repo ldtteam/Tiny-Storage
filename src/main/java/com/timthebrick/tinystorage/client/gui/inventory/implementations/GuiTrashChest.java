@@ -1,29 +1,23 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.GuiImageButton;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.Colours;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTinyChest;
-import com.timthebrick.tinystorage.inventory.implementations.ContainerTrashChest;
-import com.timthebrick.tinystorage.reference.Names;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityTrashChest;
+import com.timthebrick.tinystorage.common.inventory.implementations.ContainerTrashChest;
+import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTrashChest;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -41,7 +35,7 @@ public class GuiTrashChest extends GuiTinyStorage {
     protected void drawGuiContainerForegroundLayer (int x, int y) {
         fontRendererObj.drawString(StatCollector.translateToLocal(tileEntity.getInventoryName()), 8, 3, Colours.INV_GRAY);
         fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 95 + 2, Colours.INV_GRAY);
-        drawFG();
+        drawFG(0, 0, x, y);
     }
 
     @Override
@@ -50,7 +44,7 @@ public class GuiTrashChest extends GuiTinyStorage {
         this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiTrashChest.png"));
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
-        drawBG();
+        drawBG(0, 0, x, y);
         this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
     }
 
@@ -61,16 +55,16 @@ public class GuiTrashChest extends GuiTinyStorage {
     }
 
     @Override
-    public void drawFG () {
-        super.drawFG();
+    public void drawFG (int ox, int oy, int x, int y) {
+        super.drawFG(ox, oy, x, y);
         if (this.deleteLastStack != null) {
             this.deleteLastStack.set(this.tileEntity.deleteStack);
         }
     }
 
     @Override
-    public void drawBG () {
-        super.drawBG();
+    public void drawBG (int ox, int oy, int x, int y) {
+        super.drawBG(ox, oy, x, y);
         if (this.deleteLastStack != null) {
             this.deleteLastStack.setVisibility(true);
         }

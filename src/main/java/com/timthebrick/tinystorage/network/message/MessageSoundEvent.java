@@ -7,7 +7,6 @@ import java.util.UUID;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.Settings;
 
 import cpw.mods.fml.client.FMLClientHandler;

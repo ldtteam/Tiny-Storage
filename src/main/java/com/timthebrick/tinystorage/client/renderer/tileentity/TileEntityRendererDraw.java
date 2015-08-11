@@ -1,15 +1,9 @@
 package com.timthebrick.tinystorage.client.renderer.tileentity;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import com.timthebrick.tinystorage.block.BlockDraw;
-import com.timthebrick.tinystorage.block.BlockFilterChest;
 import com.timthebrick.tinystorage.client.renderer.model.ModelDraw;
-import com.timthebrick.tinystorage.reference.References;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityDraw;
-import com.timthebrick.tinystorage.tileentity.implementations.TileEntityFilterChest;
-
+import com.timthebrick.tinystorage.common.block.storage.BlockDraw;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
@@ -17,6 +11,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class TileEntityRendererDraw extends TileEntitySpecialRenderer {
 
@@ -36,11 +32,14 @@ public class TileEntityRendererDraw extends TileEntitySpecialRenderer {
 			World world = tileEntityDraw.getWorldObj();
 			Block block = world.getBlock(tileEntityDraw.xCoord, tileEntityDraw.yCoord, tileEntityDraw.zCoord);
 
-			if (block instanceof BlockDraw) {
-				textureName = ((BlockDraw) block).getTextureName();
+			BlockDraw blockDraw = (BlockDraw) block;
+			if (!blockDraw.getIsLockable()) {
+				textureName = blockDraw.getTextureName();
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/draws/unlocked/draw" + textureName + ".png"));
+			} else {
+				textureName = blockDraw.getTextureName();
+				this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/draws/locked/draw" + textureName + ".png"));
 			}
-
-			this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/draws/draw" + textureName + ".png"));
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);

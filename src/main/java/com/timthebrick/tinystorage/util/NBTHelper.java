@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.util;
 
-import com.timthebrick.tinystorage.reference.Names;
+import com.timthebrick.tinystorage.common.reference.Names;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

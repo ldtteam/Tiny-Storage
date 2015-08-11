@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.util;
 
-import com.timthebrick.tinystorage.reference.References;
+import com.timthebrick.tinystorage.common.reference.References;
 
 import net.minecraft.util.ResourceLocation;
 

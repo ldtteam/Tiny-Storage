@@ -1,12 +1,8 @@
 package com.timthebrick.tinystorage.util;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.core.TinyStorageLog;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**

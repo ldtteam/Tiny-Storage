@@ -3,7 +3,7 @@ package com.timthebrick.tinystorage.network.message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 
-import com.timthebrick.tinystorage.reference.Key;
+import com.timthebrick.tinystorage.common.reference.Key;
 import com.timthebrick.tinystorage.util.IKeyBound;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
