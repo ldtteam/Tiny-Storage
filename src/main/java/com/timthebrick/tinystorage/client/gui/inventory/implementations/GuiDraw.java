@@ -47,13 +47,14 @@ public class GuiDraw extends GuiTinyStorage {
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        if(this.tileEntity.rowOpened == 0){
+        if (this.tileEntity.rowOpened == 0) {
             this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw_1.png"));
-        }else if(this.tileEntity.rowOpened == 1){
+        } else if (this.tileEntity.rowOpened == 1) {
             this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw_2.png"));
-        }else if(this.tileEntity.rowOpened == 2){
+        } else if (this.tileEntity.rowOpened == 2) {
             this.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiDraw_3.png"));
-        }else{
+        } else {
+            TinyStorageLog.error("There was no row opened in the Tile Entity - this is probably a bug!");
             this.mc.thePlayer.closeScreen();
         }
         int xStart = (width - xSize) / 2;

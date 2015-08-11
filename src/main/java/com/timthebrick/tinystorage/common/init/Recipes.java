@@ -23,6 +23,7 @@ public class Recipes {
         registerShapelessRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
         registerShapelessRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
         registerShapedRecipe(new ItemStack(ModItems.itemStorageUpgrade, 1, 3), "DSD", "SPS", "DSD", 'D', new ItemStack(Items.diamond), 'P', new ItemStack(Items.ender_pearl), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
+        registerShapelessRecipe(new ItemStack(ModItems.itemStorageUpgrade, 3, 4), new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 
         // Chest Filters
         registerShapedRecipe(new ItemStack(ModItems.itemChestFilter, 3, 0), "sss", "l l", "sss", 's', new ItemStack(Items.stick, 1), 'l', new ItemStack(Items.string, 1));
@@ -321,7 +322,27 @@ public class Recipes {
         registerShapedRecipe(new ItemStack(ModBlocks.blockBookCaseAcaciaPlank), " S ", "SCS", " S ", 'S', new ItemStack(Blocks.wooden_slab, 1, 4), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
 
         //Draws
-        
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawOakLog), " S ", "LSL", " S ", 'L', new ItemStack(Blocks.log, 1, 0), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawSpruceLog), " S ", "LSL", " S ", 'L', new ItemStack(Blocks.log, 1, 1), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawBirchLog), " S ", "LSL", " S ", 'L', new ItemStack(Blocks.log, 1, 2), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawJungleLog), " S ", "LSL", " S ", 'L', new ItemStack(Blocks.log, 1, 3), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawAcaciaLog), " S ", "LSL", " S ", 'L', new ItemStack(Blocks.log2, 1, 0), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawOakPlank), "LSL", " S ", "LSL", 'L', new ItemStack(Blocks.wooden_slab, 1, 0), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawSprucePlank), "LSL", " S ", "LSL", 'L', new ItemStack(Blocks.wooden_slab, 1, 1), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawBirchPlank), "LSL", " S ", "LSL", 'L', new ItemStack(Blocks.wooden_slab, 1, 2), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawJunglePlank), "LSL", " S ", "LSL", 'L', new ItemStack(Blocks.wooden_slab, 1, 3), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+        registerShapedRecipe(new ItemStack(ModBlocks.blockDrawAcaciaPlank), "LSL", " S ", "LSL", 'L', new ItemStack(Blocks.wooden_slab, 1, 4), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 4));
+
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawOakLogLocked), new ItemStack(ModBlocks.blockDrawOakLog), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawSpruceLogLocked), new ItemStack(ModBlocks.blockDrawSpruceLog), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawBirchLogLocked), new ItemStack(ModBlocks.blockDrawBirchLog), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawJungleLogLocked), new ItemStack(ModBlocks.blockDrawJungleLog), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawAcaciaLogLocked), new ItemStack(ModBlocks.blockDrawAcaciaLog), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawOakPlankLocked), new ItemStack(ModBlocks.blockDrawOakPlank), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawSprucePlankLocked), new ItemStack(ModBlocks.blockDrawSprucePlank), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawBirchPlankLocked), new ItemStack(ModBlocks.blockDrawBirchPlank), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawJunglePlankLocked), new ItemStack(ModBlocks.blockDrawJunglePlank), new ItemStack(ModItems.itemChestLock));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockDrawAcaciaPlankLocked), new ItemStack(ModBlocks.blockDrawAcaciaPlank), new ItemStack(ModItems.itemChestLock));
 
         //Blue Log
         registerShapedOreRecipe(new ItemStack(ModBlocks.blockBlueLog, 8, 0), "LLL", "LDL", "LLL", 'L', "logWood", 'D', "dyeBlue");

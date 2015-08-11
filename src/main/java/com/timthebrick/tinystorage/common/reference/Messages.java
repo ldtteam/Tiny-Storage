@@ -27,6 +27,7 @@ public class Messages {
         public static final String ITEM_TIER_2 = "tooltip.tinystorage:itemSize.medium";
         public static final String ITEM_TIER_3 = "tooltip.tinystorage:itemSize.large";
         public static final String ITEM_SPECIAL_1 = "tooltip.tinystorage:itemSize.unstable";
+        public static final String ITEM_SPECIAL_2 = "tooltip.tinystorage:itemSize.tiny";
         public static final String BLOCK_SMALL = "tooltip.tinystorage:blockSize.small";
         public static final String BLOCK_MEDIUM = "tooltip.tinystorage:blockSize.medium";
         public static final String BLOCK_LARGE = "tooltip.tinystorage:blockSize.large";
