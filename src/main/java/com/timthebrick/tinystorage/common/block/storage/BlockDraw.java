@@ -192,7 +192,7 @@ public class BlockDraw extends BlockContainer {
         }
     }
 
-    protected void dropInventory(World world, int x, int y, int z) {
+    private void dropInventory(World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (!(tileEntity instanceof IInventory)) {
             return;
@@ -237,7 +237,7 @@ public class BlockDraw extends BlockContainer {
         updateBlockBounds(world, x, y, z);
     }
 
-    public void updateBlockBounds(IBlockAccess world, int x, int y, int z) {
+    private void updateBlockBounds(IBlockAccess world, int x, int y, int z) {
         setBlockBounds(1F / 16, 1F / 16, 1F / 16, (1F / 16) * 14, (1F / 16) * 14, (1F / 16) * 14);
     }
 

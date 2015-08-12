@@ -21,10 +21,12 @@ public class ItemBlockImpossibleChest extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
+        //noinspection unchecked
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.IMPOSSIBLE_CHEST));
         if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockImpossibleChest) {
             BlockImpossibleChest block = (BlockImpossibleChest) Block.getBlockFromItem(itemStack.getItem());
             if(block.getIsLockable()){
+                //noinspection unchecked
                 list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
             }
         }

@@ -16,6 +16,7 @@ import net.minecraft.item.crafting.CraftingManager;
 public class CraftingEventHandler {
 
     public static void init () {
+        //noinspection unchecked
         CraftingManager.getInstance().getRecipeList().add(new RecipeStorageBags());
     }
 

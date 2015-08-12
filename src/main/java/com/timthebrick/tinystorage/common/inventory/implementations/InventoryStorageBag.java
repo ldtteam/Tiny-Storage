@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public class InventoryStorageBag implements IInventory, INBTTaggable {
     public ItemStack parentItemStack;
-    protected ItemStack[] inventory;
-    protected String customName;
+    private ItemStack[] inventory;
+    private String customName;
 
     public InventoryStorageBag(ItemStack itemStack) {
         parentItemStack = itemStack;
@@ -37,7 +37,7 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
         }
     }
 
-    public ItemStack findParentItemStack(EntityPlayer entityPlayer) {
+    private ItemStack findParentItemStack(EntityPlayer entityPlayer) {
         if (NBTHelper.hasUUID(parentItemStack)) {
             UUID parentItemStackUUID = new UUID(parentItemStack.getTagCompound().getLong(Names.NBT.UUID_MOST_SIG), parentItemStack.getTagCompound().getLong(Names.NBT.UUID_LEAST_SIG));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
@@ -56,7 +56,7 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
         return NBTHelper.hasUUID(parentItemStack) && parentItemStack.getTagCompound().getLong(Names.NBT.UUID_LEAST_SIG) == uuid.getLeastSignificantBits() && parentItemStack.getTagCompound().getLong(Names.NBT.UUID_MOST_SIG) == uuid.getMostSignificantBits();
     }
 
-    public void save() {
+    private void save() {
         NBTTagCompound nbtTagCompound = parentItemStack.getTagCompound();
         if (nbtTagCompound == null) {
             nbtTagCompound = new NBTTagCompound();
@@ -192,11 +192,11 @@ public class InventoryStorageBag implements IInventory, INBTTaggable {
         return "InventoryStorageBag";
     }
 
-    public boolean hasCustomName() {
+    private boolean hasCustomName() {
         return customName != null && customName.length() > 0;
     }
 
-    public String getCustomName() {
+    private String getCustomName() {
         return customName;
     }
 }

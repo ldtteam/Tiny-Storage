@@ -20,7 +20,7 @@ import net.minecraft.util.StatCollector;
 
 public class ItemChestFilter extends Item {
 
-	public static final String[] nameSuffix = new String[] { "Small", "Medium", "Large" };
+	private static final String[] nameSuffix = new String[] { "Small", "Medium", "Large" };
 	private IIcon[] icons;
 
 	public ItemChestFilter() {
@@ -34,6 +34,7 @@ public class ItemChestFilter extends Item {
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < 3; i++) {
+			//noinspection unchecked
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
@@ -42,10 +43,13 @@ public class ItemChestFilter extends Item {
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
+			//noinspection unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_1));
 		} else if (metaData == 1) {
+			//noinspection unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_2));
 		} else if (metaData == 2) {
+			//noinspection unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_3));
 		}
 	}

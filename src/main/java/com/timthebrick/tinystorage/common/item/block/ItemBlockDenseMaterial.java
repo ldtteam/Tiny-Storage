@@ -27,10 +27,13 @@ public class ItemBlockDenseMaterial extends ItemBlock {
     public void addInformation (ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
         int metaData = itemStack.getItemDamage();
         if (metaData == 0) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_1));
         } else if (metaData == 1) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_2));
         } else if (metaData == 2) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_3));
         }
     }

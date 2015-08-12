@@ -30,13 +30,13 @@ import com.timthebrick.tinystorage.util.StackHelper;
 
 public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISidedInventory {
 
-	public float headAngle;
-	public float prevHeadAngle;
+	private float headAngle;
+	private float prevHeadAngle;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
-	boolean shouldAction;
-	boolean headUp;
-	int bobbles;
+	private boolean shouldAction;
+	private boolean headUp;
+	private int bobbles;
 
 	public TileEntityPiggyBank(int metaData) {
 		super();
@@ -343,7 +343,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 
 	public boolean canMergeItemStacks(ItemStack input) {
 		for (int i = 0; i < getNextFreeSlot(); i++) {
-			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
 				return true;
 			}
 		}
@@ -353,7 +353,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	public ItemStack tryMergeStacks(ItemStack input) {
 		ItemStack leftOver = null;
 		for (int i = 0; i < getNextFreeSlot(); i++) {
-			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+			if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
 				leftOver = input.copy();
 				leftOver.stackSize = StackHelper.mergeStacks(input, getStackInSlot(i), true);
 				this.markDirty();

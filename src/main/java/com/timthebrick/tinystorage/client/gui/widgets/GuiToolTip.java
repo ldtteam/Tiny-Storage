@@ -8,11 +8,11 @@ public class GuiToolTip {
 
     private static final long DELAY = 0;
 
-    protected Rectangle bounds;
+    private Rectangle bounds;
 
     private long mouseOverStart;
 
-    protected final List<String> text;
+    private final List<String> text;
 
     private int lastMouseX = -1;
 
@@ -86,7 +86,7 @@ public class GuiToolTip {
         return System.currentTimeMillis() - mouseOverStart >= DELAY;
     }
 
-    protected void updateText() {
+    private void updateText() {
     }
 
     public void setToolTipText(String... txt) {

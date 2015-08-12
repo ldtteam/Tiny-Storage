@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 
 public class MessageSpawnParticle implements IMessage, IMessageHandler<MessageSpawnParticle, IMessage> {
 
-    private EntityPlayer player;
     private float xCoord, yCoord, zCoord;
     private float dX, dY, dZ;
 
@@ -20,7 +19,6 @@ public class MessageSpawnParticle implements IMessage, IMessageHandler<MessageSp
     }
 
     public MessageSpawnParticle(EntityPlayer player,float xCoord, float yCoord, float zCoord, float dX, float dY, float dZ) {
-        this.player = player;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         this.zCoord = zCoord;

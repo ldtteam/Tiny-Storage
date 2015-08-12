@@ -57,7 +57,7 @@ public class TinyStorageInitaliser {
 
     private static void doColourMap() {
         Stopwatch watch = Stopwatch.createStarted();
-        Iterator<Item> iterator = Item.itemRegistry.iterator();
+        @SuppressWarnings("unchecked") Iterator<Item> iterator = Item.itemRegistry.iterator();
         while (iterator.hasNext()) {
             try {
                 Item item = iterator.next();

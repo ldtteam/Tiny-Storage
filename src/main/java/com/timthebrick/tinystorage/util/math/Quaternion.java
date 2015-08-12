@@ -12,10 +12,10 @@ import java.util.Locale;
  */
 public class Quaternion {
 
-	public double x;
-	public double y;
-	public double z;
-	public double s;
+	private double x;
+	private double y;
+	private double z;
+	private double s;
 
 	public Quaternion() {
 		s = 1.0D;
@@ -80,14 +80,12 @@ public class Quaternion {
 	public void normalize() {
 		double d = mag();
 		if (d == 0.0D) {
-			return;
 		} else {
 			d = 1.0D / d;
 			x *= d;
 			y *= d;
 			z *= d;
 			s *= d;
-			return;
 		}
 	}
 

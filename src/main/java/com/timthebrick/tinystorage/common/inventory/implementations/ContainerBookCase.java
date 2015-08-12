@@ -11,12 +11,11 @@ import net.minecraft.item.*;
 public class ContainerBookCase extends ContainerTinyStorage {
 
     // Inventory Size
-    public static final int INVENTORY_ROWS = 2;
-    public static final int INVENTORY_COLUMNS = 9;
+    private static final int INVENTORY_ROWS = 2;
+    private static final int INVENTORY_COLUMNS = 9;
     public static final int INVENTORY_SIZE = INVENTORY_ROWS * INVENTORY_COLUMNS;
 
     private TileEntityBookCase tileEntity;
-    private InventoryPlayer inventory;
     private int chestInventoryRows;
     private int chestInventoryColumns;
 
@@ -29,6 +28,7 @@ public class ContainerBookCase extends ContainerTinyStorage {
         //Add tile entity inventory to inventory
         for (int chestRowIndex = 0; chestRowIndex < chestInventoryRows; chestRowIndex++) {
             for (int chestColumnIndex = 0; chestColumnIndex < chestInventoryColumns; chestColumnIndex++) {
+                //noinspection unchecked
                 this.addSlotToContainer(new SlotSpecificInput(tileEntity, chestColumnIndex + chestRowIndex * chestInventoryColumns, 8 + chestColumnIndex * 18, 20 + (18 * chestRowIndex) + chestRowIndex * 18, ItemBook.class, ItemEditableBook.class, ItemEnchantedBook.class, ItemWritableBook.class));
             }
         }

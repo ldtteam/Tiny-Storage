@@ -30,15 +30,19 @@ public class ItemBlockTinyChest extends ItemBlock {
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
+			//noinspection unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_SMALL));
 		} else if (metaData == 1) {
+			//noinspection unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_MEDIUM));
 		} else if (metaData == 2) {
+			//noinspection unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LARGE));
 		}
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockTinyChest) {
 			BlockTinyChest block = (BlockTinyChest) Block.getBlockFromItem(itemStack.getItem());
 			if(block.getIsLockable()){
+				//noinspection unchecked
 				list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
 			}
 		}

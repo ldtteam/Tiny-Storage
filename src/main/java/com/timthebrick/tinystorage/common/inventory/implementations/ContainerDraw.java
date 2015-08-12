@@ -11,8 +11,8 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityD
 
 public class ContainerDraw extends ContainerTinyStorage {
 
-	public static final int INVENTORY_ROWS = 3;
-	public static final int INVENTORY_COLUMNS = 3;
+	private static final int INVENTORY_ROWS = 3;
+	private static final int INVENTORY_COLUMNS = 3;
 	public static final int INVENTORY_SIZE = INVENTORY_ROWS * INVENTORY_COLUMNS;
 
 	private TileEntityDraw tileEntity;

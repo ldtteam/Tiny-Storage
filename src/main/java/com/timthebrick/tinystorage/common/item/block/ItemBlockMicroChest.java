@@ -32,6 +32,7 @@ public class ItemBlockMicroChest extends ItemBlock{
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockMicroChest) {
 			BlockMicroChest block = (BlockMicroChest) Block.getBlockFromItem(itemStack.getItem());
 			if(block.getIsLockable()){
+				//noinspection unchecked
 				list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
 			}
 		}

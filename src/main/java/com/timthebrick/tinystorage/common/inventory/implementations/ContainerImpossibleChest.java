@@ -13,10 +13,10 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerImpossibleChest extends ContainerTinyStorage implements IWidgetReceptor {
 
-    public static final int INVENTORY_ROWS = 29;
+    private static final int INVENTORY_ROWS = 29;
     public static final int INVENTORY_COLUMNS = 9;
     public static final int INVENTORY_SIZE = INVENTORY_ROWS * INVENTORY_COLUMNS;
-    public static final int DISPLAYABLE_ROW_SIZE = 6;
+    private static final int DISPLAYABLE_ROW_SIZE = 6;
 
     private TileEntityImpossibleChest tileEntity;
     private InventoryPlayer inventoryPlayer;

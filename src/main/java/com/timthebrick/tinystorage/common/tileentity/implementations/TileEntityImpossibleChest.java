@@ -20,7 +20,7 @@ public class TileEntityImpossibleChest extends TileEntityTinyStorage implements 
     private ContainerImpossibleChest container;
     public float lidAngle;
     public float prevLidAngle;
-    public int numPlayersUsing;
+    private int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;

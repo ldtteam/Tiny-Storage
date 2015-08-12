@@ -33,11 +33,10 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
 
     public float lidAngle;
     public float prevLidAngle;
-    public int numPlayersUsing;
+    private int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;
-    private Random random;
     private int cooldown;
     private int blockBreakCooldown;
     private boolean running = true;
@@ -64,7 +63,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
             opRadius = 40;
             opDepth = 40;
         }
-        random = new Random();
+        Random random = new Random();
     }
 
     @Override
@@ -154,7 +153,7 @@ public class TileEntityQuarryChest extends TileEntityTinyStorage implements ISid
         return true;
     }
 
-    EntryMap<String, ArrayList<ItemStack>> currentLayer;
+    private EntryMap<String, ArrayList<ItemStack>> currentLayer;
 
     @Override
     public void updateEntity () {

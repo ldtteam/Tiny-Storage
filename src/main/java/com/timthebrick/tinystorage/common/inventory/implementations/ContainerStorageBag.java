@@ -27,14 +27,12 @@ public class ContainerStorageBag extends ContainerTinyStorage {
     public static final int LARGE_BAG_INVENTORY_COLUMNS = 9;
     public static final int LARGE_INVENTORY_SIZE = LARGE_BAG_INVENTORY_ROWS * LARGE_BAG_INVENTORY_COLUMNS;
 
-    private final EntityPlayer entityPlayer;
-    public final InventoryStorageBag inventoryStorageBag;
+    private final InventoryStorageBag inventoryStorageBag;
 
     private int bagInventoryRows;
     private int bagInventoryColumns;
 
     public ContainerStorageBag (EntityPlayer entityPlayer, InventoryStorageBag inventoryStorageBag) {
-        this.entityPlayer = entityPlayer;
         this.inventoryStorageBag = inventoryStorageBag;
 
         if (inventoryStorageBag.parentItemStack.getItemDamage() == 0) {

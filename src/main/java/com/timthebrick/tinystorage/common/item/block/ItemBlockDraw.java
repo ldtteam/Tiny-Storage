@@ -25,6 +25,7 @@ public class ItemBlockDraw extends ItemBlock {
 		if (Block.getBlockFromItem(itemStack.getItem()) != Blocks.air && Block.getBlockFromItem(itemStack.getItem()) instanceof BlockDraw) {
             BlockDraw block = (BlockDraw) Block.getBlockFromItem(itemStack.getItem());
 			if(block.getIsLockable()){
+				//noinspection unchecked
 				list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LOCKED));
 			}
 		}

@@ -29,7 +29,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 
 	public float lidAngle;
 	public float prevLidAngle;
-	public int numPlayersUsing;
+	private int numPlayersUsing;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
 	private int[] sides;

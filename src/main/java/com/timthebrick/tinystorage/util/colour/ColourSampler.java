@@ -37,9 +37,7 @@ public class ColourSampler {
             }
             IconPlaceHolder pIcon = (IconPlaceHolder) pStack.getItem().getIcon(pStack, 0);
             try {
-                Colour tSample = calculateAverageColour(ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(pIcon.iIconLocation).getInputStream()));
-
-                return tSample;
+                return calculateAverageColour(ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(pIcon.iIconLocation).getInputStream()));
             } catch (IOException e) {
                 return new Colour(16777215);
             }

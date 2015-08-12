@@ -18,8 +18,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageConfigButton implements IMessage, IMessageHandler<MessageConfigButton, IMessage> {
-	
-	private EntityPlayer player;
+
 	private ButtonSettings option;
 	private float xCoord, yCoord, zCoord;
 	private boolean rotationDirection;
@@ -28,7 +27,6 @@ public class MessageConfigButton implements IMessage, IMessageHandler<MessageCon
 	}
 	
 	public MessageConfigButton(EntityPlayer player, ButtonSettings option, boolean rotationDirection, float xCoord, float yCoord, float zCoord) {
-		this.player = player;
 		this.option = option;
 		this.rotationDirection = rotationDirection;
 		this.xCoord = xCoord;

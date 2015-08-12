@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiImpossibleChest extends GuiTinyStorage {
 
     private TileEntityImpossibleChest tileEntity;
-    protected GuiScrollBar scrollBar;
+    private GuiScrollBar scrollBar;
     private int ticksExisted;
 
     public GuiImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {

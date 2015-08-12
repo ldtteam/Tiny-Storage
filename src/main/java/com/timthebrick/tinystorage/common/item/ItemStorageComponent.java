@@ -31,7 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemStorageComponent extends Item {
 
-    public static final String[] nameSuffix = new String[]{"Small", "Medium", "Large", "Unstable", "Tiny"};
+    private static final String[] nameSuffix = new String[]{"Small", "Medium", "Large", "Unstable", "Tiny"};
     private IIcon[] icons;
 
     public ItemStorageComponent() {
@@ -237,6 +237,7 @@ public class ItemStorageComponent extends Item {
     @Override
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         for (int i = 0; i < nameSuffix.length; i++) {
+            //noinspection unchecked
             list.add(new ItemStack(item, 1, i));
         }
     }
@@ -245,15 +246,20 @@ public class ItemStorageComponent extends Item {
     public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
         int metaData = itemStack.getItemDamage();
         if (metaData == 0) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_1));
         } else if (metaData == 1) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_2));
         } else if (metaData == 2) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_TIER_3));
         } else if (metaData == 3) {
+            //noinspection unchecked
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_SPECIAL_1));
         } else if (metaData == 4) {
-			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_SPECIAL_2));
+            //noinspection unchecked
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.ITEM_SPECIAL_2));
         }
     }
 

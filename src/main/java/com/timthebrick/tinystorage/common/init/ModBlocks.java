@@ -176,15 +176,15 @@ public class ModBlocks {
     public static Block blockDrawSprucePlankLocked = new BlockDraw(Material.wood, "SprucePlank", true);
 
     // Misc Storage
-    public static Block blockTrashChest = new BlockTrashChest(Material.rock);
-    public static Block blockPiggyBank = new BlockPiggyBank(Material.rock);
-    public static Block blockPeacefulChest = new BlockPeacefulChest(Material.rock);
-    public static Block blockQuarryChest = new BlockQuarryChest(Material.rock);
-    public static Block blockImpossibleChest = new BlockImpossibleChest(Material.rock, false);
-    public static Block blockImpossibleChestLocked = new BlockImpossibleChest(Material.rock, true);
+    public static Block blockTrashChest = new BlockTrashChest();
+    public static Block blockPiggyBank = new BlockPiggyBank();
+    public static Block blockPeacefulChest = new BlockPeacefulChest();
+    public static Block blockQuarryChest = new BlockQuarryChest();
+    public static Block blockImpossibleChest = new BlockImpossibleChest(false);
+    public static Block blockImpossibleChestLocked = new BlockImpossibleChest(true);
 
     //Misc Blocks
-    public static Block blockDenseBlock = new BlockDenseMaterial(Material.rock);
+    public static Block blockDenseBlock = new BlockDenseMaterial();
     public static Block blockBlueLog = new BlockBlueLog();
 
     public static void init() {

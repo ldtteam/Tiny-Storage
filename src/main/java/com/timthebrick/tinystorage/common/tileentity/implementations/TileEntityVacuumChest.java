@@ -33,7 +33,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 
 	public float lidAngle;
 	public float prevLidAngle;
-	public int numPlayersUsing;
+	private int numPlayersUsing;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
 	private int[] sides;
@@ -289,7 +289,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 			}
 		}
 
-		List<EntityItem> itemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord + minX, yCoord + minY, zCoord + minZ, xCoord + maxX, yCoord + maxY, zCoord + maxZ));
+		@SuppressWarnings("unchecked") List<EntityItem> itemEntities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord + minX, yCoord + minY, zCoord + minZ, xCoord + maxX, yCoord + maxY, zCoord + maxZ));
 		double x = (double) this.xCoord;
 		double y = (double) this.yCoord;
 		double z = (double) this.zCoord;
@@ -308,10 +308,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 			return false;
 		}
 		ItemStack stack = item.getEntityItem();
-		if (stack == null) {
-			return false;
-		}
-		return true;
+		return stack != null;
 	}
 
 	@Override

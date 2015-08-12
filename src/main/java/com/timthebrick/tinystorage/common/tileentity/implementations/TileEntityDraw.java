@@ -19,7 +19,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInventory {
 
-    public int numPlayersUsing;
+    private int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;
@@ -134,8 +134,6 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
         double adjustedXCoord, adjustedZCoord;
 
         if (numPlayersUsing >= 0 && playSoundEvent) {
-            adjustedXCoord = xCoord + 0.5D;
-            adjustedZCoord = zCoord + 0.5D;
             CommonSoundHelper.playSoundAt(Minecraft.getMinecraft().thePlayer, "drawOpen", 1.5F, 0.5F, 3F);
             playSoundEvent = false;
         }
@@ -157,7 +155,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
         super.readFromNBT(tagCompound);
         NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
             byte slot = tag.getByte("Slot");
             if (slot >= 0 && slot < inventory.length) {
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tag);

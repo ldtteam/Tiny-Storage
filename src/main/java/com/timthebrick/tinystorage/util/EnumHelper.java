@@ -27,6 +27,7 @@ public class EnumHelper {
 		int pos = 0;
 		for (Object g : valList) {
 			if (pos == pLoc) {
+				//noinspection unchecked
 				return (T) g;
 			}
 			pos++;
@@ -46,6 +47,7 @@ public class EnumHelper {
 		int pos = 0;
 		for (Object g : valList) {
 			if (pos == pLoc) {
+				//noinspection unchecked
 				return (T) g;
 			}
 			pos++;

@@ -13,7 +13,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRendererWoolChest implements IItemRenderer {
 
-	public static final String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 	private final ModelChest modelChest;
 	private boolean isLocked;
 	private String textureName;
@@ -52,7 +51,7 @@ public class ItemRendererWoolChest implements IItemRenderer {
 		}
 
 		int chestMeta = itemStack.getItemDamage();
-		textureName = textureNames[chestMeta];
+		textureName = References.dyes[chestMeta];
 
 		if (!isLocked) {
 			FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chestWool_" + textureName + ".png"));

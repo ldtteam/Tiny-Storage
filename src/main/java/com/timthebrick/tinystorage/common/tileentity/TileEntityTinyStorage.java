@@ -22,10 +22,10 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
 
     protected ForgeDirection orientation;
     protected byte state;
-    protected String customName;
-    protected String uniqueOwner;
-    protected String owner;
-    protected String textureName;
+    private String customName;
+    private String uniqueOwner;
+    private String owner;
+    private String textureName;
     public AccessMode accessMode;
 
     public TileEntityTinyStorage() {
@@ -268,7 +268,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
      *
      * @param tag The tag to sync
      */
-    public void writeSyncedNBT(NBTTagCompound tag) {
+    protected void writeSyncedNBT(NBTTagCompound tag) {
         tag.setByte(Names.NBT.DIRECTION, (byte) orientation.ordinal());
         tag.setByte(Names.NBT.STATE, state);
         tag.setInteger(Names.NBT.ACCESS_MODE, accessMode.ordinal());
@@ -291,7 +291,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
      *
      * @param tag The tag to be read
      */
-    public void readSyncedNBT(NBTTagCompound tag) {
+    protected void readSyncedNBT(NBTTagCompound tag) {
         if (tag.hasKey(Names.NBT.DIRECTION)) {
             this.orientation = ForgeDirection.getOrientation(tag.getByte(Names.NBT.DIRECTION));
         }

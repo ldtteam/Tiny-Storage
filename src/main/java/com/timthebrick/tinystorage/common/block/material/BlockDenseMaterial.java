@@ -22,8 +22,8 @@ public class BlockDenseMaterial extends Block {
     @SideOnly(Side.CLIENT)
     private IIcon[] icon;
 
-    public BlockDenseMaterial (Material mat) {
-        super(mat);
+    public BlockDenseMaterial() {
+        super(Material.rock);
         this.setHardness(2.5f);
         this.setCreativeTab(TabTinyStorage.creativeTab);
         this.setBlockName(Names.UnlocalisedBlocks.DENSE_BLOCK);
@@ -33,8 +33,11 @@ public class BlockDenseMaterial extends Block {
 
     @Override
     public void getSubBlocks (Item item, CreativeTabs creativeTabs, List list) {
+        //noinspection unchecked
         list.add(new ItemStack(item, 1, 0));
+        //noinspection unchecked
         list.add(new ItemStack(item, 1, 1));
+        //noinspection unchecked
         list.add(new ItemStack(item, 1, 2));
     }
 

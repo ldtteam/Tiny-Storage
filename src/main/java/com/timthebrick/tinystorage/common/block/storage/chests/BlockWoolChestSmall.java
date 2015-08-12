@@ -6,7 +6,6 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEnt
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -15,7 +14,7 @@ import net.minecraft.world.World;
 public class BlockWoolChestSmall extends BlockWoolChest {
 	
 	public BlockWoolChestSmall(boolean isLockable) {
-		super(Material.cloth, isLockable);
+		super(isLockable);
 		if (!this.isLockable) {
 			this.setBlockName(Names.UnlocalisedBlocks.WOOL_CHEST_SMALL);
 		} else {
@@ -46,7 +45,7 @@ public class BlockWoolChestSmall extends BlockWoolChest {
 		updateChestBounds(world.getBlockMetadata(x, y, z));
 	}
 
-	public void updateChestBounds(int meta) {
+	private void updateChestBounds(int meta) {
 		setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.60f, 0.8f);
 	}
 

@@ -98,15 +98,15 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
         setScrollPos(scrollPos + amount);
     }
 
-    public void scrollByNoUpdate(int amount) {
+    private void scrollByNoUpdate(int amount) {
         setScrollPosNoUpdate(scrollPos + amount);
     }
 
-    public void setScrollMax(int scrollMax) {
+    private void setScrollMax(int scrollMax) {
         this.scrollMax = scrollMax;
     }
 
-    public void scrollTo(int scrollPos) {
+    private void scrollTo(int scrollPos) {
         scrollToPos = Math.max(0, Math.min(scrollPos, scrollMax));
     }
 
@@ -152,7 +152,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
 
     @Override
     public boolean mouseClicked(int x, int y, int button) {
-        if (this.isEnabled() && this.shouldScroll == true && containerArea.contains(x, y)) {
+        if (this.isEnabled() && this.shouldScroll && containerArea.contains(x, y)) {
             notifyOfChange();
             scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
             notifyOfChange();
@@ -223,7 +223,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
         return enabled;
     }
 
-    public int getScrollMax() {
+    private int getScrollMax() {
         return scrollMax;
     }
 

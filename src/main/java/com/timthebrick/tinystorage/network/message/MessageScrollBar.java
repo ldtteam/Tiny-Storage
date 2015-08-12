@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 
 public class MessageScrollBar implements IMessage, IMessageHandler<MessageScrollBar, IMessage> {
 
-    private EntityPlayer player;
     private float xCoord, yCoord, zCoord;
     private int scrollPos;
 
@@ -20,7 +19,6 @@ public class MessageScrollBar implements IMessage, IMessageHandler<MessageScroll
     }
 
     public MessageScrollBar(EntityPlayer player, int scrollPos, float xCoord, float yCoord, float zCoord) {
-        this.player = player;
         this.scrollPos = scrollPos;
         this.xCoord = xCoord;
         this.yCoord = yCoord;

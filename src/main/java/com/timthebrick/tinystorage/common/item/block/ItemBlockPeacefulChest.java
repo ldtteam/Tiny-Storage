@@ -28,13 +28,18 @@ public class ItemBlockPeacefulChest extends ItemBlock {
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag) {
 		int metaData = itemStack.getItemDamage();
 		if (metaData == 0) {
+			//noinspection unchecked,unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_SMALL));
 		} else if (metaData == 1) {
+			//noinspection unchecked,unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_MEDIUM));
 		} else if (metaData == 2) {
+			//noinspection unchecked,unchecked
 			list.add(StatCollector.translateToLocal(Messages.ItemTooltips.BLOCK_LARGE));
 		}
+		//noinspection unchecked,unchecked
 		list.add(StatCollector.translateToLocal(Messages.ItemTooltips.PEACEFUL_CHEST_DESC_1));
+		//noinspection unchecked,unchecked
 		list.add(StatCollector.translateToLocal(Messages.ItemTooltips.PEACEFUL_CHEST_DESC_2));
 	}
 

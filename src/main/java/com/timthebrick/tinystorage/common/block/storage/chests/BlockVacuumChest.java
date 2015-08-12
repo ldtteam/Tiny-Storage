@@ -89,7 +89,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 		updateChestBounds(world.getBlockMetadata(x, y, z));
 	}
 
-	public void updateChestBounds(int meta) {
+	private void updateChestBounds(int meta) {
 		float f = 0.125F;
 		if (meta == 0) {
 			setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.60f, 0.8f);
@@ -250,7 +250,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 		}
 	}
 
-	protected void dropInventory(World world, int x, int y, int z) {
+	private void dropInventory(World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 
 		if (!(tileEntity instanceof IInventory)) {
@@ -292,6 +292,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
 		for (int meta = 0; meta < 3; meta++) {
+			//noinspection unchecked
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}

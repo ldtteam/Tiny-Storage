@@ -23,9 +23,9 @@ public class ConfigurationHelper {
 		property.comment = comment + " [default: " + defaultValue + "]";
 		String value = property.getString();
 
-		for (int i = 0; i < validValues.length; i++) {
-			if (value.equalsIgnoreCase(validValues[i])) {
-				return validValues[i];
+		for (String validValue : validValues) {
+			if (value.equalsIgnoreCase(validValue)) {
+				return validValue;
 			}
 		}
 

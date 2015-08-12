@@ -123,7 +123,7 @@ public class CircleHelper {
 		}
 	}
 
-	public static void setCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius) {
+	private static void setCircleIncNeigborCheck(int originX, int originY, int originZ, World world, int pRadius) {
 		int currentX = pRadius;
 		int currentZ = 0;
 		int decisionOver2 = 1 - currentX;

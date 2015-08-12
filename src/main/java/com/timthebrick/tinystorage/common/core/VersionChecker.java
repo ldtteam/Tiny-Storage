@@ -21,8 +21,8 @@ public class VersionChecker implements Runnable {
         CURRENT, OUTDATED, CONNECTION_ERROR
     }
 
-    public static final String VERSION = "@VERSION@";
-    public static EnumUpdateState currentVersion = EnumUpdateState.CURRENT;
+    private static final String VERSION = "@VERSION@";
+    private static EnumUpdateState currentVersion = EnumUpdateState.CURRENT;
 
     private static final String REMOTE_VERSION_FILE_RELEASE = "https://raw.githubusercontent.com/Tim020/Tiny-Storage/master/src/main/resources/versionsRelease";
     private static String remoteLocation = REMOTE_VERSION_FILE_RELEASE;
@@ -33,11 +33,11 @@ public class VersionChecker implements Runnable {
 
     private static boolean sentIMCOutdatedMessage = false;
 
-    public static String getVersion() {
+    private static String getVersion() {
         return VERSION;
     }
 
-    public static boolean isOutdated() {
+    private static boolean isOutdated() {
         return currentVersion == EnumUpdateState.OUTDATED;
     }
 
@@ -60,7 +60,7 @@ public class VersionChecker implements Runnable {
         return recommendedVersion;
     }
 
-    public static void versionCheck() {
+    private static void versionCheck() {
         try {
             if ("0.0.0".equals(VERSION)) {
                 return;
@@ -106,8 +106,6 @@ public class VersionChecker implements Runnable {
                 TinyStorageLog.warn("Using outdated version [" + VERSION + "] for Minecraft " + mcVersion + ". Consider updating to " + recommendedVersion + ".");
                 currentVersion = EnumUpdateState.OUTDATED;
                 sendIMCOutdatedMessage();
-            } else {
-                return;
             }
         } catch (Exception e) {
             TinyStorageLog.warn("Unable to read from remote version authority.");
@@ -138,7 +136,7 @@ public class VersionChecker implements Runnable {
         }
     }
 
-    public static void sendIMCOutdatedMessage() {
+    private static void sendIMCOutdatedMessage() {
         if (Loader.isModLoaded("VersionChecker")) {
             NBTTagCompound compound = new NBTTagCompound();
             compound.setString("modDisplayName", References.MOD_NAME);

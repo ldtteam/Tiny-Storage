@@ -17,7 +17,6 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityC
 
 public class TileEntityRendererClayChest extends TileEntitySpecialRenderer {
 
-	public static final String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 	private final ModelChest modelChest = new ModelChest();
 
 	@Override
@@ -37,7 +36,7 @@ public class TileEntityRendererClayChest extends TileEntitySpecialRenderer {
 			if (block instanceof BlockClayChest) {
 				BlockClayChest blockChest = (BlockClayChest) block;
 				int chestMeta = world.getBlockMetadata(tileEntityClayChest.xCoord, tileEntityClayChest.yCoord, tileEntityClayChest.zCoord);
-				textureName = textureNames[chestMeta];
+				textureName = References.dyes[chestMeta];
 				if (!blockChest.getIsLockable()) {
 					this.bindTexture(new ResourceLocation(References.MOD_ID.toLowerCase() + ":textures/models/chests/unlocked/chestClay_" + textureName + ".png"));
 				} else {

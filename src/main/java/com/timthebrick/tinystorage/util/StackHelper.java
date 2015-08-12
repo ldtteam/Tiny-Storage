@@ -28,10 +28,7 @@ public class StackHelper {
         if (!stack1.isItemEqual(stack2)) {
             return false;
         }
-        if (!ItemStack.areItemStackTagsEqual(stack1, stack2)) {
-            return false;
-        }
-        return true;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
 
     }
 
@@ -152,10 +149,7 @@ public class StackHelper {
 
     public static boolean hasOreDictEntry (final ItemStack a) {
         int[] oreIDs = OreDictionary.getOreIDs(a);
-        if (oreIDs == null) {
-            return false;
-        }
-        return true;
+        return oreIDs != null;
     }
 
 

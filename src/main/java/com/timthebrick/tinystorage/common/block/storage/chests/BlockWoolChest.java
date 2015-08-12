@@ -35,11 +35,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class BlockWoolChest extends BlockContainer implements ITileEntityProvider {
 
-	protected boolean isLockable;
-	protected static final String[] textureNames = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
+	boolean isLockable;
 
-	protected BlockWoolChest(Material material, boolean isLockable) {
-		super(material);
+	BlockWoolChest(boolean isLockable) {
+		super(Material.cloth);
 		this.setHardness(2.5f);
 		this.isLockable = isLockable;
 		this.setCreativeTab(TabTinyStorage.creativeTab);
@@ -167,7 +166,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 		}
 	}
 
-	protected void dropInventory(World world, int x, int y, int z) {
+	private void dropInventory(World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 
 		if (!(tileEntity instanceof IInventory)) {
@@ -204,6 +203,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
 		for (int meta = 0; meta < 16; meta++) {
+			//noinspection unchecked,unchecked
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}

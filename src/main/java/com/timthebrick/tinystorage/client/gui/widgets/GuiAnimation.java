@@ -9,19 +9,19 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     /**
      * True if this control is enabled, false to disable.
      */
-    protected boolean enabled;
+    private boolean enabled;
     /**
      * Hides the control completely if false.
      */
-    protected boolean visible;
+    private boolean visible;
     /**
      * The X Position of the widget
      */
-    protected int xPosition;
+    private int xPosition;
     /**
      * The Y Position of the widget
      */
-    protected int yPosition;
+    private int yPosition;
     /**
      * The X Origin of the widget
      */

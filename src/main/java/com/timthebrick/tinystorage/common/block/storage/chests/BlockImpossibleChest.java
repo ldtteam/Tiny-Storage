@@ -35,8 +35,8 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
 
     private boolean isLockable;
 
-    public BlockImpossibleChest(Material mat, boolean isLockable) {
-        super(mat);
+    public BlockImpossibleChest(boolean isLockable) {
+        super(Material.rock);
         this.setHardness(2.5f);
         this.isLockable = isLockable;
         if (!this.isLockable) {
@@ -70,7 +70,7 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
         updateChestBounds();
     }
 
-    public void updateChestBounds() {
+    private void updateChestBounds() {
         setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
     }
 
@@ -203,7 +203,7 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
         }
     }
 
-    protected void dropInventory(World world, int x, int y, int z) {
+    private void dropInventory(World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
 
         if (!(tileEntity instanceof IInventory)) {

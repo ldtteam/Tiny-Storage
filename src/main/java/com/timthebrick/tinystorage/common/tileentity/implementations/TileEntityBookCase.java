@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedInventory {
 
-    public int numPlayersUsing;
+    private int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] sides;
@@ -114,10 +114,7 @@ public class TileEntityBookCase extends TileEntityTinyStorage implements ISidedI
 
     @Override
     public boolean isItemValidForSlot (int slotID, ItemStack stack) {
-        if (stack.getItem() instanceof ItemBook || stack.getItem() instanceof ItemEditableBook || stack.getItem() instanceof ItemEnchantedBook || stack.getItem() instanceof ItemWritableBook) {
-            return true;
-        }
-        return false;
+        return stack.getItem() instanceof ItemBook || stack.getItem() instanceof ItemEditableBook || stack.getItem() instanceof ItemEnchantedBook || stack.getItem() instanceof ItemWritableBook;
     }
 
     @Override

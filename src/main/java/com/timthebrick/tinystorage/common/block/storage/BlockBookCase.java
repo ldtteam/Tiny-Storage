@@ -113,7 +113,7 @@ public class BlockBookCase extends BlockContainer implements ITileEntityProvider
         }
     }
 
-    protected void dropInventory (World world, int x, int y, int z) {
+    private void dropInventory(World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
 
         if (!(tileEntity instanceof IInventory)) {
@@ -166,25 +166,20 @@ public class BlockBookCase extends BlockContainer implements ITileEntityProvider
         updateBlockBounds(world, x, y, z);
     }
 
-    public void updateBlockBounds (IBlockAccess world, int x, int y, int z) {
+    private void updateBlockBounds(IBlockAccess world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te != null && te instanceof TileEntityTinyStorage) {
             TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
             if(tileEntity.getOrientation() == ForgeDirection.NORTH){
                 setBlockBounds(0.0f, 0.0f, 0.65f, 1f, 1f, 1f);
-                return;
             }else if(tileEntity.getOrientation() == ForgeDirection.EAST){
                 setBlockBounds(0.0f, 0.0f, 0.0f, 0.35f, 1f, 1f);
-                return;
             }else if(tileEntity.getOrientation() == ForgeDirection.SOUTH){
                 setBlockBounds(0.0f, 0.0f, 0.0f, 1f, 1f, 0.35f);
-                return;
             }else if(tileEntity.getOrientation() == ForgeDirection.WEST){
                 setBlockBounds(0.65f, 0.0f, 0.0f, 1f, 1f, 1f);
-                return;
             }else{
                setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                return;
             }
         }
 

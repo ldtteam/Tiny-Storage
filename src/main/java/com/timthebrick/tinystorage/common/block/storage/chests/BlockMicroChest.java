@@ -73,7 +73,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 		updateChestBounds(world.getBlockMetadata(x, y, z));
 	}
 
-	public void updateChestBounds(int meta) {
+	private void updateChestBounds(int meta) {
 		setBlockBounds(0.2f, 0.0f, 0.2f, 0.8f, 0.51f, 0.8f);
 	}
 
@@ -202,7 +202,7 @@ public class BlockMicroChest extends BlockContainer implements ITileEntityProvid
 		}
 	}
 
-	protected void dropInventory(World world, int x, int y, int z) {
+	private void dropInventory(World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 
 		if (!(tileEntity instanceof IInventory)) {

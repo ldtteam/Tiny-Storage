@@ -22,13 +22,13 @@ import java.util.List;
 
 public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
-    public Container container;
+    protected Container container;
     private GuiImageButton accessMode;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
     protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
 
-    public GuiTinyStorage(Container container, TileEntityTinyStorage te) {
+    protected GuiTinyStorage(Container container, TileEntityTinyStorage te) {
         super(container);
         this.container = container;
         this.tileEntity = te;
@@ -72,7 +72,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         super.updateScreen();
     }
 
-    public void drawTooltip(int x, int y, int forceWidth, String Msg) {
+    private void drawTooltip(int x, int y, int forceWidth, String Msg) {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
@@ -160,7 +160,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     public void addWidgets() {
     }
 
-    public void addButtons() {
+    protected void addButtons() {
         this.accessMode = new GuiImageButton(this.guiLeft - 18, this.guiTop + 8, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED);
         if (tileEntity.hasUniqueOwner()) {
             this.buttonList.add(accessMode);
@@ -180,7 +180,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         this.drawBG(0, 0, x, y);
     }
 
-    public void drawFG(int ox, int oy, int x, int y) {
+    protected void drawFG(int ox, int oy, int x, int y) {
         if (this.accessMode != null) {
             this.accessMode.set(this.tileEntity.accessMode);
         }
@@ -204,7 +204,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         }
     }
 
-    public void drawBG(int ox, int oy, int x, int y) {
+    protected void drawBG(int ox, int oy, int x, int y) {
         this.handleButtonVisibility();
         this.handleWidgetVisibility();
     }

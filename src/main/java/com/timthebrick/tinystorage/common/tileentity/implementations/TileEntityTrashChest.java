@@ -21,7 +21,7 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 
 	public float lidAngle;
 	public float prevLidAngle;
-	public int numPlayersUsing;
+	private int numPlayersUsing;
 	private int ticksSinceSync;
 	private ItemStack[] inventory;
 	private final int[] sides = { 0, 1 };
@@ -146,11 +146,7 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 		if (slotID == 0) {
 			return true;
 		} else {
-			if (getStackInSlot(0).stackSize == 64 && StackHelper.isMatchingItem(stack, getStackInSlot(0), false, false)) {
-				return true;
-			} else {
-				return false;
-			}
+			return getStackInSlot(0).stackSize == 64 && StackHelper.isMatchingItem(stack, getStackInSlot(0), false, false);
 		}
 	}
 

@@ -11,8 +11,8 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityM
 
 public class ContainerMicroChest extends ContainerTinyStorage {
 
-	public static final int CHEST_INVENTORY_ROWS = 1;
-	public static final int CHEST_INVENTORY_COLUMNS = 9;
+	private static final int CHEST_INVENTORY_ROWS = 1;
+	private static final int CHEST_INVENTORY_COLUMNS = 9;
 	public static final int INVENTORY_SIZE = CHEST_INVENTORY_ROWS * CHEST_INVENTORY_COLUMNS;
 
 	private TileEntityMicroChest tileEntity;

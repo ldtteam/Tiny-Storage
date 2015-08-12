@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class SlotSpecificInput extends SlotTinyStorage {
 
-    Class<? extends Item> filterItem;
-    ArrayList<Class<? extends Item>> filterItemAdvanced;
+    private Class<? extends Item> filterItem;
+    private ArrayList<Class<? extends Item>> filterItemAdvanced;
 
     public SlotSpecificInput (IInventory inv, int id, int x, int y, Class<? extends Item> filterItem) {
         super(inv, id, x, y);
@@ -22,8 +22,8 @@ public class SlotSpecificInput extends SlotTinyStorage {
         this.filterItem = null;
         Class<? extends Item> items[] = filterItems;
         filterItemAdvanced = new ArrayList<Class<? extends Item>>();
-        for (int i = 0; i < items.length; i++) {
-            this.filterItemAdvanced.add(items[i]);
+        for (Class<? extends Item> item : items) {
+            this.filterItemAdvanced.add(item);
         }
     }
 

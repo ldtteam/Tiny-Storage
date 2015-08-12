@@ -43,7 +43,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
     public float lidAngle;
     public float prevLidAngle;
-    public int numPlayersUsing;
+    private int numPlayersUsing;
     private int ticksSinceSync;
     private ItemStack[] inventory;
     private int[] inventorySlots;
@@ -274,7 +274,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
     private boolean canMergeItemStacks (ItemStack input) {
         for (int i = 0; i < getNextFreeSlot(); i++) {
-            if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+            if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
                 return true;
             }
         }
@@ -284,7 +284,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
     private ItemStack tryMergeStacks (ItemStack input) {
         ItemStack leftOver = null;
         for (int i = 0; i < getNextFreeSlot(); i++) {
-            if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) == true && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
+            if (ItemHelper.equalsIgnoreStackSize(input, getStackInSlot(i)) && getStackInSlot(i).stackSize < getInventoryStackLimit()) {
                 leftOver = input.copy();
                 leftOver.stackSize = StackHelper.mergeStacks(input, getStackInSlot(i), true);
                 this.markDirty();
@@ -338,7 +338,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
         if (!this.worldObj.isRemote) {
 
-            if ((Settings.Blocks.peacefulChestMode == false) && (this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL)) {
+            if ((!Settings.Blocks.peacefulChestMode) && (this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL)) {
                 return;
             }
 
@@ -357,6 +357,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
                         EntityLiving mobEntity;
 
                         try {
+                            //noinspection unchecked
                             mobEntity = (EntityLiving) mobSpawn.entityClass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{worldObj});
                         } catch (Exception e) {
                             TinyStorageLog.error(e);
@@ -504,11 +505,7 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
     @Override
     public boolean isItemValidForSlot (int slotID, ItemStack itemStack) {
         if (slotID == swordSlot) {
-            if (itemStack.getItem() instanceof ItemSword) {
-                return true;
-            } else {
-                return false;
-            }
+            return itemStack.getItem() instanceof ItemSword;
         }
         return true;
     }
@@ -528,9 +525,6 @@ public class TileEntityPeacefulChest extends TileEntityTinyStorage implements IS
 
     @Override
     public boolean canExtractItem (int slotID, ItemStack stack, int blockSide) {
-        if (slotID == swordSlot) {
-            return false;
-        }
-        return true;
+        return slotID != swordSlot;
     }
 }
