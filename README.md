@@ -2,6 +2,8 @@ Master: [![Build Status](https://travis-ci.org/Tim020/Tiny-Storage.svg?branch=ma
 
 Dev: [![Build Status](https://travis-ci.org/Tim020/Tiny-Storage.svg?branch=Dev)](https://travis-ci.org/Tim020/Tiny-Storage)
 
+Dev-1.8: [![Build Status](https://travis-ci.org/Tim020/Tiny-Storage.svg?branch=Dev-1.8)](https://travis-ci.org/Tim020/Tiny-Storage)
+
 # Tiny Storage
 Minecraft Mod:- Adds tiny storage options to the game!
 
