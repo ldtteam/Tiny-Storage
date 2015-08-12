@@ -4,6 +4,7 @@ import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidgetAdvanced;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Colours;
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerDraw;
@@ -16,10 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 public class GuiDraw extends GuiTinyStorage {
-
-    //61, 11
-    //61, 33
-    //61, 55
 
     private TileEntityDraw tileEntity;
 

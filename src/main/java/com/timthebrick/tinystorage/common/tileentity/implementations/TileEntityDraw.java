@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.common.tileentity.implementations;
 
+import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +13,9 @@ import com.timthebrick.tinystorage.common.inventory.implementations.ContainerDra
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.CommonSoundHelper;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -22,24 +26,24 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     private boolean playSoundEvent;
     public int rowOpened;
 
-    public TileEntityDraw () {
+    public TileEntityDraw() {
         super();
         inventory = new ItemStack[ContainerDraw.INVENTORY_SIZE];
         sides = ArrayHelper.fillIntArray(0, ContainerDraw.INVENTORY_SIZE - 1, true);
     }
 
     @Override
-    public int getSizeInventory () {
+    public int getSizeInventory() {
         return inventory.length;
     }
 
     @Override
-    public ItemStack getStackInSlot (int slotIndex) {
+    public ItemStack getStackInSlot(int slotIndex) {
         return inventory[slotIndex];
     }
 
     @Override
-    public ItemStack decrStackSize (int slotIndex, int decrementAmount) {
+    public ItemStack decrStackSize(int slotIndex, int decrementAmount) {
         ItemStack itemStack = getStackInSlot(slotIndex);
         if (itemStack != null) {
             if (itemStack.stackSize <= decrementAmount) {
@@ -55,7 +59,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing (int slotIndex) {
+    public ItemStack getStackInSlotOnClosing(int slotIndex) {
         if (inventory[slotIndex] != null) {
             ItemStack itemStack = inventory[slotIndex];
             inventory[slotIndex] = null;
@@ -66,7 +70,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     }
 
     @Override
-    public void setInventorySlotContents (int slotIndex, ItemStack itemStack) {
+    public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
         inventory[slotIndex] = itemStack;
         if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit()) {
             itemStack.stackSize = this.getInventoryStackLimit();
@@ -75,7 +79,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     }
 
     @Override
-    public String getInventoryName () {
+    public String getInventoryName() {
         if (this.hasCustomName()) {
             return this.getCustomName();
         } else if (this.hasUniqueOwner()) {
@@ -86,41 +90,41 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     }
 
     @Override
-    public boolean hasCustomInventoryName () {
+    public boolean hasCustomInventoryName() {
         return this.hasCustomName();
     }
 
     @Override
-    public int getInventoryStackLimit () {
+    public int getInventoryStackLimit() {
         return 64;
     }
 
     @Override
-    public boolean isUseableByPlayer (EntityPlayer player) {
+    public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
     }
 
     @Override
-    public void openInventory () {
+    public void openInventory() {
         ++numPlayersUsing;
         playSoundEvent = true;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
     }
 
     @Override
-    public void closeInventory () {
+    public void closeInventory() {
         --numPlayersUsing;
         playSoundEvent = true;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.worldObj.getBlock(xCoord, yCoord, zCoord), 1, numPlayersUsing);
     }
 
     @Override
-    public boolean isItemValidForSlot (int p_94041_1_, ItemStack p_94041_2_) {
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
         return true;
     }
 
     @Override
-    public void updateEntity () {
+    public void updateEntity() {
         super.updateEntity();
 
         if (++ticksSinceSync % 20 * 4 == 0) {
@@ -139,7 +143,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     }
 
     @Override
-    public boolean receiveClientEvent (int eventID, int numUsingPlayers) {
+    public boolean receiveClientEvent(int eventID, int numUsingPlayers) {
         if (eventID == 1) {
             this.numPlayersUsing = numUsingPlayers;
             return true;
@@ -149,7 +153,7 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
     }
 
     @Override
-    public void readFromNBT (NBTTagCompound tagCompound) {
+    public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
@@ -159,10 +163,11 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
             }
         }
+        readSyncedNBT(tagCompound);
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tagCompound) {
+    public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         NBTTagList itemList = new NBTTagList();
         for (int i = 0; i < inventory.length; i++) {
@@ -175,21 +180,61 @@ public class TileEntityDraw extends TileEntityTinyStorage implements ISidedInven
             }
         }
         tagCompound.setTag("Inventory", itemList);
+        writeSyncedNBT(tagCompound);
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int side) {
+    public void readSyncedNBT(NBTTagCompound tag) {
+        super.readSyncedNBT(tag);
+    }
+
+    @Override
+    public void writeSyncedNBT(NBTTagCompound tag) {
+        super.writeSyncedNBT(tag);
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound syncData = new NBTTagCompound();
+        this.writeSyncedNBT(syncData);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        readSyncedNBT(pkt.func_148857_g());
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
         return this.sides;
     }
 
     @Override
-    public boolean canInsertItem (int slotID, ItemStack stack, int blockSide) {
-        return this.isItemValidForSlot(slotID, stack);
+    public boolean canInsertItem(int slotID, ItemStack stack, int blockSide) {
+        if (this.accessMode == AccessMode.DISABLED) {
+            return false;
+        } else if (this.accessMode == AccessMode.INPUT_ONLY) {
+            return this.isItemValidForSlot(slotID, stack);
+        } else if (this.accessMode == AccessMode.OUTPUT_ONLY) {
+            return false;
+        } else if (this.accessMode == AccessMode.INPUT_OUTPUT) {
+            return this.isItemValidForSlot(slotID, stack);
+        }
+        return false;
     }
 
     @Override
-    public boolean canExtractItem (int slotID, ItemStack stack, int blockSide) {
-        return true;
+    public boolean canExtractItem(int slotID, ItemStack stack, int blockSide) {
+        if (this.accessMode == AccessMode.DISABLED) {
+            return false;
+        } else if (this.accessMode == AccessMode.INPUT_ONLY) {
+            return false;
+        } else if (this.accessMode == AccessMode.OUTPUT_ONLY) {
+            return true;
+        } else if (this.accessMode == AccessMode.INPUT_OUTPUT) {
+            return true;
+        }
+        return false;
     }
-
 }

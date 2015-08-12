@@ -272,19 +272,15 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         tag.setByte(Names.NBT.DIRECTION, (byte) orientation.ordinal());
         tag.setByte(Names.NBT.STATE, state);
         tag.setInteger(Names.NBT.ACCESS_MODE, accessMode.ordinal());
-
         if (this.hasCustomName()) {
             tag.setString(Names.NBT.CUSTOM_NAME, customName);
         }
-
         if (this.hasUniqueOwner()) {
             tag.setString(Names.NBT.UNIQUE_OWNER, uniqueOwner);
         }
-
         if (this.hasOwner()) {
             tag.setString(Names.NBT.OWNER, owner);
         }
-
         if (this.hasCustomTextureName()) {
             tag.setString(Names.NBT.TEXTURE_NAME, textureName);
         }
@@ -299,21 +295,20 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         if (tag.hasKey(Names.NBT.DIRECTION)) {
             this.orientation = ForgeDirection.getOrientation(tag.getByte(Names.NBT.DIRECTION));
         }
-
         if (tag.hasKey(Names.NBT.STATE)) {
             this.state = tag.getByte(Names.NBT.STATE);
         }
-
         if (tag.hasKey(Names.NBT.ACCESS_MODE)) {
             this.accessMode = AccessMode.values()[tag.getInteger(Names.NBT.ACCESS_MODE)];
         }
-
         if (tag.hasKey(Names.NBT.CUSTOM_NAME)) {
             this.customName = tag.getString(Names.NBT.CUSTOM_NAME);
         }
-
         if (tag.hasKey(Names.NBT.UNIQUE_OWNER)) {
             this.uniqueOwner = tag.getString(Names.NBT.UNIQUE_OWNER);
+        }
+        if(tag.hasKey(Names.NBT.OWNER)){
+            this.owner = tag.getString(Names.NBT.OWNER);
         }
         if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
             this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
