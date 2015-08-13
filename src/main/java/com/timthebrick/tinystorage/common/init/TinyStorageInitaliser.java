@@ -13,6 +13,7 @@ import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.util.colour.Colour;
 import com.timthebrick.tinystorage.util.colour.ColourSampler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -49,6 +50,7 @@ public class TinyStorageInitaliser {
         TinyStorage.instance.proxy.registerEventHandlers();
         CraftingEventHandler.init();
         Recipes.init();
+        FMLInterModComms.sendMessage("Waila", "register", "com.timthebrick.tinystorage.common.waila.WailaDataProvider.callbackRegister");
     }
 
     public static void postInit(FMLPostInitializationEvent event) {

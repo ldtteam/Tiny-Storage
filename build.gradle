@@ -32,6 +32,10 @@ repositories {
         name 'OrionMavenRepo'
         url 'http://mavenrepo.orionminecraft.com/'
     }
+	maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
 }
 
 apply plugin: 'forge'
@@ -62,6 +66,9 @@ minecraft {
 dependencies {
 	//Maven uploader
     deployerJars 'org.apache.maven.wagon:wagon-ftp:2.2'
+	compile('mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10') {
+        exclude group: 'mcp.mobius.waila'
+    }
 }
 
 processResources
