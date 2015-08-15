@@ -70,13 +70,15 @@ public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
      */
     void setEnabled(boolean enabled);
 
-    boolean mouseClicked(int xPos, int yPos, int btn);
+    boolean onMouseClick(int xPos, int yPos, int btn);
 
     boolean mouseClickMove(int x, int y, int button, long time);
 
     void mouseMovedOrUp(int x, int y, int button);
 
     void mouseWheel(int x, int y, int delta);
+
+    void keyTyped(char c, int key);
 
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 

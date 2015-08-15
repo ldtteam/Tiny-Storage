@@ -151,7 +151,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
-    public boolean mouseClicked(int x, int y, int button) {
+    public boolean onMouseClick(int x, int y, int button) {
         if (this.isEnabled() && this.shouldScroll && containerArea.contains(x, y)) {
             notifyOfChange();
             scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
@@ -181,6 +181,10 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
             scrollTo(getScrollPos() + ((-Integer.signum(delta) * 4)));
             shouldScroll = true;
         }
+    }
+
+    @Override
+    public void keyTyped(char c, int key) {
     }
 
     @Override

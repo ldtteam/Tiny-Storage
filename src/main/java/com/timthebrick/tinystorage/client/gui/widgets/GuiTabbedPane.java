@@ -1,6 +1,5 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
 import net.minecraft.client.gui.Gui;
@@ -10,6 +9,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip {
     /**
@@ -88,6 +88,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * The widget provider for this IGuiWidgetAdvanced
      */
     private IWidgetProvider widgetProvider;
+    /**
+     * A list of widgets contained by this panel
+     */
+    private ArrayList<IGuiWidgetAdvanced> containedWidgets = new ArrayList<IGuiWidgetAdvanced>();
 
     /**
      * @param widgetProvider    The provider that adds this object to it
@@ -97,10 +101,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * @param height            The height of the entire tab
      * @param buttonWidth       The width of the display button
      * @param buttonHeight      The height of the display button
+     * @param backgroundX       The X Position of the background texture for the tab
      * @param backgroundY       The Y Position of the background texture for the tab
      * @param buttonBackgroundX The X Position of the background texture for the button
      * @param buttonBackgroundY The Y Position of the background texture for the button
-     * @@param backgroundX     The X Position of the background texture for the tab
      */
     public GuiTabbedPane(IWidgetProvider widgetProvider, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
         this.widgetProvider = widgetProvider;
@@ -117,53 +121,70 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         setEnabled(true);
     }
 
+    public void addContainedWidget(IGuiWidgetAdvanced widget) {
+        containedWidgets.add(widget);
+        widget.adjustPosition();
+    }
+
     @Override
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
         expandButton = new Rectangle(xPosition, yPosition, getButtonWidth(), getButtonHeight());
+        for(IGuiWidgetAdvanced widget : containedWidgets){
+            widget.adjustPosition();
+        }
     }
 
     @Override
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
         if (this.isEnabled()) {
-            this.drawTexturedModalRect(xOrigin, yOrigin, buttonTextureX, buttonTextureY, getButtonWidth(), getButtonHeight());
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiPanes.png"));
+            this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getButtonWidth(), getButtonHeight());
             if (shouldAnimate) {
+                for(IGuiWidgetAdvanced widget : containedWidgets){
+                    widget.setVisibility(false);
+                }
                 if (expanded) {
-                    this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) (getWidth() - progressX), (int) (getHeight() - progressX));
+                    this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
                 } else {
-                    this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) progressX, (int) progressY);
+                    this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) Math.ceil(progressX), (int) Math.ceil(progressY));
                 }
             } else if (expanded) {
+                for(IGuiWidgetAdvanced widget : containedWidgets){
+                    widget.setVisibility(true);
+                }
                 this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getWidth(), getHeight());
             }
         } else {
+            guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
             this.drawTexturedModalRect(xOrigin, yOrigin, buttonTextureX + getButtonWidth(), buttonTextureY, getButtonWidth(), getButtonHeight());
+        }
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            widget.drawWidget(guiScreen, xScreenSize, yScreenSize);
         }
     }
 
     @Override
     public void updateWidget() {
         if (this.shouldAnimate && this.isEnabled()) {
-            int xAdj, yAdj;
+            float xAdj, yAdj;
+            float multiplier = 1.5f;
+
             if (getWidth() < getHeight()) {
-                TinyStorageLog.info((float) getHeight() / getWidth());
-                xAdj = getHeight() / getWidth();
-                yAdj = 1;
-            } else {
-                TinyStorageLog.info((float) getWidth() / getHeight());
                 xAdj = 1;
-                yAdj = getWidth() / getHeight();
+                yAdj = (float) getHeight() / getWidth();
+            } else {
+                xAdj = (float) (getWidth() / getHeight());
+                yAdj = 1;
             }
 
             if (progressX < getWidth()) {
-                progressX += xAdj;
+                progressX += (xAdj * multiplier);
             }
             if (progressY < getHeight()) {
-                progressY += yAdj;
+                progressY += (yAdj * multiplier);
             }
             if (progressX >= getWidth() && progressY >= getHeight()) {
                 progressX = 0;
@@ -171,28 +192,51 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                 expanded = !expanded;
                 shouldAnimate = false;
             }
+
+            for (IGuiWidgetAdvanced widget : containedWidgets) {
+                widget.updateWidget();
+            }
         }
     }
 
     @Override
-    public boolean mouseClicked(int xPos, int yPos, int btn) {
-        if (this.isEnabled() && expandButton.contains(xPos, yPos) && shouldAnimate == false) {
+    public boolean onMouseClick(int xPos, int yPos, int btn) {
+        if (this.isEnabled() && expandButton.contains(xPos, yPos) && !shouldAnimate) {
             shouldAnimate = true;
+        }
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            widget.onMouseClick(xPos, yPos, btn);
         }
         return false;
     }
 
     @Override
     public boolean mouseClickMove(int x, int y, int button, long time) {
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            widget.mouseClickMove(x, y, button, time);
+        }
         return false;
     }
 
     @Override
     public void mouseMovedOrUp(int x, int y, int button) {
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            widget.mouseMovedOrUp(x, y, button);
+        }
     }
 
     @Override
     public void mouseWheel(int x, int y, int delta) {
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            widget.mouseWheel(x, y, delta);
+        }
+    }
+
+    @Override
+    public void keyTyped(char c, int key) {
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            widget.updateWidget();
+        }
     }
 
     @Override
@@ -252,6 +296,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    /*
+    Tool tip stuff
+     */
 
     @Override
     public String getMessage() {

@@ -3,11 +3,12 @@ package com.timthebrick.tinystorage.client.gui.inventory;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.CharFilters;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -179,13 +180,19 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     @Override
     public void addWidgets() {
-        this.friendsPanel = new GuiTabbedPane(this, getXSize() + 2, 8, 54, 85, 12, 12, 0, 0, 24, 0);
-        if (tileEntity.hasUniqueOwner()) {
-            this.addWidget(friendsPanel);
+        if (this.friendsPanel == null) {
+            this.friendsPanel = new GuiTabbedPane(this, getXSize() + 2, 8, 108, 170, 12, 12, 0, 0, 24, 0);
+            if (tileEntity.hasUniqueOwner()) {
+                this.addWidget(friendsPanel);
+            }
+            friendsPanel.addContainedWidget(new GuiTextInput(this, this.fontRendererObj, 2, 2, friendsPanel.getWidth() - 2, 10, CharFilters.FILTER_ALPHANUMERIC));
+        } else {
+            this.friendsPanel.adjustPosition();
         }
     }
 
     protected void addButtons() {
+        this.buttonList.remove(accessMode);
         this.accessMode = new GuiImageButton(this.guiLeft - 18, this.guiTop + 8, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED);
         if (tileEntity.hasUniqueOwner()) {
             this.buttonList.add(accessMode);
@@ -250,7 +257,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
             for (IGuiWidgetAdvanced widget : widgets) {
-                widget.mouseClicked(xCoord, yCoord, btn);
+                widget.onMouseClick(xCoord, yCoord, btn);
             }
         }
         if (btn == 1) {
@@ -281,6 +288,14 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
                 widget.mouseWheel(x, y, delta);
             }
         }
+    }
+
+    @Override
+    protected void keyTyped(char c, int key) {
+        for (IGuiWidgetAdvanced widget : widgets) {
+            widget.keyTyped(c, key);
+        }
+        super.keyTyped(c, key);
     }
 
     @Override

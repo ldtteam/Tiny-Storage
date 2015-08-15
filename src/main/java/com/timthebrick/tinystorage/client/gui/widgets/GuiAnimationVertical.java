@@ -79,6 +79,10 @@ public class GuiAnimationVertical extends GuiAnimation {
     }
 
     @Override
+    public void keyTyped(char c, int key) {
+    }
+
+    @Override
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
     }
 

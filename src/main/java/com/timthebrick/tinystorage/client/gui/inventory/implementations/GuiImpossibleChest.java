@@ -103,7 +103,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (scrollBar != null) {
-            scrollBar.mouseClicked(xCoord, yCoord, btn);
+            scrollBar.onMouseClick(xCoord, yCoord, btn);
         }
         super.mouseClicked(xCoord, yCoord, btn);
     }

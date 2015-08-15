@@ -155,7 +155,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     }
 
     @Override
-    public boolean mouseClicked(int xPos, int yPos, int btn) {
+    public boolean onMouseClick(int xPos, int yPos, int btn) {
         return false;
     }
 
