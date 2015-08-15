@@ -66,4 +66,16 @@ public class Messages {
         public static final String DELETE_STACK_TRUE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.TRUE.toString().toLowerCase();
         public static final String DELETE_STACK_FALSE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.FALSE.toString().toLowerCase();
     }
+
+    public static final class WailaTooltips {
+        public static final String ACCESS_MODE_TITLE = "waila.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase();
+        public static final String ACCESS_MODE_BLOCKED = "waila.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.DISABLED.toString().toLowerCase();
+        public static final String ACCESS_MODE_INPUT_ONLY = "waila.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_ONLY.toString().toLowerCase();
+        public static final String ACCESS_MODE_OUTPUT_ONLY = "waila.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.OUTPUT_ONLY.toString().toLowerCase();
+        public static final String ACCESS_MODE_BOTH = "waila.tooltip.tinystorage:" + ButtonSettings.AUTOMATED_SIDE_ACCESS.toString().toLowerCase() + "_" + AccessMode.INPUT_OUTPUT.toString().toLowerCase();
+        public static final String CHEST_NOT_OWNED = "waila.tooltip.tinystorage:chestNotOwned";
+        public static final String BLOCK_SMALL = "waila.tooltip.tinystorage:blockSize.small";
+        public static final String BLOCK_MEDIUM = "waila.tooltip.tinystorage:blockSize.medium";
+        public static final String BLOCK_LARGE = "waila.tooltip.tinystorage:blockSize.large";
+    }
 }

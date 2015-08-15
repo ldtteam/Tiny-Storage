@@ -190,6 +190,10 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         return this.accessMode;
     }
 
+    public String getInventoryName() {
+        return "";
+    }
+
     /**
      * Whether or not this block has a custom name
      *
@@ -307,7 +311,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         if (tag.hasKey(Names.NBT.UNIQUE_OWNER)) {
             this.uniqueOwner = tag.getString(Names.NBT.UNIQUE_OWNER);
         }
-        if(tag.hasKey(Names.NBT.OWNER)){
+        if (tag.hasKey(Names.NBT.OWNER)) {
             this.owner = tag.getString(Names.NBT.OWNER);
         }
         if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
