@@ -398,6 +398,9 @@ waila.tooltip.tinystorage:blockSize.small=Small
 waila.tooltip.tinystorage:blockSize.medium=Medium
 waila.tooltip.tinystorage:blockSize.large=Large
 
+#Button Tooltips
+widget.tooltip.tinystorage:friendsList=Friends List
+
 #Config
 general.sound.SoundMode=Sounds
 general.sound.soundMode.label=Sounds

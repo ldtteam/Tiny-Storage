@@ -24,6 +24,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     protected Container container;
     private GuiImageButton accessMode;
+    private GuiTabbedPane friendsPanel;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
     protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
@@ -40,7 +41,6 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
         boolean hasClicked = Mouse.isButtonDown(0);
         for (IGuiWidgetAdvanced widget : widgets) {
             if (widget instanceof IGuiWidgetBackground) {
-                // TinyStorageLog.info(getGuiLeft() + ", " + getXSize() + " | " + getGuiTop() + ", " + getYSize());
                 widget.drawWidget(this, xSize, ySize);
             }
         }
@@ -51,6 +51,24 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
                 int y = tooltip.yPos(); // ((GuiImgButton) c).yPosition;
                 if (x < mouseX && x + tooltip.getWidth() > mouseX && tooltip.isVisible()) {
                     if (y < mouseY && y + tooltip.getHeight() > mouseY) {
+                        if (y < 15) {
+                            y = 15;
+                        }
+                        String msg = tooltip.getMessage();
+                        if (msg != null) {
+                            this.drawTooltip(x + 11, y + 4, 0, msg);
+                        }
+                    }
+                }
+            }
+        }
+        for (Object c : this.widgets) {
+            if (c instanceof IWidgetTooltip) {
+                IWidgetTooltip tooltip = (IWidgetTooltip) c;
+                int x = tooltip.xTriggerPos(); // ((GuiImgButton) c).xPosition;
+                int y = tooltip.yTriggerPos(); // ((GuiImgButton) c).yPosition;
+                if (x < mouseX && x + tooltip.getTooltipWidth() > mouseX && tooltip.isTooltipVisible()) {
+                    if (y < mouseY && y + tooltip.getTooltipHeight() > mouseY) {
                         if (y < 15) {
                             y = 15;
                         }
@@ -147,6 +165,9 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     @Override
     public void handleWidgetVisibility() {
+        if (this.friendsPanel != null) {
+            this.friendsPanel.setVisibility(true);
+        }
     }
 
     @Override
@@ -158,6 +179,10 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
 
     @Override
     public void addWidgets() {
+        this.friendsPanel = new GuiTabbedPane(this, getXSize() + 2, 8, 54, 85, 12, 12, 0, 0, 24, 0);
+        if (tileEntity.hasUniqueOwner()) {
+            this.addWidget(friendsPanel);
+        }
     }
 
     protected void addButtons() {

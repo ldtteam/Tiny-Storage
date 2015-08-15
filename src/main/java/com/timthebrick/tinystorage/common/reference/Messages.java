@@ -78,4 +78,8 @@ public class Messages {
         public static final String BLOCK_MEDIUM = "waila.tooltip.tinystorage:blockSize.medium";
         public static final String BLOCK_LARGE = "waila.tooltip.tinystorage:blockSize.large";
     }
+
+    public static final class WidgetTooltips{
+        public static final String FRIENDS_LIST = "widget.tooltip.tinystorage:friendsList";
+    }
 }
