@@ -48,9 +48,11 @@ configurations {
 }
 
 version = config.mod_version.toString() + "_" + System.getenv().TRAVIS_BUILD_NUMBER.toString()
+mavenVersion = config.minecraft_version + "_" + config.mod_version.toString() + "_" + System.getenv().TRAVIS_BUILD_NUMBER.toString()
 if(System.getenv().TRAVIS_BRANCH.toString().contains("Dev"))
 {
     version = version + "-Dev"
+	mavenVersion = mavenVersion + "-Dev"
 }
 
 group= "com.timthebrick.tinystorage" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -151,7 +153,7 @@ uploadArchives {
 			}
         pom {
            groupId = project.group
-            version = project.version
+            version = project.mavenVersion
             artifactId = project.archivesBaseName
         }
 
