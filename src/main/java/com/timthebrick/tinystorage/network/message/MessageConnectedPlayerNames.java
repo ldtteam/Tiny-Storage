@@ -30,6 +30,11 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
         this.playerList = playerList;
     }
 
+    public MessageConnectedPlayerNames(TinyStorage mod)
+    {
+        this.playerList = mod.playerList;
+    }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         buf.writeInt(playerList.size());
