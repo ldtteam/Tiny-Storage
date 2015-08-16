@@ -65,6 +65,8 @@ public class Messages {
         public static final String DELETE_STACK_TITLE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase();
         public static final String DELETE_STACK_TRUE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.TRUE.toString().toLowerCase();
         public static final String DELETE_STACK_FALSE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.FALSE.toString().toLowerCase();
+        public static final String ADD = "button.tooltip.tinystorage:" + ButtonSettings.ADD.toString().toLowerCase();
+        public static final String DELETE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE.toString().toLowerCase();
     }
 
     public static final class WailaTooltips {

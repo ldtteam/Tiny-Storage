@@ -137,46 +137,6 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     }
 
     @Override
-    public Rectangle getWidgetAreaAbsolute() {
-        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
-    }
-
-    @Override
-    public Rectangle getWidgetAreaRelative() {
-        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
-    }
-
-    @Override
-    public Rectangle getWidgetVisibleAreaAbsolute() {
-        if (shouldAnimate) {
-            if (expanded) {
-                return new Rectangle(xPos(), yPos(), (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
-            } else {
-                return new Rectangle(xPos(), yPos(), (int) Math.ceil(progressX), (int) Math.ceil(progressY));
-            }
-        } else if (expanded) {
-            return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
-        } else {
-            return new Rectangle(xPos(), yPos(), getButtonWidth(), getButtonHeight());
-        }
-    }
-
-    @Override
-    public Rectangle getWidgetVisibleAreaRelative() {
-        if (shouldAnimate) {
-            if (expanded) {
-                return new Rectangle(getXOrigin(), getYOrigin(), (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
-            } else {
-                return new Rectangle(getXOrigin(), getYOrigin(), (int) Math.ceil(progressX), (int) Math.ceil(progressY));
-            }
-        } else if (expanded) {
-            return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
-        } else {
-            return new Rectangle(getXOrigin(), getYOrigin(), getButtonWidth(), getButtonHeight());
-        }
-    }
-
-    @Override
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (this.isEnabled()) {
@@ -276,6 +236,46 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     public void keyTyped(char c, int key) {
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             widget.keyTyped(c, key);
+        }
+    }
+
+    @Override
+    public Rectangle getWidgetAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaAbsolute() {
+        if (shouldAnimate) {
+            if (expanded) {
+                return new Rectangle(xPos(), yPos(), (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
+            } else {
+                return new Rectangle(xPos(), yPos(), (int) Math.ceil(progressX), (int) Math.ceil(progressY));
+            }
+        } else if (expanded) {
+            return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+        } else {
+            return new Rectangle(xPos(), yPos(), getButtonWidth(), getButtonHeight());
+        }
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaRelative() {
+        if (shouldAnimate) {
+            if (expanded) {
+                return new Rectangle(getXOrigin(), getYOrigin(), (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
+            } else {
+                return new Rectangle(getXOrigin(), getYOrigin(), (int) Math.ceil(progressX), (int) Math.ceil(progressY));
+            }
+        } else if (expanded) {
+            return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+        } else {
+            return new Rectangle(getXOrigin(), getYOrigin(), getButtonWidth(), getButtonHeight());
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.EnableMode;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -45,6 +46,10 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
 			this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BOTH);
 			this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_FALSE);
 			this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
+            this.registerApp(6, ButtonSettings.ADD, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
+            this.registerApp(7, ButtonSettings.ADD, EnableMode.DISABLED, Messages.ButtonTooltips.ADD, "");
+            this.registerApp(6, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
+            this.registerApp(7, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
 		}
 	}
 
