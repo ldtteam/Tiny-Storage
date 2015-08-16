@@ -28,14 +28,18 @@ buildscript {
 
 repositories {
     mavenCentral()
-	maven { //My own repo (used for uploading and dependency)
+	maven { 
         name 'OrionMavenRepo'
         url 'http://mavenrepo.orionminecraft.com/'
     }
-	maven { // The repo from which to get waila
+	maven {
         name "Mobius Repo"
         url "http://mobiusstrip.eu/maven"
     }
+	maven{
+		name "CB Repo"
+		url = "http://chickenbones.net/maven/"
+	}
 }
 
 apply plugin: 'forge'
@@ -64,11 +68,13 @@ minecraft {
 }
 
 dependencies {
-	//Maven uploader
     deployerJars 'org.apache.maven.wagon:wagon-ftp:2.2'
 	compile(config.waila_version.toString()) {
         exclude group: 'mcp.mobius.waila'
     }
+	compile(config.chicken_lib_version.toString())
+    compile(config.chicken_core_version.toString())
+    compile(config.nei_version.toString())
 }
 
 processResources
@@ -112,6 +118,16 @@ artifacts {
     archives devJar
 }
 
+//The following function comes with thanks to AbrarSyed:
+//Copying the coremod dependencies from the classpath to the mods directory so the system can load them in a Dev Env.
+//This is not executed during build!
+task copyChicken(type: Copy){
+    from configurations.compile
+    include "**/*Chicken*.jar", "**/*NotEnoughItems*.jar"
+    exclude "**/CodeChickenLib*" // because CCC downloads it anyways.. -_-
+    into file(minecraft.runDir + "/mods") // parallel to the assets dir
+}
+
 curse {
     dependsOn 'reobf'
 
@@ -150,7 +166,7 @@ uploadArchives {
                 authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
 			}
         pom {
-           groupId = project.group
+			groupId = project.group
             version = config.minecraft_version + "_" + project.version
             artifactId = project.archivesBaseName
         }

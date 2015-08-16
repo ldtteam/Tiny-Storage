@@ -235,7 +235,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     @Override
     public void keyTyped(char c, int key) {
         for (IGuiWidgetAdvanced widget : containedWidgets) {
-            widget.updateWidget();
+            widget.keyTyped(c, key);
         }
     }
 

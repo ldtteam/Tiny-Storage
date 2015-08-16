@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
+import codechicken.nei.api.INEIGuiHandler;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
@@ -7,8 +8,8 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.CharFilters;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -21,7 +22,10 @@ import org.lwjgl.opengl.GL12;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
+@Optional.InterfaceList({
+        @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+})
+public class GuiTinyStorage extends GuiContainer implements IWidgetProvider , INEIGuiHandler{
 
     protected Container container;
     private GuiImageButton accessMode;
