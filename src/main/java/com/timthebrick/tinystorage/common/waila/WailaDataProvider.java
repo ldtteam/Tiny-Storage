@@ -33,13 +33,12 @@ public class WailaDataProvider implements IWailaDataProvider {
             if (tileEntity instanceof TileEntityDraw || tileEntity instanceof TileEntityBookCase) {
                 currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()));
             } else {
-                switch (tileEntity.getState()) {
-                    case 0:
-                        currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_SMALL));
-                    case 1:
-                        currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_MEDIUM));
-                    case 2:
-                        currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_LARGE));
+                if (tileEntity.getState() == 0) {
+                    currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_SMALL));
+                } else if (tileEntity.getState() == 1) {
+                    currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_MEDIUM));
+                } else if (tileEntity.getState() == 2) {
+                    currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_LARGE));
                 }
             }
         }
