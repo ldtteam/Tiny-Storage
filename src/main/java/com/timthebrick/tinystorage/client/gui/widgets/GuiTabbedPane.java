@@ -131,8 +131,48 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
         expandButton = new Rectangle(xPosition, yPosition, getButtonWidth(), getButtonHeight());
-        for(IGuiWidgetAdvanced widget : containedWidgets){
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
             widget.adjustPosition();
+        }
+    }
+
+    @Override
+    public Rectangle getWidgetAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaAbsolute() {
+        if (shouldAnimate) {
+            if (expanded) {
+                return new Rectangle(xPos(), yPos(), (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
+            } else {
+                return new Rectangle(xPos(), yPos(), (int) Math.ceil(progressX), (int) Math.ceil(progressY));
+            }
+        } else if (expanded) {
+            return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+        } else {
+            return new Rectangle(xPos(), yPos(), getButtonWidth(), getButtonHeight());
+        }
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaRelative() {
+        if (shouldAnimate) {
+            if (expanded) {
+                return new Rectangle(getXOrigin(), getYOrigin(), (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
+            } else {
+                return new Rectangle(getXOrigin(), getYOrigin(), (int) Math.ceil(progressX), (int) Math.ceil(progressY));
+            }
+        } else if (expanded) {
+            return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+        } else {
+            return new Rectangle(getXOrigin(), getYOrigin(), getButtonWidth(), getButtonHeight());
         }
     }
 
@@ -143,7 +183,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiPanes.png"));
             this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getButtonWidth(), getButtonHeight());
             if (shouldAnimate) {
-                for(IGuiWidgetAdvanced widget : containedWidgets){
+                for (IGuiWidgetAdvanced widget : containedWidgets) {
                     widget.setVisibility(false);
                 }
                 if (expanded) {
@@ -152,7 +192,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                     this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) Math.ceil(progressX), (int) Math.ceil(progressY));
                 }
             } else if (expanded) {
-                for(IGuiWidgetAdvanced widget : containedWidgets){
+                for (IGuiWidgetAdvanced widget : containedWidgets) {
                     widget.setVisibility(true);
                 }
                 this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getWidth(), getHeight());

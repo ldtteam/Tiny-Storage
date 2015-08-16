@@ -188,6 +188,26 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
+    public Rectangle getWidgetAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
     public int xPos() {
         return this.xPosition;
     }

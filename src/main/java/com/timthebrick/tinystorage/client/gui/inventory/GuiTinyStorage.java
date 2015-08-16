@@ -1,6 +1,8 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
+import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
@@ -14,18 +16,18 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Optional.InterfaceList({
-        @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
-})
-public class GuiTinyStorage extends GuiContainer implements IWidgetProvider , INEIGuiHandler{
+@Optional.InterfaceList({@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")})
+public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INEIGuiHandler {
 
     protected Container container;
     private GuiImageButton accessMode;
@@ -380,5 +382,41 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider , IN
     @Override
     public int getInvHeight() {
         return 0;
+    }
+
+    @Override
+    @Optional.Method(modid = "NotEnoughItems")
+    public VisiblityData modifyVisiblity(GuiContainer gui, VisiblityData currentVisibility) {
+        return null;
+    }
+
+    @Override
+    @Optional.Method(modid = "NotEnoughItems")
+    public Iterable<Integer> getItemSpawnSlots(GuiContainer gui, ItemStack item) {
+        return null;
+    }
+
+    @Override
+    @Optional.Method(modid = "NotEnoughItems")
+    public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui) {
+        return null;
+    }
+
+    @Override
+    @Optional.Method(modid = "NotEnoughItems")
+    public boolean handleDragNDrop(GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button) {
+        return false;
+    }
+
+    @Override
+    @Optional.Method(modid = "NotEnoughItems")
+    public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
+        Rectangle area = new Rectangle(x, y, w, h);
+        for (IGuiWidgetAdvanced widget : widgets) {
+            if (area.intersects(widget.getWidgetVisibleAreaAbsolute()) && widget.isVisible()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

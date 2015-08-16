@@ -4,6 +4,8 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirectio
 import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.Gui;
 
+import java.awt.*;
+
 public abstract class GuiAnimation extends Gui implements IGuiAnimation {
 
     /**
@@ -100,7 +102,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     }
 
     @Override
-    public boolean isRunning(){
+    public boolean isRunning() {
         return shouldAnimate;
     }
 
@@ -190,6 +192,26 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     @Override
     public int foregroundTextureY() {
         return foregroundTextureY;
+    }
+
+    @Override
+    public Rectangle getWidgetAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
     }
 
 }

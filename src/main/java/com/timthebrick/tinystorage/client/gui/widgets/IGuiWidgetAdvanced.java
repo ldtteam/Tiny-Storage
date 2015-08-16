@@ -2,6 +2,8 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import net.minecraft.client.gui.GuiScreen;
 
+import java.awt.*;
+
 public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
 
     /**
@@ -83,5 +85,13 @@ public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
     void adjustPosition();
+
+    Rectangle getWidgetAreaAbsolute();
+
+    Rectangle getWidgetAreaRelative();
+
+    Rectangle getWidgetVisibleAreaAbsolute();
+
+    Rectangle getWidgetVisibleAreaRelative();
 
 }
