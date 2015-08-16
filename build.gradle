@@ -150,7 +150,7 @@ uploadArchives {
                 authentication(userName: "mavenrepo.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
 			}
         pom {
-           groupId = project.group
+			groupId = project.group
             version = config.minecraft_version + "_" + project.version
             artifactId = project.archivesBaseName
         }
