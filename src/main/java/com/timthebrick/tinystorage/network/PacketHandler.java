@@ -19,5 +19,6 @@ public class PacketHandler {
 		INSTANCE.registerMessage(MessageKeyPressed.class, MessageKeyPressed.class, 2, Side.SERVER);
         INSTANCE.registerMessage(MessageSpawnParticle.class, MessageSpawnParticle.class, 3, Side.CLIENT);
 		INSTANCE.registerMessage(MessageScrollBar.class, MessageScrollBar.class, 4, Side.SERVER);
+		INSTANCE.registerMessage(MessageConnectedPlayerNames.class, MessageConnectedPlayerNames.class, 5, Side.CLIENT);
 	}
 }
