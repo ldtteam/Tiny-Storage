@@ -12,24 +12,25 @@ import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.util.colour.Colour;
 import com.timthebrick.tinystorage.util.colour.ColourSampler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.item.*;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.UsernameCache;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class TinyStorageInitaliser {
 
     public static void preInit(FMLPreInitializationEvent event) {
-        TinyStorage.instance.developmentEnvironment = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
-        if (TinyStorage.instance.developmentEnvironment){
+        TinyStorage.instance.developmentEnvironment = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+        if (TinyStorage.instance.developmentEnvironment) {
             TinyStorageLog.info("Development Environment detected; some features may not work the same as in a normal game");
         }
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
@@ -57,9 +58,31 @@ public class TinyStorageInitaliser {
         doColourMap();
     }
 
+    public static void serverStarting(FMLServerStartingEvent event) {
+        refreshPlayerUUIDList(TinyStorage.instance.playerUUIDs);
+    }
+
+    public static void serverStopping(FMLServerStoppingEvent event){
+        TinyStorage.instance.playerUUIDs.clear();
+        TinyStorage.instance.playerList.clear();
+    }
+
+    public static void refreshPlayerUUIDList(ArrayList<String> uuidList) {
+        File file = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "playerdata");
+        if (file.isDirectory()) {
+            for (File search : file.listFiles()) {
+                if (!uuidList.contains(search.getName().replaceFirst("[.][^.]+$", ""))) {
+                    TinyStorageLog.info("Adding player UUID to list");
+                    TinyStorage.instance.playerUUIDs.add(search.getName().replaceFirst("[.][^.]+$", ""));
+                    TinyStorage.instance.playerList.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
+                }
+            }
+        }
+    }
+
     private static void doColourMap() {
         Stopwatch watch = Stopwatch.createStarted();
-        @SuppressWarnings("unchecked") Iterator<Item> iterator = Item.itemRegistry.iterator();
+        Iterator<Item> iterator = Item.itemRegistry.iterator();
         while (iterator.hasNext()) {
             try {
                 Item item = iterator.next();
