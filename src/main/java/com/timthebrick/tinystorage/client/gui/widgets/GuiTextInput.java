@@ -3,13 +3,12 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ICharFilter;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 
 import java.lang.reflect.Field;
 
-public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
+public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
 
     /**
      * True if this control is enabled, false to disable.
@@ -20,14 +19,6 @@ public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
      */
     private boolean visible;
     /**
-     * The X Position of the widget
-     */
-    private int xPosition;
-    /**
-     * The Y Position of the widget
-     */
-    private int yPosition;
-    /**
      * The X Origin of the widget
      */
     private int xOrigin;
@@ -35,14 +26,6 @@ public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
      * The Y Origin of the widget
      */
     private int yOrigin;
-    /**
-     * The width of the text box
-     */
-    private int height;
-    /**
-     * The height of the text box
-     */
-    private int width;
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
@@ -70,12 +53,17 @@ public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
     }
 
     public GuiTextInput(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, ICharFilter filter) {
+        super(fontRenderer, x, y, width, height);
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;
-        this.width = width;
-        this.height = height;
         this.charFilter = filter;
+    }
+
+    @Override
+    public void adjustPosition() {
+        xPosition = xOrigin + widgetProvider.getGuiLeft();
+        yPosition = yOrigin + widgetProvider.getGuiTop();
     }
 
     public GuiTextInput setCharFilter(ICharFilter filter) {
@@ -89,6 +77,44 @@ public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
             return super.textboxKeyTyped(c, key);
         }
         return false;
+    }
+
+    @Override
+    public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
+        this.drawTextBox();
+    }
+
+    @Override
+    public void updateWidget() {
+        this.updateCursorCounter();
+    }
+
+    @Override
+    public void mouseClicked(int xPos, int yPos, int btn) {
+        super.mouseClicked(xPos, yPos, btn);
+    }
+
+    @Override
+    public boolean onMouseClick(int xPos, int yPos, int btn) {
+        this.mouseClicked(xPos, yPos, btn);
+        return false;
+    }
+
+    @Override
+    public boolean mouseClickMove(int x, int y, int button, long time) {
+        return false;
+    }
+
+    @Override
+    public void mouseMovedOrUp(int x, int y, int button) {
+    }
+
+    @Override
+    public void mouseWheel(int x, int y, int delta) {
+    }
+
+    @Override
+    public void keyTyped(char c, int key) {
     }
 
     public static boolean isSpecialChar(char c, int key) {
@@ -143,6 +169,11 @@ public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
+    public boolean getVisible() {
+        return isVisible();
+    }
+
+    @Override
     public boolean isEnabled() {
         return enabled;
     }
@@ -153,83 +184,34 @@ public class GuiTextInput extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
-    public boolean onMouseClick(int xPos, int yPos, int btn) {
-        return false;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    @Override
-    public boolean mouseClickMove(int x, int y, int button, long time) {
-        return false;
-    }
+    public static class GuiTextInputTabbed extends GuiTextInput implements IGuiWidgetTabbed {
+        /**
+         * The tab that contains this text input field
+         */
+        private GuiTabbedPane container;
 
-    @Override
-    public void mouseMovedOrUp(int x, int y, int button) {
-    }
-
-    @Override
-    public void mouseWheel(int x, int y, int delta) {
-    }
-
-    @Override
-    public void keyTyped(char c, int key) {
-    }
-
-    @Override
-    public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
-        if (this.getVisible()) {
-            if (this.getEnableBackgroundDrawing()) {
-                drawRect(this.xPosition - 1, this.yPosition - 1, this.xPosition + this.width + 1, this.yPosition + this.height + 1, -6250336);
-                drawRect(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, -16777216);
-            }
-            int i = this.isEnabled ? this.enabledColor : this.disabledColor;
-            int j = this.cursorPosition - this.lineScrollOffset;
-            int k = this.selectionEnd - this.lineScrollOffset;
-            String s = this.field_146211_a.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.getWidth());
-            boolean flag = j >= 0 && j <= s.length();
-            boolean flag1 = this.isFocused && this.cursorCounter / 6 % 2 == 0 && flag;
-            int l = this.enableBackgroundDrawing ? this.xPosition + 4 : this.xPosition;
-            int i1 = this.enableBackgroundDrawing ? this.yPosition + (this.height - 8) / 2 : this.yPosition;
-            int j1 = l;
-            if (k > s.length()) {
-                k = s.length();
-            }
-            if (s.length() > 0) {
-                String s1 = flag ? s.substring(0, j) : s;
-                j1 = this.field_146211_a.drawStringWithShadow(s1, l, i1, i);
-            }
-            boolean flag2 = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
-            int k1 = j1;
-            if (!flag) {
-                k1 = j > 0 ? l + this.width : l;
-            } else if (flag2) {
-                k1 = j1 - 1;
-                --j1;
-            }
-            if (s.length() > 0 && flag && j < s.length()) {
-                this.field_146211_a.drawStringWithShadow(s.substring(j), j1, i1, i);
-            }
-            if (flag1) {
-                if (flag2) {
-                    Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + this.field_146211_a.FONT_HEIGHT, -3092272);
-                } else {
-                    this.field_146211_a.drawStringWithShadow("_", k1, i1, i);
-                }
-            }
-            if (k != j) {
-                int l1 = l + this.field_146211_a.getStringWidth(s.substring(0, k));
-                this.drawCursorVertical(k1, i1 - 1, l1 - 1, i1 + 1 + this.field_146211_a.FONT_HEIGHT);
-            }
+        public GuiTextInputTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height) {
+            this(widgetProvider, tab, fontRenderer, x, y, width, height, null);
         }
-    }
 
-    @Override
-    public void adjustPosition() {
-        xPosition = xOrigin + widgetProvider.getGuiLeft();
-        yPosition = yOrigin + widgetProvider.getGuiTop();
-    }
+        public GuiTextInputTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, ICharFilter filter) {
+            super(widgetProvider, fontRenderer, x, y, width, height, filter);
+            this.container = tab;
+        }
 
-    @Override
-    public void updateWidget() {
-        this.updateCursorCounter();
+        @Override
+        public void adjustPosition() {
+            xPosition = getXOrigin() + container.getXOrigin();
+            yPosition = getYOrigin() + container.getYOrigin();
+        }
+
+        @Override
+        public GuiTabbedPane getContainerTab() {
+            return container;
+        }
     }
 }

@@ -182,10 +182,10 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider {
     public void addWidgets() {
         if (this.friendsPanel == null) {
             this.friendsPanel = new GuiTabbedPane(this, getXSize() + 2, 8, 108, 170, 12, 12, 0, 0, 24, 0);
+            friendsPanel.addContainedWidget(new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC));
             if (tileEntity.hasUniqueOwner()) {
                 this.addWidget(friendsPanel);
             }
-            friendsPanel.addContainedWidget(new GuiTextInput(this, this.fontRendererObj, 2, 2, friendsPanel.getWidth() - 2, 10, CharFilters.FILTER_ALPHANUMERIC));
         } else {
             this.friendsPanel.adjustPosition();
         }
