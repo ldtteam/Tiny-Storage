@@ -17,29 +17,25 @@ import java.util.UUID;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<MessageConnectedPlayerNames, IMessage>
-{
+public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<MessageConnectedPlayerNames, IMessage> {
 
     HashMap<UUID, String> playerList;
 
-    public MessageConnectedPlayerNames()
-    {}
+    public MessageConnectedPlayerNames() {
+    }
 
-    public MessageConnectedPlayerNames(HashMap<UUID, String> playerList)
-    {
+    public MessageConnectedPlayerNames(HashMap<UUID, String> playerList) {
         this.playerList = playerList;
     }
 
-    public MessageConnectedPlayerNames(TinyStorage mod)
-    {
+    public MessageConnectedPlayerNames(TinyStorage mod) {
         this.playerList = mod.playerList;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         buf.writeInt(playerList.size());
-        for(UUID ID : playerList.keySet())
-        {
+        for (UUID ID : playerList.keySet()) {
             ByteBufUtils.writeUTF8String(buf, ID.toString());
             ByteBufUtils.writeUTF8String(buf, playerList.get(ID));
         }
@@ -48,14 +44,10 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
     @Override
     public void toBytes(ByteBuf buf) {
         playerList = new HashMap<UUID, String>();
-
         int IDCount = buf.readInt();
-
-        for (int IDNumber = 0; IDNumber < IDCount; IDNumber++)
-        {
+        for (int IDNumber = 0; IDNumber < IDCount; IDNumber++) {
             UUID ID = UUID.fromString(ByteBufUtils.readUTF8String(buf));
             String Name = ByteBufUtils.readUTF8String(buf);
-
             playerList.put(ID, Name);
         }
     }
@@ -63,7 +55,6 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
     @Override
     public IMessage onMessage(MessageConnectedPlayerNames message, MessageContext ctx) {
         TinyStorage.instance.playerList = message.playerList;
-
         return null;
     }
 }

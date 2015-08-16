@@ -1,9 +1,13 @@
 package com.timthebrick.tinystorage.common.handler;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.*;
 import com.timthebrick.tinystorage.common.inventory.implementations.*;
 import com.timthebrick.tinystorage.common.tileentity.implementations.*;
+import com.timthebrick.tinystorage.network.PacketHandler;
+import com.timthebrick.tinystorage.network.message.MessageConnectedPlayerNames;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 
 import com.timthebrick.tinystorage.common.reference.GUIs;
@@ -60,6 +64,7 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement (int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
+        PacketHandler.INSTANCE.sendTo(new MessageConnectedPlayerNames(TinyStorage.instance), (EntityPlayerMP) entityPlayer);
         if (id == GUIs.TINY_CHEST.ordinal()) {
             TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) world.getTileEntity(x, y, z);
             return new GuiTinyChest(entityPlayer.inventory, tileEntityTinyChest);
@@ -82,8 +87,8 @@ public class GuiHandler implements IGuiHandler {
             TileEntityPeacefulChest tileEntityPeacefulChest = (TileEntityPeacefulChest) world.getTileEntity(x, y, z);
             return new GuiPeacefulChest(entityPlayer.inventory, tileEntityPeacefulChest);
         } else if (id == GUIs.VACUUM_CHEST.ordinal()) {
-            TileEntityVacuumChest tileEntityVauumChest = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
-            return new GuiVacuumChest(entityPlayer.inventory, tileEntityVauumChest);
+            TileEntityVacuumChest tileEntityVacuumChest = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
+            return new GuiVacuumChest(entityPlayer.inventory, tileEntityVacuumChest);
         } else if (id == GUIs.CLAY_CHEST.ordinal()) {
             TileEntityClayChest tileEntityClayChest = (TileEntityClayChest) world.getTileEntity(x, y, z);
             return new GuiClayChest(entityPlayer.inventory, tileEntityClayChest);

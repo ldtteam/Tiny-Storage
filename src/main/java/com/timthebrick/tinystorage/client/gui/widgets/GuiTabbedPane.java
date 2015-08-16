@@ -234,9 +234,42 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
 
     @Override
     public void keyTyped(char c, int key) {
+        GuiTextInput guiTextInput = null;
+        for (IGuiWidgetAdvanced widget : containedWidgets) {
+            if (widget instanceof GuiTextInput) {
+                if (((GuiTextInput) widget).isFocused()) {
+                    guiTextInput = (GuiTextInput) widget;
+                }
+            }
+        }
+        if (key == 1) {
+            // If there is a focused text field unfocus it
+            if (guiTextInput != null && key == 1) {
+                guiTextInput.setFocused(false);
+                guiTextInput = null;
+                return;
+            }
+        }
+        if (c == '\t') {
+            if (guiTextInput != null && c == '\t') {
+                guiTextInput.setFocused(false);
+                guiTextInput = null;
+                return;
+            }
+        }
+        if(guiTextInput != null) {
+            String old = guiTextInput.getText();
+            if(guiTextInput.textboxKeyTyped(c, key)) {
+                onTextFieldChanged(guiTextInput, old);
+                return;
+            }
+        }
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             widget.keyTyped(c, key);
         }
+    }
+
+    protected void onTextFieldChanged(GuiTextInput textInput, String old) {
     }
 
     @Override
