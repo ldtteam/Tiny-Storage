@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -49,8 +50,9 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     protected IWidgetProvider widgetProvider;
 
     private FontRenderer renderer;
-    private List<String> playerNames;
+    private List<String> textList;
     private GuiTextInput filter;
+    private int indexSelected;
 
     public GuiTextList(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
         this(widgetProvider, fontRenderer, x, y, width, height, text, null);
@@ -63,9 +65,9 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
         this.yOrigin = y;
         this.width = width;
         this.height = height;
-        this.playerNames = text;
+        this.textList = text;
         this.filter = filter;
-        Collections.sort(playerNames);
+        Collections.sort(textList);
         setEnabled(true);
     }
 
@@ -80,29 +82,56 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
         if (isVisible()) {
             this.drawRect(this.xPosition - 1, this.yPosition - 1, this.xPosition + this.width + 1, this.yPosition + this.height + 1, -6250336);
             this.drawRect(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, -16777216);
+            if (indexSelected > 0) {
+                this.drawRect(xPosition, (this.yPosition) + ((indexSelected - 1) * renderer.FONT_HEIGHT), xPosition + this.width, (this.yPosition + 1) + ((indexSelected * renderer.FONT_HEIGHT)), new Colour(90, 255, 255).getColour());
+            }
             int i = 0;
-            for (String name : playerNames) {
+            for (String name : textList) {
                 String dispName = renderer.trimStringToWidth(name, getWidth());
                 if (filter != null) {
                     if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
                         if (filter.getText().isEmpty()) {
-                            renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                            if (indexSelected > 0 && indexSelected - 1 == i) {
+                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                            } else {
+                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                            }
                             i++;
                         } else {
                             if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
-                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                if (indexSelected > 0 && indexSelected - 1 == i) {
+                                    renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                } else {
+                                    renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                }
                                 i++;
                             }
                         }
                     }
                 } else {
                     if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                        renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                        if (indexSelected > 0 && indexSelected - 1 == i) {
+                            renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                        } else {
+                            renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                        }
                         i++;
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onMouseClick(int xPos, int yPos, int btn) {
+        if (textList.size() > 0 && this.isVisible() && this.isEnabled()) {
+            if (getWidgetAreaAbsolute().contains(xPos, yPos)) {
+                indexSelected = (int) Math.floor((yPos - yPosition) / (renderer.FONT_HEIGHT)) + 1;
+            } else {
+                indexSelected = 0;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -153,11 +182,6 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     @Override
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    @Override
-    public boolean onMouseClick(int xPos, int yPos, int btn) {
-        return false;
     }
 
     @Override

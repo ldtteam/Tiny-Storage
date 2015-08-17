@@ -198,21 +198,22 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public void addWidgets() {
         if (this.friendsPanel == null) {
-            this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 108, 170, 12, 12, 0, 0, 24, 0);
             if (tileEntity.hasUniqueOwner()) {
+                this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 112, 170, 12, 12, 0, 0, 24, 0);
                 this.addWidget(friendsPanel);
+                GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 1, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
+                friendsPanel.addContainedWidget(searchLabel);
+                GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
+                friendsPanel.addContainedWidget(search);
+                GuiTextList playerList = new GuiTextList.GuiTextListTabbed(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 12, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
+                friendsPanel.addContainedWidget(playerList);
+                GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos()-1, ButtonSettings.UP, EnableMode.ENABLED, true);
+                prev.visible = false;
+                friendsPanel.addContainedButton(prev);
+                GuiImageButton next = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() + playerList.getHeight() - 7, ButtonSettings.DOWN, EnableMode.ENABLED, true);
+                next.visible = false;
+                friendsPanel.addContainedButton(next);
             }
-            GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 2, friendsPanel.getWidth() - 4, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
-            friendsPanel.addContainedWidget(searchLabel);
-            GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
-            friendsPanel.addContainedWidget(search);
-            /*
-            GuiImageButton add = new GuiImageButton(search.xPos(), search.yPos() + search.getHeight() + 2, ButtonSettings.ADD, EnableMode.ENABLED, true);
-            add.visible = false;
-            friendsPanel.addContainedButton(add);
-            */
-            GuiTextList playerList = new GuiTextList.GuiTextListTabbed(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + /*add.getHeight()*/ +4, friendsPanel.getWidth() - 4, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
-            friendsPanel.addContainedWidget(playerList);
         } else {
             this.friendsPanel.adjustPosition();
         }

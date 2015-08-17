@@ -13,6 +13,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
@@ -63,12 +64,6 @@ public class PlayerEventHandler {
                         // Any more interactions go here
                     }
                 } else if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
-                    for (String string : TinyStorage.instance.playerUUIDs) {
-                        TinyStorageLog.info(string);
-                    }
-                    for (UUID uuid : TinyStorage.instance.playerList.keySet()) {
-                        TinyStorageLog.info(uuid.toString() + ", " + TinyStorage.instance.playerList.get(uuid));
-                    }
                 } else if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
                 }
             }
@@ -95,8 +90,10 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void playerLoggedOut(PlayerLoggedOutEvent event) {
-        TinyStorageLog.info("Clearing player UUID list");
-        TinyStorage.instance.playerUUIDs.clear();
-        TinyStorage.instance.playerList.clear();
+        if (event.player.getUniqueID().equals(Minecraft.getMinecraft().thePlayer.getUniqueID())) {
+            TinyStorageLog.info("Clearing player UUID list");
+            TinyStorage.instance.playerUUIDs.clear();
+            TinyStorage.instance.playerList.clear();
+        }
     }
 }

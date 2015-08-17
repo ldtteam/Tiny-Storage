@@ -47,8 +47,12 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
             this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
             this.registerApp(6, ButtonSettings.ADD, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
             this.registerApp(7, ButtonSettings.ADD, EnableMode.DISABLED, Messages.ButtonTooltips.ADD, "");
-            this.registerApp(6, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
-            this.registerApp(7, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
+            this.registerApp(8, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.DELETE, "");
+            this.registerApp(9, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
+            this.registerApp(10, ButtonSettings.UP, EnableMode.ENABLED, Messages.ButtonTooltips.UP, "");
+            this.registerApp(11, ButtonSettings.UP, EnableMode.DISABLED, Messages.ButtonTooltips.UP, "");
+            this.registerApp(12, ButtonSettings.DOWN, EnableMode.ENABLED, Messages.ButtonTooltips.DOWN, "");
+            this.registerApp(13, ButtonSettings.DOWN, EnableMode.DISABLED, Messages.ButtonTooltips.DOWN, "");
         }
     }
 
