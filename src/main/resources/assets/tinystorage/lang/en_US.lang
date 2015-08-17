@@ -398,7 +398,10 @@ waila.tooltip.tinystorage:blockSize.small=Small
 waila.tooltip.tinystorage:blockSize.medium=Medium
 waila.tooltip.tinystorage:blockSize.large=Large
 
-#Button Tooltips
+#Gui Labels
+gui.label.tinystorage:search=Search
+
+#Widget Tooltips
 widget.tooltip.tinystorage:friendsList=Friends List
 
 #Config
@@ -425,9 +428,6 @@ general.blocks.piggyBank.empty=No items currently stored
 general.blocks.piggyBank.contents=Items currently stored:
 general.blocks.quarryChest.depth=The chest is too deep to function fully, setting the depth to:
 general.blocks.quarryChest.depthBlocks= blocks deep
-
-#Waila Messages
-
 
 #Misc
 itemGroup.tinystorage=Tiny Storage

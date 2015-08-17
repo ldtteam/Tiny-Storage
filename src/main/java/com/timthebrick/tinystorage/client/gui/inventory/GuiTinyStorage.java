@@ -7,10 +7,13 @@ import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.*;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
 import com.timthebrick.tinystorage.util.UUIDHelper;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -199,13 +202,16 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             if (tileEntity.hasUniqueOwner()) {
                 this.addWidget(friendsPanel);
             }
-            GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, friendsPanel.getButtonHeight() + 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
+            GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 2, friendsPanel.getWidth() - 4, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
+            friendsPanel.addContainedWidget(searchLabel);
+            GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
             friendsPanel.addContainedWidget(search);
+            /*
             GuiImageButton add = new GuiImageButton(search.xPos(), search.yPos() + search.getHeight() + 2, ButtonSettings.ADD, EnableMode.ENABLED, true);
             add.visible = false;
             friendsPanel.addContainedButton(add);
-            TinyStorageLog.info(add.yPos());
-            GuiTextList playerList = new GuiTextList.GuiTextListTabbed(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + add.getHeight() + 4, friendsPanel.getWidth() - 4, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
+            */
+            GuiTextList playerList = new GuiTextList.GuiTextListTabbed(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + /*add.getHeight()*/ +4, friendsPanel.getWidth() - 4, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
             friendsPanel.addContainedWidget(playerList);
         } else {
             this.friendsPanel.adjustPosition();

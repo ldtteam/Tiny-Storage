@@ -1,7 +1,5 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
 import net.minecraft.client.Minecraft;
@@ -16,7 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {
@@ -294,7 +292,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                 } else {
                     var14 = "\u00a77" + var14;
                 }
-                this.widgetProvider.getFontRenderer().drawStringWithShadow(var14, var6, var7, -1);
+                this.widgetProvider.getFontRenderer().drawStringWithShadow(StatCollector.translateToLocal(var14), var6, var7, -1);
                 if (var13 == 0) {
                     var7 += 2;
                 }

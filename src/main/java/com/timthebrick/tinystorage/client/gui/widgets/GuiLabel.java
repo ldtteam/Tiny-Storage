@@ -1,16 +1,15 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.StatCollector;
 
-import java.awt.*;
-import java.util.Collections;
-import java.util.List;
+import java.awt.Rectangle;
 
-public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
-
+public class GuiLabel extends Gui implements IGuiLabel {
     /**
      * True if this control is enabled, false to disable.
      */
@@ -47,62 +46,35 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
      * The widget provider for this IGuiWidgetAdvanced
      */
     protected IWidgetProvider widgetProvider;
-
     private FontRenderer renderer;
-    private List<String> playerNames;
-    private GuiTextInput filter;
+    private String message;
+    private Colour colour;
 
-    public GuiTextList(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
-        this(widgetProvider, fontRenderer, x, y, width, height, text, null);
-    }
-
-    public GuiTextList(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
+    public GuiLabel(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, String text, Colour colour) {
         this.widgetProvider = widgetProvider;
         this.renderer = fontRenderer;
         this.xOrigin = x;
         this.yOrigin = y;
         this.width = width;
         this.height = height;
-        this.playerNames = text;
-        this.filter = filter;
-        Collections.sort(playerNames);
+        this.message = text;
+        this.colour = colour;
         setEnabled(true);
+    }
+
+    @Override
+    public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
+        if(this.isEnabled() && this.isVisible()){
+            String localised = StatCollector.translateToLocal(message);
+            String displayString = renderer.trimStringToWidth(localised, getWidth());
+            renderer.drawString(displayString, xPosition, yPosition, colour.getColour());
+        }
     }
 
     @Override
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
-    }
-
-    @Override
-    public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
-        if (isVisible()) {
-            this.drawRect(this.xPosition - 1, this.yPosition - 1, this.xPosition + this.width + 1, this.yPosition + this.height + 1, -6250336);
-            this.drawRect(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, -16777216);
-            int i = 0;
-            for (String name : playerNames) {
-                String dispName = renderer.trimStringToWidth(name, getWidth());
-                if (filter != null) {
-                    if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                        if (filter.getText().isEmpty()) {
-                            renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
-                            i++;
-                        } else {
-                            if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
-                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
-                                i++;
-                            }
-                        }
-                    }
-                } else {
-                    if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                        renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
-                        i++;
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -198,21 +170,23 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
-    public void updateWidget() {
+    public String getMessage() {
+        return message;
     }
 
-    public static class GuiTextListTabbed extends GuiTextList implements IGuiWidgetTabbed {
+    @Override
+    public void updateWidget() {
+
+    }
+
+    public static class GuiLabelTabbed extends GuiLabel implements IGuiWidgetTabbed {
         /**
          * The tab that contains this text input field
          */
         private GuiTabbedPane container;
 
-        public GuiTextListTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
-            this(widgetProvider, tab, fontRenderer, x, y, width, height, text, null);
-        }
-
-        public GuiTextListTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
-            super(widgetProvider, fontRenderer, x, y, width, height, text, filter);
+        public GuiLabelTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, String text, Colour colour) {
+            super(widgetProvider, fontRenderer, x, y, width, height, text, colour);
             this.container = tab;
         }
 
@@ -233,5 +207,4 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
             return container;
         }
     }
-
 }
