@@ -33,7 +33,7 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void toBytes(ByteBuf buf) {
         buf.writeInt(playerList.size());
         for (UUID ID : playerList.keySet()) {
             ByteBufUtils.writeUTF8String(buf, ID.toString());
@@ -42,7 +42,7 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
     }
 
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void fromBytes(ByteBuf buf) {
         playerList = new HashMap<UUID, String>();
         int IDCount = buf.readInt();
         for (int IDNumber = 0; IDNumber < IDCount; IDNumber++) {

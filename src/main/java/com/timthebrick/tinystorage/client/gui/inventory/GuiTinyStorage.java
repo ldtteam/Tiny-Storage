@@ -7,6 +7,7 @@ import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.CharFilters;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
@@ -191,7 +192,8 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             if (tileEntity.hasUniqueOwner()) {
                 this.addWidget(friendsPanel);
             }
-            friendsPanel.addContainedWidget(new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, friendsPanel.getButtonHeight() + 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC));
+            GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, friendsPanel.getButtonHeight() + 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
+            friendsPanel.addContainedWidget(search);
         } else {
             this.friendsPanel.adjustPosition();
         }
@@ -298,10 +300,60 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
 
     @Override
     protected void keyTyped(char c, int key) {
+        boolean keyCaptured = false;
+        GuiTextInput guiTextInput = null;
         for (IGuiWidgetAdvanced widget : widgets) {
             widget.keyTyped(c, key);
+            if (widget instanceof IGuiWidgetContainer) {
+                keyCaptured = ((IGuiWidgetContainer) widget).getKeyCaptured();
+            }
+            if(keyCaptured){
+                return;
+            }
         }
-        super.keyTyped(c, key);
+        for (IGuiWidgetAdvanced widget : widgets) {
+            if (widget instanceof GuiTextInput) {
+                if (((GuiTextInput) widget).isFocused()) {
+                    guiTextInput = (GuiTextInput) widget;
+                }
+            }
+        }
+        if (key == 1) {
+            if (guiTextInput != null && key == 1) {
+                guiTextInput.setFocused(false);
+                return;
+            }
+        }
+        if (c == '\t') {
+            if (guiTextInput != null && c == '\t') {
+                guiTextInput.setFocused(false);
+                return;
+            }
+        }
+        if (guiTextInput != null) {
+            String old = guiTextInput.getText();
+            if (guiTextInput.textboxKeyTyped(c, key)) {
+                onTextFieldChanged(guiTextInput, old);
+                return;
+            }
+        }
+        if (c == 'f') {
+            for (IGuiWidgetAdvanced widget : widgets) {
+                if (widget instanceof GuiTextInput) {
+                    if (((GuiTextInput) widget).isFocused()) {
+                        guiTextInput = (GuiTextInput) widget;
+                        guiTextInput.setFocused(true);
+                        keyCaptured = true;
+                    }
+                }
+            }
+        }
+        if (!keyCaptured) {
+            super.keyTyped(c, key);
+        }
+    }
+
+    private void onTextFieldChanged(GuiTextInput guiTextInput, String old) {
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ICharFilter;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.init.TinyStorageInitaliser;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -31,7 +34,7 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    private IWidgetProvider widgetProvider;
+    protected IWidgetProvider widgetProvider;
     /**
      * The filter for the specified field
      */
@@ -117,6 +120,9 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
 
     @Override
     public void keyTyped(char c, int key) {
+    }
+
+    public void onTextFieldChanged(GuiTextInput guiTextInput, String old) {
     }
 
     public static boolean isSpecialChar(char c, int key) {
@@ -229,6 +235,17 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
         public void adjustPosition() {
             xPosition = getXOrigin() + container.getXOrigin();
             yPosition = getYOrigin() + container.getYOrigin();
+        }
+
+        @Override
+        public void mouseClicked(int xPos, int yPos, int btn) {
+            super.mouseClicked(xPos - widgetProvider.getGuiLeft(), yPos - widgetProvider.getGuiTop(), btn);
+        }
+
+        @Override
+        public boolean onMouseClick(int xPos, int yPos, int btn) {
+            this.mouseClicked(xPos, yPos, btn);
+            return false;
         }
 
         @Override

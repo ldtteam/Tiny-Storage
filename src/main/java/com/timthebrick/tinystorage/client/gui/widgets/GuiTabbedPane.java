@@ -1,7 +1,9 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -11,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip {
+public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {
     /**
      * True if this control is enabled, false to disable.
      */
@@ -92,6 +94,8 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * A list of widgets contained by this panel
      */
     private ArrayList<IGuiWidgetAdvanced> containedWidgets = new ArrayList<IGuiWidgetAdvanced>();
+
+    private boolean keyCaptured;
 
     /**
      * @param widgetProvider    The provider that adds this object to it
@@ -237,39 +241,56 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         GuiTextInput guiTextInput = null;
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             if (widget instanceof GuiTextInput) {
+                TinyStorageLog.info("Found text input");
                 if (((GuiTextInput) widget).isFocused()) {
+                    TinyStorageLog.info("Found focused input");
                     guiTextInput = (GuiTextInput) widget;
                 }
             }
         }
         if (key == 1) {
-            // If there is a focused text field unfocus it
             if (guiTextInput != null && key == 1) {
                 guiTextInput.setFocused(false);
-                guiTextInput = null;
+                keyCaptured = true;
                 return;
             }
         }
         if (c == '\t') {
             if (guiTextInput != null && c == '\t') {
                 guiTextInput.setFocused(false);
-                guiTextInput = null;
+                keyCaptured = true;
                 return;
             }
         }
-        if(guiTextInput != null) {
+        if (guiTextInput != null) {
             String old = guiTextInput.getText();
-            if(guiTextInput.textboxKeyTyped(c, key)) {
+            if (guiTextInput.textboxKeyTyped(c, key)) {
                 onTextFieldChanged(guiTextInput, old);
                 return;
+            }
+        }
+        if (c == 'f') {
+            for (IGuiWidgetAdvanced widget : containedWidgets) {
+                if (widget instanceof GuiTextInput) {
+                    if (((GuiTextInput) widget).isFocused()) {
+                        guiTextInput = (GuiTextInput) widget;
+                        guiTextInput.setFocused(true);
+                        keyCaptured = true;
+                    }
+                }
             }
         }
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             widget.keyTyped(c, key);
         }
+        if (key == Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode()) {
+            Minecraft.getMinecraft().thePlayer.closeScreen();
+            return;
+        }
     }
 
     protected void onTextFieldChanged(GuiTextInput textInput, String old) {
+        keyCaptured = true;
     }
 
     @Override
@@ -402,5 +423,15 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     @Override
     public boolean isTooltipVisible() {
         return true;
+    }
+
+    @Override
+    public ArrayList<IGuiWidgetAdvanced> getContainedWidgets() {
+        return this.containedWidgets;
+    }
+
+    @Override
+    public boolean getKeyCaptured() {
+        return keyCaptured;
     }
 }
