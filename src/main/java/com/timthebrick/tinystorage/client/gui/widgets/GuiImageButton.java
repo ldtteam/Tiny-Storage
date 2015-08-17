@@ -20,217 +20,243 @@ import com.timthebrick.tinystorage.common.reference.References;
 
 public class GuiImageButton extends GuiButton implements IButtonTooltip {
 
-	private static final Pattern COMPILE = Pattern.compile("%s");
-	private static final Pattern PATTERN_NEW_LINE = Pattern.compile("\\n", Pattern.LITERAL);
-	private static Map<EnumPair, ButtonAppearance> appearances;
-	private final Enum buttonSetting;
-	public boolean halfSize = false;
-	public String fillVar;
-	private Enum currentValue;
+    private static final Pattern COMPILE = Pattern.compile("%s");
+    private static final Pattern PATTERN_NEW_LINE = Pattern.compile("\\n", Pattern.LITERAL);
+    private static Map<EnumPair, ButtonAppearance> appearances;
+    private final Enum buttonSetting;
+    public boolean halfSize = false;
+    public String fillVar;
+    private Enum currentValue;
 
-	public GuiImageButton(int x, int y, Enum idx, Enum val) {
-		super(0, 0, 16, "");
-
-		this.buttonSetting = idx;
-		this.currentValue = val;
-		this.xPosition = x;
-		this.yPosition = y;
-		this.width = 16;
-		this.height = 16;
-
-		if (appearances == null) {
-			appearances = new HashMap<EnumPair, ButtonAppearance>();
-			this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BLOCKED);
-			this.registerApp(1, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_INPUT_ONLY);
-			this.registerApp(2, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.OUTPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_OUTPUT_ONLY);
-			this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BOTH);
-			this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_FALSE);
-			this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
+    public GuiImageButton(int x, int y, Enum idx, Enum val) {
+        super(0, 0, 16, "");
+        this.buttonSetting = idx;
+        this.currentValue = val;
+        this.xPosition = x;
+        this.yPosition = y;
+        this.halfSize = false;
+        this.width = 16;
+        this.height = 16;
+        if (appearances == null) {
+            appearances = new HashMap<EnumPair, ButtonAppearance>();
+            this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BLOCKED);
+            this.registerApp(1, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_INPUT_ONLY);
+            this.registerApp(2, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.OUTPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_OUTPUT_ONLY);
+            this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BOTH);
+            this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_FALSE);
+            this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
             this.registerApp(6, ButtonSettings.ADD, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
             this.registerApp(7, ButtonSettings.ADD, EnableMode.DISABLED, Messages.ButtonTooltips.ADD, "");
             this.registerApp(6, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
             this.registerApp(7, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
-		}
-	}
+        }
+    }
 
-	private void registerApp(int iconIndex, ButtonSettings setting, Enum val, String title, String hint) {
-		ButtonAppearance a = new ButtonAppearance();
-		a.displayName = title;
-		a.displayValue = hint;
-		a.index = iconIndex;
-		appearances.put(new EnumPair(setting, val), a);
-	}
+    public GuiImageButton(int x, int y, Enum idx, Enum val, boolean halfSize) {
+        super(0, 0, 16, "");
+        this.buttonSetting = idx;
+        this.currentValue = val;
+        this.xPosition = x;
+        this.yPosition = y;
+        this.halfSize = halfSize;
+        if (halfSize) {
+            this.width = 8;
+            this.height = 8;
+        } else {
+            this.width = 16;
+            this.height = 16;
+        }
+        if (appearances == null) {
+            appearances = new HashMap<EnumPair, ButtonAppearance>();
+            this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BLOCKED);
+            this.registerApp(1, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_INPUT_ONLY);
+            this.registerApp(2, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.OUTPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_OUTPUT_ONLY);
+            this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BOTH);
+            this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_FALSE);
+            this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
+            this.registerApp(6, ButtonSettings.ADD, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
+            this.registerApp(7, ButtonSettings.ADD, EnableMode.DISABLED, Messages.ButtonTooltips.ADD, "");
+            this.registerApp(6, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
+            this.registerApp(7, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
+        }
+    }
 
-	public void setVisibility(boolean vis) {
-		this.visible = vis;
-		this.enabled = vis;
-	}
+    private void registerApp(int iconIndex, ButtonSettings setting, Enum val, String title, String hint) {
+        ButtonAppearance a = new ButtonAppearance();
+        a.displayName = title;
+        a.displayValue = hint;
+        a.index = iconIndex;
+        appearances.put(new EnumPair(setting, val), a);
+    }
 
-	@Override
-	public void drawButton(Minecraft minecraft, int par2, int par3) {
-		if (this.visible) {
-			minecraft.renderEngine.bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiButtonImages.png"));
-			int iconIndex = this.getIconIndex();
-			if (this.halfSize) {
-				this.width = 8;
-				this.height = 8;
-				GL11.glPushMatrix();
-				GL11.glTranslatef(this.xPosition, this.yPosition, 0.0F);
-				GL11.glScalef(0.5f, 0.5f, 0.5f);
-				if (this.enabled) {
-					GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				} else {
-					GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
-				}
-				this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
-				int uv_y = (int) Math.floor(iconIndex / 16);
-				int uv_x = iconIndex - uv_y * 16;
-				this.drawTexturedModalRect(0, 0, 256 - 16, 256 - 16, 16, 16);
-				this.drawTexturedModalRect(0, 0, uv_x * 16, uv_y * 16, 16, 16);
-				this.mouseDragged(minecraft, par2, par3);
-				GL11.glPopMatrix();
-			} else {
-				if (this.enabled) {
-					GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				} else {
-					GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
-				}
-				this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
-				int uv_y = (int) Math.floor(iconIndex / 16);
-				int uv_x = iconIndex - uv_y * 16;
-				this.drawTexturedModalRect(this.xPosition, this.yPosition, 256 - 16, 256 - 16, 16, 16);
-				this.drawTexturedModalRect(this.xPosition, this.yPosition, uv_x * 16, uv_y * 16, 16, 16);
-				this.mouseDragged(minecraft, par2, par3);
-			}
-		}
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	}
+    public void setVisibility(boolean vis) {
+        this.visible = vis;
+        this.enabled = vis;
+    }
 
-	private int getIconIndex() {
-		if (this.buttonSetting != null && this.currentValue != null) {
-			ButtonAppearance app = appearances.get(new EnumPair(this.buttonSetting, this.currentValue));
-			if (app == null) {
-				return 256 - 1;
-			}
-			return app.index;
-		}
-		return 256 - 1;
-	}
+    @Override
+    public void drawButton(Minecraft minecraft, int par2, int par3) {
+        if (this.visible) {
+            minecraft.renderEngine.bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiButtonImages.png"));
+            int iconIndex = this.getIconIndex();
+            if (this.halfSize) {
+                GL11.glPushMatrix();
+                GL11.glTranslatef(this.xPosition, this.yPosition, 0.0F);
+                GL11.glScalef(0.5f, 0.5f, 0.5f);
+                if (this.enabled) {
+                    GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+                } else {
+                    GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
+                }
+                this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+                int uv_y = (int) Math.floor(iconIndex / 16);
+                int uv_x = iconIndex - uv_y * 16;
+                this.drawTexturedModalRect(0, 0, 256 - 16, 256 - 16, 16, 16);
+                this.drawTexturedModalRect(0, 0, uv_x * 16, uv_y * 16, 16, 16);
+                this.mouseDragged(minecraft, par2, par3);
+                GL11.glPopMatrix();
+            } else {
+                if (this.enabled) {
+                    GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+                } else {
+                    GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
+                }
+                this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+                int uv_y = (int) Math.floor(iconIndex / 16);
+                int uv_x = iconIndex - uv_y * 16;
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 256 - 16, 256 - 16, 16, 16);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, uv_x * 16, uv_y * 16, 16, 16);
+                this.mouseDragged(minecraft, par2, par3);
+            }
+        }
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    }
 
-	public ButtonSettings getSetting() {
-		return (ButtonSettings) this.buttonSetting;
-	}
+    private int getIconIndex() {
+        if (this.buttonSetting != null && this.currentValue != null) {
+            ButtonAppearance app = appearances.get(new EnumPair(this.buttonSetting, this.currentValue));
+            if (app == null) {
+                return 256 - 1;
+            }
+            return app.index;
+        }
+        return 256 - 1;
+    }
 
-	public Enum getCurrentValue() {
-		return this.currentValue;
-	}
+    public ButtonSettings getSetting() {
+        return (ButtonSettings) this.buttonSetting;
+    }
 
-	@Override
-	public String getMessage() {
-		String displayName = null;
-		String displayValue = null;
+    public Enum getCurrentValue() {
+        return this.currentValue;
+    }
 
-		if (this.buttonSetting != null && this.currentValue != null) {
-			ButtonAppearance buttonAppearance = appearances.get(new EnumPair(this.buttonSetting, this.currentValue));
-			if (buttonAppearance == null) {
-				return "No Such Message";
-			}
-			displayName = buttonAppearance.displayName;
-			displayValue = buttonAppearance.displayValue;
-		}
+    @Override
+    public String getMessage() {
+        String displayName = null;
+        String displayValue = null;
 
-		if (displayName != null) {
-			String name = StatCollector.translateToLocal(displayName);
-			String value = StatCollector.translateToLocal(displayValue);
+        if (this.buttonSetting != null && this.currentValue != null) {
+            ButtonAppearance buttonAppearance = appearances.get(new EnumPair(this.buttonSetting, this.currentValue));
+            if (buttonAppearance == null) {
+                return "No Such Message";
+            }
+            displayName = buttonAppearance.displayName;
+            displayValue = buttonAppearance.displayValue;
+        }
 
-			if (name == null || name.isEmpty()) {
-				name = displayName;
-			}
-			if (value == null || value.isEmpty()) {
-				value = displayValue;
-			}
+        if (displayName != null) {
+            String name = StatCollector.translateToLocal(displayName);
+            String value = StatCollector.translateToLocal(displayValue);
 
-			if (this.fillVar != null) {
-				value = COMPILE.matcher(value).replaceFirst(this.fillVar);
-			}
+            if (name == null || name.isEmpty()) {
+                name = displayName;
+            }
+            if (value == null || value.isEmpty()) {
+                value = displayValue;
+            }
 
-			value = PATTERN_NEW_LINE.matcher(value).replaceAll("\n");
-			StringBuilder sb = new StringBuilder(value);
+            if (this.fillVar != null) {
+                value = COMPILE.matcher(value).replaceFirst(this.fillVar);
+            }
 
-			int i = sb.lastIndexOf("\n");
-			if (i <= 0) {
-				i = 0;
-			}
-			while (i + 30 < sb.length() && (i = sb.lastIndexOf(" ", i + 30)) != -1) {
-				sb.replace(i, i + 1, "\n");
-			}
+            value = PATTERN_NEW_LINE.matcher(value).replaceAll("\n");
+            StringBuilder sb = new StringBuilder(value);
 
-			return name + '\n' + sb;
-		}
-		return null;
-	}
+            int i = sb.lastIndexOf("\n");
+            if (i <= 0) {
+                i = 0;
+            }
+            while (i + 30 < sb.length() && (i = sb.lastIndexOf(" ", i + 30)) != -1) {
+                sb.replace(i, i + 1, "\n");
+            }
 
-	@Override
-	public int xPos() {
-		return this.xPosition;
-	}
+            return name + '\n' + sb;
+        }
+        return null;
+    }
 
-	@Override
-	public int yPos() {
-		return this.yPosition;
-	}
+    @Override
+    public int xPos() {
+        return this.xPosition;
+    }
 
-	@Override
-	public int getWidth() {
-		return this.halfSize ? 8 : 16;
-	}
+    @Override
+    public int yPos() {
+        return this.yPosition;
+    }
 
-	@Override
-	public int getHeight() {
-		return this.halfSize ? 8 : 16;
-	}
+    @Override
+    public int getWidth() {
+        return this.width;
+    }
 
-	@Override
-	public boolean isVisible() {
-		return this.visible;
-	}
+    @Override
+    public int getHeight() {
+        return this.height;
+    }
 
-	public void set(Enum e) {
-		if (this.currentValue != e) {
-			this.currentValue = e;
-		}
-	}
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
 
-	static class EnumPair {
-		final Enum setting;
-		final Enum value;
+    public void set(Enum e) {
+        if (this.currentValue != e) {
+            this.currentValue = e;
+        }
+    }
 
-		EnumPair(Enum a, Enum b) {
-			this.setting = a;
-			this.value = b;
-		}
+    static class EnumPair {
+        final Enum setting;
+        final Enum value;
 
-		@Override
-		public int hashCode() {
-			return this.setting.hashCode() ^ this.value.hashCode();
-		}
+        EnumPair(Enum a, Enum b) {
+            this.setting = a;
+            this.value = b;
+        }
 
-		@Override
-		public boolean equals(Object obj) {
-			if (obj == null) {
-				return false;
-			}
-			if (this.getClass() != obj.getClass()) {
-				return false;
-			}
-			EnumPair other = (EnumPair) obj;
-			return other.setting == this.setting && other.value == this.value;
-		}
-	}
+        @Override
+        public int hashCode() {
+            return this.setting.hashCode() ^ this.value.hashCode();
+        }
 
-	private static class ButtonAppearance {
-		public int index;
-		public String displayName;
-		public String displayValue;
-	}
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (this.getClass() != obj.getClass()) {
+                return false;
+            }
+            EnumPair other = (EnumPair) obj;
+            return other.setting == this.setting && other.value == this.value;
+        }
+    }
+
+    private static class ButtonAppearance {
+        public int index;
+        public String displayName;
+        public String displayValue;
+    }
 }

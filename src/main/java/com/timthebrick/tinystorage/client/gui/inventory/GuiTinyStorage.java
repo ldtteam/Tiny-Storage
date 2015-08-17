@@ -3,19 +3,23 @@ package com.timthebrick.tinystorage.client.gui.inventory;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.CharFilters;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.*;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
+import com.timthebrick.tinystorage.util.UUIDHelper;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -50,6 +54,9 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
         for (IGuiWidgetAdvanced widget : widgets) {
             if (widget instanceof IGuiWidgetBackground) {
                 widget.drawWidget(this, xSize, ySize);
+            }
+            if (widget instanceof GuiTabbedPane) {
+                ((GuiTabbedPane) widget).drawScreen(mouseX, mouseY, btn);
             }
         }
         for (Object c : this.buttonList) {
@@ -188,12 +195,18 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public void addWidgets() {
         if (this.friendsPanel == null) {
-            this.friendsPanel = new GuiTabbedPane(this, getXSize() + 2, 8, 108, 170, 12, 12, 0, 0, 24, 0);
+            this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 108, 170, 12, 12, 0, 0, 24, 0);
             if (tileEntity.hasUniqueOwner()) {
                 this.addWidget(friendsPanel);
             }
             GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 2, friendsPanel.getButtonHeight() + 2, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
             friendsPanel.addContainedWidget(search);
+            GuiImageButton add = new GuiImageButton(search.xPos(), search.yPos() + search.getHeight() + 2, ButtonSettings.ADD, EnableMode.ENABLED, true);
+            add.visible = false;
+            friendsPanel.addContainedButton(add);
+            TinyStorageLog.info(add.yPos());
+            GuiTextList playerList = new GuiTextList.GuiTextListTabbed(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + add.getHeight() + 4, friendsPanel.getWidth() - 4, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
+            friendsPanel.addContainedWidget(playerList);
         } else {
             this.friendsPanel.adjustPosition();
         }
@@ -306,9 +319,9 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             widget.keyTyped(c, key);
             if (widget instanceof IGuiWidgetContainer) {
                 keyCaptured = ((IGuiWidgetContainer) widget).getKeyCaptured();
-            }
-            if(keyCaptured){
-                return;
+                if (keyCaptured) {
+                    return;
+                }
             }
         }
         for (IGuiWidgetAdvanced widget : widgets) {
@@ -381,6 +394,11 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     }
 
     @Override
+    public Minecraft getMinecraft() {
+        return this.mc;
+    }
+
+    @Override
     public int getGuiLeft() {
         return guiLeft;
     }
@@ -398,6 +416,11 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public int getYSize() {
         return ySize;
+    }
+
+    @Override
+    public GuiScreen getGuiScreen() {
+        return this;
     }
 
     @Override
@@ -468,5 +491,15 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             }
         }
         return false;
+    }
+
+    @Override
+    public FontRenderer getFontRenderer() {
+        return this.fontRendererObj;
+    }
+
+    @Override
+    public RenderItem getItemRenderer() {
+        return this.itemRender;
     }
 }

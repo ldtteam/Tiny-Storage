@@ -1,11 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ICharFilter;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
-import com.timthebrick.tinystorage.common.init.TinyStorageInitaliser;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -120,6 +116,7 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
 
     @Override
     public void keyTyped(char c, int key) {
+        this.textboxKeyTyped(c, key);
     }
 
     public void onTextFieldChanged(GuiTextInput guiTextInput, String old) {

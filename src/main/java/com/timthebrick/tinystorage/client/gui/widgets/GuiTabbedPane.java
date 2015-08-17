@@ -1,16 +1,22 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {
@@ -91,11 +97,17 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      */
     private IWidgetProvider widgetProvider;
     /**
+     * The handler class for the pane
+     */
+    private IGuiTabHandler tabHandler;
+    /**
      * A list of widgets contained by this panel
      */
     private ArrayList<IGuiWidgetAdvanced> containedWidgets = new ArrayList<IGuiWidgetAdvanced>();
+    private java.util.List<GuiButton> containedButtons = new ArrayList<GuiButton>();
 
-    private boolean keyCaptured;
+    private boolean keyCaptured = false;
+    private GuiButton selectedButton;
 
     /**
      * @param widgetProvider    The provider that adds this object to it
@@ -110,8 +122,9 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * @param buttonBackgroundX The X Position of the background texture for the button
      * @param buttonBackgroundY The Y Position of the background texture for the button
      */
-    public GuiTabbedPane(IWidgetProvider widgetProvider, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
+    public GuiTabbedPane(IWidgetProvider widgetProvider, IGuiTabHandler handler, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
         this.widgetProvider = widgetProvider;
+        this.tabHandler = handler;
         this.xOrigin = x;
         this.yOrigin = y;
         this.widthPane = width;
@@ -122,12 +135,18 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         this.backgroundTextureY = backgroundY;
         this.buttonTextureX = buttonBackgroundX;
         this.buttonTextureY = buttonBackgroundY;
+        progressX = getButtonWidth();
+        progressY = getButtonHeight();
         setEnabled(true);
     }
 
     public void addContainedWidget(IGuiWidgetAdvanced widget) {
         containedWidgets.add(widget);
         widget.adjustPosition();
+    }
+
+    public void addContainedButton(GuiButton button) {
+        containedButtons.add(button);
     }
 
     @Override
@@ -146,28 +165,145 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         if (this.isEnabled()) {
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiPanes.png"));
             this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getButtonWidth(), getButtonHeight());
-            if (shouldAnimate) {
+            if (expanded && !shouldAnimate) {
+                for (IGuiWidgetAdvanced widget : containedWidgets) {
+                    widget.setVisibility(true);
+                }
+                for (GuiButton button : containedButtons) {
+                    button.visible = true;
+                }
+                this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getWidth(), getHeight());
+            } else if (shouldAnimate) {
                 for (IGuiWidgetAdvanced widget : containedWidgets) {
                     widget.setVisibility(false);
+                }
+                for (GuiButton button : containedButtons) {
+                    button.visible = false;
                 }
                 if (expanded) {
                     this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) Math.ceil(getWidth() - progressX), (int) Math.ceil(getHeight() - progressY));
                 } else {
                     this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, (int) Math.ceil(progressX), (int) Math.ceil(progressY));
                 }
-            } else if (expanded) {
+            } else {
                 for (IGuiWidgetAdvanced widget : containedWidgets) {
-                    widget.setVisibility(true);
+                    widget.setVisibility(false);
                 }
-                this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getWidth(), getHeight());
+                for (GuiButton button : containedButtons) {
+                    button.visible = false;
+                }
+            }
+            for (IGuiWidgetAdvanced widget : containedWidgets) {
+                widget.drawWidget(guiScreen, xScreenSize, yScreenSize);
+            }
+            for (GuiButton button : containedButtons) {
+                button.drawButton(guiScreen.mc, xScreenSize, yScreenSize);
             }
         } else {
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
             this.drawTexturedModalRect(xOrigin, yOrigin, buttonTextureX + getButtonWidth(), buttonTextureY, getButtonWidth(), getButtonHeight());
         }
-        for (IGuiWidgetAdvanced widget : containedWidgets) {
-            widget.drawWidget(guiScreen, xScreenSize, yScreenSize);
+    }
+
+    public void drawScreen(int mouseX, int mouseY, float btn) {
+        for (Object c : this.containedButtons) {
+            if (c instanceof IButtonTooltip) {
+                IButtonTooltip tooltip = (IButtonTooltip) c;
+                int x = tooltip.xPos() + widgetProvider.getGuiLeft(); // ((GuiImgButton) c).xPosition;
+                int y = tooltip.yPos() + widgetProvider.getGuiTop(); // ((GuiImgButton) c).yPosition;
+                if (x < mouseX && x + tooltip.getWidth() > mouseX && tooltip.isVisible()) {
+                    if (y < mouseY && y + tooltip.getHeight() > mouseY) {
+                        if (y < 15) {
+                            y = 15;
+                        }
+                        String msg = tooltip.getMessage();
+                        if (msg != null) {
+                            this.drawTooltip(x + 11, y + 4, 0, msg);
+                        }
+                    }
+                }
+            }
         }
+        for (Object c : this.containedWidgets) {
+            if (c instanceof IWidgetTooltip) {
+                IWidgetTooltip tooltip = (IWidgetTooltip) c;
+                int x = tooltip.xTriggerPos(); // ((GuiImgButton) c).xPosition;
+                int y = tooltip.yTriggerPos(); // ((GuiImgButton) c).yPosition;
+                if (x < mouseX && x + tooltip.getTooltipWidth() > mouseX && tooltip.isTooltipVisible()) {
+                    if (y < mouseY && y + tooltip.getTooltipHeight() > mouseY) {
+                        if (y < 15) {
+                            y = 15;
+                        }
+                        String msg = tooltip.getMessage();
+                        if (msg != null) {
+                            this.drawTooltip(x + 11, y + 4, 0, msg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void drawTooltip(int x, int y, int forceWidth, String Msg) {
+        GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        String[] var4 = Msg.split("\n");
+        if (var4.length > 0) {
+            int var5 = 0;
+            int var6;
+            int var7;
+            for (var6 = 0; var6 < var4.length; ++var6) {
+                var7 = this.widgetProvider.getFontRenderer().getStringWidth(var4[var6]);
+                if (var7 > var5) {
+                    var5 = var7;
+                }
+            }
+            var6 = x + 12;
+            var7 = y - 12;
+            int var9 = 8;
+            if (var4.length > 1) {
+                var9 += 2 + (var4.length - 1) * 10;
+            }
+            if (this.widgetProvider.getGuiTop() + var7 + var9 + 6 > this.widgetProvider.getGuiScreen().height) {
+                var7 = this.widgetProvider.getGuiScreen().height - var9 - this.widgetProvider.getGuiTop() - 6;
+            }
+            if (forceWidth > 0) {
+                var5 = forceWidth;
+            }
+            this.zLevel = 300.0F;
+            this.widgetProvider.getItemRenderer().zLevel = 300.0F;
+            int var10 = -267386864;
+            this.drawGradientRect(var6 - 3, var7 - 4, var6 + var5 + 3, var7 - 3, var10, var10);
+            this.drawGradientRect(var6 - 3, var7 + var9 + 3, var6 + var5 + 3, var7 + var9 + 4, var10, var10);
+            this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 + var9 + 3, var10, var10);
+            this.drawGradientRect(var6 - 4, var7 - 3, var6 - 3, var7 + var9 + 3, var10, var10);
+            this.drawGradientRect(var6 + var5 + 3, var7 - 3, var6 + var5 + 4, var7 + var9 + 3, var10, var10);
+            int var11 = 1347420415;
+            int var12 = (var11 & 16711422) >> 1 | var11 & -16777216;
+            this.drawGradientRect(var6 - 3, var7 - 3 + 1, var6 - 3 + 1, var7 + var9 + 3 - 1, var11, var12);
+            this.drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, var6 + var5 + 3, var7 + var9 + 3 - 1, var11, var12);
+            this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 - 3 + 1, var11, var11);
+            this.drawGradientRect(var6 - 3, var7 + var9 + 2, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
+            for (int var13 = 0; var13 < var4.length; ++var13) {
+                String var14 = var4[var13];
+                if (var13 == 0) {
+                    var14 = '\u00a7' + Integer.toHexString(15) + var14;
+                } else {
+                    var14 = "\u00a77" + var14;
+                }
+                this.widgetProvider.getFontRenderer().drawStringWithShadow(var14, var6, var7, -1);
+                if (var13 == 0) {
+                    var7 += 2;
+                }
+                var7 += 10;
+            }
+            this.zLevel = 0.0F;
+            this.widgetProvider.getItemRenderer().zLevel = 0.0F;
+        }
+        GL11.glPopAttrib();
     }
 
     @Override
@@ -191,12 +327,13 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                 progressY += (yAdj * multiplier);
             }
             if (progressX >= getWidth() && progressY >= getHeight()) {
-                progressX = 0;
-                progressY = 0;
+                progressX = getButtonWidth();
+                progressY = getButtonHeight();
                 expanded = !expanded;
                 shouldAnimate = false;
             }
-
+        }
+        if (this.isEnabled()) {
             for (IGuiWidgetAdvanced widget : containedWidgets) {
                 widget.updateWidget();
             }
@@ -211,7 +348,28 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             widget.onMouseClick(xPos, yPos, btn);
         }
+        if (btn == 0) {
+            for (int l = 0; l < this.containedButtons.size(); ++l) {
+                GuiButton guibutton = (GuiButton) this.containedButtons.get(l);
+                if (guibutton.mousePressed(this.widgetProvider.getMinecraft(), xPos - widgetProvider.getGuiLeft(), yPos - widgetProvider.getGuiTop())) {
+                    GuiScreenEvent.ActionPerformedEvent.Pre event = new GuiScreenEvent.ActionPerformedEvent.Pre(this.widgetProvider.getGuiScreen(), guibutton, this.containedButtons);
+                    if (MinecraftForge.EVENT_BUS.post(event)) {
+                        break;
+                    }
+                    this.selectedButton = event.button;
+                    event.button.func_146113_a(this.widgetProvider.getMinecraft().getSoundHandler());
+                    this.actionPerformed(event.button);
+                    if (this.equals(this.widgetProvider.getMinecraft().currentScreen)) {
+                        MinecraftForge.EVENT_BUS.post(new GuiScreenEvent.ActionPerformedEvent.Post(this.widgetProvider.getGuiScreen(), event.button, this.containedButtons));
+                    }
+                }
+            }
+        }
         return false;
+    }
+
+    private void actionPerformed(GuiButton btn) {
+        tabHandler.actionPerformed(this, btn);
     }
 
     @Override
@@ -227,6 +385,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             widget.mouseMovedOrUp(x, y, button);
         }
+        if (this.selectedButton != null && button == 0) {
+            this.selectedButton.mouseReleased(x, y);
+            this.selectedButton = null;
+        }
     }
 
     @Override
@@ -238,12 +400,11 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
 
     @Override
     public void keyTyped(char c, int key) {
+        keyCaptured = false;
         GuiTextInput guiTextInput = null;
         for (IGuiWidgetAdvanced widget : containedWidgets) {
             if (widget instanceof GuiTextInput) {
-                TinyStorageLog.info("Found text input");
                 if (((GuiTextInput) widget).isFocused()) {
-                    TinyStorageLog.info("Found focused input");
                     guiTextInput = (GuiTextInput) widget;
                 }
             }
@@ -391,6 +552,16 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         this.enabled = enabled;
     }
 
+    @Override
+    public ArrayList<IGuiWidgetAdvanced> getContainedWidgets() {
+        return this.containedWidgets;
+    }
+
+    @Override
+    public boolean getKeyCaptured() {
+        return keyCaptured;
+    }
+
     /*
     Tool tip stuff
      */
@@ -423,15 +594,5 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     @Override
     public boolean isTooltipVisible() {
         return true;
-    }
-
-    @Override
-    public ArrayList<IGuiWidgetAdvanced> getContainedWidgets() {
-        return this.containedWidgets;
-    }
-
-    @Override
-    public boolean getKeyCaptured() {
-        return keyCaptured;
     }
 }

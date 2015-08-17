@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.inventory.IGuiScreenAdvanced;
+import net.minecraft.client.Minecraft;
 
 public interface IWidgetProvider extends IGuiScreenAdvanced {
 
@@ -32,5 +33,7 @@ public interface IWidgetProvider extends IGuiScreenAdvanced {
      * Called whenever a widget does something
      */
     void handleWidgetFunctionality(IGuiWidgetAdvanced widget);
+
+    Minecraft getMinecraft();
 
 }
