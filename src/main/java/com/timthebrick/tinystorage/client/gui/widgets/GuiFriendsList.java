@@ -5,6 +5,7 @@ import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageAddFriend;
+import com.timthebrick.tinystorage.network.message.MessageRemoveFriend;
 import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -36,6 +37,8 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                             if (TinyStorage.instance.playerList.get(id).equals(displayedText.get(rowSelect))) {
                                 if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
                                     PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerList.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                                }else{
+                                    PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerList.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                 }
                             }
                         }
