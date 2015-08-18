@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.inventory.IGuiScreenAdvanced;
 import net.minecraft.client.Minecraft;
+import net.minecraft.tileentity.TileEntity;
 
 public interface IWidgetProvider extends IGuiScreenAdvanced {
 
@@ -35,5 +36,7 @@ public interface IWidgetProvider extends IGuiScreenAdvanced {
     void handleWidgetFunctionality(IGuiWidgetAdvanced widget);
 
     Minecraft getMinecraft();
+
+    TileEntity getTileEntity();
 
 }

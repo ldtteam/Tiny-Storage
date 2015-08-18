@@ -386,6 +386,8 @@ button.tooltip.tinystorage:automated_side_access_input_output=Input & Output
 button.tooltip.tinystorage:delete_last_stack=Delete stored stack
 button.tooltip.tinystorage:delete_last_stack_false=Keep last stack stored
 button.tooltip.tinystorage:delete_last_stack_true=Delete last stack
+button.tooltip.tinystorage:up=Previous
+button.tooltip.tinystorage:down=Next
 
 #Waila Tooltips
 waila.tooltip.tinystorage:automated_side_access=Automated IO Mode

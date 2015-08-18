@@ -18,7 +18,6 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement (int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
-        //PacketHandler.INSTANCE.sendTo(new MessageConnectedPlayerNames(TinyStorage.instance), (EntityPlayerMP) entityPlayer);
         PacketHandler.INSTANCE.sendToAll(new MessageConnectedPlayerNames(TinyStorage.instance));
         if (id == GUIs.TINY_CHEST.ordinal()) {
             TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) world.getTileEntity(x, y, z);

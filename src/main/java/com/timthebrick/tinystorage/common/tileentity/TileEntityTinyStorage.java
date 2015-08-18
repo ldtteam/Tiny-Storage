@@ -1,11 +1,11 @@
 package com.timthebrick.tinystorage.common.tileentity;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 import com.timthebrick.tinystorage.util.IOwnable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -27,6 +27,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     private String owner;
     private String textureName;
     public AccessMode accessMode;
+    public List<String> friendsList = new ArrayList<String>();
 
     public TileEntityTinyStorage() {
         orientation = ForgeDirection.SOUTH;
@@ -36,6 +37,14 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         owner = "";
         textureName = "";
         accessMode = AccessMode.INPUT_OUTPUT;
+    }
+
+    public void addFriend(UUID uuid, String playerName) {
+        friendsList.add(uuid.toString() + playerName);
+    }
+
+    public void removeFriend(UUID uuid, String playerName) {
+        friendsList.remove(uuid.toString() + playerName);
     }
 
     /**
@@ -288,6 +297,16 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         if (this.hasCustomTextureName()) {
             tag.setString(Names.NBT.TEXTURE_NAME, textureName);
         }
+        if (friendsList.size() > 0) {
+            NBTTagList friendsListNBT = new NBTTagList();
+            for (String string : friendsList) {
+                NBTTagCompound tagC = new NBTTagCompound();
+                tagC.setInteger("Pos", friendsList.indexOf(string));
+                tagC.setString("Friend", string);
+                friendsListNBT.appendTag(tagC);
+            }
+            tag.setTag("FriendsList", friendsListNBT);
+        }
     }
 
     /**
@@ -316,6 +335,16 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         }
         if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
             this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
+        }
+        if(tag.hasKey("FriendsList")) {
+            NBTTagList tagList = tag.getTagList("FriendsList", 10);
+            for (int i = 0; i < tagList.tagCount(); i++) {
+                NBTTagCompound tagC = tagList.getCompoundTagAt(i);
+                int pos = tagC.getInteger("Pos");
+                if (pos >= 0) {
+                    friendsList.set(pos, tagC.getString("Friend"));
+                }
+            }
         }
     }
 }

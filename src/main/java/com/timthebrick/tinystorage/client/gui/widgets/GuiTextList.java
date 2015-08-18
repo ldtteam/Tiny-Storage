@@ -15,11 +15,11 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     /**
      * True if this control is enabled, false to disable.
      */
-    private boolean enabled;
+    protected boolean enabled;
     /**
      * Hides the control completely if false.
      */
-    private boolean visible;
+    protected boolean visible;
     /**
      * The X Position of the widget
      */
@@ -31,28 +31,29 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     /**
      * The X Origin of the widget
      */
-    private int xOrigin;
+    protected int xOrigin;
     /**
      * The Y Origin of the widget
      */
-    private int yOrigin;
+    protected int yOrigin;
     /**
      * The width of the object
      */
-    private int width;
+    protected int width;
     /**
      * The height of the object
      */
-    private int height;
+    protected int height;
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
     protected IWidgetProvider widgetProvider;
 
-    private FontRenderer renderer;
-    private List<String> textList;
-    private GuiTextInput filter;
-    private int indexSelected;
+    public FontRenderer renderer;
+    public List<String> textList;
+    protected GuiTextInput filter;
+    protected int indexSelected;
+    public int displayIndex;
 
     public GuiTextList(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
         this(widgetProvider, fontRenderer, x, y, width, height, text, null);
@@ -86,38 +87,42 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
                 this.drawRect(xPosition, (this.yPosition) + ((indexSelected - 1) * renderer.FONT_HEIGHT), xPosition + this.width, (this.yPosition + 1) + ((indexSelected * renderer.FONT_HEIGHT)), new Colour(90, 255, 255).getColour());
             }
             int i = 0;
+            int j = 0;
             for (String name : textList) {
-                String dispName = renderer.trimStringToWidth(name, getWidth());
-                if (filter != null) {
-                    if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                        if (filter.getText().isEmpty()) {
-                            if (indexSelected > 0 && indexSelected - 1 == i) {
-                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
-                            } else {
-                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
-                            }
-                            i++;
-                        } else {
-                            if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
+                if (j >= displayIndex) {
+                    String dispName = renderer.trimStringToWidth(name, getWidth());
+                    if (filter != null) {
+                        if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
+                            if (filter.getText().isEmpty()) {
                                 if (indexSelected > 0 && indexSelected - 1 == i) {
                                     renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
                                 } else {
                                     renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
                                 }
                                 i++;
+                            } else {
+                                if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
+                                    if (indexSelected > 0 && indexSelected - 1 == i) {
+                                        renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                    } else {
+                                        renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                    }
+                                    i++;
+                                }
                             }
                         }
-                    }
-                } else {
-                    if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                        if (indexSelected > 0 && indexSelected - 1 == i) {
-                            renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
-                        } else {
-                            renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                    } else {
+                        if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
+                            if (indexSelected > 0 && indexSelected - 1 == i) {
+                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                            } else {
+                                renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                            }
+                            i++;
                         }
-                        i++;
                     }
                 }
+                j++;
             }
         }
     }
@@ -126,7 +131,11 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     public boolean onMouseClick(int xPos, int yPos, int btn) {
         if (textList.size() > 0 && this.isVisible() && this.isEnabled()) {
             if (getWidgetAreaAbsolute().contains(xPos, yPos)) {
-                indexSelected = (int) Math.floor((yPos - yPosition) / (renderer.FONT_HEIGHT)) + 1;
+                int maxRow = getHeight() / (renderer.FONT_HEIGHT + 1);
+                indexSelected = (int) Math.floor((yPos - (yPosition + 1)) / (renderer.FONT_HEIGHT)) + 1;
+                if (indexSelected - 1 > maxRow) {
+                    indexSelected = 0;
+                }
             } else {
                 indexSelected = 0;
             }
@@ -195,6 +204,20 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
 
     @Override
     public void mouseWheel(int x, int y, int delta) {
+        if (getWidgetAreaAbsolute().contains(x, y) && this.isEnabled()) {
+            if (-Integer.signum(delta) > 0) {
+                int maxDisplayRow = this.getHeight() / (((GuiFriendsList) this).renderer.FONT_HEIGHT + 1);
+                int listSize = this.textList.size();
+                int currentDisplayIndex = this.displayIndex;
+                if (currentDisplayIndex + maxDisplayRow + 2 <= listSize) {
+                    this.displayIndex++;
+                }
+            } else {
+                if (this.displayIndex - 1 >= 0) {
+                    this.displayIndex--;
+                }
+            }
+        }
     }
 
     @Override
@@ -250,6 +273,11 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
         public boolean onMouseClick(int xPos, int yPos, int btn) {
             super.onMouseClick(xPos - widgetProvider.getGuiLeft(), yPos - widgetProvider.getGuiTop(), btn);
             return false;
+        }
+
+        @Override
+        public void mouseWheel(int x, int y, int delta) {
+            super.mouseWheel(x - widgetProvider.getGuiLeft(), y - widgetProvider.getGuiTop(), delta);
         }
 
         @Override

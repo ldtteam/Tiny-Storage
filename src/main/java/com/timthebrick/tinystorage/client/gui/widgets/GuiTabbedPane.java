@@ -14,8 +14,9 @@ import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {
     /**
@@ -102,7 +103,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * A list of widgets contained by this panel
      */
     private ArrayList<IGuiWidgetAdvanced> containedWidgets = new ArrayList<IGuiWidgetAdvanced>();
-    private java.util.List<GuiButton> containedButtons = new ArrayList<GuiButton>();
+    private List<GuiButton> containedButtons = new ArrayList<GuiButton>();
 
     private boolean keyCaptured = false;
     private GuiButton selectedButton;
@@ -259,8 +260,8 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                     var5 = var7;
                 }
             }
-            var6 = x + 12;
-            var7 = y - 12;
+            var6 = x + 5;
+            var7 = y - 5;
             int var9 = 8;
             if (var4.length > 1) {
                 var9 += 2 + (var4.length - 1) * 10;
@@ -553,6 +554,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     @Override
     public ArrayList<IGuiWidgetAdvanced> getContainedWidgets() {
         return this.containedWidgets;
+    }
+
+    public List<GuiButton> getButtonList() {
+        return this.containedButtons;
     }
 
     @Override

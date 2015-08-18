@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -125,8 +126,8 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
                     var5 = var7;
                 }
             }
-            var6 = x + 12;
-            var7 = y - 12;
+            var6 = x + 5;
+            var7 = y - 5;
             int var9 = 8;
             if (var4.length > 1) {
                 var9 += 2 + (var4.length - 1) * 10;
@@ -201,13 +202,13 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             if (tileEntity.hasUniqueOwner()) {
                 this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 112, 170, 12, 12, 0, 0, 24, 0);
                 this.addWidget(friendsPanel);
-                GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 1, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
+                GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 3, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
                 friendsPanel.addContainedWidget(searchLabel);
-                GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 4, 10, CharFilters.FILTER_ALPHANUMERIC);
+                GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
                 friendsPanel.addContainedWidget(search);
-                GuiTextList playerList = new GuiTextList.GuiTextListTabbed(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 12, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
+                GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
                 friendsPanel.addContainedWidget(playerList);
-                GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos()-1, ButtonSettings.UP, EnableMode.ENABLED, true);
+                GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
                 prev.visible = false;
                 friendsPanel.addContainedButton(prev);
                 GuiImageButton next = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() + playerList.getHeight() - 7, ButtonSettings.DOWN, EnableMode.ENABLED, true);
@@ -403,6 +404,11 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public Minecraft getMinecraft() {
         return this.mc;
+    }
+
+    @Override
+    public TileEntity getTileEntity() {
+        return this.tileEntity;
     }
 
     @Override
