@@ -33,8 +33,8 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                     int rowSelect = (int) Math.floor((yPos - widgetProvider.getGuiTop() - (yPosition + 1)) / (renderer.FONT_HEIGHT));
                     if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                         for (UUID id : TinyStorage.instance.playerList.keySet()) {
-                            if (TinyStorage.instance.playerList.get(id).equals(textList.get(rowSelect + displayIndex))) {
-                                if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + textList.get(rowSelect + displayIndex))) {
+                            if (TinyStorage.instance.playerList.get(id).equals(displayedText.get(rowSelect))) {
+                                if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
                                     PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerList.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                 }
                             }
@@ -63,6 +63,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
             //Draw the list of strings
             int i = 0;
             int j = 0;
+            displayedText.clear();
             for (String name : textList) {
                 String dispName = renderer.trimStringToWidth(name, getWidth() - 11);
                 if (j >= displayIndex) {
@@ -71,16 +72,20 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                             if (filter.getText().isEmpty()) {
                                 if (indexSelected > 0 && indexSelected - 1 == i) {
                                     renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                    displayedText.add(name);
                                 } else {
                                     renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                    displayedText.add(name);
                                 }
                                 i++;
                             } else {
                                 if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
                                     if (indexSelected > 0 && indexSelected - 1 == i) {
                                         renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                        displayedText.add(name);
                                     } else {
                                         renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                        displayedText.add(name);
                                     }
                                     i++;
                                 }
@@ -90,8 +95,10 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                         if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
                             if (indexSelected > 0 && indexSelected - 1 == i) {
                                 renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                displayedText.add(name);
                             } else {
                                 renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                displayedText.add(name);
                             }
                             i++;
                         }

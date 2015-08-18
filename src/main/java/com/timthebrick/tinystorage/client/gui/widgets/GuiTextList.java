@@ -1,12 +1,12 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,6 +51,7 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
 
     public FontRenderer renderer;
     public List<String> textList;
+    public List<String> displayedText = new ArrayList<String>();
     protected GuiTextInput filter;
     protected int indexSelected;
     public int displayIndex;
@@ -88,6 +89,7 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
             }
             int i = 0;
             int j = 0;
+            displayedText.clear();
             for (String name : textList) {
                 if (j >= displayIndex) {
                     String dispName = renderer.trimStringToWidth(name, getWidth());
@@ -96,16 +98,20 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
                             if (filter.getText().isEmpty()) {
                                 if (indexSelected > 0 && indexSelected - 1 == i) {
                                     renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                    displayedText.add(name);
                                 } else {
                                     renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                    displayedText.add(name);
                                 }
                                 i++;
                             } else {
                                 if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
                                     if (indexSelected > 0 && indexSelected - 1 == i) {
                                         renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                        displayedText.add(name);
                                     } else {
                                         renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                        displayedText.add(name);
                                     }
                                     i++;
                                 }
@@ -115,8 +121,10 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
                         if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
                             if (indexSelected > 0 && indexSelected - 1 == i) {
                                 renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, new Colour(000, 000, 000).getColour());
+                                displayedText.add(name);
                             } else {
                                 renderer.drawString(dispName, xPosition + 1, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 14737632);
+                                displayedText.add(name);
                             }
                             i++;
                         }
