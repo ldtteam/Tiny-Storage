@@ -15,6 +15,7 @@ import cpw.mods.fml.common.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -22,8 +23,8 @@ import java.util.concurrent.TimeUnit;
 public class TinyStorage {
 
     public boolean developmentEnvironment;
-    public ArrayList<String> playerUUIDs = new ArrayList<String>();
-    public HashMap<UUID, String> playerList = new HashMap<UUID, String>();
+    public List<String> playerUUIDList = new ArrayList<String>();
+    public HashMap<UUID, String> playerUUIDMap = new HashMap<UUID, String>();
 
     @Instance(References.MOD_ID)
     public static TinyStorage instance;

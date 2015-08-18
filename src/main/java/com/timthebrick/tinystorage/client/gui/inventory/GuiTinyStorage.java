@@ -214,7 +214,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
                     friendsPanel.addContainedWidget(searchLabel);
                     GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
                     friendsPanel.addContainedWidget(search);
-                    GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
+                    GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringFromMap(TinyStorage.instance.playerUUIDMap), search);
                     friendsPanel.addContainedWidget(playerList);
                     GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
                     prev.visible = false;

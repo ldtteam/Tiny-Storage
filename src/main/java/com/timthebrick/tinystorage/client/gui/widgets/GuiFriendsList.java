@@ -33,12 +33,12 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                 if (xPos - widgetProvider.getGuiLeft() > xPosition + getWidth() - 10) {
                     int rowSelect = (int) Math.floor((yPos - widgetProvider.getGuiTop() - (yPosition + 1)) / (renderer.FONT_HEIGHT));
                     if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
-                        for (UUID id : TinyStorage.instance.playerList.keySet()) {
-                            if (TinyStorage.instance.playerList.get(id).equals(displayedText.get(rowSelect))) {
+                        for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                            if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
                                 if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
-                                    PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerList.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                                    PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                 }else{
-                                    PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerList.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                                    PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                 }
                             }
                         }
@@ -125,8 +125,8 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                 this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                                 if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                                     TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
-                                    for (UUID id : TinyStorage.instance.playerList.keySet()) {
-                                        if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerList.get(id)) && name.equals(TinyStorage.instance.playerList.get(id))) {
+                                    for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                        if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                             this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                         }
                                     }
@@ -137,8 +137,8 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                     this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                                     if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                                         TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
-                                        for (UUID id : TinyStorage.instance.playerList.keySet()) {
-                                            if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerList.get(id)) && name.equals(TinyStorage.instance.playerList.get(id))) {
+                                        for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                            if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                                 this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                             }
                                         }
@@ -152,8 +152,8 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                             this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                             if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                                 TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
-                                for (UUID id : TinyStorage.instance.playerList.keySet()) {
-                                    if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerList.get(id)) && name.equals(TinyStorage.instance.playerList.get(id))) {
+                                for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                    if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                         this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                     }
                                 }

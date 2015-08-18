@@ -113,7 +113,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
 				TileEntityQuarryChest tileEntity = (TileEntityQuarryChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {
-					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())|| tileEntity.isFriend(player)) {
 						player.openGui(TinyStorage.instance, GUIs.QUARRY_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));

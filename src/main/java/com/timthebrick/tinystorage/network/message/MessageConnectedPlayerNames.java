@@ -1,13 +1,16 @@
 package com.timthebrick.tinystorage.network.message;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -20,16 +23,19 @@ import java.util.UUID;
 public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<MessageConnectedPlayerNames, IMessage> {
 
     HashMap<UUID, String> playerList;
+    List<String> playerUUIDs;
 
     public MessageConnectedPlayerNames() {
     }
 
-    public MessageConnectedPlayerNames(HashMap<UUID, String> playerList) {
+    public MessageConnectedPlayerNames(HashMap<UUID, String> playerList, List<String> playerUUIDs) {
         this.playerList = playerList;
+        this.playerUUIDs = playerUUIDs;
     }
 
     public MessageConnectedPlayerNames(TinyStorage mod) {
-        this.playerList = mod.playerList;
+        this.playerList = mod.playerUUIDMap;
+        this.playerUUIDs = mod.playerUUIDList;
     }
 
     @Override
@@ -38,6 +44,10 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
         for (UUID ID : playerList.keySet()) {
             ByteBufUtils.writeUTF8String(buf, ID.toString());
             ByteBufUtils.writeUTF8String(buf, playerList.get(ID));
+        }
+        buf.writeInt(playerUUIDs.size());
+        for (String string : playerUUIDs) {
+            ByteBufUtils.writeUTF8String(buf, string);
         }
     }
 
@@ -50,11 +60,18 @@ public class MessageConnectedPlayerNames implements IMessage, IMessageHandler<Me
             String Name = ByteBufUtils.readUTF8String(buf);
             playerList.put(ID, Name);
         }
+        playerUUIDs = new ArrayList<String>();
+        int count = buf.readInt();
+        for (int i = 0; i < count; i++) {
+            String uuid = ByteBufUtils.readUTF8String(buf);
+            playerUUIDs.add(uuid);
+        }
     }
 
     @Override
     public IMessage onMessage(MessageConnectedPlayerNames message, MessageContext ctx) {
-        TinyStorage.instance.playerList = message.playerList;
+        TinyStorage.instance.playerUUIDList = message.playerUUIDs;
+        TinyStorage.instance.playerUUIDMap = message.playerList;
         return null;
     }
 }

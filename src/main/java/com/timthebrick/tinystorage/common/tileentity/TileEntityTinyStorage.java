@@ -49,6 +49,10 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         friendsList.remove(uuid.toString() + playerName);
     }
 
+    public boolean isFriend(EntityPlayer player){
+        return friendsList.contains(player.getUniqueID().toString() + player.getDisplayName());
+    }
+
     /**
      * Set the orientation of the TE
      *

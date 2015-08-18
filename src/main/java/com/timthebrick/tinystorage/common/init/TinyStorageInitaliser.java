@@ -20,10 +20,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.UsernameCache;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class TinyStorageInitaliser {
@@ -59,25 +56,27 @@ public class TinyStorageInitaliser {
     }
 
     public static void serverStarting(FMLServerStartingEvent event) {
-        refreshPlayerUUIDList(TinyStorage.instance.playerUUIDs);
+        refreshPlayerUUIDList();
     }
 
-    public static void serverStopping(FMLServerStoppingEvent event){
-        TinyStorage.instance.playerUUIDs.clear();
-        TinyStorage.instance.playerList.clear();
+    public static void serverStopping(FMLServerStoppingEvent event) {
+        TinyStorage.instance.playerUUIDList.clear();
+        TinyStorage.instance.playerUUIDMap.clear();
     }
 
-    public static void refreshPlayerUUIDList(ArrayList<String> uuidList) {
+    public static void refreshPlayerUUIDList() {
         File file = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "playerdata");
+        List<String> playerUUIDList = new ArrayList<String>();
+        HashMap<UUID, String> playerUUIDMap = new HashMap<UUID, String>();
         if (file.isDirectory()) {
             for (File search : file.listFiles()) {
-                if (!uuidList.contains(search.getName().replaceFirst("[.][^.]+$", ""))) {
-                    TinyStorageLog.info("Adding player UUID to list");
-                    TinyStorage.instance.playerUUIDs.add(search.getName().replaceFirst("[.][^.]+$", ""));
-                    TinyStorage.instance.playerList.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
-                }
+                TinyStorageLog.info("Adding player UUID to list");
+                playerUUIDList.add(search.getName().replaceFirst("[.][^.]+$", ""));
+                playerUUIDMap.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
             }
         }
+        TinyStorage.instance.playerUUIDList = playerUUIDList;
+        TinyStorage.instance.playerUUIDMap = playerUUIDMap;
     }
 
     private static void doColourMap() {

@@ -21,8 +21,6 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import java.util.UUID;
-
 public class PlayerEventHandler {
 
     private boolean nagged;
@@ -73,7 +71,7 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public void playerLoggedIn(PlayerLoggedInEvent event) {
         TinyStorageLog.info("Updating player UUID list");
-        TinyStorageInitaliser.refreshPlayerUUIDList(TinyStorage.instance.playerUUIDs);
+        TinyStorageInitaliser.refreshPlayerUUIDList();
         EntityPlayer player = event.player;
         if (nagged) {
             return;
@@ -92,8 +90,8 @@ public class PlayerEventHandler {
     public void playerLoggedOut(PlayerLoggedOutEvent event) {
         if (event.player.getUniqueID().equals(Minecraft.getMinecraft().thePlayer.getUniqueID())) {
             TinyStorageLog.info("Clearing player UUID list");
-            TinyStorage.instance.playerUUIDs.clear();
-            TinyStorage.instance.playerList.clear();
+            TinyStorage.instance.playerUUIDList.clear();
+            TinyStorage.instance.playerUUIDMap.clear();
         }
     }
 }
