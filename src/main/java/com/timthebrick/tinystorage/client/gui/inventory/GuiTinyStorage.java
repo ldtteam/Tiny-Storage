@@ -6,7 +6,6 @@ import codechicken.nei.api.TaggedInventoryArea;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.*;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
@@ -20,7 +19,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.inventory.Container;
@@ -169,6 +167,9 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             itemRender.zLevel = 0.0F;
         }
         GL11.glPopAttrib();
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
     }
 
     @Override

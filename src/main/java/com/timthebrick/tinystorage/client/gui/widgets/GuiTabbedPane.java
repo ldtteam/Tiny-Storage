@@ -303,6 +303,9 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
             this.widgetProvider.getItemRenderer().zLevel = 0.0F;
         }
         GL11.glPopAttrib();
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
     }
 
     @Override
