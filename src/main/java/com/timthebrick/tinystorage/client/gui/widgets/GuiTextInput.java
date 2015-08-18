@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ICharFilter;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -83,6 +84,7 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
     @Override
     public void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize) {
         this.drawTextBox();
+        Colour.resetGLColour();
     }
 
     @Override

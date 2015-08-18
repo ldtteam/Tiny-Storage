@@ -52,6 +52,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public void drawScreen(int mouseX, int mouseY, float btn) {
         super.drawScreen(mouseX, mouseY, btn);
+        Colour.resetGLColour();
         boolean hasClicked = Mouse.isButtonDown(0);
         for (IGuiWidgetAdvanced widget : widgets) {
             if (widget instanceof IGuiWidgetBackground) {
@@ -61,6 +62,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
                 ((GuiTabbedPane) widget).drawScreen(mouseX, mouseY, btn);
             }
         }
+        Colour.resetGLColour();
         for (Object c : this.buttonList) {
             if (c instanceof IButtonTooltip) {
                 IButtonTooltip tooltip = (IButtonTooltip) c;
@@ -74,11 +76,13 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
                         String msg = tooltip.getMessage();
                         if (msg != null) {
                             this.drawTooltip(x + 11, y + 4, 0, msg);
+                            Colour.resetGLColour();
                         }
                     }
                 }
             }
         }
+        Colour.resetGLColour();
         for (Object c : this.widgets) {
             if (c instanceof IWidgetTooltip) {
                 IWidgetTooltip tooltip = (IWidgetTooltip) c;
@@ -92,11 +96,13 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
                         String msg = tooltip.getMessage();
                         if (msg != null) {
                             this.drawTooltip(x + 11, y + 4, 0, msg);
+                            Colour.resetGLColour();
                         }
                     }
                 }
             }
         }
+        Colour.resetGLColour();
     }
 
     @Override
@@ -111,7 +117,6 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         String[] var4 = Msg.split("\n");
         if (var4.length > 0) {
@@ -167,9 +172,10 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
             itemRender.zLevel = 0.0F;
         }
         GL11.glPopAttrib();
-        GL11.glEnable(GL11.GL_LIGHTING);
+        RenderHelper.enableStandardItemLighting();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        Colour.resetGLColour();
     }
 
     @Override
@@ -201,20 +207,22 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     public void addWidgets() {
         if (this.friendsPanel == null) {
             if (tileEntity.hasUniqueOwner()) {
-                this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 112, 170, 12, 12, 0, 0, 24, 0);
-                this.addWidget(friendsPanel);
-                GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 3, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
-                friendsPanel.addContainedWidget(searchLabel);
-                GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
-                friendsPanel.addContainedWidget(search);
-                GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 6), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
-                friendsPanel.addContainedWidget(playerList);
-                GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
-                prev.visible = false;
-                friendsPanel.addContainedButton(prev);
-                GuiImageButton next = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() + playerList.getHeight() - 7, ButtonSettings.DOWN, EnableMode.ENABLED, true);
-                next.visible = false;
-                friendsPanel.addContainedButton(next);
+                if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getUniqueID().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
+                    this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 112, 170, 12, 12, 0, 0, 24, 0);
+                    this.addWidget(friendsPanel);
+                    GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 3, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
+                    friendsPanel.addContainedWidget(searchLabel);
+                    GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
+                    friendsPanel.addContainedWidget(search);
+                    GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringFromMap(TinyStorage.instance.playerList), search);
+                    friendsPanel.addContainedWidget(playerList);
+                    GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
+                    prev.visible = false;
+                    friendsPanel.addContainedButton(prev);
+                    GuiImageButton next = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() + playerList.getHeight() - 7, ButtonSettings.DOWN, EnableMode.ENABLED, true);
+                    next.visible = false;
+                    friendsPanel.addContainedButton(next);
+                }
             }
         } else {
             this.friendsPanel.adjustPosition();

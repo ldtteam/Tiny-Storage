@@ -118,6 +118,7 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
                 this.drawTexturedModalRect(0, 0, 256 - 16, 256 - 16, 16, 16);
                 this.drawTexturedModalRect(0, 0, uv_x * 16, uv_y * 16, 16, 16);
                 this.mouseDragged(minecraft, par2, par3);
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GL11.glPopMatrix();
             } else {
                 if (this.enabled) {

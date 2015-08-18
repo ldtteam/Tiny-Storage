@@ -133,7 +133,7 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
             if (getWidgetAreaAbsolute().contains(xPos, yPos)) {
                 int maxRow = getHeight() / (renderer.FONT_HEIGHT + 1);
                 indexSelected = (int) Math.floor((yPos - (yPosition + 1)) / (renderer.FONT_HEIGHT)) + 1;
-                if (indexSelected - 1 > maxRow) {
+                if (indexSelected - 1 > maxRow || indexSelected - 1 > textList.size()) {
                     indexSelected = 0;
                 }
             } else {

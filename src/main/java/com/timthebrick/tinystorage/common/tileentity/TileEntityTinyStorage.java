@@ -2,6 +2,8 @@ package com.timthebrick.tinystorage.common.tileentity;
 
 import java.util.*;
 
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.IOwnable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -301,7 +303,6 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
             NBTTagList friendsListNBT = new NBTTagList();
             for (String string : friendsList) {
                 NBTTagCompound tagC = new NBTTagCompound();
-                tagC.setInteger("Pos", friendsList.indexOf(string));
                 tagC.setString("Friend", string);
                 friendsListNBT.appendTag(tagC);
             }
@@ -336,14 +337,13 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
             this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
         }
-        if(tag.hasKey("FriendsList")) {
+        friendsList = new ArrayList<String>();
+        if (tag.hasKey("FriendsList")) {
             NBTTagList tagList = tag.getTagList("FriendsList", 10);
             for (int i = 0; i < tagList.tagCount(); i++) {
                 NBTTagCompound tagC = tagList.getCompoundTagAt(i);
-                int pos = tagC.getInteger("Pos");
-                if (pos >= 0) {
-                    friendsList.set(pos, tagC.getString("Friend"));
-                }
+                friendsList.add(tagC.getString("Friend"));
+                TinyStorageLog.info(tagC.getString("Friend"));
             }
         }
     }

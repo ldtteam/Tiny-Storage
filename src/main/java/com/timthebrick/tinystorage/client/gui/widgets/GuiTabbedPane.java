@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -16,6 +17,7 @@ import org.lwjgl.opengl.GL12;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {
@@ -218,11 +220,13 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                         String msg = tooltip.getMessage();
                         if (msg != null) {
                             this.drawTooltip(x + 11, y + 4, 0, msg);
+                            Colour.resetGLColour();
                         }
                     }
                 }
             }
         }
+        Colour.resetGLColour();
         for (Object c : this.containedWidgets) {
             if (c instanceof IWidgetTooltip) {
                 IWidgetTooltip tooltip = (IWidgetTooltip) c;
@@ -236,18 +240,19 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                         String msg = tooltip.getMessage();
                         if (msg != null) {
                             this.drawTooltip(x + 11, y + 4, 0, msg);
+                            Colour.resetGLColour();
                         }
                     }
                 }
             }
         }
+        Colour.resetGLColour();
     }
 
     private void drawTooltip(int x, int y, int forceWidth, String Msg) {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         String[] var4 = Msg.split("\n");
         if (var4.length > 0) {
@@ -303,16 +308,17 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
             this.widgetProvider.getItemRenderer().zLevel = 0.0F;
         }
         GL11.glPopAttrib();
-        GL11.glEnable(GL11.GL_LIGHTING);
+        RenderHelper.enableStandardItemLighting();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        Colour.resetGLColour();
     }
 
     @Override
     public void updateWidget() {
         if (this.shouldAnimate && this.isEnabled()) {
             float xAdj, yAdj;
-            float multiplier = 1.5f;
+            float multiplier = 3f;
 
             if (getWidth() < getHeight()) {
                 xAdj = 1;
