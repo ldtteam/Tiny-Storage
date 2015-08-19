@@ -5,7 +5,7 @@ import com.timthebrick.tinystorage.common.inventory.implementations.InventorySto
 import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.util.common.NBTHelper;
+import com.timthebrick.tinystorage.util.NBTHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

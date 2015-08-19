@@ -6,7 +6,7 @@ import com.timthebrick.tinystorage.common.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.Sounds;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.common.StackHelper;
+import com.timthebrick.tinystorage.util.StackHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;

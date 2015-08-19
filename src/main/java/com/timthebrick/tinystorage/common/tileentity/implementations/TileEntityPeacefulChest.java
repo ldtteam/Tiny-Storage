@@ -3,11 +3,8 @@ package com.timthebrick.tinystorage.common.tileentity.implementations;
 import java.util.List;
 import java.util.Random;
 
-import com.timthebrick.tinystorage.util.common.InventoryHelper;
-import com.timthebrick.tinystorage.util.common.ItemHelper;
-import com.timthebrick.tinystorage.util.common.Settings;
-import com.timthebrick.tinystorage.util.common.StackHelper;
-import com.timthebrick.tinystorage.util.common.math.ArrayHelper;
+import com.timthebrick.tinystorage.util.*;
+import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;

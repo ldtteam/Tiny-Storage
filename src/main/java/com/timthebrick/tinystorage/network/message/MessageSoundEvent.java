@@ -7,7 +7,7 @@ import java.util.UUID;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.util.common.Settings;
+import com.timthebrick.tinystorage.util.Settings;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;

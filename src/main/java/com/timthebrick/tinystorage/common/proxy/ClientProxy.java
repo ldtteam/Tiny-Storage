@@ -1,20 +1,13 @@
 package com.timthebrick.tinystorage.common.proxy;
 
-import com.google.common.base.Stopwatch;
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.renderer.item.*;
 import com.timthebrick.tinystorage.client.renderer.tileentity.*;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
-import com.timthebrick.tinystorage.common.reference.Colours;
 import com.timthebrick.tinystorage.common.tileentity.implementations.*;
-import com.timthebrick.tinystorage.util.client.colour.Colour;
-import com.timthebrick.tinystorage.util.client.colour.ColourSampler;
-import cpw.mods.fml.relauncher.Side;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.timthebrick.tinystorage.client.handler.KeyInputEventHandler;
-import com.timthebrick.tinystorage.util.client.ClientSoundHelper;
+import com.timthebrick.tinystorage.client.helper.ClientSoundHelper;
 import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.common.init.ModBlocks;
 import com.timthebrick.tinystorage.common.reference.RenderIDs;
@@ -22,10 +15,6 @@ import com.timthebrick.tinystorage.common.reference.RenderIDs;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 public class ClientProxy extends CommonProxy {
 
@@ -233,46 +222,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch) {
         ClientSoundHelper.playSound(soundName, xCoord, yCoord, zCoord, volume, pitch);
-    }
-
-    @Override
-    public void preInit() {
-        TinyStorage.side = Side.CLIENT;
-    }
-
-    @Override
-    public void init() {
-        TinyStorage.side = Side.CLIENT;
-    }
-
-    @Override
-    public void postInit() {
-        TinyStorage.side = Side.CLIENT;
-        doColourMap();
-    }
-
-    public void doColourMap(){
-        Stopwatch watch = Stopwatch.createStarted();
-        Iterator<Item> iterator = Item.itemRegistry.iterator();
-        while (iterator.hasNext()) {
-            try {
-                Item item = iterator.next();
-                if (item != null) {
-                    if (item instanceof ItemBook || item instanceof ItemEditableBook || item instanceof ItemEnchantedBook || item instanceof ItemWritableBook) {
-                        if (Colours.itemColourMap == null) {
-                            Colours.itemColourMap = new HashMap<Item, Colour>();
-                        }
-                        Colour colour = ColourSampler.getColourSampleFromItemStack(new ItemStack(item));
-                        Colours.itemColourMap.put(item, colour);
-                        TinyStorageLog.info("Registering colour mapping of: " + item.getUnlocalizedName() + " to colour: " + colour.toString());
-                    }
-                }
-            } catch (Exception e) {
-                TinyStorageLog.error(e);
-            }
-        }
-        TinyStorageLog.info("Colour mapping done after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms");
-        watch.stop();
     }
 
     @Override

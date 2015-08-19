@@ -10,8 +10,8 @@ import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.core.VersionChecker;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.util.common.ConfigurationHelper;
-import com.timthebrick.tinystorage.util.common.Settings;
+import com.timthebrick.tinystorage.util.ConfigurationHelper;
+import com.timthebrick.tinystorage.util.Settings;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

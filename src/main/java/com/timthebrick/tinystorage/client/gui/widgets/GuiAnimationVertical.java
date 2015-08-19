@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.util.client.colour.Colour;
+import com.timthebrick.tinystorage.util.colour.Colour;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;

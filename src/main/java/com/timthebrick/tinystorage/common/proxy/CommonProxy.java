@@ -1,7 +1,5 @@
 package com.timthebrick.tinystorage.common.proxy;
 
-import com.timthebrick.tinystorage.TinyStorage;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.timthebrick.tinystorage.common.handler.ConfigurationHandler;
@@ -14,22 +12,7 @@ import cpw.mods.fml.common.Loader;
 
 public abstract class CommonProxy implements IProxy {
 
-	@Override
-	public void preInit() {
-        TinyStorage.side = Side.SERVER;
-    }
-
-	@Override
-	public void init() {
-        TinyStorage.side = Side.SERVER;
-	}
-
-    @Override
-    public void postInit() {
-        TinyStorage.side = Side.SERVER;
-    }
-
-    public void registerEventHandlers() {
+	public void registerEventHandlers() {
 		PlayerEventHandler playerEventHandler = new PlayerEventHandler();
 		CraftingEventHandler craftingEventHandler = new CraftingEventHandler();
 		

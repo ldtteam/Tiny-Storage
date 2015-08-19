@@ -1,11 +1,12 @@
 package com.timthebrick.tinystorage.common.tileentity.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerFilterChest;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.common.StackHelper;
-import com.timthebrick.tinystorage.util.common.math.ArrayHelper;
+import com.timthebrick.tinystorage.util.StackHelper;
+import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;

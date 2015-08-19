@@ -1,21 +1,27 @@
 package com.timthebrick.tinystorage.common.init;
 
+import com.google.common.base.Stopwatch;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.core.UnlocalizedNameDump;
 import com.timthebrick.tinystorage.common.handler.ConfigurationHandler;
 import com.timthebrick.tinystorage.common.handler.CraftingEventHandler;
 import com.timthebrick.tinystorage.common.handler.GuiHandler;
-import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.network.PacketHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.colour.ColourSampler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import net.minecraft.item.*;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.UsernameCache;
 
 import java.io.File;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class TinyStorageInitaliser {
 
@@ -46,5 +52,54 @@ public class TinyStorageInitaliser {
     }
 
     public static void postInit(FMLPostInitializationEvent event) {
+        doColourMap();
+    }
+
+    public static void serverStarting(FMLServerStartingEvent event) {
+        refreshPlayerUUIDList();
+    }
+
+    public static void serverStopping(FMLServerStoppingEvent event) {
+        TinyStorage.instance.playerUUIDList.clear();
+        TinyStorage.instance.playerUUIDMap.clear();
+    }
+
+    public static void refreshPlayerUUIDList() {
+        File file = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "playerdata");
+        List<String> playerUUIDList = new ArrayList<String>();
+        HashMap<UUID, String> playerUUIDMap = new HashMap<UUID, String>();
+        if (file.isDirectory()) {
+            for (File search : file.listFiles()) {
+                TinyStorageLog.info("Adding player UUID to list");
+                playerUUIDList.add(search.getName().replaceFirst("[.][^.]+$", ""));
+                playerUUIDMap.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
+            }
+        }
+        TinyStorage.instance.playerUUIDList = playerUUIDList;
+        TinyStorage.instance.playerUUIDMap = playerUUIDMap;
+    }
+
+    private static void doColourMap() {
+        Stopwatch watch = Stopwatch.createStarted();
+        Iterator<Item> iterator = Item.itemRegistry.iterator();
+        while (iterator.hasNext()) {
+            try {
+                Item item = iterator.next();
+                if (item != null) {
+                    if (item instanceof ItemBook || item instanceof ItemEditableBook || item instanceof ItemEnchantedBook || item instanceof ItemWritableBook) {
+                        if (Colours.itemColourMap == null) {
+                            Colours.itemColourMap = new HashMap<Item, Colour>();
+                        }
+                        Colour colour = ColourSampler.getColourSampleFromItemStack(new ItemStack(item));
+                        Colours.itemColourMap.put(item, colour);
+                        TinyStorageLog.info("Registering colour mapping of: " + item.getUnlocalizedName() + " to colour: " + colour.toString());
+                    }
+                }
+            } catch (Exception e) {
+                TinyStorageLog.error(e);
+            }
+        }
+        TinyStorageLog.info("Colour mapping done after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        watch.stop();
     }
 }

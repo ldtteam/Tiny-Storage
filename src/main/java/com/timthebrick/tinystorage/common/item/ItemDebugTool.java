@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.util.common.EnumHelper;
+import com.timthebrick.tinystorage.util.EnumHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -32,9 +32,9 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityP
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityVacuumChest;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityWoolChest;
-import com.timthebrick.tinystorage.util.common.IKeyBound;
-import com.timthebrick.tinystorage.util.common.NBTHelper;
-import com.timthebrick.tinystorage.util.common.PlayerHelper;
+import com.timthebrick.tinystorage.util.IKeyBound;
+import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.PlayerHelper;
 
 public class ItemDebugTool extends Item implements IKeyBound {
 

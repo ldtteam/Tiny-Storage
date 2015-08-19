@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.timthebrick.tinystorage.common.reference.Key;
-import com.timthebrick.tinystorage.util.common.IKeyBound;
+import com.timthebrick.tinystorage.util.IKeyBound;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

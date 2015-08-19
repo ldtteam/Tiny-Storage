@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.common.tileentity.implementations;
 
 import java.util.Random;
 
-import com.timthebrick.tinystorage.util.common.math.ArrayHelper;
+import com.timthebrick.tinystorage.util.math.ArrayHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
