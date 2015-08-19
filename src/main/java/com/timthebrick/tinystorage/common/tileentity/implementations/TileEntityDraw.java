@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.common.tileentity.implementations;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.util.math.ArrayHelper;
+import com.timthebrick.tinystorage.util.common.math.ArrayHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerDraw;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.CommonSoundHelper;
+import com.timthebrick.tinystorage.util.common.CommonSoundHelper;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;

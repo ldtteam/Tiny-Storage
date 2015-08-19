@@ -1,8 +1,8 @@
 package com.timthebrick.tinystorage.common.inventory.implementations;
 
 import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.util.INBTTaggable;
-import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.common.INBTTaggable;
+import com.timthebrick.tinystorage.util.common.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

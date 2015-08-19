@@ -31,7 +31,7 @@ import com.timthebrick.tinystorage.common.reference.GUIs;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityClayChest;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 
 public abstract class BlockClayChest extends BlockContainer implements ITileEntityProvider {
 

@@ -7,7 +7,7 @@ import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageKeyPressed;
 import com.timthebrick.tinystorage.common.reference.Key;
-import com.timthebrick.tinystorage.util.IKeyBound;
+import com.timthebrick.tinystorage.util.common.IKeyBound;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

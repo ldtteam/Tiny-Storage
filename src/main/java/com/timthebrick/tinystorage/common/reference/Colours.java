@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.common.reference;
 
 
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.item.Item;
 
 import java.util.HashMap;

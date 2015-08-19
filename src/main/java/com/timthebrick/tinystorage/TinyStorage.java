@@ -12,6 +12,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,10 +27,13 @@ public class TinyStorage {
     @SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
     public static IProxy proxy;
 
+    public static Side side;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
         TinyStorageLog.info("Starting pre init - Preparing to store all the things!");
+        proxy.preInit();
         TinyStorageInitaliser.preInit(event);
         TinyStorageLog.info("Finished pre init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Still storing all the things!");
         watch.stop();
@@ -39,6 +43,7 @@ public class TinyStorage {
     public void init(FMLInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
         TinyStorageLog.info("Starting init - Continuing to store all the things!");
+        proxy.init();
         TinyStorageInitaliser.init(event);
         TinyStorageLog.info("Finished init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Still!? storing all the things!");
         watch.stop();
@@ -48,6 +53,7 @@ public class TinyStorage {
     public void postInit(FMLPostInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
         TinyStorageLog.info("Starting post init - Nearly there now!");
+        proxy.postInit();
         TinyStorageInitaliser.postInit(event);
         TinyStorageLog.info("Finished post init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Finally finished storing all the things!");
         TinyStorageLog.info("Loaded Tiny Storage");

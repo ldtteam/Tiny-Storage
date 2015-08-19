@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.gui.Gui;
 
 public abstract class GuiAnimation extends Gui implements IGuiAnimation {
