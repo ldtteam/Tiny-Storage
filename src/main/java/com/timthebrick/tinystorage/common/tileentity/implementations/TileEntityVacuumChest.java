@@ -26,8 +26,8 @@ import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestSmall;
-import com.timthebrick.tinystorage.util.math.MathHelper;
-import com.timthebrick.tinystorage.util.math.Vector3;
+import com.timthebrick.tinystorage.util.common.math.MathHelper;
+import com.timthebrick.tinystorage.util.common.math.Vector3;
 
 public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -121,7 +121,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 	}
 
 	public TileEntityVacuumChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		if (numPlayersUsing > 0) {
@@ -149,7 +149,7 @@ public class TileEntityVacuumChest extends TileEntityTinyStorage implements ISid
 	}
 	
 	public TileEntityVacuumChest applyDowngradeClick(World world, ItemDebugTool itemDebugTool, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		if (numPlayersUsing > 0) {

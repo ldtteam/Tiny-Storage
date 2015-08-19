@@ -107,7 +107,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 	}
 
 	public TileEntityTinyChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		if (numPlayersUsing > 0) {
@@ -135,7 +135,7 @@ public class TileEntityTinyChest extends TileEntityTinyStorage implements ISided
 	}
 
 	public TileEntityTinyChest applyDowngradeClick(World world, ItemDebugTool debugTool, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		if (numPlayersUsing > 0) {

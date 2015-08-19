@@ -8,7 +8,7 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityQ
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityQuarryChestSmall;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -113,7 +113,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
 				TileEntityQuarryChest tileEntity = (TileEntityQuarryChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {
-					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())|| tileEntity.isFriend(player)) {
+					if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())|| tileEntity.isFriend(player)) {
 						player.openGui(TinyStorage.instance, GUIs.QUARRY_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
@@ -138,7 +138,7 @@ public class BlockQuarryChest extends BlockContainer implements ITileEntityProvi
 		if (world.getTileEntity(x, y, z) instanceof TileEntityQuarryChest) {
 			TileEntityQuarryChest tileEntity = (TileEntityQuarryChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
-				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+				if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 				} else {
 					return -1F;

@@ -24,9 +24,9 @@ import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankSmall;
-import com.timthebrick.tinystorage.util.ItemHelper;
-import com.timthebrick.tinystorage.util.PlayerHelper;
-import com.timthebrick.tinystorage.util.StackHelper;
+import com.timthebrick.tinystorage.util.common.ItemHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.StackHelper;
 
 public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISidedInventory {
 
@@ -106,7 +106,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	}
 
 	public TileEntityPiggyBank applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		TileEntityPiggyBank newEntity;
@@ -132,7 +132,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	
 
 	public TileEntityPiggyBank applyDowngradeClick(World world, ItemDebugTool itemDebugTool, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		TileEntityPiggyBank newEntity;

@@ -11,6 +11,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.relauncher.Side;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,6 +32,11 @@ public class TinyStorage {
 
     @SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
     public static IProxy proxy;
+
+    /**
+     * The current side that is loaded
+     */
+    public static Side side;
 
     @EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {

@@ -12,7 +12,7 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityT
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankSmall;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -99,7 +99,7 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityPiggyBank) {
 			TileEntityPiggyBank te = (TileEntityPiggyBank) world.getTileEntity(x, y, z);
 			if (te.hasUniqueOwner()) {
-				if (te.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+				if (te.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 					te.handlePlayerInteraction(player);
 				} else {
 					te.handBadPlayerInteraction(player);
@@ -136,7 +136,7 @@ public class BlockPiggyBank extends BlockContainer implements ITileEntityProvide
 		if (world.getTileEntity(x, y, z) instanceof TileEntityTinyChest) {
 			TileEntityTinyChest tileEntity = (TileEntityTinyChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
-				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+				if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 				} else {
 					return -1F;

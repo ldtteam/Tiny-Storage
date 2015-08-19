@@ -2,9 +2,8 @@ package com.timthebrick.tinystorage.common.tileentity;
 
 import java.util.*;
 
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
-import com.timthebrick.tinystorage.util.IOwnable;
+import com.timthebrick.tinystorage.util.common.IOwnable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -50,7 +49,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     }
 
     public boolean isFriend(EntityPlayer player){
-        return friendsList.contains(player.getUniqueID().toString() + player.getDisplayName());
+        return friendsList.contains(player.getGameProfile().getId().toString() + player.getDisplayName());
     }
 
     /**
@@ -115,7 +114,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
      * @param player The player that is the owner of the TE
      */
     public void setUniqueOwner(EntityPlayer player) {
-        this.uniqueOwner = (player.getUniqueID().toString() + player.getDisplayName());
+        this.uniqueOwner = (player.getGameProfile().getId().toString() + player.getDisplayName());
     }
 
     /**

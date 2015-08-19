@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -17,7 +17,6 @@ import org.lwjgl.opengl.GL12;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {

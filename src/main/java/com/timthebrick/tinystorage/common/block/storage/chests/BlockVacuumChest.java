@@ -35,8 +35,8 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityV
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityVacuumChestSmall;
-import com.timthebrick.tinystorage.util.InventoryHelper;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.InventoryHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -128,7 +128,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 			if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityVacuumChest) {
 				TileEntityVacuumChest tileEntity = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
 				if (tileEntity.hasUniqueOwner()) {
-					if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())|| tileEntity.isFriend(player)) {
+					if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())|| tileEntity.isFriend(player)) {
 						player.openGui(TinyStorage.instance, GUIs.VACUUM_CHEST.ordinal(), world, x, y, z);
 					} else {
 						PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
@@ -153,7 +153,7 @@ public class BlockVacuumChest extends BlockContainer implements ITileEntityProvi
 		if (world.getTileEntity(x, y, z) instanceof TileEntityVacuumChest) {
 			TileEntityVacuumChest tileEntity = (TileEntityVacuumChest) world.getTileEntity(x, y, z);
 			if (tileEntity.hasUniqueOwner()) {
-				if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+				if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 					return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 				} else {
 					return -1F;

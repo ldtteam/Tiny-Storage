@@ -18,7 +18,7 @@ import com.timthebrick.tinystorage.common.item.ItemDebugTool;
 import com.timthebrick.tinystorage.common.item.ItemDebugTool.OperationModeSettings;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityVacuumChest;
-import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.common.NBTHelper;
 
 public class TileEntityRendererVacuumChest extends TileEntitySpecialRenderer {
 

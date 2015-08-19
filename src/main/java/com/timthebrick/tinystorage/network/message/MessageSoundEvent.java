@@ -7,7 +7,7 @@ import java.util.UUID;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.util.Settings;
+import com.timthebrick.tinystorage.util.common.Settings;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -26,8 +26,8 @@ public class MessageSoundEvent implements IMessage, IMessageHandler<MessageSound
 	}
 
 	public MessageSoundEvent(EntityPlayer entityPlayer, String soundName, float volume, float pitch) {
-		this.mostSigUUID = entityPlayer.getUniqueID().getMostSignificantBits();
-		this.leastSigUUID = entityPlayer.getUniqueID().getLeastSignificantBits();
+		this.mostSigUUID = entityPlayer.getGameProfile().getId().getMostSignificantBits();
+		this.leastSigUUID = entityPlayer.getGameProfile().getId().getLeastSignificantBits();
 		this.soundName = soundName;
 		this.xCoord = (float) entityPlayer.posX;
 		this.yCoord = (float) entityPlayer.posY;
@@ -79,7 +79,7 @@ public class MessageSoundEvent implements IMessage, IMessageHandler<MessageSound
 		if (Settings.Sounds.soundMode.equalsIgnoreCase("All")) {
 			TinyStorage.proxy.playSound(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
 		} else if (Settings.Sounds.soundMode.equalsIgnoreCase("Self")) {
-			if (FMLClientHandler.instance().getClient().thePlayer.getUniqueID().equals(originUUID)) {
+			if (FMLClientHandler.instance().getClient().thePlayer.getGameProfile().getId().equals(originUUID)) {
 				TinyStorage.proxy.playSound(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
 			}
 		}

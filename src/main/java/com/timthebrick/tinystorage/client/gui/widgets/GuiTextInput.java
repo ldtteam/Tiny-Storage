@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ICharFilter;
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;

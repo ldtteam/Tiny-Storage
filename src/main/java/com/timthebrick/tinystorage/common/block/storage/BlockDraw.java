@@ -7,8 +7,7 @@ import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.*;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityDraw;
-import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -77,7 +76,7 @@ public class BlockDraw extends BlockContainer {
             if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
                 TileEntityDraw tileEntityDraw = (TileEntityDraw) world.getTileEntity(x, y, z);
                 if (tileEntityDraw.hasUniqueOwner()) {
-                    if (!tileEntityDraw.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                    if (!tileEntityDraw.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                         PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
                         return true;
                     }
@@ -246,7 +245,7 @@ public class BlockDraw extends BlockContainer {
         if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
             TileEntityDraw tileEntity = (TileEntityDraw) world.getTileEntity(x, y, z);
             if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                     return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
                 } else {
                     return -1F;

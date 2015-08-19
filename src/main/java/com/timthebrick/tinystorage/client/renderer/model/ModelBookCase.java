@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.client.renderer.model;
 
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityBookCase;
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

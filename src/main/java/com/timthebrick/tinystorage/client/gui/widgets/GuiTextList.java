@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;

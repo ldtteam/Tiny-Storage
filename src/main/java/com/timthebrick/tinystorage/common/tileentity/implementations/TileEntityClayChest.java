@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.common.tileentity.implementations;
 
 import java.util.Random;
 
-import com.timthebrick.tinystorage.util.math.ArrayHelper;
+import com.timthebrick.tinystorage.util.common.math.ArrayHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -108,7 +108,7 @@ public class TileEntityClayChest extends TileEntityTinyStorage implements ISided
     }
 
     public TileEntityClayChest applyUpgradeItem (ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
-        if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+        if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
             return null;
         }
         if (numPlayersUsing > 0) {
@@ -136,7 +136,7 @@ public class TileEntityClayChest extends TileEntityTinyStorage implements ISided
     }
 
     public TileEntityClayChest applyDowngradeClick (World world, ItemDebugTool itemDebugTool, int upgradeTier, EntityPlayer player) {
-        if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+        if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
             return null;
         }
         if (numPlayersUsing > 0) {

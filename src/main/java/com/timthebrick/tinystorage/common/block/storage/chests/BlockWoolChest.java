@@ -12,7 +12,7 @@ import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityWoolChest;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -62,7 +62,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
             if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoolChest) {
                 TileEntityWoolChest tileEntity = (TileEntityWoolChest) world.getTileEntity(x, y, z);
                 if (tileEntity.hasUniqueOwner()) {
-                    if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()) || tileEntity.isFriend(player)) {
+                    if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()) || tileEntity.isFriend(player)) {
                         TinyStorageLog.info(tileEntity.getUniqueOwner());
                         player.openGui(TinyStorage.instance, GUIs.WOOL_CHEST.ordinal(), world, x, y, z);
                     } else {
@@ -88,7 +88,7 @@ public abstract class BlockWoolChest extends BlockContainer implements ITileEnti
         if (world.getTileEntity(x, y, z) instanceof TileEntityWoolChest) {
             TileEntityWoolChest tileEntity = (TileEntityWoolChest) world.getTileEntity(x, y, z);
             if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                     return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
                 } else {
                     return -1F;

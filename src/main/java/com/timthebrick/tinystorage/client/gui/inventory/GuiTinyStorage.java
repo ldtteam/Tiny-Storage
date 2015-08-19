@@ -11,8 +11,8 @@ import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.util.UUIDHelper;
-import com.timthebrick.tinystorage.util.colour.Colour;
+import com.timthebrick.tinystorage.util.common.UUIDHelper;
+import com.timthebrick.tinystorage.util.client.colour.Colour;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -207,7 +207,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     public void addWidgets() {
         if (this.friendsPanel == null) {
             if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getUniqueID().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
+                if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
                     this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 112, 170, 12, 12, 0, 0, 24, 0);
                     this.addWidget(friendsPanel);
                     GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 3, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
@@ -233,7 +233,9 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
         this.buttonList.remove(accessMode);
         this.accessMode = new GuiImageButton(this.guiLeft - 18, this.guiTop + 8, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED);
         if (tileEntity.hasUniqueOwner()) {
-            this.buttonList.add(accessMode);
+            if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
+                this.buttonList.add(accessMode);
+            }
         }
     }
 

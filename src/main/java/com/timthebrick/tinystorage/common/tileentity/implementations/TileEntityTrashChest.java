@@ -6,7 +6,7 @@ import com.timthebrick.tinystorage.common.item.ItemStorageComponent;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.Sounds;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.StackHelper;
+import com.timthebrick.tinystorage.util.common.StackHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -82,7 +82,7 @@ public class TileEntityTrashChest extends TileEntityTinyStorage implements ISide
 	
 
 	public TileEntityTrashChest applyUpgradeItem(ItemStorageComponent itemStorageComponent, int state, EntityPlayer player) {
-		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())){
+		if(this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())){
 			return null;
 		}
 		if(numPlayersUsing > 0){

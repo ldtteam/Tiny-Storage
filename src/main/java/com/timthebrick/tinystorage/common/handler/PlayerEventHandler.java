@@ -8,7 +8,7 @@ import com.timthebrick.tinystorage.common.core.VersionChecker;
 import com.timthebrick.tinystorage.common.init.TinyStorageInitaliser;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
@@ -44,7 +44,7 @@ public class PlayerEventHandler {
                         TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
 
                         if (block instanceof BlockWoolChest) {
-                            if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
+                            if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()))) {
                                 if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
                                     if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
                                         world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
@@ -53,7 +53,7 @@ public class PlayerEventHandler {
                                 }
                             }
                         } else if (block instanceof BlockClayChest) {
-                            if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName()))) {
+                            if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()))) {
                                 if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
                                     if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
                                         world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
@@ -76,8 +76,7 @@ public class PlayerEventHandler {
         TinyStorageLog.info("Updating player UUID list");
         EntityPlayer player = event.player;
 
-        if (!TinyStorage.instance.playerUUIDMap.containsKey(player.getGameProfile().getId()))
-        {
+        if (!TinyStorage.instance.playerUUIDMap.containsKey(player.getGameProfile().getId())) {
             TinyStorage.instance.playerUUIDMap.put(player.getGameProfile().getId(), UsernameCache.getLastKnownUsername(player.getGameProfile().getId()));
             TinyStorage.instance.playerUUIDList.add(player.getGameProfile().getId().toString());
         }
@@ -97,7 +96,7 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void playerLoggedOut(PlayerLoggedOutEvent event) {
-        if (event.player.getUniqueID().equals(Minecraft.getMinecraft().thePlayer.getUniqueID())) {
+        if (event.player.getGameProfile().getId().equals(Minecraft.getMinecraft().thePlayer.getUniqueID())) {
             TinyStorageLog.info("Clearing player UUID list");
             TinyStorage.instance.playerUUIDList.clear();
             TinyStorage.instance.playerUUIDMap.clear();
