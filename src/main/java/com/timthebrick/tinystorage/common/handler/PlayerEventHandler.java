@@ -19,7 +19,10 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import java.util.UUID;
 
 public class PlayerEventHandler {
 
@@ -71,8 +74,14 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public void playerLoggedIn(PlayerLoggedInEvent event) {
         TinyStorageLog.info("Updating player UUID list");
-        TinyStorageInitaliser.refreshPlayerUUIDList();
         EntityPlayer player = event.player;
+
+        if (!TinyStorage.instance.playerUUIDMap.containsKey(player.getGameProfile().getId()))
+        {
+            TinyStorage.instance.playerUUIDMap.put(player.getGameProfile().getId(), UsernameCache.getLastKnownUsername(player.getGameProfile().getId()));
+            TinyStorage.instance.playerUUIDList.add(player.getGameProfile().getId().toString());
+        }
+
         if (nagged) {
             return;
         }
