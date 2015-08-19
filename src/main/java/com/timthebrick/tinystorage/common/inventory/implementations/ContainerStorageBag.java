@@ -4,7 +4,7 @@ import com.timthebrick.tinystorage.common.inventory.ContainerTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.slot.SlotStorageBag;
 import com.timthebrick.tinystorage.common.item.ItemStorageBag;
 import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.util.NBTHelper;
+import com.timthebrick.tinystorage.util.common.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;

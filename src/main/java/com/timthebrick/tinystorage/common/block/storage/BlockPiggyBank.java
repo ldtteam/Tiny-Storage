@@ -12,7 +12,7 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityT
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankSmall;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
