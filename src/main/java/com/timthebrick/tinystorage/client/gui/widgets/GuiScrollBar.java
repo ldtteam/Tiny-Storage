@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.common.reference.References;
-import com.timthebrick.tinystorage.util.math.MathHelper;
+import com.timthebrick.tinystorage.util.common.math.MathHelper;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;

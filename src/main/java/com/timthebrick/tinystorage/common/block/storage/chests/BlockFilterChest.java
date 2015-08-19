@@ -34,7 +34,7 @@ import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityF
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityFilterChestLarge;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityFilterChestMedium;
 import com.timthebrick.tinystorage.common.tileentity.implementations.sub.TileEntityFilterChestSmall;
-import com.timthebrick.tinystorage.util.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
