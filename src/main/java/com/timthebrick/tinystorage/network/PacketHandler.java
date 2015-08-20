@@ -24,5 +24,7 @@ public class PacketHandler {
 		INSTANCE.registerMessage(MessageConnectedPlayerNames.class, MessageConnectedPlayerNames.class, 5, Side.CLIENT);
 		INSTANCE.registerMessage(MessageAddFriend.class, MessageAddFriend.class, 6, Side.SERVER);
         INSTANCE.registerMessage(MessageRemoveFriend.class, MessageRemoveFriend.class, 7, Side.SERVER);
+		INSTANCE.registerMessage(MessagePlayerJoinGui.class, MessagePlayerJoinGui.class, 8, Side.SERVER);
+        INSTANCE.registerMessage(MessagePlayerLeaveGui.class, MessagePlayerLeaveGui.class, 9, Side.SERVER);
 	}
 }

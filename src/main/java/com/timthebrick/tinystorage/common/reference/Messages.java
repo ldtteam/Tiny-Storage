@@ -20,6 +20,7 @@ public class Messages {
         public static final String MOD_DOWNLOAD = "update.tinystorage:download";
         public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
         public static final String DEBUG_TOOL_CASE = "tooltip.tinystorage:debugTool.case";
+        public static final String UNFRIENDED = "chat.tinystorage:unfriended";
     }
 
     public static final class ItemTooltips {

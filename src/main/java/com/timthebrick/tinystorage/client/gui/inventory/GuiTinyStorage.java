@@ -11,6 +11,8 @@ import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
+import com.timthebrick.tinystorage.network.message.MessagePlayerJoinGui;
+import com.timthebrick.tinystorage.network.message.MessagePlayerLeaveGui;
 import com.timthebrick.tinystorage.util.common.UUIDHelper;
 import com.timthebrick.tinystorage.util.client.colour.Colour;
 import cpw.mods.fml.common.Optional;
@@ -180,6 +182,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
 
     @Override
     public void onGuiClosed() {
+        PacketHandler.INSTANCE.sendToServer(new MessagePlayerLeaveGui(this.getMinecraft().thePlayer, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord));
         super.onGuiClosed();
     }
 
@@ -199,6 +202,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public void initGui() {
         super.initGui();
+        PacketHandler.INSTANCE.sendToServer(new MessagePlayerJoinGui(this.getMinecraft().thePlayer, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord));
         this.addButtons();
         this.addWidgets();
     }
@@ -510,7 +514,7 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
         Rectangle area = new Rectangle(x, y, w, h);
         for (IGuiWidgetAdvanced widget : widgets) {
-            if (area.intersects(widget.getWidgetVisibleAreaAbsolute()) && widget.isVisible()) {
+            if ((area.intersects(widget.getWidgetVisibleAreaAbsolute()) && widget.isVisible())) {
                 return true;
             }
         }

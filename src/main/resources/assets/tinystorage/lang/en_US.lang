@@ -430,6 +430,7 @@ general.blocks.piggyBank.empty=No items currently stored
 general.blocks.piggyBank.contents=Items currently stored:
 general.blocks.quarryChest.depth=The chest is too deep to function fully, setting the depth to:
 general.blocks.quarryChest.depthBlocks= blocks deep
+chat.tinystorage:unfriended=You have been removed from this friends list
 
 #Misc
 itemGroup.tinystorage=Tiny Storage

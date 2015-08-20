@@ -2,20 +2,29 @@ package com.timthebrick.tinystorage.common.tileentity;
 
 import java.util.*;
 
+import com.mojang.authlib.GameProfile;
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.util.common.IOwnable;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.common.reference.Names;
+import scala.tools.nsc.doc.model.ModelFactory;
 
 public class TileEntityTinyStorage extends TileEntity implements IOwnable {
 
@@ -29,6 +38,9 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     private String textureName;
     public AccessMode accessMode;
     public List<String> friendsList = new ArrayList<String>();
+
+    //TODO, store a list of all players currently viewing the GUI in case they get removed from a friends list whilst viewing the inventory
+    protected HashMap<UUID, String> accessedPlayers = new HashMap<UUID, String>();
 
     public TileEntityTinyStorage() {
         orientation = ForgeDirection.SOUTH;
@@ -46,10 +58,30 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
 
     public void removeFriend(UUID uuid, String playerName) {
         friendsList.remove(uuid.toString() + playerName);
+        if (accessedPlayers.containsKey(uuid)) {
+            for (Object o : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
+                if (o instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer) o;
+                    if(player.getGameProfile().getId().equals(uuid)){
+                        player.closeScreen();
+                        PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.UNFRIENDED));
+                        return;
+                    }
+                }
+            }
+        }
     }
 
-    public boolean isFriend(EntityPlayer player){
+    public boolean isFriend(EntityPlayer player) {
         return friendsList.contains(player.getGameProfile().getId().toString() + player.getDisplayName());
+    }
+
+    public void playerOpenedGui(UUID playerUUID, String playerDisplayName) {
+        accessedPlayers.put(playerUUID, playerDisplayName);
+    }
+
+    public void playerClosedGui(UUID playerUUID) {
+        accessedPlayers.remove(playerUUID);
     }
 
     /**
@@ -346,7 +378,6 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
             for (int i = 0; i < tagList.tagCount(); i++) {
                 NBTTagCompound tagC = tagList.getCompoundTagAt(i);
                 friendsList.add(tagC.getString("Friend"));
-                TinyStorageLog.info(tagC.getString("Friend"));
             }
         }
     }
