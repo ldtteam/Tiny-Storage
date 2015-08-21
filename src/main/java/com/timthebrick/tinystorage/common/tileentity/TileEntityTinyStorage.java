@@ -38,8 +38,6 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     private String textureName;
     public AccessMode accessMode;
     public List<String> friendsList = new ArrayList<String>();
-
-    //TODO, store a list of all players currently viewing the GUI in case they get removed from a friends list whilst viewing the inventory
     protected HashMap<UUID, String> accessedPlayers = new HashMap<UUID, String>();
 
     public TileEntityTinyStorage() {
@@ -62,7 +60,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
             for (Object o : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
                 if (o instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) o;
-                    if(player.getGameProfile().getId().equals(uuid)){
+                    if (player.getGameProfile().getId().equals(uuid)) {
                         player.closeScreen();
                         PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.UNFRIENDED));
                         return;
