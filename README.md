@@ -34,9 +34,7 @@ Nightly builds (may not be stable!):
       2. gradlew copyChicken
       3. gradlew idea
   4. Inside IDEA:
-      1. set ~/resources as 'Resources Root'
-      2. set ~/src/api as 'Sources Root'
-      3. Open the module settings and go to Module Dependencies
-      4. Remove the extract options from all of ChickenBones mod: (CCC, CCL, NEI)
-      5. Set the Scope off al of ChickenBones mods to provided.
+      1. Open the module settings and go to Module Dependencies
+      2. Remove the extract options from all of ChickenBones mod: (CCC, CCL, NEI)
+      3. Set the Scope off al of ChickenBones mods to provided.
 
