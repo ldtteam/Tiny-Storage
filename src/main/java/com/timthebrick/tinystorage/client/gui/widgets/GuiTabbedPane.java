@@ -314,7 +314,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     }
 
     @Override
-    public void updateWidget() {
+    public void updateGraphics() {
         if (this.shouldAnimate && this.isEnabled()) {
             float xAdj, yAdj;
             float multiplier = 5f;
@@ -340,6 +340,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
                 shouldAnimate = false;
             }
         }
+    }
+
+    @Override
+    public void updateWidget() {
         if (this.isEnabled()) {
             for (IGuiWidgetAdvanced widget : containedWidgets) {
                 widget.updateWidget();

@@ -132,6 +132,10 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public void updateWidget() {
         if (scrollToPos >= 0 && this.isEnabled() && shouldScroll) {
             if (scrollToPos != getScrollPos()) {

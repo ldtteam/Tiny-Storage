@@ -136,6 +136,10 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public boolean onMouseClick(int xPos, int yPos, int btn) {
         if (textList.size() > 0 && this.isVisible() && this.isEnabled()) {
             if (getWidgetAreaAbsolute().contains(xPos, yPos)) {

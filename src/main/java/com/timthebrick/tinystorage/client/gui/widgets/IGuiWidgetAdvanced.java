@@ -84,6 +84,8 @@ public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
 
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
+    void updateGraphics();
+
     void adjustPosition();
 
     Rectangle getWidgetAreaAbsolute();

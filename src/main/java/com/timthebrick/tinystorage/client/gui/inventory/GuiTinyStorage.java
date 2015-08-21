@@ -54,13 +54,11 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
     @Override
     public void drawScreen(int mouseX, int mouseY, float btn) {
         super.drawScreen(mouseX, mouseY, btn);
-        for (IGuiWidgetAdvanced widget : widgets) {
-            widget.updateWidget();
-        }
 
         Colour.resetGLColour();
         boolean hasClicked = Mouse.isButtonDown(0);
         for (IGuiWidgetAdvanced widget : widgets) {
+            widget.updateGraphics();
             if (widget instanceof IGuiWidgetBackground) {
                 widget.drawWidget(this, xSize, ySize);
             }
@@ -113,6 +111,9 @@ public class GuiTinyStorage extends GuiContainer implements IWidgetProvider, INE
 
     @Override
     public void updateScreen() {
+        for (IGuiWidgetAdvanced widget : widgets) {
+            widget.updateWidget();
+        }
         super.updateScreen();
     }
 

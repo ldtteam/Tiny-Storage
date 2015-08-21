@@ -71,6 +71,10 @@ public class GuiLabel extends Gui implements IGuiLabel {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();

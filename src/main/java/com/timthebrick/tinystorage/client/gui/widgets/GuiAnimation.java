@@ -95,6 +95,10 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();

@@ -88,6 +88,10 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public void updateWidget() {
         this.updateCursorCounter();
     }

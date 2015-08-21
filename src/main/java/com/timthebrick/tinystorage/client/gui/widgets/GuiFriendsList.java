@@ -123,7 +123,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
             Colour.resetGLColour();
 
             //Draw more things
-            guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets2.png"));
+            guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
             i = 0;
             j = 0;
             for (String name : textList) {
