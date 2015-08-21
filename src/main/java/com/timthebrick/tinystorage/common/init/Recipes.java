@@ -54,6 +54,8 @@ public class Recipes {
         registerLockableChestRecipes(ModBlocks.blockTinyChestJunglePlank, ModBlocks.blockTinyChestJunglePlankLocked, Blocks.planks, 3);
         registerLockableChestRecipes(ModBlocks.blockTinyChestAcaciaPlank, ModBlocks.blockTinyChestAcaciaPlankLocked, Blocks.planks, 4);
         registerLockableChestRecipes(ModBlocks.blockTinyChestStone, ModBlocks.blockTinyChestStoneLocked, Blocks.stone);
+        registerLockableChestRecipes(ModBlocks.blockTinyChestEndStone, ModBlocks.blockTinyChestEndStoneLocked, Blocks.end_stone);
+        registerLockableChestRecipes(ModBlocks.blockTinyChestNetherRack, ModBlocks.blockTinyChestNetherRackLocked, Blocks.netherrack);
 
         // Filter Chests - Logs
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestOakLog, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.log, 1, 0));
@@ -101,6 +103,12 @@ public class Recipes {
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStone, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.stone, 1));
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStone, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(Blocks.stone, 1));
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStone, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(Blocks.stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestEndStone, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.end_stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestEndStone, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(Blocks.end_stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestEndStone, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(Blocks.end_stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestNetherRack, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(Blocks.netherrack, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestNetherRack, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(Blocks.netherrack, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestNetherRack, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(Blocks.netherrack, 1));
 
         // Filter Chests Locked - Logs
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestOakLogLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.log, 1, 0));
@@ -148,6 +156,12 @@ public class Recipes {
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStoneLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1));
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStoneLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1));
         registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestStoneLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestEndStoneLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.end_stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestEndStoneLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.end_stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestEndStoneLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.end_stone, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestNetherRackLocked, 1, 0), new ItemStack(ModItems.itemStorageUpgrade, 1, 0), new ItemStack(ModItems.itemChestFilter, 1, 0), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.netherrack, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestNetherRackLocked, 1, 1), new ItemStack(ModItems.itemStorageUpgrade, 1, 1), new ItemStack(ModItems.itemChestFilter, 1, 1), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.netherrack, 1));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockFilterChestNetherRackLocked, 1, 2), new ItemStack(ModItems.itemStorageUpgrade, 1, 2), new ItemStack(ModItems.itemChestFilter, 1, 2), new ItemStack(ModItems.itemChestLock, 1), new ItemStack(Blocks.netherrack, 1));
 
         // Wool Chests
         {
@@ -255,6 +269,8 @@ public class Recipes {
 
         // Micro Chests - Others
         registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestStone, 9), new ItemStack(ModBlocks.blockTinyChestStone, 1, 0));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestEndStone, 9), new ItemStack(ModBlocks.blockTinyChestEndStone, 1, 0));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestNetherRack, 9), new ItemStack(ModBlocks.blockTinyChestNetherRack, 1, 0));
 
         // Micro Chests Locked - Logs
         registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestOakLogLocked, 9), new ItemStack(ModBlocks.blockTinyChestOakLogLocked, 1, 0));
@@ -272,6 +288,8 @@ public class Recipes {
 
         // Micro Chests Locked - Others
         registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestStoneLocked, 9), new ItemStack(ModBlocks.blockTinyChestStoneLocked, 1, 0));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestEndStoneLocked, 9), new ItemStack(ModBlocks.blockTinyChestEndStoneLocked, 1, 0));
+        registerShapelessRecipe(new ItemStack(ModBlocks.blockMicroChestNetherRackLocked, 9), new ItemStack(ModBlocks.blockTinyChestNetherRackLocked, 1, 0));
 
         // Trash Chest
         registerShapedRecipe(new ItemStack(ModBlocks.blockTrashChest, 1), "OOO", "OCO", "OOO", 'O', new ItemStack(Blocks.obsidian), 'C', new ItemStack(ModBlocks.blockTinyChestStone, 1, 0));

@@ -59,7 +59,7 @@ public class WailaDataProvider implements IWailaDataProvider {
                 } else if (tileEntity.getAccessMode() == AccessMode.INPUT_OUTPUT) {
                     currentTip.add(StatCollector.translateToLocal(Messages.WailaTooltips.ACCESS_MODE_TITLE) + ": " + StatCollector.translateToLocal(Messages.WailaTooltips.ACCESS_MODE_BOTH));
                 }
-            } else {
+            } else if (tileEntity.hasUniqueOwner()) {
                 currentTip.add(StatCollector.translateToLocal(Messages.WailaTooltips.CHEST_NOT_OWNED) + ": " + tileEntity.getOwner());
             }
         }
