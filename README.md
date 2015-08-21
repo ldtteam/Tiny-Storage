@@ -15,3 +15,24 @@ Mods.IO link:
 
 Nightly builds (may not be stable!): 
  http://mavenrepo.orionminecraft.com/com/timthebrick/tinystorage/
+ 
+ Installation
+============
+## Users:
+  1. Download all the Dependencies and install those.
+  2. Drop Tiny Storage in the mods folder.
+  
+## Modders (JetBrains IDEA):
+  1. Fork this Repository
+  2. Download the fork
+  3. Run on a commandline: 
+      1. gradlew setupDecompWorkspace
+      2. gradlew copyChicken
+      3. gradlew idea
+  4. Inside IDEA:
+      1. set ~/resources as 'Resources Root'
+      2. set ~/src/api as 'Sources Root'
+      3. Open the module settings and go to Module Dependencies
+      4. Remove the extract options from all of ChickenBones mod: (CCC, CCL, NEI)
+      5. Set the Scope off al of ChickenBones mods to provided.
+
