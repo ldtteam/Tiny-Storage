@@ -1,7 +1,7 @@
 ## Tiny Storage
 Minecraft Mod:- Adds tiny storage options to the game!
 
-## Last Build Status:
+## Latest Build Status:
 Master: 
 [![Build Status](https://travis-ci.org/SmithsModding/Tiny-Storage.svg?branch=master)](https://travis-ci.org/Tim020/Tiny-Storage)
 
