@@ -15,7 +15,3 @@ Mods.IO link:
 
 Nightly builds (may not be stable!): 
  http://mavenrepo.orionminecraft.com/com/timthebrick/tinystorage/
-
-Thanks:
- - OrionDevelopment: 
-  - https://github.com/OrionDevelopment
