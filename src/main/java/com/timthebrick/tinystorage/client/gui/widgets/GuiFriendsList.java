@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
@@ -32,13 +33,16 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
             if (getWidgetAreaAbsolute().contains(xPos - widgetProvider.getGuiLeft(), yPos - widgetProvider.getGuiTop())) {
                 if (xPos - widgetProvider.getGuiLeft() > xPosition + getWidth() - 10) {
                     int rowSelect = (int) Math.floor((yPos - widgetProvider.getGuiTop() - (yPosition + 1)) / (renderer.FONT_HEIGHT));
-                    if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
-                        for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
-                            if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
-                                if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
-                                    PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
-                                }else{
-                                    PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                    TinyStorageLog.info(rowSelect + ", " + displayedText.size());
+                    if(rowSelect < displayedText.size()) {
+                        if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
+                            for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
+                                    if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
+                                        PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                                    } else {
+                                        PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                                    }
                                 }
                             }
                         }
