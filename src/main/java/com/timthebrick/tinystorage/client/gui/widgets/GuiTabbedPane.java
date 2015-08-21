@@ -317,7 +317,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     public void updateWidget() {
         if (this.shouldAnimate && this.isEnabled()) {
             float xAdj, yAdj;
-            float multiplier = 3f;
+            float multiplier = 5f;
 
             if (getWidth() < getHeight()) {
                 xAdj = 1;

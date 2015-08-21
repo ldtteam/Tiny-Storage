@@ -42,9 +42,11 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                             for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                 if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
                                     if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
+                                        ((TileEntityTinyStorage) widgetProvider.getTileEntity()).addFriend(id, TinyStorage.instance.playerUUIDMap.get(id));
                                         PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                         SessionVars.addRecentPlayer(id);
                                     } else {
+                                        ((TileEntityTinyStorage) widgetProvider.getTileEntity()).removeFriend(id, TinyStorage.instance.playerUUIDMap.get(id));
                                         PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                     }
                                 }
@@ -121,7 +123,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
             Colour.resetGLColour();
 
             //Draw more things
-            guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
+            guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets2.png"));
             i = 0;
             j = 0;
             for (String name : textList) {
@@ -138,7 +140,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                             Colours.General.RED.performGLColour3f();
                                             this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                             Colour.resetGLColour();
-                                        } else if (SessionVars.getRecentFriends().contains(id)) {
+                                        } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                             Colours.General.YELLOW.performGLColour3f();
                                             this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                             Colour.resetGLColour();
@@ -156,7 +158,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                                 Colours.General.RED.performGLColour3f();
                                                 this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                                 Colour.resetGLColour();
-                                            } else if (SessionVars.getRecentFriends().contains(id)) {
+                                            } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                                 Colours.General.YELLOW.performGLColour3f();
                                                 this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                                 Colour.resetGLColour();
@@ -177,7 +179,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                         Colours.General.RED.performGLColour3f();
                                         this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                         Colour.resetGLColour();
-                                    } else if (SessionVars.getRecentFriends().contains(id)) {
+                                    } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                         Colours.General.YELLOW.performGLColour3f();
                                         this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                         Colour.resetGLColour();
