@@ -5,7 +5,7 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Mouse;

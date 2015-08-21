@@ -6,7 +6,7 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirectio
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageScrollBar;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityImpossibleChest;

@@ -2,7 +2,7 @@ package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerTinyChest;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityTinyChest;

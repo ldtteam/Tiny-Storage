@@ -5,7 +5,7 @@ import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.renderer.item.*;
 import com.timthebrick.tinystorage.client.renderer.tileentity.*;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.tileentity.implementations.*;
 import com.timthebrick.tinystorage.util.client.colour.Colour;
 import com.timthebrick.tinystorage.util.client.colour.ColourSampler;

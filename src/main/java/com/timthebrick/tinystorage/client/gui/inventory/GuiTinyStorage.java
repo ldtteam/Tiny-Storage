@@ -6,7 +6,7 @@ import codechicken.nei.api.TaggedInventoryArea;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.*;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;

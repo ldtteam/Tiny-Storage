@@ -1,10 +1,8 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
 import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
-import com.timthebrick.tinystorage.client.gui.widgets.IGuiWidgetAdvanced;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
-import com.timthebrick.tinystorage.common.reference.Colours;
-import net.minecraft.client.Minecraft;
+import com.timthebrick.tinystorage.util.client.Colours;
 import org.lwjgl.opengl.GL11;
 
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerDraw;

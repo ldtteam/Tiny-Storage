@@ -3,9 +3,11 @@ package com.timthebrick.tinystorage.common.tileentity;
 import java.util.*;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.GameProfileRepository;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.Messages;
+import com.timthebrick.tinystorage.util.client.SessionVars;
 import com.timthebrick.tinystorage.util.common.IOwnable;
 import com.timthebrick.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.common.FMLCommonHandler;

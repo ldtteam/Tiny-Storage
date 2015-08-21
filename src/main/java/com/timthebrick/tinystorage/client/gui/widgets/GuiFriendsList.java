@@ -7,11 +7,14 @@ import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageAddFriend;
 import com.timthebrick.tinystorage.network.message.MessageRemoveFriend;
+import com.timthebrick.tinystorage.util.client.Colours;
+import com.timthebrick.tinystorage.util.client.SessionVars;
 import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Session;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,12 +37,13 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                 if (xPos - widgetProvider.getGuiLeft() > xPosition + getWidth() - 10) {
                     int rowSelect = (int) Math.floor((yPos - widgetProvider.getGuiTop() - (yPosition + 1)) / (renderer.FONT_HEIGHT));
                     TinyStorageLog.info(rowSelect + ", " + displayedText.size());
-                    if(rowSelect < displayedText.size()) {
+                    if (rowSelect < displayedText.size()) {
                         if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                             for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                 if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
                                     if (!((TileEntityTinyStorage) widgetProvider.getTileEntity()).friendsList.contains(id.toString() + displayedText.get(rowSelect))) {
                                         PacketHandler.INSTANCE.sendToServer(new MessageAddFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
+                                        SessionVars.addRecentPlayer(id);
                                     } else {
                                         PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriend(id, TinyStorage.instance.playerUUIDMap.get(id), widgetProvider.getTileEntity().xCoord, widgetProvider.getTileEntity().yCoord, widgetProvider.getTileEntity().zCoord));
                                     }
@@ -131,7 +135,13 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                     TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
                                     for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                         if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                            Colours.General.RED.performGLColour3f();
                                             this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                            Colour.resetGLColour();
+                                        } else if (SessionVars.getRecentFriends().contains(id)) {
+                                            Colours.General.YELLOW.performGLColour3f();
+                                            this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                            Colour.resetGLColour();
                                         }
                                     }
                                 }
@@ -143,7 +153,13 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                         TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
                                         for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                             if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                                Colours.General.RED.performGLColour3f();
                                                 this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                                Colour.resetGLColour();
+                                            } else if (SessionVars.getRecentFriends().contains(id)) {
+                                                Colours.General.YELLOW.performGLColour3f();
+                                                this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                                Colour.resetGLColour();
                                             }
                                         }
                                     }
@@ -158,7 +174,13 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                 TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
                                 for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                     if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                        Colours.General.RED.performGLColour3f();
                                         this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                        Colour.resetGLColour();
+                                    } else if (SessionVars.getRecentFriends().contains(id)) {
+                                        Colours.General.YELLOW.performGLColour3f();
+                                        this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                        Colour.resetGLColour();
                                     }
                                 }
                             }
