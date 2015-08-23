@@ -60,6 +60,7 @@ public class TinyStorage {
     public void preInit(FMLPreInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
         TinyStorageLog.info("Starting pre init - Preparing to store all the things!");
+        proxy.preInit();
         TinyStorageInitaliser.preInit(event);
         TinyStorageLog.info("Finished pre init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Still storing all the things!");
         watch.stop();
@@ -69,6 +70,7 @@ public class TinyStorage {
     public void init(FMLInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
         TinyStorageLog.info("Starting init - Continuing to store all the things!");
+        proxy.init();
         TinyStorageInitaliser.init(event);
         TinyStorageLog.info("Finished init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Still!? storing all the things!");
         watch.stop();
@@ -78,6 +80,7 @@ public class TinyStorage {
     public void postInit(FMLPostInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
         TinyStorageLog.info("Starting post init - Nearly there now!");
+        proxy.postInit();
         TinyStorageInitaliser.postInit(event);
         TinyStorageLog.info("Finished post init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Finally finished storing all the things!");
         TinyStorageLog.info("Loaded Tiny Storage");
