@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.common.handler;
 
+import com.timthebrick.tinystorage.common.item.ItemFriendSetter;
 import com.timthebrick.tinystorage.common.item.crafting.RecipeStorageBags;
 import com.timthebrick.tinystorage.util.common.IOwnable;
 import com.timthebrick.tinystorage.util.common.ItemHelper;
@@ -15,13 +16,12 @@ import net.minecraft.item.crafting.CraftingManager;
 
 public class CraftingEventHandler {
 
-    public static void init () {
-        //noinspection unchecked
+    public static void init() {
         CraftingManager.getInstance().getRecipeList().add(new RecipeStorageBags());
     }
 
     @SubscribeEvent
-    public void onItemCraftedEvent (PlayerEvent.ItemCraftedEvent event) {
+    public void onItemCraftedEvent(PlayerEvent.ItemCraftedEvent event) {
         if (event.crafting.getItem() instanceof IOwnable) {
             ItemHelper.setOwner(event.crafting, event.player);
         }
@@ -30,7 +30,11 @@ public class CraftingEventHandler {
             if (stack != null) {
                 if (stack.getItem() instanceof ItemDebugTool) {
                     ItemDebugTool debugTool = (ItemDebugTool) stack.getItem();
-                    OperationModeSettings operationMode = OperationModeSettings.RENDER_AREA;
+                    ItemDebugTool.OperationModeSettings operationMode = ItemDebugTool.OperationModeSettings.RENDER_AREA;
+                    NBTHelper.setInteger(stack, "operationMode", operationMode.ordinal());
+                } else if (stack.getItem() instanceof ItemFriendSetter) {
+                    ItemFriendSetter friendSetter = (ItemFriendSetter) stack.getItem();
+                    ItemFriendSetter.OperationModeSettings operationMode = ItemFriendSetter.OperationModeSettings.READ_ONLY;
                     NBTHelper.setInteger(stack, "operationMode", operationMode.ordinal());
                 }
             }

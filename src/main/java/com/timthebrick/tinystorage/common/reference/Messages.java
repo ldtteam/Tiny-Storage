@@ -21,6 +21,8 @@ public class Messages {
         public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
         public static final String DEBUG_TOOL_CASE = "tooltip.tinystorage:debugTool.case";
         public static final String UNFRIENDED = "chat.tinystorage:unfriended";
+        public static final String FRIEND_SETTER_MODE = "tooltip.tinystorage:friendSetter.mode";
+        public static final String FRIEND_SETTER_CASE = "tooltip.tinystorage:friendSetter.case";
     }
 
     public static final class ItemTooltips {
@@ -42,6 +44,10 @@ public class Messages {
         public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
         public static final String DEBUG_TOOL_CASE = "tooltip.tinystorage:debugTool.case";
         public static final String IMPOSSIBLE_CHEST = "tooltip.tinystorage:impossibleChest";
+        public static final String FRIEND_SETTER_MODE_TIP_1 = "tooltip.tinystorage:friendSetter.modetipA";
+        public static final String FRIEND_SETTER_MODE_TIP_2 = "tooltip.tinystorage:friendSetter.modetipB";
+        public static final String FRIEND_SETTER_MODE = "tooltip.tinystorage:friendSetter.mode";
+        public static final String FRIEND_SETTER_CASE = "tooltip.tinystorage:friendSetter.case";
     }
 
     public static final class Config {

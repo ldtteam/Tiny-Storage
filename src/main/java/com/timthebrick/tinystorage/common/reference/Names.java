@@ -69,6 +69,7 @@ public class Names {
 		public static final String CHEST_LOCK = "chestLock";
 		public static final String DEBUG_TOOL = "debugTool";
 		public static final String STORAGE_BAG = "storageBag";
+		public static final String FRIEND_SETTER = "friendSetter";
 	}
 
 	public static final class NBT {

@@ -21,6 +21,7 @@ public class ModItems {
 	public static Item itemChestLock = new ItemChestLock();
 	public static Item itemDebugTool = new ItemDebugTool();
 	public static Item itemStorageBag = new ItemStorageBag();
+	public static Item itemFriendSetter = new ItemFriendSetter();
 	
 	public static void init(){
 		TinyStorageLog.info("Initialising Items");
@@ -30,6 +31,7 @@ public class ModItems {
 		registerItem(itemChestLock, Names.Items.CHEST_LOCK);
 		registerItem(itemDebugTool, Names.Items.DEBUG_TOOL);
         registerItem(itemStorageBag, Names.Items.STORAGE_BAG);
+		registerItem(itemFriendSetter, Names.Items.FRIEND_SETTER);
 	}
 	
 	private static void registerItem(Item item, String name){

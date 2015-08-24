@@ -7,7 +7,6 @@ public class TickHandler {
 
 	@SubscribeEvent
 	public void checkUpToDate(PlayerTickEvent evt) {
-		
 	}
 
 }
