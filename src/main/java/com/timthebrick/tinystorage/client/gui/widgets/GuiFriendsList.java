@@ -36,7 +36,6 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
             if (getWidgetAreaAbsolute().contains(xPos - widgetProvider.getGuiLeft(), yPos - widgetProvider.getGuiTop())) {
                 if (xPos - widgetProvider.getGuiLeft() > xPosition + getWidth() - 10) {
                     int rowSelect = (int) Math.floor((yPos - widgetProvider.getGuiTop() - (yPosition + 1)) / (renderer.FONT_HEIGHT));
-                    TinyStorageLog.info(rowSelect + ", " + displayedText.size());
                     if (rowSelect < displayedText.size()) {
                         if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                             for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {

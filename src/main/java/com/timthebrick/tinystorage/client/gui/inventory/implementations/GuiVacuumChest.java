@@ -7,7 +7,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.client.gui.GuiTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerVacuumChest;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;

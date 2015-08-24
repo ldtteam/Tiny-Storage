@@ -21,6 +21,10 @@ import java.util.List;
 
 public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetTooltip, IGuiWidgetContainer {
     /**
+     * Whether or not this panel should be forced open
+     */
+    private boolean forceOpen;
+    /**
      * True if this control is enabled, false to disable.
      */
     private boolean enabled;
@@ -123,8 +127,13 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * @param buttonBackgroundY The Y Position of the background texture for the button
      */
     public GuiTabbedPane(IWidgetProvider widgetProvider, IGuiTabHandler handler, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
+        this(widgetProvider, handler, false, x, y, width, height, buttonWidth, buttonHeight, backgroundX, backgroundY, buttonBackgroundX, buttonBackgroundY);
+    }
+
+    public GuiTabbedPane(IWidgetProvider widgetProvider, IGuiTabHandler handler, boolean forceOpen, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
         this.widgetProvider = widgetProvider;
         this.tabHandler = handler;
+        this.forceOpen = forceOpen;
         this.xOrigin = x;
         this.yOrigin = y;
         this.widthPane = width;
@@ -135,8 +144,13 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         this.backgroundTextureY = backgroundY;
         this.buttonTextureX = buttonBackgroundX;
         this.buttonTextureY = buttonBackgroundY;
-        progressX = getButtonWidth();
-        progressY = getButtonHeight();
+        if (!forceOpen) {
+            progressX = getButtonWidth();
+            progressY = getButtonHeight();
+        } else {
+            progressX = width;
+            progressY = height;
+        }
         setEnabled(true);
     }
 
@@ -353,7 +367,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
 
     @Override
     public boolean onMouseClick(int xPos, int yPos, int btn) {
-        if (this.isEnabled() && expandButton.contains(xPos, yPos) && !shouldAnimate) {
+        if (this.isEnabled() && !forceOpen && expandButton.contains(xPos, yPos) && !shouldAnimate) {
             shouldAnimate = true;
         }
         for (IGuiWidgetAdvanced widget : containedWidgets) {

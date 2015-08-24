@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.client.gui.GuiTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerBookCase;
 import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;

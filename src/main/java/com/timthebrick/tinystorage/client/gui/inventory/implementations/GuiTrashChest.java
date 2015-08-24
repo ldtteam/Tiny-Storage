@@ -11,7 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.client.gui.GuiTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerTrashChest;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;

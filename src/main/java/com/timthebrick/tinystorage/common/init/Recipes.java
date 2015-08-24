@@ -371,7 +371,7 @@ public class Recipes {
     }
 
     private static void registerShapelessOreRecipe(ItemStack output, Object... recipe) {
-        TinyStorageLog.info("Creating shapeless ore recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
+        //TinyStorageLog.info("Creating shapeless ore recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
         try {
             GameRegistry.addRecipe(new ShapelessOreRecipe(output, recipe));
         } catch (Exception e) {
@@ -380,7 +380,7 @@ public class Recipes {
     }
 
     private static void registerShapedOreRecipe(ItemStack output, Object... recipe) {
-        TinyStorageLog.info("Creating shaped ore recipe recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
+        //TinyStorageLog.info("Creating shaped ore recipe recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
         try {
             GameRegistry.addRecipe(new ShapedOreRecipe(output, recipe));
         } catch (Exception e) {
@@ -421,7 +421,7 @@ public class Recipes {
     }
 
     private static void registerShapelessRecipe(ItemStack output, Object... params) {
-        TinyStorageLog.info("Creating shapeless recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
+        //TinyStorageLog.info("Creating shapeless recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
         try {
             GameRegistry.addShapelessRecipe(output, params);
         } catch (Exception e) {
@@ -430,7 +430,7 @@ public class Recipes {
     }
 
     private static void registerShapedRecipe(ItemStack output, Object... params) {
-        TinyStorageLog.info("Creating shaped recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
+        //TinyStorageLog.info("Creating shaped recipe for: " + output.getDisplayName() + " with MetaData: " + output.getItemDamage());
         try {
             GameRegistry.addShapedRecipe(output, params);
         } catch (Exception e) {

@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.client.gui.GuiTinyStorage;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerFilterChest;
 import com.timthebrick.tinystorage.common.inventory.slot.SlotRestrictedInput;
 import com.timthebrick.tinystorage.common.reference.Names;

@@ -1,6 +1,7 @@
 package com.timthebrick.tinystorage.common.item;
 
 import com.timthebrick.tinystorage.client.settings.KeyBindings;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.Key;
 import com.timthebrick.tinystorage.common.reference.Messages;
@@ -32,7 +33,7 @@ public class ItemFriendSetter extends Item implements IKeyBound {
 
         private final EnumSet<? extends Enum<?>> values;
 
-        OperationMode (@Nonnull EnumSet<? extends Enum<?>> possibleOptions) {
+        OperationMode(@Nonnull EnumSet<? extends Enum<?>> possibleOptions) {
             if (possibleOptions.isEmpty()) {
                 throw new IllegalArgumentException("Tried to instantiate an empty setting.");
             }
@@ -40,7 +41,7 @@ public class ItemFriendSetter extends Item implements IKeyBound {
             this.values = possibleOptions;
         }
 
-        public EnumSet<? extends Enum<?>> getPossibleValues () {
+        public EnumSet<? extends Enum<?>> getPossibleValues() {
             return this.values;
         }
     }
@@ -49,7 +50,7 @@ public class ItemFriendSetter extends Item implements IKeyBound {
         READ_ONLY, OVERWRITE, WRITE_MERGE
     }
 
-    public ItemFriendSetter(){
+    public ItemFriendSetter() {
         super();
         this.setUnlocalizedName(Names.Items.FRIEND_SETTER);
         this.setMaxDamage(0);
@@ -57,29 +58,31 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     }
 
     @Override
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_2));
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE) + ": " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_CASE + operationMode.ordinal()));
     }
 
     @Override
-    public void registerIcons (IIconRegister register) {
+    public void registerIcons(IIconRegister register) {
         this.itemIcon = register.registerIcon(References.MOD_ID.toLowerCase() + ":friendSetter");
     }
 
     @Override
-    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        TinyStorageLog.info("On Right Click");
         return super.onItemRightClick(stack, world, player);
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ){
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        TinyStorageLog.info("On Use First");
         return false;
     }
 
     @Override
-    public void doKeyBindingAction (EntityPlayer player, ItemStack itemStack, Key key) {
+    public void doKeyBindingAction(EntityPlayer player, ItemStack itemStack, Key key) {
         if (key == Key.MODE) {
             if (itemStack.getItem() instanceof ItemFriendSetter) {
                 OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(itemStack, "operationMode")];

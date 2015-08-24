@@ -1,4 +1,4 @@
-package com.timthebrick.tinystorage.client.gui.inventory;
+package com.timthebrick.tinystorage.client.gui;
 
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;

@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.client.gui.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerImpossibleChest;
