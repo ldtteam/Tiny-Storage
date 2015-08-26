@@ -332,6 +332,7 @@ item.chestFilter.name=Chest Filter
 item.chestLock.name=Chest Lock
 item.debugTool.name=Chest Wrench
 item.storageBag.name=Tiny Bag
+item.friendSetter.name=Paper Friends List
 
 #Containers
 container.tinystorage:tinyChest=Tiny Chest
@@ -376,6 +377,13 @@ tooltip.tinystorage:debugTool.mode=Current Mode
 tooltip.tinystorage:debugTool.case0=Show area of effect
 tooltip.tinystorage:debugTool.case1=Rotate chests
 tooltip.tinystorage:debugTool.case2=Downgrade chest
+
+tooltip.tinystorage:friendSetter.modetipA=Press
+tooltip.tinystorage:friendSetter.modetipB=to change the mode of operation (Shift cycles backwards)
+tooltip.tinystorage:friendSetter.mode=Current Mode
+tooltip.tinystorage:friendSetter.case0=Read friends list
+tooltip.tinystorage:friendSetter.case1=Combine item and block friends list
+tooltip.tinystorage:friendSetter.case2=Overwrite block friends list
 
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode

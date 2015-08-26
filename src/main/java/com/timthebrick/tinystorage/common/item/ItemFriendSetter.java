@@ -30,8 +30,6 @@ import java.util.*;
 
 public class ItemFriendSetter extends Item implements IKeyBound {
 
-    boolean used;
-
     public enum OperationMode {
         OPERATION_MODE(EnumSet.allOf(OperationModeSettings.class));
 
@@ -101,12 +99,17 @@ public class ItemFriendSetter extends Item implements IKeyBound {
                         }
                     } else if (operationMode == OperationModeSettings.OVERWRITE) {
                         tileEntity.setFriendsList(NBTHelper.getTagList(stack, "friendsList", 10));
+                        tileEntity.markDirty();
+                        world.markBlockForUpdate(x, y, z);
                         stack.stackSize--;
                     } else if (operationMode == OperationModeSettings.WRITE_MERGE) {
                         NBTTagList tagList = NBTHelper.getTagList(stack, "friendsList", 10);
                         for (int i = 0; i < tagList.tagCount(); i++) {
                             if (!tileEntity.friendsList.contains(tagList.getCompoundTagAt(i).getString("friend"))) {
                                 tileEntity.friendsList.add(tagList.getCompoundTagAt(i).getString("friend"));
+                                tileEntity.markDirty();
+                                world.markBlockForUpdate(x, y, z);
+                                stack.stackSize--;
                             }
                         }
                     }
