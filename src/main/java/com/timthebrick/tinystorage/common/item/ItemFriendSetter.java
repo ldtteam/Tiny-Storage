@@ -30,6 +30,8 @@ import java.util.*;
 
 public class ItemFriendSetter extends Item implements IKeyBound {
 
+    boolean used;
+
     public enum OperationMode {
         OPERATION_MODE(EnumSet.allOf(OperationModeSettings.class));
 
@@ -73,7 +75,7 @@ public class ItemFriendSetter extends Item implements IKeyBound {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (world.isRemote) {
+        if (world.isRemote && !player.isSneaking()) {
             player.openGui(TinyStorage.instance, GUIs.FRIEND_SETTER.ordinal(), player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
         return stack;
@@ -82,14 +84,13 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
-        if (player.isSneaking()) {
+        if (player.isSneaking() && !world.isRemote) {
             if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
                 TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
                 if (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                     if (operationMode == OperationModeSettings.READ_ONLY) {
                         NBTHelper.removeTag(stack, "friendsList");
                         if (tileEntity.friendsList.size() > 0) {
-                            TinyStorageLog.info(NBTHelper.hasTag(stack, "friendsList"));
                             NBTTagList friendsListNBT = new NBTTagList();
                             for (String string : tileEntity.friendsList) {
                                 NBTTagCompound tag = new NBTTagCompound();
@@ -97,6 +98,16 @@ public class ItemFriendSetter extends Item implements IKeyBound {
                                 friendsListNBT.appendTag(tag);
                             }
                             NBTHelper.setTagList(stack, "friendsList", friendsListNBT);
+                        }
+                    } else if (operationMode == OperationModeSettings.OVERWRITE) {
+                        tileEntity.setFriendsList(NBTHelper.getTagList(stack, "friendsList", 10));
+                        stack.stackSize--;
+                    } else if (operationMode == OperationModeSettings.WRITE_MERGE) {
+                        NBTTagList tagList = NBTHelper.getTagList(stack, "friendsList", 10);
+                        for (int i = 0; i < tagList.tagCount(); i++) {
+                            if (!tileEntity.friendsList.contains(tagList.getCompoundTagAt(i).getString("friend"))) {
+                                tileEntity.friendsList.add(tagList.getCompoundTagAt(i).getString("friend"));
+                            }
                         }
                     }
                 }

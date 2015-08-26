@@ -52,6 +52,14 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         accessMode = AccessMode.INPUT_OUTPUT;
     }
 
+    public void setFriendsList(NBTTagList tagList) {
+        friendsList = new ArrayList<String>();
+        for (int k = 0; k < tagList.tagCount(); k++) {
+            NBTTagCompound tag = tagList.getCompoundTagAt(k);
+            friendsList.add(tag.getString("friend"));
+        }
+    }
+
     public void addFriend(UUID uuid, String playerName) {
         friendsList.add(uuid.toString() + playerName);
     }
