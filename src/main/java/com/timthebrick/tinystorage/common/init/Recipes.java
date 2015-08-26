@@ -35,12 +35,15 @@ public class Recipes {
         registerShapedRecipe(new ItemStack(ModItems.itemChestLock, 2), " h ", "sds", "sss", 's', new ItemStack(Blocks.stone, 1), 'd', new ItemStack(Items.diamond, 1), 'h', new ItemStack(Blocks.stone_slab));
 
         // Chest Wrench
-        registerShapedRecipe(new ItemStack(ModItems.itemDebugTool, 1), "I I", " C ", " I ", 'I', new ItemStack(Items.iron_ingot, 1), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
+        registerShapedOreRecipe(new ItemStack(ModItems.itemDebugTool, 1), "I I", " C ", " I ", 'I', "ingotIron", 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 
         //Storage Bags
         registerShapedRecipe(new ItemStack(ModItems.itemStorageBag, 1, 0), " W ", "WCW", "WWW", 'W', new ItemStack(Blocks.wool, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
         registerShapedRecipe(new ItemStack(ModItems.itemStorageBag, 1, 1), " W ", "WCW", "WWW", 'W', new ItemStack(Blocks.wool, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 1));
         registerShapedRecipe(new ItemStack(ModItems.itemStorageBag, 1, 2), " W ", "WCW", "WWW", 'W', new ItemStack(Blocks.wool, 1, 0), 'C', new ItemStack(ModItems.itemStorageUpgrade, 1, 2));
+
+        //Friend Setter
+        registerShapedOreRecipe(new ItemStack(ModItems.itemFriendSetter, 4, 0), "GPG", "PSP", "GPG", 'G', "nuggetGold", 'P', new ItemStack(Items.paper), 'S', new ItemStack(ModItems.itemStorageUpgrade, 1, 0));
 
         // Tiny Chests
         registerLockableChestRecipes(ModBlocks.blockTinyChestOakLog, ModBlocks.blockTinyChestOakLogLocked, Blocks.log, 0);
