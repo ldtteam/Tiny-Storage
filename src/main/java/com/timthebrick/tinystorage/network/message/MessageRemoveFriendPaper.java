@@ -1,27 +1,28 @@
 package com.timthebrick.tinystorage.network.message;
 
-import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import cpw.mods.fml.client.FMLClientHandler;
+import com.timthebrick.tinystorage.common.item.ItemFriendSetter;
+import com.timthebrick.tinystorage.util.common.NBTHelper;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 import java.util.UUID;
 
-public class MessageRemoveFriend implements IMessage, IMessageHandler<MessageRemoveFriend, IMessage> {
+public class MessageRemoveFriendPaper implements IMessage, IMessageHandler<MessageRemoveFriendPaper, IMessage> {
 
     private float xCoord, yCoord, zCoord;
     private UUID playerUUID;
     private String playerName;
 
-    public MessageRemoveFriend() {
+    public MessageRemoveFriendPaper() {
     }
 
-    public MessageRemoveFriend(UUID id, String playerName, float xCoord, float yCoord, float zCoord) {
+    public MessageRemoveFriendPaper(UUID id, String playerName, float xCoord, float yCoord, float zCoord) {
         this.playerUUID = id;
         this.playerName = playerName;
         this.xCoord = xCoord;
@@ -48,16 +49,17 @@ public class MessageRemoveFriend implements IMessage, IMessageHandler<MessageRem
     }
 
     @Override
-    public IMessage onMessage(MessageRemoveFriend event, MessageContext ctx) {
-        if (!FMLClientHandler.instance().getServer().getEntityWorld().isRemote) {
-            World world = FMLClientHandler.instance().getServer().getEntityWorld();
-            TileEntity entity = world.getTileEntity((int) event.xCoord, (int) event.yCoord, (int) event.zCoord);
-            if (entity != null && entity instanceof TileEntityTinyStorage) {
-                TileEntityTinyStorage te = (TileEntityTinyStorage) entity;
-                te.removeFriend(event.playerUUID, event.playerName);
-                te.markDirty();
-                world.markBlockForUpdate((int) event.xCoord, (int) event.yCoord, (int) event.zCoord);
+    public IMessage onMessage(MessageRemoveFriendPaper message, MessageContext ctx) {
+        ItemStack stack = ctx.getServerHandler().playerEntity.getHeldItem();
+        if (stack.getItem() instanceof ItemFriendSetter) {
+            NBTTagList friendsList = NBTHelper.getTagList(stack, "friendsList", 10);
+            for (int i = 0; i < friendsList.tagCount(); i++) {
+                NBTTagCompound tag = friendsList.getCompoundTagAt(i);
+                if (tag.getString("friend").equals(message.playerUUID.toString() + message.playerName)) {
+                    friendsList.removeTag(i);
+                }
             }
+            NBTHelper.setTagList(stack, "friendsList", friendsList);
         }
         return null;
     }

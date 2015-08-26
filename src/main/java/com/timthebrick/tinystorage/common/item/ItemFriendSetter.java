@@ -5,26 +5,30 @@ import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.*;
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.common.EnumHelper;
 import com.timthebrick.tinystorage.util.common.IKeyBound;
 import com.timthebrick.tinystorage.util.common.NBTHelper;
 import com.timthebrick.tinystorage.util.common.PlayerHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nonnull;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 public class ItemFriendSetter extends Item implements IKeyBound {
-
-    private IIcon icon;
 
     public enum OperationMode {
         OPERATION_MODE(EnumSet.allOf(OperationModeSettings.class));
@@ -69,14 +73,35 @@ public class ItemFriendSetter extends Item implements IKeyBound {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        TinyStorageLog.info("On Right Click");
-        player.openGui(TinyStorage.instance, GUIs.FRIEND_SETTER.ordinal(), player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        if (world.isRemote) {
+            player.openGui(TinyStorage.instance, GUIs.FRIEND_SETTER.ordinal(), player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        }
         return stack;
     }
 
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        TinyStorageLog.info("On Use First");
+        OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
+        if (player.isSneaking()) {
+            if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
+                TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
+                if (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
+                    if (operationMode == OperationModeSettings.READ_ONLY) {
+                        NBTHelper.removeTag(stack, "friendsList");
+                        if (tileEntity.friendsList.size() > 0) {
+                            TinyStorageLog.info(NBTHelper.hasTag(stack, "friendsList"));
+                            NBTTagList friendsListNBT = new NBTTagList();
+                            for (String string : tileEntity.friendsList) {
+                                NBTTagCompound tag = new NBTTagCompound();
+                                tag.setString("friend", string);
+                                friendsListNBT.appendTag(tag);
+                            }
+                            NBTHelper.setTagList(stack, "friendsList", friendsListNBT);
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 

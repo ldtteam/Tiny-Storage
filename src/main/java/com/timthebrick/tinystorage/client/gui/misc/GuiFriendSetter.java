@@ -28,7 +28,6 @@ public class GuiFriendSetter extends GuiTinyStorageSimple {
         super();
         this.xSize = 116;
         this.ySize = 174;
-        TinyStorageLog.info(getGuiLeft() + ", " + getGuiTop());
     }
 
     @Override

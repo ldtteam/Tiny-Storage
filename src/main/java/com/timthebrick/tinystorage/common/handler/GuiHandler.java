@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.common.handler;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.*;
 import com.timthebrick.tinystorage.client.gui.misc.GuiFriendSetter;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.inventory.implementations.*;
 import com.timthebrick.tinystorage.common.tileentity.implementations.*;
 import com.timthebrick.tinystorage.network.PacketHandler;

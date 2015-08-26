@@ -338,10 +338,10 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
             NBTTagList friendsListNBT = new NBTTagList();
             for (String string : friendsList) {
                 NBTTagCompound tagC = new NBTTagCompound();
-                tagC.setString("Friend", string);
+                tagC.setString("friend", string);
                 friendsListNBT.appendTag(tagC);
             }
-            tag.setTag("FriendsList", friendsListNBT);
+            tag.setTag("friendsList", friendsListNBT);
         }
     }
 
@@ -373,11 +373,11 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
             this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
         }
         friendsList = new ArrayList<String>();
-        if (tag.hasKey("FriendsList")) {
-            NBTTagList tagList = tag.getTagList("FriendsList", 10);
+        if (tag.hasKey("friendsList")) {
+            NBTTagList tagList = tag.getTagList("friendsList", 10);
             for (int i = 0; i < tagList.tagCount(); i++) {
                 NBTTagCompound tagC = tagList.getCompoundTagAt(i);
-                friendsList.add(tagC.getString("Friend"));
+                friendsList.add(tagC.getString("friend"));
             }
         }
     }

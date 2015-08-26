@@ -79,7 +79,6 @@ public class GuiLabel extends Gui implements IGuiLabel {
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
-        TinyStorageLog.info(xPos() + ", " + yPos() + " | " + xOrigin + ", " + yOrigin + " | " + widgetProvider.getGuiLeft() + ", " + widgetProvider.getGuiTop());
     }
 
     @Override
