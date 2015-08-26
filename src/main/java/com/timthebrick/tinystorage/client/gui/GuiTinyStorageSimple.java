@@ -3,17 +3,8 @@ package com.timthebrick.tinystorage.client.gui;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
-import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.*;
-import com.timthebrick.tinystorage.util.client.Colours;
-import com.timthebrick.tinystorage.common.reference.Messages;
-import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.network.PacketHandler;
-import com.timthebrick.tinystorage.network.message.MessageConfigButton;
-import com.timthebrick.tinystorage.network.message.MessagePlayerJoinGui;
-import com.timthebrick.tinystorage.network.message.MessagePlayerLeaveGui;
-import com.timthebrick.tinystorage.util.common.UUIDHelper;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.client.colour.Colour;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.client.Minecraft;
@@ -23,38 +14,56 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")})
-public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProvider, INEIGuiHandler {
+public class GuiTinyStorageSimple extends GuiScreen implements IScreenWidgetProvider, INEIGuiHandler {
 
-    protected Container container;
-    private GuiImageButton accessMode;
-    private GuiTabbedPane friendsPanel;
-    private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
     protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
+    protected int xSize = 176;
+    protected int ySize = 166;
+    private int guiLeft;
+    private int guiTop;
 
-    protected GuiTinyStorage(Container container, TileEntityTinyStorage te) {
-        super(container);
-        this.container = container;
-        this.tileEntity = te;
+    public GuiTinyStorageSimple() {
+    }
+
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
+        int k = this.guiLeft;
+        int l = this.guiTop;
+        this.drawGuiBackgroundLayer(partialTicks, mouseX, mouseY);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         super.drawScreen(mouseX, mouseY, partialTicks);
-
+        RenderHelper.enableGUIStandardItemLighting();
+        GL11.glPushMatrix();
+        GL11.glTranslatef((float) k, (float) l, 0.0F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        this.drawGuiForegroundLayer(mouseX, mouseY);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glPopMatrix();
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        RenderHelper.enableStandardItemLighting();
         Colour.resetGLColour();
         boolean hasClicked = Mouse.isButtonDown(0);
         for (IGuiWidgetAdvanced widget : widgets) {
@@ -107,14 +116,6 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
             }
         }
         Colour.resetGLColour();
-    }
-
-    @Override
-    public void updateScreen() {
-        for (IGuiWidgetAdvanced widget : widgets) {
-            widget.updateWidget();
-        }
-        super.updateScreen();
     }
 
     private void drawTooltip(int x, int y, int forceWidth, String Msg) {
@@ -182,86 +183,16 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
         Colour.resetGLColour();
     }
 
-    @Override
-    public void onGuiClosed() {
-        PacketHandler.INSTANCE.sendToServer(new MessagePlayerLeaveGui(this.getMinecraft().thePlayer, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord));
-        super.onGuiClosed();
-    }
-
-    protected void handleButtonVisibility() {
-        if (this.accessMode != null) {
-            this.accessMode.setVisibility(true);
-        }
-    }
-
-    @Override
-    public void handleWidgetVisibility() {
-        if (this.friendsPanel != null) {
-            this.friendsPanel.setVisibility(true);
-        }
-    }
-
-    @Override
-    public void initGui() {
-        super.initGui();
-        PacketHandler.INSTANCE.sendToServer(new MessagePlayerJoinGui(this.getMinecraft().thePlayer, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord));
-        this.addButtons();
-        this.addWidgets();
-    }
-
-    @Override
-    public void addWidgets() {
-        if (this.friendsPanel == null) {
-            if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
-                    this.friendsPanel = new GuiTabbedPane(this, new TabHandlerFriendsList(), getXSize() + 2, 8, 112, 170, 12, 12, 0, 0, 24, 0);
-                    this.addWidget(friendsPanel);
-                    GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanel, fontRendererObj, 2, friendsPanel.getButtonHeight() + 1, friendsPanel.getWidth() - 3, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
-                    friendsPanel.addContainedWidget(searchLabel);
-                    GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
-                    friendsPanel.addContainedWidget(search);
-                    GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringFromMap(TinyStorage.instance.playerUUIDMap), search);
-                    friendsPanel.addContainedWidget(playerList);
-                    GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
-                    prev.visible = false;
-                    friendsPanel.addContainedButton(prev);
-                    GuiImageButton next = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() + playerList.getHeight() - 7, ButtonSettings.DOWN, EnableMode.ENABLED, true);
-                    next.visible = false;
-                    friendsPanel.addContainedButton(next);
-                }
-            }
-        } else {
-            this.friendsPanel.adjustPosition();
-        }
-    }
-
-    protected void addButtons() {
-        this.buttonList.remove(accessMode);
-        this.accessMode = new GuiImageButton(this.guiLeft - 18, this.guiTop + 8, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED);
-        if (tileEntity.hasUniqueOwner()) {
-            if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
-                this.buttonList.add(accessMode);
-            }
-        }
-    }
-
-    @Override
-    protected void drawGuiContainerForegroundLayer(int x, int y) {
-        int ox = this.guiLeft; // (width - xSize) / 2;
-        int oy = this.guiTop; // (height - ySize) / 2;
+    protected void drawGuiForegroundLayer(int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.drawFG(ox, oy, x, y);
+        this.drawFG(guiLeft, guiTop, mouseX, mouseY);
     }
 
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
-        this.drawBG(0, 0, x, y);
+    protected void drawGuiBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        this.drawBG(guiLeft, guiTop, mouseX, mouseY);
     }
 
-    protected void drawFG(int ox, int oy, int x, int y) {
-        if (this.accessMode != null) {
-            this.accessMode.set(this.tileEntity.accessMode);
-        }
+    protected void drawFG(int guiLeft, int guiTop, int mouseX, int mouseY) {
         for (IGuiWidgetAdvanced widget : this.widgets) {
             if (widget instanceof IGuiWidgetBackground) {
                 continue;
@@ -282,9 +213,36 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
         }
     }
 
-    protected void drawBG(int ox, int oy, int x, int y) {
+    protected void drawBG(int guiLeft, int guiTop, int mouseX, int mouseY) {
         this.handleButtonVisibility();
         this.handleWidgetVisibility();
+    }
+
+    @Override
+    public void addWidgets() {
+    }
+
+    protected void addButtons() {
+    }
+
+    @Override
+    public void handleWidgetVisibility() {
+    }
+
+    public void handleButtonVisibility() {
+    }
+
+    @Override
+    public void updateScreen() {
+        for (IGuiWidgetAdvanced widget : widgets) {
+            widget.updateWidget();
+        }
+        super.updateScreen();
+    }
+
+    @Override
+    public void initGui() {
+        super.initGui();
     }
 
     @Override
@@ -396,6 +354,11 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     }
 
     @Override
+    protected void actionPerformed(GuiButton btn) {
+        super.actionPerformed(btn);
+    }
+
+    @Override
     public void addWidget(IGuiWidgetSimple widget) {
         if (widget instanceof IGuiAnimation) {
             animations.add((IGuiAnimation) widget);
@@ -425,18 +388,23 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     }
 
     @Override
-    public TileEntity getTileEntity() {
-        return this.tileEntity;
+    public FontRenderer getFontRenderer() {
+        return this.fontRendererObj;
+    }
+
+    @Override
+    public RenderItem getItemRenderer() {
+        return this.itemRender;
     }
 
     @Override
     public int getGuiLeft() {
-        return guiLeft;
+        return (this.width - this.xSize) / 2;
     }
 
     @Override
     public int getGuiTop() {
-        return guiTop;
+        return (this.height - this.ySize) / 2;
     }
 
     @Override
@@ -452,40 +420,6 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     @Override
     public GuiScreen getGuiScreen() {
         return this;
-    }
-
-    @Override
-    protected void actionPerformed(GuiButton btn) {
-        super.actionPerformed(btn);
-        boolean backwards = Mouse.isButtonDown(1);
-        if (btn == this.accessMode) {
-            PacketHandler.INSTANCE.sendToServer(new MessageConfigButton(Minecraft.getMinecraft().thePlayer, this.accessMode.getSetting(), backwards, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord));
-        }
-    }
-
-    public void bindTexture(String base, String file) {
-        ResourceLocation loc = new ResourceLocation(base, "textures/" + file);
-        this.mc.getTextureManager().bindTexture(loc);
-    }
-
-    @Override
-    public int getInvLeft() {
-        return 0;
-    }
-
-    @Override
-    public int getInvTop() {
-        return 0;
-    }
-
-    @Override
-    public int getInvWidth() {
-        return 0;
-    }
-
-    @Override
-    public int getInvHeight() {
-        return 0;
     }
 
     @Override
@@ -522,15 +456,5 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
             }
         }
         return false;
-    }
-
-    @Override
-    public FontRenderer getFontRenderer() {
-        return this.fontRendererObj;
-    }
-
-    @Override
-    public RenderItem getItemRenderer() {
-        return this.itemRender;
     }
 }

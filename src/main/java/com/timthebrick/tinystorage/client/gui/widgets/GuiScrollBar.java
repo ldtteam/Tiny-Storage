@@ -62,7 +62,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    private IWidgetProvider widgetProvider;
+    private IContainerWidgetProvider widgetProvider;
     /**
      * The direction to scroll the bar
      */
@@ -78,7 +78,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
      * @param y              The Y Position of the scroll bar (relative to GUI)
      * @param scrollHeight   The max scrollable distance (height of background - this gets adjusted)
      */
-    public GuiScrollBar(IWidgetProvider widgetProvider, int x, int y, int scrollHeight) {
+    public GuiScrollBar(IContainerWidgetProvider widgetProvider, int x, int y, int scrollHeight) {
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;

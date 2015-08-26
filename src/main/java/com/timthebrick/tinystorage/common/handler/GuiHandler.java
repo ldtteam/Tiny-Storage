@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.common.handler;
 
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.gui.inventory.implementations.*;
+import com.timthebrick.tinystorage.client.gui.misc.GuiFriendSetter;
 import com.timthebrick.tinystorage.common.inventory.implementations.*;
 import com.timthebrick.tinystorage.common.tileentity.implementations.*;
 import com.timthebrick.tinystorage.network.PacketHandler;
@@ -17,7 +18,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler {
 
     @Override
-    public Object getServerGuiElement (int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
         PacketHandler.INSTANCE.sendToAll(new MessageConnectedPlayerNames(TinyStorage.instance));
         if (id == GUIs.TINY_CHEST.ordinal()) {
             TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) world.getTileEntity(x, y, z);
@@ -51,20 +52,22 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerQuarryChest(entityPlayer.inventory, tileEntityClayChest);
         } else if (id == GUIs.STORAGE_BAG.ordinal()) {
             return new ContainerStorageBag(entityPlayer, new InventoryStorageBag(entityPlayer.getHeldItem()));
-        }else if (id == GUIs.BOOKCASE.ordinal()) {
+        } else if (id == GUIs.BOOKCASE.ordinal()) {
             TileEntityBookCase tileEntityBookCase = (TileEntityBookCase) world.getTileEntity(x, y, z);
             return new ContainerBookCase(entityPlayer.inventory, tileEntityBookCase);
-        }else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
+        } else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
             TileEntityImpossibleChest tileEntityImpossibleChest = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
             ContainerImpossibleChest containerImpossibleChest = new ContainerImpossibleChest(entityPlayer.inventory, tileEntityImpossibleChest);
             tileEntityImpossibleChest.setContainer(containerImpossibleChest);
             return containerImpossibleChest;
+        } else if (id == GUIs.FRIEND_SETTER.ordinal()) {
+            return null;
         }
         return null;
     }
 
     @Override
-    public Object getClientGuiElement (int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
+    public Object getClientGuiElement(int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
         if (id == GUIs.TINY_CHEST.ordinal()) {
             TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) world.getTileEntity(x, y, z);
             return new GuiTinyChest(entityPlayer.inventory, tileEntityTinyChest);
@@ -97,12 +100,14 @@ public class GuiHandler implements IGuiHandler {
             return new GuiQuarryChest(entityPlayer.inventory, tileEntityClayChest);
         } else if (id == GUIs.STORAGE_BAG.ordinal()) {
             return new GuiStorageBag(entityPlayer, new InventoryStorageBag(entityPlayer.getHeldItem()));
-        }else if (id == GUIs.BOOKCASE.ordinal()) {
+        } else if (id == GUIs.BOOKCASE.ordinal()) {
             TileEntityBookCase tileEntityBookCase = (TileEntityBookCase) world.getTileEntity(x, y, z);
             return new GuiBookCase(entityPlayer.inventory, tileEntityBookCase);
-        }else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
+        } else if (id == GUIs.IMPOSSIBLE_CHEST.ordinal()) {
             TileEntityImpossibleChest tileEntityImpossibleChest = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
             return new GuiImpossibleChest(entityPlayer.inventory, tileEntityImpossibleChest);
+        }else if(id == GUIs.FRIEND_SETTER.ordinal()){
+            return new GuiFriendSetter(entityPlayer.getHeldItem());
         }
         return null;
     }

@@ -37,23 +37,7 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
         this.halfSize = false;
         this.width = 16;
         this.height = 16;
-        if (appearances == null) {
-            appearances = new HashMap<EnumPair, ButtonAppearance>();
-            this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BLOCKED);
-            this.registerApp(1, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_INPUT_ONLY);
-            this.registerApp(2, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.OUTPUT_ONLY, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_OUTPUT_ONLY);
-            this.registerApp(3, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.INPUT_OUTPUT, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BOTH);
-            this.registerApp(4, ButtonSettings.DELETE_LAST_STACK, BooleanMode.FALSE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_FALSE);
-            this.registerApp(5, ButtonSettings.DELETE_LAST_STACK, BooleanMode.TRUE, Messages.ButtonTooltips.DELETE_STACK_TITLE, Messages.ButtonTooltips.DELETE_STACK_TRUE);
-            this.registerApp(6, ButtonSettings.ADD, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
-            this.registerApp(7, ButtonSettings.ADD, EnableMode.DISABLED, Messages.ButtonTooltips.ADD, "");
-            this.registerApp(8, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.DELETE, "");
-            this.registerApp(9, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
-            this.registerApp(10, ButtonSettings.UP, EnableMode.ENABLED, Messages.ButtonTooltips.UP, "");
-            this.registerApp(11, ButtonSettings.UP, EnableMode.DISABLED, Messages.ButtonTooltips.UP, "");
-            this.registerApp(12, ButtonSettings.DOWN, EnableMode.ENABLED, Messages.ButtonTooltips.DOWN, "");
-            this.registerApp(13, ButtonSettings.DOWN, EnableMode.DISABLED, Messages.ButtonTooltips.DOWN, "");
-        }
+        registerAppearances();
     }
 
     public GuiImageButton(int x, int y, Enum idx, Enum val, boolean halfSize) {
@@ -70,6 +54,10 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
             this.width = 16;
             this.height = 16;
         }
+        registerAppearances();
+    }
+
+    private void registerAppearances() {
         if (appearances == null) {
             appearances = new HashMap<EnumPair, ButtonAppearance>();
             this.registerApp(0, ButtonSettings.AUTOMATED_SIDE_ACCESS, AccessMode.DISABLED, Messages.ButtonTooltips.ACCESS_MODE_TITLE, Messages.ButtonTooltips.ACCESS_MODE_BLOCKED);
@@ -82,6 +70,10 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
             this.registerApp(7, ButtonSettings.ADD, EnableMode.DISABLED, Messages.ButtonTooltips.ADD, "");
             this.registerApp(6, ButtonSettings.DELETE, EnableMode.ENABLED, Messages.ButtonTooltips.ADD, "");
             this.registerApp(7, ButtonSettings.DELETE, EnableMode.DISABLED, Messages.ButtonTooltips.DELETE, "");
+            this.registerApp(10, ButtonSettings.UP, EnableMode.ENABLED, Messages.ButtonTooltips.UP, "");
+            this.registerApp(11, ButtonSettings.UP, EnableMode.DISABLED, Messages.ButtonTooltips.UP, "");
+            this.registerApp(12, ButtonSettings.DOWN, EnableMode.ENABLED, Messages.ButtonTooltips.DOWN, "");
+            this.registerApp(13, ButtonSettings.DOWN, EnableMode.DISABLED, Messages.ButtonTooltips.DOWN, "");
         }
     }
 

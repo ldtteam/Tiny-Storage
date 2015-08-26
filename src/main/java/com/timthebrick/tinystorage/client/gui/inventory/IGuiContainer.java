@@ -1,9 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.entity.RenderItem;
-
-public interface IGuiScreenAdvanced extends IGuiScreen {
+public interface IGuiContainer extends IGuiScreen {
 
     /**
      * @return The left position of the first inventory row
@@ -24,9 +21,5 @@ public interface IGuiScreenAdvanced extends IGuiScreen {
      * @return The height of the inventory (pixels)
      */
     int getInvHeight();
-
-    FontRenderer getFontRenderer();
-
-    RenderItem getItemRenderer();
 
 }

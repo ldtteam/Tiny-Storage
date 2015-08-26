@@ -1,12 +1,10 @@
 package com.timthebrick.tinystorage.common.item;
 
+import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.client.settings.KeyBindings;
 import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
-import com.timthebrick.tinystorage.common.reference.Key;
-import com.timthebrick.tinystorage.common.reference.Messages;
-import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.common.reference.References;
+import com.timthebrick.tinystorage.common.reference.*;
 import com.timthebrick.tinystorage.util.common.EnumHelper;
 import com.timthebrick.tinystorage.util.common.IKeyBound;
 import com.timthebrick.tinystorage.util.common.NBTHelper;
@@ -72,7 +70,8 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         TinyStorageLog.info("On Right Click");
-        return super.onItemRightClick(stack, world, player);
+        player.openGui(TinyStorage.instance, GUIs.FRIEND_SETTER.ordinal(), player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        return stack;
     }
 
     @Override

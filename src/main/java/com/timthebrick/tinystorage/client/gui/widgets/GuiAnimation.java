@@ -35,7 +35,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    protected IWidgetProvider widgetProvider;
+    protected IScreenWidgetProvider widgetProvider;
     /**
      * The X start position for the background texture
      */

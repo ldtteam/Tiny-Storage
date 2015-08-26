@@ -99,7 +99,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    private IWidgetProvider widgetProvider;
+    private IScreenWidgetProvider widgetProvider;
     /**
      * The handler class for the pane
      */
@@ -126,11 +126,11 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
      * @param buttonBackgroundX The X Position of the background texture for the button
      * @param buttonBackgroundY The Y Position of the background texture for the button
      */
-    public GuiTabbedPane(IWidgetProvider widgetProvider, IGuiTabHandler handler, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
+    public GuiTabbedPane(IScreenWidgetProvider widgetProvider, IGuiTabHandler handler, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
         this(widgetProvider, handler, false, x, y, width, height, buttonWidth, buttonHeight, backgroundX, backgroundY, buttonBackgroundX, buttonBackgroundY);
     }
 
-    public GuiTabbedPane(IWidgetProvider widgetProvider, IGuiTabHandler handler, boolean forceOpen, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
+    public GuiTabbedPane(IScreenWidgetProvider widgetProvider, IGuiTabHandler handler, boolean forceOpen, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
         this.widgetProvider = widgetProvider;
         this.tabHandler = handler;
         this.forceOpen = forceOpen;

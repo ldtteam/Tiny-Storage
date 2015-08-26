@@ -21,7 +21,7 @@ public class GuiAnimationVertical extends GuiAnimation {
      * @param direction       The direction to animate in
      * @param colour          The colour to change the grayscale to
      */
-    public GuiAnimationVertical(IWidgetProvider widgetProvider, int x, int y, int backgroundX, int backgroundY, int width, int height, int updateFrequency, AnimationDirection direction, Colour colour) {
+    public GuiAnimationVertical(IScreenWidgetProvider widgetProvider, int x, int y, int backgroundX, int backgroundY, int width, int height, int updateFrequency, AnimationDirection direction, Colour colour) {
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;
@@ -48,7 +48,7 @@ public class GuiAnimationVertical extends GuiAnimation {
      * @param updateFrequency The frequency with which to update the animation
      * @param direction       The direction to animate in
      */
-    public GuiAnimationVertical(IWidgetProvider widgetProvider, int x, int y, int backgroundX, int backgroundY, int width, int height, int updateFrequency, AnimationDirection direction) {
+    public GuiAnimationVertical(IScreenWidgetProvider widgetProvider, int x, int y, int backgroundX, int backgroundY, int width, int height, int updateFrequency, AnimationDirection direction) {
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;

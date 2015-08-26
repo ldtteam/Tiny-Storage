@@ -1,7 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
 import com.timthebrick.tinystorage.TinyStorage;
-import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.network.PacketHandler;
@@ -14,20 +13,22 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Session;
 
 import java.util.List;
 import java.util.UUID;
 
 public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
 
-    public GuiFriendsList(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
+    private IContainerWidgetProvider widgetProvider;
+
+    public GuiFriendsList(IContainerWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
         this(widgetProvider, tab, fontRenderer, x, y, width, height, text, null);
     }
 
-    public GuiFriendsList(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
+    public GuiFriendsList(IContainerWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
         super(widgetProvider, tab, fontRenderer, x, y, width, height, text, filter);
         text.remove(Minecraft.getMinecraft().thePlayer.getDisplayName());
+        this.widgetProvider = widgetProvider;
     }
 
     @Override

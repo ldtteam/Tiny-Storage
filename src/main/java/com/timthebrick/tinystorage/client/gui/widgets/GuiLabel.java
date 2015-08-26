@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.widgets;
 
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -44,12 +45,12 @@ public class GuiLabel extends Gui implements IGuiLabel {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    protected IWidgetProvider widgetProvider;
+    protected IScreenWidgetProvider widgetProvider;
     private FontRenderer renderer;
     private String message;
     private Colour colour;
 
-    public GuiLabel(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, String text, Colour colour) {
+    public GuiLabel(IScreenWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, String text, Colour colour) {
         this.widgetProvider = widgetProvider;
         this.renderer = fontRenderer;
         this.xOrigin = x;
@@ -78,6 +79,7 @@ public class GuiLabel extends Gui implements IGuiLabel {
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
+        TinyStorageLog.info(xPos() + ", " + yPos() + " | " + xOrigin + ", " + yOrigin + " | " + widgetProvider.getGuiLeft() + ", " + widgetProvider.getGuiTop());
     }
 
     @Override
@@ -188,7 +190,7 @@ public class GuiLabel extends Gui implements IGuiLabel {
          */
         private GuiTabbedPane container;
 
-        public GuiLabelTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, String text, Colour colour) {
+        public GuiLabelTabbed(IScreenWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, String text, Colour colour) {
             super(widgetProvider, fontRenderer, x, y, width, height, text, colour);
             this.container = tab;
         }

@@ -31,7 +31,7 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    protected IWidgetProvider widgetProvider;
+    protected IScreenWidgetProvider widgetProvider;
     /**
      * The filter for the specified field
      */
@@ -50,11 +50,11 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
         }
     }
 
-    public GuiTextInput(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height) {
+    public GuiTextInput(IScreenWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height) {
         this(widgetProvider, fontRenderer, x, y, width, height, null);
     }
 
-    public GuiTextInput(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, ICharFilter filter) {
+    public GuiTextInput(IScreenWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, ICharFilter filter) {
         super(fontRenderer, x, y, width, height);
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
@@ -122,7 +122,6 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
 
     @Override
     public void keyTyped(char c, int key) {
-        this.textboxKeyTyped(c, key);
     }
 
     public void onTextFieldChanged(GuiTextInput guiTextInput, String old) {
@@ -225,11 +224,11 @@ public class GuiTextInput extends GuiTextField implements IGuiWidgetAdvanced {
          */
         private GuiTabbedPane container;
 
-        public GuiTextInputTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height) {
+        public GuiTextInputTabbed(IScreenWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height) {
             this(widgetProvider, tab, fontRenderer, x, y, width, height, null);
         }
 
-        public GuiTextInputTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, ICharFilter filter) {
+        public GuiTextInputTabbed(IScreenWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, ICharFilter filter) {
             super(widgetProvider, fontRenderer, x, y, width, height, filter);
             this.container = tab;
         }

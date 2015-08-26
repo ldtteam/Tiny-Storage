@@ -47,7 +47,7 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    protected IWidgetProvider widgetProvider;
+    protected IScreenWidgetProvider widgetProvider;
 
     public FontRenderer renderer;
     public List<String> textList;
@@ -56,11 +56,11 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     protected int indexSelected;
     public int displayIndex;
 
-    public GuiTextList(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
+    public GuiTextList(IScreenWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
         this(widgetProvider, fontRenderer, x, y, width, height, text, null);
     }
 
-    public GuiTextList(IWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
+    public GuiTextList(IScreenWidgetProvider widgetProvider, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
         this.widgetProvider = widgetProvider;
         this.renderer = fontRenderer;
         this.xOrigin = x;
@@ -218,7 +218,7 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
     public void mouseWheel(int x, int y, int delta) {
         if (getWidgetAreaAbsolute().contains(x, y) && this.isEnabled()) {
             if (-Integer.signum(delta) > 0) {
-                int maxDisplayRow = this.getHeight() / (((GuiFriendsList) this).renderer.FONT_HEIGHT + 1);
+                int maxDisplayRow = this.getHeight() / (this.renderer.FONT_HEIGHT + 1);
                 int listSize = this.textList.size();
                 int currentDisplayIndex = this.displayIndex;
                 if (currentDisplayIndex + maxDisplayRow + 2 <= listSize) {
@@ -266,11 +266,11 @@ public class GuiTextList extends Gui implements IGuiWidgetAdvanced {
          */
         private GuiTabbedPane container;
 
-        public GuiTextListTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
+        public GuiTextListTabbed(IScreenWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text) {
             this(widgetProvider, tab, fontRenderer, x, y, width, height, text, null);
         }
 
-        public GuiTextListTabbed(IWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
+        public GuiTextListTabbed(IScreenWidgetProvider widgetProvider, GuiTabbedPane tab, FontRenderer fontRenderer, int x, int y, int width, int height, List<String> text, GuiTextInput filter) {
             super(widgetProvider, fontRenderer, x, y, width, height, text, filter);
             this.container = tab;
         }
