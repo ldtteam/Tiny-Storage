@@ -384,6 +384,9 @@ tooltip.tinystorage:friendSetter.mode=Current Mode
 tooltip.tinystorage:friendSetter.case0=Read friends list
 tooltip.tinystorage:friendSetter.case1=Combine item and block friends list
 tooltip.tinystorage:friendSetter.case2=Overwrite block friends list
+tooltip.tinystorage:friendSetter.list=Contains:
+tooltip.tinystorage:friendSetter.empty=Empty List
+tooltip.tinystorage:friendSetter.invalid=Not owned by you!
 
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode

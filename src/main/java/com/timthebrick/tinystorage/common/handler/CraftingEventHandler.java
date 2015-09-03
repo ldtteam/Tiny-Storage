@@ -2,6 +2,7 @@ package com.timthebrick.tinystorage.common.handler;
 
 import com.timthebrick.tinystorage.common.item.ItemFriendSetter;
 import com.timthebrick.tinystorage.common.item.crafting.RecipeStorageBags;
+import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.util.common.IOwnable;
 import com.timthebrick.tinystorage.util.common.ItemHelper;
 import net.minecraft.item.ItemStack;
@@ -36,6 +37,7 @@ public class CraftingEventHandler {
                     ItemFriendSetter friendSetter = (ItemFriendSetter) stack.getItem();
                     ItemFriendSetter.OperationModeSettings operationMode = ItemFriendSetter.OperationModeSettings.READ_ONLY;
                     NBTHelper.setInteger(stack, "operationMode", operationMode.ordinal());
+                    NBTHelper.setString(stack, "owner", event.player.getGameProfile().getId().toString() + event.player.getDisplayName());
                 }
             }
         }

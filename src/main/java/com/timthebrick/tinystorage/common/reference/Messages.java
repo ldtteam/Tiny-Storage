@@ -48,6 +48,9 @@ public class Messages {
         public static final String FRIEND_SETTER_MODE_TIP_2 = "tooltip.tinystorage:friendSetter.modetipB";
         public static final String FRIEND_SETTER_MODE = "tooltip.tinystorage:friendSetter.mode";
         public static final String FRIEND_SETTER_CASE = "tooltip.tinystorage:friendSetter.case";
+        public static final String FRIEND_SETTER_CONTAINS = "tooltip.tinystorage:friendSetter.list";
+        public static final String FRIEND_SETTER_EMPTY = "tooltip.tinystorage:friendSetter.empty";
+        public static final String FRIEND_SETTER_NOT_YOURS = "tooltip.tinystorage:friendSetter.invalid";
     }
 
     public static final class Config {

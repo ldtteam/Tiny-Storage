@@ -6,10 +6,7 @@ import com.timthebrick.tinystorage.common.core.TinyStorageLog;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.*;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
-import com.timthebrick.tinystorage.util.common.EnumHelper;
-import com.timthebrick.tinystorage.util.common.IKeyBound;
-import com.timthebrick.tinystorage.util.common.NBTHelper;
-import com.timthebrick.tinystorage.util.common.PlayerHelper;
+import com.timthebrick.tinystorage.util.common.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -62,8 +59,36 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
-        list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_2));
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE) + ": " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_CASE + operationMode.ordinal()));
+        list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_2));
+        list.add("");
+        if (owner.equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
+            List<String> friendsList = new ArrayList<String>();
+            if (NBTHelper.hasTag(stack, "friendsList")) {
+                NBTTagList tagList = NBTHelper.getTagList(stack, "friendsList", 10);
+                for (int k = 0; k < tagList.tagCount(); k++) {
+                    NBTTagCompound tagC = tagList.getCompoundTagAt(k);
+                    friendsList.add(tagC.getString("friend"));
+                }
+            }
+            if (friendsList.size() > 0) {
+                list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_CONTAINS));
+                for (String string : friendsList) {
+                    if (friendsList.indexOf(string) < 2) {
+                        if (list.indexOf(string) == 1) {
+                            list.add(UUIDHelper.getNameFromUUIDCompound(string) + "...");
+                        } else {
+                            list.add(UUIDHelper.getNameFromUUIDCompound(string));
+                        }
+                    }
+                }
+            } else {
+                list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_EMPTY));
+            }
+        }else{
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_NOT_YOURS));
+        }
+
     }
 
     @Override
@@ -82,34 +107,37 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
-        if (player.isSneaking() && !world.isRemote) {
-            if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
-                TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
-                if (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
-                    if (operationMode == OperationModeSettings.READ_ONLY) {
-                        NBTHelper.removeTag(stack, "friendsList");
-                        if (tileEntity.friendsList.size() > 0) {
-                            NBTTagList friendsListNBT = new NBTTagList();
-                            for (String string : tileEntity.friendsList) {
-                                NBTTagCompound tag = new NBTTagCompound();
-                                tag.setString("friend", string);
-                                friendsListNBT.appendTag(tag);
+        String owner = NBTHelper.getString(stack, "owner");
+        if (owner.equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
+            if (player.isSneaking() && !world.isRemote) {
+                if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
+                    TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
+                    if (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
+                        if (operationMode == OperationModeSettings.READ_ONLY) {
+                            NBTHelper.removeTag(stack, "friendsList");
+                            if (tileEntity.friendsList.size() > 0) {
+                                NBTTagList friendsListNBT = new NBTTagList();
+                                for (String string : tileEntity.friendsList) {
+                                    NBTTagCompound tag = new NBTTagCompound();
+                                    tag.setString("friend", string);
+                                    friendsListNBT.appendTag(tag);
+                                }
+                                NBTHelper.setTagList(stack, "friendsList", friendsListNBT);
                             }
-                            NBTHelper.setTagList(stack, "friendsList", friendsListNBT);
-                        }
-                    } else if (operationMode == OperationModeSettings.OVERWRITE) {
-                        tileEntity.setFriendsList(NBTHelper.getTagList(stack, "friendsList", 10));
-                        tileEntity.markDirty();
-                        world.markBlockForUpdate(x, y, z);
-                        stack.stackSize--;
-                    } else if (operationMode == OperationModeSettings.WRITE_MERGE) {
-                        NBTTagList tagList = NBTHelper.getTagList(stack, "friendsList", 10);
-                        for (int i = 0; i < tagList.tagCount(); i++) {
-                            if (!tileEntity.friendsList.contains(tagList.getCompoundTagAt(i).getString("friend"))) {
-                                tileEntity.friendsList.add(tagList.getCompoundTagAt(i).getString("friend"));
-                                tileEntity.markDirty();
-                                world.markBlockForUpdate(x, y, z);
-                                stack.stackSize--;
+                        } else if (operationMode == OperationModeSettings.OVERWRITE) {
+                            tileEntity.setFriendsList(NBTHelper.getTagList(stack, "friendsList", 10));
+                            tileEntity.markDirty();
+                            world.markBlockForUpdate(x, y, z);
+                            stack.stackSize--;
+                        } else if (operationMode == OperationModeSettings.WRITE_MERGE) {
+                            NBTTagList tagList = NBTHelper.getTagList(stack, "friendsList", 10);
+                            for (int i = 0; i < tagList.tagCount(); i++) {
+                                if (!tileEntity.friendsList.contains(tagList.getCompoundTagAt(i).getString("friend"))) {
+                                    tileEntity.friendsList.add(tagList.getCompoundTagAt(i).getString("friend"));
+                                    tileEntity.markDirty();
+                                    world.markBlockForUpdate(x, y, z);
+                                    stack.stackSize--;
+                                }
                             }
                         }
                     }

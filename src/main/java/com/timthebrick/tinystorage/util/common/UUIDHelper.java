@@ -1,5 +1,7 @@
 package com.timthebrick.tinystorage.util.common;
 
+import com.timthebrick.tinystorage.TinyStorage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,5 +15,14 @@ public class UUIDHelper {
             values.add(map.get(id));
         }
         return values;
+    }
+
+    public static String getNameFromUUIDCompound(String string){
+        for(UUID uuid : TinyStorage.instance.playerUUIDMap.keySet()){
+            if(string.contains(uuid.toString())){
+                return TinyStorage.instance.playerUUIDMap.get(uuid);
+            }
+        }
+        return "";
     }
 }
