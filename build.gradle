@@ -163,7 +163,7 @@ uploadArchives {
         configuration = configurations.deployerJars
             logger.lifecycle("Setting MavenRepo as publish")
             repository(url: "ftp://mavenrepo.orionminecraft.com") {
-				authentication(userName: "mavenrepo.tinystorage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+				authentication(userName: "mavenrepo.tiny-storage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
 			}
         pom {
 			groupId = project.group
