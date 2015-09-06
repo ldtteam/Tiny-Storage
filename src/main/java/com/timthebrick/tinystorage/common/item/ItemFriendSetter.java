@@ -59,6 +59,7 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
+        String owner = NBTHelper.getString(stack, "owner");
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE) + ": " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_CASE + operationMode.ordinal()));
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_2));
         list.add("");
