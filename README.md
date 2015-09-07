@@ -18,7 +18,7 @@ Mods.IO link:
  https://mods.io/mods/1138-tiny-storage
 
 Nightly builds (may not be stable!): 
- http://http://mavenrepo.tiny-storage.orionminecraft.com/
+ http://mavenrepo.tiny-storage.orionminecraft.com/
  
  Installation
 ============
