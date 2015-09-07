@@ -60,10 +60,16 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
         String owner = NBTHelper.getString(stack, "owner");
+        if (owner.isEmpty()) {
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_NO_OWNER));
+        } else {
+            list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_OWNER) + ": " + UUIDHelper.getNameFromUUIDCompound(owner));
+        }
+        list.add("");
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE) + ": " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_CASE + operationMode.ordinal()));
         list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_1) + " " + Keyboard.getKeyName(KeyBindings.changeMode.getKeyCode()) + " " + StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_MODE_TIP_2));
-        list.add("");
         if (owner.equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
+            list.add("");
             List<String> friendsList = new ArrayList<String>();
             if (NBTHelper.hasTag(stack, "friendsList")) {
                 NBTTagList tagList = NBTHelper.getTagList(stack, "friendsList", 10);
@@ -86,7 +92,7 @@ public class ItemFriendSetter extends Item implements IKeyBound {
             } else {
                 list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_EMPTY));
             }
-        }else{
+        } else if (!owner.isEmpty()) {
             list.add(StatCollector.translateToLocal(Messages.ItemTooltips.FRIEND_SETTER_NOT_YOURS));
         }
 
@@ -99,7 +105,15 @@ public class ItemFriendSetter extends Item implements IKeyBound {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (world.isRemote && !player.isSneaking()) {
+        String owner = NBTHelper.getString(stack, "owner");
+        if (owner.isEmpty()) {
+            NBTHelper.setString(stack, "owner", player.getGameProfile().getId().toString() + player.getDisplayName());
+            if (world.isRemote) {
+                PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.OWNER_SET_TO_SELF));
+            }
+        }
+        owner = NBTHelper.getString(stack, "owner");
+        if (world.isRemote && !player.isSneaking() && owner.equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
             player.openGui(TinyStorage.instance, GUIs.FRIEND_SETTER.ordinal(), player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
         return stack;
@@ -109,11 +123,18 @@ public class ItemFriendSetter extends Item implements IKeyBound {
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         OperationModeSettings operationMode = OperationModeSettings.values()[NBTHelper.getInteger(stack, "operationMode")];
         String owner = NBTHelper.getString(stack, "owner");
+        if (owner.isEmpty()) {
+            NBTHelper.setString(stack, "owner", player.getGameProfile().getId().toString() + player.getDisplayName());
+            if (world.isRemote) {
+                PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.OWNER_SET_TO_SELF));
+            }
+        }
+        owner = NBTHelper.getString(stack, "owner");
         if (owner.equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
             if (player.isSneaking() && !world.isRemote) {
                 if (world.getTileEntity(x, y, z) instanceof TileEntityTinyStorage) {
                     TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(x, y, z);
-                    if (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
+                    if (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(owner)) {
                         if (operationMode == OperationModeSettings.READ_ONLY) {
                             NBTHelper.removeTag(stack, "friendsList");
                             if (tileEntity.friendsList.size() > 0) {
@@ -140,6 +161,8 @@ public class ItemFriendSetter extends Item implements IKeyBound {
                                     stack.stackSize--;
                                 }
                             }
+                        } else {
+                            PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.FRIEND_SETTER_ERROR));
                         }
                     }
                 }

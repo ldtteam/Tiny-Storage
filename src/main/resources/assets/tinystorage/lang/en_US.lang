@@ -382,11 +382,13 @@ tooltip.tinystorage:friendSetter.modetipA=Press
 tooltip.tinystorage:friendSetter.modetipB=to change the mode of operation (Shift cycles backwards)
 tooltip.tinystorage:friendSetter.mode=Current Mode
 tooltip.tinystorage:friendSetter.case0=Read friends list
-tooltip.tinystorage:friendSetter.case1=Combine item and block friends list
-tooltip.tinystorage:friendSetter.case2=Overwrite block friends list
+tooltip.tinystorage:friendSetter.case1=Overwrite block friends list
+tooltip.tinystorage:friendSetter.case2=Combine item and block friends list
 tooltip.tinystorage:friendSetter.list=Contains:
 tooltip.tinystorage:friendSetter.empty=Empty List
 tooltip.tinystorage:friendSetter.invalid=Not owned by you!
+tooltip.tinystorage:friendSetter.owner=Owned by
+tooltip.tinystorage:friendSetter.noOwner=No owner
 
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode
@@ -441,7 +443,8 @@ general.blocks.piggyBank.empty=No items currently stored
 general.blocks.piggyBank.contents=Items currently stored:
 general.blocks.quarryChest.depth=The chest is too deep to function fully, setting the depth to:
 general.blocks.quarryChest.depthBlocks= blocks deep
-chat.tinystorage:unfriended=You have been removed from this friends list
+chat.tinystorage.friendSetter:unfriended=You have been removed from this friends list
+chat.tinystorage.friendSetter:error=An error occurred with the action you performed
 
 #Misc
 itemGroup.tinystorage=Tiny Storage
