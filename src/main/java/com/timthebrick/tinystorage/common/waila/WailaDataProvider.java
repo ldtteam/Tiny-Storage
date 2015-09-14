@@ -33,13 +33,12 @@ public class WailaDataProvider implements IWailaDataProvider {
             if (tileEntity instanceof TileEntityDraw || tileEntity instanceof TileEntityBookCase) {
                 currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()));
             } else {
-                switch (tileEntity.getState()) {
-                    case 0:
-                        currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_SMALL));
-                    case 1:
-                        currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_MEDIUM));
-                    case 2:
-                        currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_LARGE));
+                if (tileEntity.getState() == 0) {
+                    currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_SMALL));
+                } else if (tileEntity.getState() == 1) {
+                    currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_MEDIUM));
+                } else if (tileEntity.getState() == 2) {
+                    currentTip.add(StatCollector.translateToLocal(tileEntity.getInventoryName()) + " - " + StatCollector.translateToLocal(Messages.WailaTooltips.BLOCK_LARGE));
                 }
             }
         }
@@ -60,7 +59,7 @@ public class WailaDataProvider implements IWailaDataProvider {
                 } else if (tileEntity.getAccessMode() == AccessMode.INPUT_OUTPUT) {
                     currentTip.add(StatCollector.translateToLocal(Messages.WailaTooltips.ACCESS_MODE_TITLE) + ": " + StatCollector.translateToLocal(Messages.WailaTooltips.ACCESS_MODE_BOTH));
                 }
-            } else {
+            } else if (tileEntity.hasUniqueOwner()) {
                 currentTip.add(StatCollector.translateToLocal(Messages.WailaTooltips.CHEST_NOT_OWNED) + ": " + tileEntity.getOwner());
             }
         }

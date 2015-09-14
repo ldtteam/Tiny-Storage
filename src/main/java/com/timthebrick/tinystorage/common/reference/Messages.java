@@ -20,6 +20,10 @@ public class Messages {
         public static final String MOD_DOWNLOAD = "update.tinystorage:download";
         public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
         public static final String DEBUG_TOOL_CASE = "tooltip.tinystorage:debugTool.case";
+        public static final String UNFRIENDED = "chat.tinystorage.friendSetter:unfriended";
+        public static final String FRIEND_SETTER_MODE = "tooltip.tinystorage:friendSetter.mode";
+        public static final String FRIEND_SETTER_CASE = "tooltip.tinystorage:friendSetter.case";
+        public static final String FRIEND_SETTER_ERROR = "chat.tinystorage.friendSetter:error";
     }
 
     public static final class ItemTooltips {
@@ -41,6 +45,15 @@ public class Messages {
         public static final String DEBUG_TOOL_MODE = "tooltip.tinystorage:debugTool.mode";
         public static final String DEBUG_TOOL_CASE = "tooltip.tinystorage:debugTool.case";
         public static final String IMPOSSIBLE_CHEST = "tooltip.tinystorage:impossibleChest";
+        public static final String FRIEND_SETTER_MODE_TIP_1 = "tooltip.tinystorage:friendSetter.modetipA";
+        public static final String FRIEND_SETTER_MODE_TIP_2 = "tooltip.tinystorage:friendSetter.modetipB";
+        public static final String FRIEND_SETTER_MODE = "tooltip.tinystorage:friendSetter.mode";
+        public static final String FRIEND_SETTER_CASE = "tooltip.tinystorage:friendSetter.case";
+        public static final String FRIEND_SETTER_CONTAINS = "tooltip.tinystorage:friendSetter.list";
+        public static final String FRIEND_SETTER_EMPTY = "tooltip.tinystorage:friendSetter.empty";
+        public static final String FRIEND_SETTER_NOT_YOURS = "tooltip.tinystorage:friendSetter.invalid";
+        public static final String FRIEND_SETTER_OWNER = "tooltip.tinystorage:friendSetter.owner";
+        public static final String FRIEND_SETTER_NO_OWNER = "tooltip.tinystorage:friendSetter.noOwner";
     }
 
     public static final class Config {
@@ -65,6 +78,10 @@ public class Messages {
         public static final String DELETE_STACK_TITLE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase();
         public static final String DELETE_STACK_TRUE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.TRUE.toString().toLowerCase();
         public static final String DELETE_STACK_FALSE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE_LAST_STACK.toString().toLowerCase() + "_" + BooleanMode.FALSE.toString().toLowerCase();
+        public static final String ADD = "button.tooltip.tinystorage:" + ButtonSettings.ADD.toString().toLowerCase();
+        public static final String DELETE = "button.tooltip.tinystorage:" + ButtonSettings.DELETE.toString().toLowerCase();
+        public static final String UP = "button.tooltip.tinystorage:" + ButtonSettings.UP.toString().toLowerCase();
+        public static final String DOWN = "button.tooltip.tinystorage:" + ButtonSettings.DOWN.toString().toLowerCase();
     }
 
     public static final class WailaTooltips {
@@ -77,5 +94,13 @@ public class Messages {
         public static final String BLOCK_SMALL = "waila.tooltip.tinystorage:blockSize.small";
         public static final String BLOCK_MEDIUM = "waila.tooltip.tinystorage:blockSize.medium";
         public static final String BLOCK_LARGE = "waila.tooltip.tinystorage:blockSize.large";
+    }
+
+    public static final class WidgetTooltips {
+        public static final String FRIENDS_LIST = "widget.tooltip.tinystorage:friendsList";
+    }
+
+    public static final class GuiLabels {
+        public static final String FRIENDS_LIST = "gui.label.tinystorage:search";
     }
 }

@@ -1,12 +1,12 @@
 package com.timthebrick.tinystorage.client.gui.inventory.implementations;
 
-import com.timthebrick.tinystorage.client.gui.inventory.GuiTinyStorage;
+import com.timthebrick.tinystorage.client.gui.GuiTinyStorage;
 import com.timthebrick.tinystorage.client.gui.widgets.*;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirection;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerImpossibleChest;
 import com.timthebrick.tinystorage.network.PacketHandler;
 import com.timthebrick.tinystorage.network.message.MessageScrollBar;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityImpossibleChest;
@@ -103,7 +103,7 @@ public class GuiImpossibleChest extends GuiTinyStorage {
     @Override
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (scrollBar != null) {
-            scrollBar.mouseClicked(xCoord, yCoord, btn);
+            scrollBar.onMouseClick(xCoord, yCoord, btn);
         }
         super.mouseClicked(xCoord, yCoord, btn);
     }

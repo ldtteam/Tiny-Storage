@@ -1,20 +1,32 @@
 package com.timthebrick.tinystorage.common.tileentity;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.GameProfileRepository;
+import com.timthebrick.tinystorage.TinyStorage;
+import com.timthebrick.tinystorage.common.core.TinyStorageLog;
+import com.timthebrick.tinystorage.common.reference.Messages;
+import com.timthebrick.tinystorage.util.client.SessionVars;
 import com.timthebrick.tinystorage.util.common.IOwnable;
+import com.timthebrick.tinystorage.util.common.PlayerHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.common.reference.Names;
+import scala.tools.nsc.doc.model.ModelFactory;
 
 public class TileEntityTinyStorage extends TileEntity implements IOwnable {
 
@@ -27,6 +39,8 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     private String owner;
     private String textureName;
     public AccessMode accessMode;
+    public List<String> friendsList = new ArrayList<String>();
+    protected HashMap<UUID, String> accessedPlayers = new HashMap<UUID, String>();
 
     public TileEntityTinyStorage() {
         orientation = ForgeDirection.SOUTH;
@@ -36,6 +50,46 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         owner = "";
         textureName = "";
         accessMode = AccessMode.INPUT_OUTPUT;
+    }
+
+    public void setFriendsList(NBTTagList tagList) {
+        friendsList = new ArrayList<String>();
+        for (int k = 0; k < tagList.tagCount(); k++) {
+            NBTTagCompound tag = tagList.getCompoundTagAt(k);
+            friendsList.add(tag.getString("friend"));
+        }
+    }
+
+    public void addFriend(UUID uuid, String playerName) {
+        friendsList.add(uuid.toString() + playerName);
+    }
+
+    public void removeFriend(UUID uuid, String playerName) {
+        friendsList.remove(uuid.toString() + playerName);
+        if (accessedPlayers.containsKey(uuid)) {
+            for (Object o : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
+                if (o instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer) o;
+                    if (player.getGameProfile().getId().equals(uuid)) {
+                        player.closeScreen();
+                        PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.UNFRIENDED));
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean isFriend(EntityPlayer player) {
+        return friendsList.contains(player.getGameProfile().getId().toString() + player.getDisplayName());
+    }
+
+    public void playerOpenedGui(UUID playerUUID, String playerDisplayName) {
+        accessedPlayers.put(playerUUID, playerDisplayName);
+    }
+
+    public void playerClosedGui(UUID playerUUID) {
+        accessedPlayers.remove(playerUUID);
     }
 
     /**
@@ -100,7 +154,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
      * @param player The player that is the owner of the TE
      */
     public void setUniqueOwner(EntityPlayer player) {
-        this.uniqueOwner = (player.getUniqueID().toString() + player.getDisplayName());
+        this.uniqueOwner = (player.getGameProfile().getId().toString() + player.getDisplayName());
     }
 
     /**
@@ -288,6 +342,15 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         if (this.hasCustomTextureName()) {
             tag.setString(Names.NBT.TEXTURE_NAME, textureName);
         }
+        if (friendsList.size() > 0) {
+            NBTTagList friendsListNBT = new NBTTagList();
+            for (String string : friendsList) {
+                NBTTagCompound tagC = new NBTTagCompound();
+                tagC.setString("friend", string);
+                friendsListNBT.appendTag(tagC);
+            }
+            tag.setTag("friendsList", friendsListNBT);
+        }
     }
 
     /**
@@ -316,6 +379,14 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         }
         if (tag.hasKey(Names.NBT.TEXTURE_NAME)) {
             this.textureName = tag.getString(Names.NBT.TEXTURE_NAME);
+        }
+        friendsList = new ArrayList<String>();
+        if (tag.hasKey("friendsList")) {
+            NBTTagList tagList = tag.getTagList("friendsList", 10);
+            for (int i = 0; i < tagList.tagCount(); i++) {
+                NBTTagCompound tagC = tagList.getCompoundTagAt(i);
+                friendsList.add(tagC.getString("friend"));
+            }
         }
     }
 }

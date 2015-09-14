@@ -120,8 +120,9 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
             return true;
         } else {
             if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityFilterChest) {
-                if (((TileEntityFilterChest) world.getTileEntity(x, y, z)).hasUniqueOwner()) {
-                    if (((TileEntityFilterChest) world.getTileEntity(x, y, z)).getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                TileEntityFilterChest tileEntity = (TileEntityFilterChest) world.getTileEntity(x, y, z);
+                if (tileEntity.hasUniqueOwner()) {
+                    if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()) || tileEntity.isFriend(player)) {
                         player.openGui(TinyStorage.instance, GUIs.FILTER_CHEST.ordinal(), world, x, y, z);
                     } else {
                         PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
@@ -146,7 +147,7 @@ public class BlockFilterChest extends BlockContainer implements ITileEntityProvi
         if (world.getTileEntity(x, y, z) instanceof TileEntityFilterChest) {
             TileEntityFilterChest tileEntity = (TileEntityFilterChest) world.getTileEntity(x, y, z);
             if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                     return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
                 } else {
                     return -1F;

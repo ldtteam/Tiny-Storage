@@ -332,6 +332,7 @@ item.chestFilter.name=Chest Filter
 item.chestLock.name=Chest Lock
 item.debugTool.name=Chest Wrench
 item.storageBag.name=Tiny Bag
+item.friendSetter.name=Paper Friends List
 
 #Containers
 container.tinystorage:tinyChest=Tiny Chest
@@ -377,6 +378,18 @@ tooltip.tinystorage:debugTool.case0=Show area of effect
 tooltip.tinystorage:debugTool.case1=Rotate chests
 tooltip.tinystorage:debugTool.case2=Downgrade chest
 
+tooltip.tinystorage:friendSetter.modetipA=Press
+tooltip.tinystorage:friendSetter.modetipB=to change the mode of operation (Shift cycles backwards)
+tooltip.tinystorage:friendSetter.mode=Current Mode
+tooltip.tinystorage:friendSetter.case0=Read friends list
+tooltip.tinystorage:friendSetter.case1=Overwrite block friends list
+tooltip.tinystorage:friendSetter.case2=Combine item and block friends list
+tooltip.tinystorage:friendSetter.list=Contains:
+tooltip.tinystorage:friendSetter.empty=Empty List
+tooltip.tinystorage:friendSetter.invalid=Not owned by you!
+tooltip.tinystorage:friendSetter.owner=Owned by
+tooltip.tinystorage:friendSetter.noOwner=No owner
+
 #Button Tooltips
 button.tooltip.tinystorage:automated_side_access=Automated IO Mode
 button.tooltip.tinystorage:automated_side_access_disabled=Disabled
@@ -386,6 +399,8 @@ button.tooltip.tinystorage:automated_side_access_input_output=Input & Output
 button.tooltip.tinystorage:delete_last_stack=Delete stored stack
 button.tooltip.tinystorage:delete_last_stack_false=Keep last stack stored
 button.tooltip.tinystorage:delete_last_stack_true=Delete last stack
+button.tooltip.tinystorage:up=Previous
+button.tooltip.tinystorage:down=Next
 
 #Waila Tooltips
 waila.tooltip.tinystorage:automated_side_access=Automated IO Mode
@@ -397,6 +412,12 @@ waila.tooltip.tinystorage:chestNotOwned=Owned by
 waila.tooltip.tinystorage:blockSize.small=Small
 waila.tooltip.tinystorage:blockSize.medium=Medium
 waila.tooltip.tinystorage:blockSize.large=Large
+
+#Gui Labels
+gui.label.tinystorage:search=Search
+
+#Widget Tooltips
+widget.tooltip.tinystorage:friendsList=Friends List
 
 #Config
 general.sound.SoundMode=Sounds
@@ -422,9 +443,8 @@ general.blocks.piggyBank.empty=No items currently stored
 general.blocks.piggyBank.contents=Items currently stored:
 general.blocks.quarryChest.depth=The chest is too deep to function fully, setting the depth to:
 general.blocks.quarryChest.depthBlocks= blocks deep
-
-#Waila Messages
-
+chat.tinystorage.friendSetter:unfriended=You have been removed from this friends list
+chat.tinystorage.friendSetter:error=An error occurred with the action you performed
 
 #Misc
 itemGroup.tinystorage=Tiny Storage

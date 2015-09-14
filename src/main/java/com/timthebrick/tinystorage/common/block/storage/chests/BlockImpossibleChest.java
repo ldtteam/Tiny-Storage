@@ -100,7 +100,7 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
             if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityImpossibleChest) {
                 TileEntityImpossibleChest tileEntity = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
                 if (tileEntity.hasUniqueOwner()) {
-                    if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                    if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()) || tileEntity.isFriend(player)) {
                         player.openGui(TinyStorage.instance, GUIs.IMPOSSIBLE_CHEST.ordinal(), world, x, y, z);
                     } else {
                         PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
@@ -125,7 +125,7 @@ public class BlockImpossibleChest extends BlockContainer implements ITileEntityP
         if (world.getTileEntity(x, y, z) instanceof TileEntityImpossibleChest) {
             TileEntityImpossibleChest tileEntity = (TileEntityImpossibleChest) world.getTileEntity(x, y, z);
             if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                     return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
                 } else {
                     return -1F;

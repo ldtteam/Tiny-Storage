@@ -1,5 +1,9 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.entity.RenderItem;
+
 public interface IGuiScreen {
 
     /**
@@ -21,4 +25,10 @@ public interface IGuiScreen {
      * @return The Y size of the GUI
      */
     int getYSize();
+
+    FontRenderer getFontRenderer();
+
+    RenderItem getItemRenderer();
+
+    GuiScreen getGuiScreen();
 }

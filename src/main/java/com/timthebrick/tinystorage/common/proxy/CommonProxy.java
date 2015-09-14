@@ -16,20 +16,20 @@ public abstract class CommonProxy implements IProxy {
 
 	@Override
 	public void preInit() {
-        TinyStorage.side = Side.SERVER;
-    }
+		TinyStorage.side = Side.SERVER;
+	}
 
 	@Override
 	public void init() {
-        TinyStorage.side = Side.SERVER;
+		TinyStorage.side = Side.SERVER;
 	}
 
-    @Override
-    public void postInit() {
-        TinyStorage.side = Side.SERVER;
-    }
+	@Override
+	public void postInit() {
+		TinyStorage.side = Side.SERVER;
+	}
 
-    public void registerEventHandlers() {
+	public void registerEventHandlers() {
 		PlayerEventHandler playerEventHandler = new PlayerEventHandler();
 		CraftingEventHandler craftingEventHandler = new CraftingEventHandler();
 		

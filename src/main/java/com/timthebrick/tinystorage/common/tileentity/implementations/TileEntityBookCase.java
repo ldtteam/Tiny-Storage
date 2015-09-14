@@ -1,7 +1,7 @@
 package com.timthebrick.tinystorage.common.tileentity.implementations;
 
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerBookCase;
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.common.math.ArrayHelper;

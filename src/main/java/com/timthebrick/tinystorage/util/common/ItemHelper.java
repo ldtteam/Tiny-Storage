@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.UUID;
 
 import com.timthebrick.tinystorage.common.reference.Names;
-import com.timthebrick.tinystorage.util.common.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -147,8 +146,8 @@ public class ItemHelper {
     }
 
     public static void setOwnerUUID (ItemStack itemStack, EntityPlayer entityPlayer) {
-        NBTHelper.setLong(itemStack, Names.NBT.OWNER_UUID_MOST_SIG, entityPlayer.getUniqueID().getMostSignificantBits());
-        NBTHelper.setLong(itemStack, Names.NBT.OWNER_UUID_LEAST_SIG, entityPlayer.getUniqueID().getLeastSignificantBits());
+        NBTHelper.setLong(itemStack, Names.NBT.OWNER_UUID_MOST_SIG, entityPlayer.getGameProfile().getId().getMostSignificantBits());
+        NBTHelper.setLong(itemStack, Names.NBT.OWNER_UUID_LEAST_SIG, entityPlayer.getGameProfile().getId().getLeastSignificantBits());
     }
 
     public static void setOwnerName (ItemStack itemStack, EntityPlayer entityPlayer) {

@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.client.gui.inventory;
 
-public interface IGuiScreenAdvanced extends IGuiScreen {
+public interface IGuiContainer extends IGuiScreen {
 
     /**
      * @return The left position of the first inventory row

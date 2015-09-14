@@ -62,7 +62,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    private IWidgetProvider widgetProvider;
+    private IContainerWidgetProvider widgetProvider;
     /**
      * The direction to scroll the bar
      */
@@ -78,7 +78,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
      * @param y              The Y Position of the scroll bar (relative to GUI)
      * @param scrollHeight   The max scrollable distance (height of background - this gets adjusted)
      */
-    public GuiScrollBar(IWidgetProvider widgetProvider, int x, int y, int scrollHeight) {
+    public GuiScrollBar(IContainerWidgetProvider widgetProvider, int x, int y, int scrollHeight) {
         this.widgetProvider = widgetProvider;
         this.xOrigin = x;
         this.yOrigin = y;
@@ -132,6 +132,10 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public void updateWidget() {
         if (scrollToPos >= 0 && this.isEnabled() && shouldScroll) {
             if (scrollToPos != getScrollPos()) {
@@ -151,7 +155,7 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
     }
 
     @Override
-    public boolean mouseClicked(int x, int y, int button) {
+    public boolean onMouseClick(int x, int y, int button) {
         if (this.isEnabled() && this.shouldScroll && containerArea.contains(x, y)) {
             notifyOfChange();
             scrollTo(MathHelper.roundToNearestInterval(getScrollPos(), 4));
@@ -181,6 +185,30 @@ public class GuiScrollBar extends Gui implements IGuiWidgetAdvanced {
             scrollTo(getScrollPos() + ((-Integer.signum(delta) * 4)));
             shouldScroll = true;
         }
+    }
+
+    @Override
+    public void keyTyped(char c, int key) {
+    }
+
+    @Override
+    public Rectangle getWidgetAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
     }
 
     @Override

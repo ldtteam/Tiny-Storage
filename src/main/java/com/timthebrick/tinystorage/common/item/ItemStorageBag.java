@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.common.item;
 import com.timthebrick.tinystorage.TinyStorage;
 import com.timthebrick.tinystorage.common.creativetab.TabTinyStorage;
 import com.timthebrick.tinystorage.common.reference.*;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.util.client.colour.ColourHelper;
 import com.timthebrick.tinystorage.util.common.ItemHelper;
 import com.timthebrick.tinystorage.util.common.NBTHelper;

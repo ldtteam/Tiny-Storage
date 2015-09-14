@@ -26,6 +26,8 @@ public class ModBlocks {
 
     // Tiny Chests
     public static Block blockTinyChestStone = new BlockTinyChest(Material.rock, "Stone", false);
+    public static Block blockTinyChestEndStone = new BlockTinyChest(Material.rock, "EndStone", false);
+    public static Block blockTinyChestNetherRack = new BlockTinyChest(Material.rock, "NetherRack", false);
     public static Block blockTinyChestOakLog = new BlockTinyChest(Material.wood, "OakLog", false);
     public static Block blockTinyChestAcaciaLog = new BlockTinyChest(Material.wood, "AcaciaLog", false);
     public static Block blockTinyChestBirchLog = new BlockTinyChest(Material.wood, "BirchLog", false);
@@ -38,6 +40,8 @@ public class ModBlocks {
     public static Block blockTinyChestSprucePlank = new BlockTinyChest(Material.wood, "SprucePlank", false);
 
     public static Block blockTinyChestStoneLocked = new BlockTinyChest(Material.rock, "Stone", true);
+    public static Block blockTinyChestEndStoneLocked = new BlockTinyChest(Material.rock, "EndStone", true);
+    public static Block blockTinyChestNetherRackLocked = new BlockTinyChest(Material.rock, "NetherRack", true);
     public static Block blockTinyChestOakLogLocked = new BlockTinyChest(Material.wood, "OakLog", true);
     public static Block blockTinyChestAcaciaLogLocked = new BlockTinyChest(Material.wood, "AcaciaLog", true);
     public static Block blockTinyChestBirchLogLocked = new BlockTinyChest(Material.wood, "BirchLog", true);
@@ -51,6 +55,8 @@ public class ModBlocks {
 
     // Filter Chests
     public static Block blockFilterChestStone = new BlockFilterChest(Material.rock, "Stone", false);
+    public static Block blockFilterChestEndStone = new BlockFilterChest(Material.rock, "EndStone", false);
+    public static Block blockFilterChestNetherRack = new BlockFilterChest(Material.rock, "NetherRack", false);
     public static Block blockFilterChestOakLog = new BlockFilterChest(Material.wood, "OakLog", false);
     public static Block blockFilterChestAcaciaLog = new BlockFilterChest(Material.wood, "AcaciaLog", false);
     public static Block blockFilterChestBirchLog = new BlockFilterChest(Material.wood, "BirchLog", false);
@@ -63,6 +69,8 @@ public class ModBlocks {
     public static Block blockFilterChestSprucePlank = new BlockFilterChest(Material.wood, "SprucePlank", false);
 
     public static Block blockFilterChestStoneLocked = new BlockFilterChest(Material.rock, "Stone", true);
+    public static Block blockFilterChestEndStoneLocked = new BlockFilterChest(Material.rock, "EndStone", true);
+    public static Block blockFilterChestNetherRackLocked = new BlockFilterChest(Material.rock, "NetherRack", true);
     public static Block blockFilterChestOakLogLocked = new BlockFilterChest(Material.wood, "OakLog", true);
     public static Block blockFilterChestAcaciaLogLocked = new BlockFilterChest(Material.wood, "AcaciaLog", true);
     public static Block blockFilterChestBirchLogLocked = new BlockFilterChest(Material.wood, "BirchLog", true);
@@ -117,6 +125,8 @@ public class ModBlocks {
 
     // Micro Chests
     public static Block blockMicroChestStone = new BlockMicroChest(Material.rock, "Stone", false);
+    public static Block blockMicroChestEndStone = new BlockMicroChest(Material.rock, "EndStone", false);
+    public static Block blockMicroChestNetherRack = new BlockMicroChest(Material.rock, "NetherRack", false);
     public static Block blockMicroChestOakLog = new BlockMicroChest(Material.wood, "OakLog", false);
     public static Block blockMicroChestAcaciaLog = new BlockMicroChest(Material.wood, "AcaciaLog", false);
     public static Block blockMicroChestBirchLog = new BlockMicroChest(Material.wood, "BirchLog", false);
@@ -129,6 +139,8 @@ public class ModBlocks {
     public static Block blockMicroChestSprucePlank = new BlockMicroChest(Material.wood, "SprucePlank", false);
 
     public static Block blockMicroChestStoneLocked = new BlockMicroChest(Material.rock, "Stone", true);
+    public static Block blockMicroChestEndStoneLocked = new BlockMicroChest(Material.rock, "EndStone", true);
+    public static Block blockMicroChestNetherRackLocked = new BlockMicroChest(Material.rock, "NetherRack", true);
     public static Block blockMicroChestOakLogLocked = new BlockMicroChest(Material.wood, "OakLog", true);
     public static Block blockMicroChestAcaciaLogLocked = new BlockMicroChest(Material.wood, "AcaciaLog", true);
     public static Block blockMicroChestBirchLogLocked = new BlockMicroChest(Material.wood, "BirchLog", true);
@@ -192,6 +204,8 @@ public class ModBlocks {
 
         // Tiny Chests
         registerBlock(blockTinyChestStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "Stone");
+        registerBlock(blockTinyChestEndStone, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "EndStone");
+        registerBlock(blockTinyChestNetherRack, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "NetherRack");
         registerBlock(blockTinyChestOakLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "OakLog");
         registerBlock(blockTinyChestAcaciaLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "AcaciaLog");
         registerBlock(blockTinyChestBirchLog, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "BirchLog");
@@ -204,6 +218,8 @@ public class ModBlocks {
         registerBlock(blockTinyChestSprucePlank, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST + "SprucePlank");
 
         registerBlock(blockTinyChestStoneLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "Stone");
+        registerBlock(blockTinyChestEndStoneLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "EndStone");
+        registerBlock(blockTinyChestNetherRackLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "NetherRack");
         registerBlock(blockTinyChestOakLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "OakLog");
         registerBlock(blockTinyChestAcaciaLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "AcaciaLog");
         registerBlock(blockTinyChestBirchLogLocked, ItemBlockTinyChest.class, Names.Blocks.TINY_CHEST_LOCKED + "BirchLog");
@@ -217,6 +233,8 @@ public class ModBlocks {
 
         // Filter Chests
         registerBlock(blockFilterChestStone, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "Stone");
+        registerBlock(blockFilterChestEndStone, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "EndStone");
+        registerBlock(blockFilterChestNetherRack, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "NetherRack");
         registerBlock(blockFilterChestOakLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "OakLog");
         registerBlock(blockFilterChestAcaciaLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "AcaciaLog");
         registerBlock(blockFilterChestBirchLog, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "BirchLog");
@@ -229,6 +247,8 @@ public class ModBlocks {
         registerBlock(blockFilterChestSprucePlank, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST + "SprucePlank");
 
         registerBlock(blockFilterChestStoneLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "Stone");
+        registerBlock(blockFilterChestEndStoneLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "EndStone");
+        registerBlock(blockFilterChestNetherRackLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "NetherRack");
         registerBlock(blockFilterChestOakLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "OakLog");
         registerBlock(blockFilterChestAcaciaLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "AcaciaLog");
         registerBlock(blockFilterChestBirchLogLocked, ItemBlockFilterChest.class, Names.Blocks.FILTER_CHEST_LOCKED + "BirchLog");
@@ -283,6 +303,8 @@ public class ModBlocks {
 
         // Micro Chests
         registerBlock(blockMicroChestStone, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "Stone");
+        registerBlock(blockMicroChestEndStone, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "EndStone");
+        registerBlock(blockMicroChestNetherRack, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "NetherRack");
         registerBlock(blockMicroChestOakLog, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "OakLog");
         registerBlock(blockMicroChestAcaciaLog, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "AcaciaLog");
         registerBlock(blockMicroChestBirchLog, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "BirchLog");
@@ -295,6 +317,8 @@ public class ModBlocks {
         registerBlock(blockMicroChestSprucePlank, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST + "SprucePlank");
 
         registerBlock(blockMicroChestStoneLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "Stone");
+        registerBlock(blockMicroChestEndStoneLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "EndStone");
+        registerBlock(blockMicroChestNetherRackLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "NetherRack");
         registerBlock(blockMicroChestOakLogLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "OakLog");
         registerBlock(blockMicroChestAcaciaLogLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "AcaciaLog");
         registerBlock(blockMicroChestBirchLogLocked, ItemBlockMicroChest.class, Names.Blocks.MICRO_CHEST_LOCKED + "BirchLog");

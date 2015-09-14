@@ -8,14 +8,17 @@ import com.timthebrick.tinystorage.common.handler.CraftingEventHandler;
 import com.timthebrick.tinystorage.common.handler.GuiHandler;
 import com.timthebrick.tinystorage.common.reference.References;
 import com.timthebrick.tinystorage.network.PacketHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.UsernameCache;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class TinyStorageInitaliser {
 
@@ -46,5 +49,29 @@ public class TinyStorageInitaliser {
     }
 
     public static void postInit(FMLPostInitializationEvent event) {
+    }
+
+    public static void serverStarting(FMLServerStartingEvent event) {
+        refreshPlayerUUIDList();
+    }
+
+    public static void serverStopping(FMLServerStoppingEvent event) {
+        TinyStorage.instance.playerUUIDList.clear();
+        TinyStorage.instance.playerUUIDMap.clear();
+    }
+
+    public static void refreshPlayerUUIDList() {
+        File file = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "playerdata");
+        List<String> playerUUIDList = new ArrayList<String>();
+        HashMap<UUID, String> playerUUIDMap = new HashMap<UUID, String>();
+        if (file.isDirectory()) {
+            for (File search : file.listFiles()) {
+                TinyStorageLog.info("Adding player UUID to list");
+                playerUUIDList.add(search.getName().replaceFirst("[.][^.]+$", ""));
+                playerUUIDMap.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
+            }
+        }
+        TinyStorage.instance.playerUUIDList = playerUUIDList;
+        TinyStorage.instance.playerUUIDMap = playerUUIDMap;
     }
 }

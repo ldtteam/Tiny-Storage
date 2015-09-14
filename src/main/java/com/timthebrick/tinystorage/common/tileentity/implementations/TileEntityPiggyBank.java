@@ -106,7 +106,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	}
 
 	public TileEntityPiggyBank applyUpgradeItem(ItemStorageComponent itemStorageComponent, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		TileEntityPiggyBank newEntity;
@@ -132,7 +132,7 @@ public class TileEntityPiggyBank extends TileEntityTinyStorage implements ISided
 	
 
 	public TileEntityPiggyBank applyDowngradeClick(World world, ItemDebugTool itemDebugTool, int upgradeTier, EntityPlayer player) {
-		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+		if (this.hasUniqueOwner() && !this.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
 			return null;
 		}
 		TileEntityPiggyBank newEntity;

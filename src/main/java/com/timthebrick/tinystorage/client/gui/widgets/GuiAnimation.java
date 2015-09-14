@@ -4,6 +4,8 @@ import com.timthebrick.tinystorage.client.gui.widgets.settings.AnimationDirectio
 import com.timthebrick.tinystorage.util.client.colour.Colour;
 import net.minecraft.client.gui.Gui;
 
+import java.awt.*;
+
 public abstract class GuiAnimation extends Gui implements IGuiAnimation {
 
     /**
@@ -33,7 +35,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     /**
      * The widget provider for this IGuiWidgetAdvanced
      */
-    protected IWidgetProvider widgetProvider;
+    protected IScreenWidgetProvider widgetProvider;
     /**
      * The X start position for the background texture
      */
@@ -93,6 +95,10 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     }
 
     @Override
+    public void updateGraphics() {
+    }
+
+    @Override
     public void adjustPosition() {
         xPosition = xOrigin + widgetProvider.getGuiLeft();
         yPosition = yOrigin + widgetProvider.getGuiTop();
@@ -100,7 +106,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     }
 
     @Override
-    public boolean isRunning(){
+    public boolean isRunning() {
         return shouldAnimate;
     }
 
@@ -155,7 +161,7 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     }
 
     @Override
-    public boolean mouseClicked(int xPos, int yPos, int btn) {
+    public boolean onMouseClick(int xPos, int yPos, int btn) {
         return false;
     }
 
@@ -190,6 +196,26 @@ public abstract class GuiAnimation extends Gui implements IGuiAnimation {
     @Override
     public int foregroundTextureY() {
         return foregroundTextureY;
+    }
+
+    @Override
+    public Rectangle getWidgetAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaAbsolute() {
+        return new Rectangle(xPos(), yPos(), getWidth(), getHeight());
+    }
+
+    @Override
+    public Rectangle getWidgetVisibleAreaRelative() {
+        return new Rectangle(getXOrigin(), getYOrigin(), getWidth(), getHeight());
     }
 
 }

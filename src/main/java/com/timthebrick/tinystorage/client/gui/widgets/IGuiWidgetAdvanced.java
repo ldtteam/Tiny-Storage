@@ -2,6 +2,8 @@ package com.timthebrick.tinystorage.client.gui.widgets;
 
 import net.minecraft.client.gui.GuiScreen;
 
+import java.awt.*;
+
 public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
 
     /**
@@ -70,7 +72,7 @@ public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
      */
     void setEnabled(boolean enabled);
 
-    boolean mouseClicked(int xPos, int yPos, int btn);
+    boolean onMouseClick(int xPos, int yPos, int btn);
 
     boolean mouseClickMove(int x, int y, int button, long time);
 
@@ -78,8 +80,20 @@ public interface IGuiWidgetAdvanced extends IGuiWidgetSimple{
 
     void mouseWheel(int x, int y, int delta);
 
+    void keyTyped(char c, int key);
+
     void drawWidget(GuiScreen guiScreen, int xScreenSize, int yScreenSize);
 
+    void updateGraphics();
+
     void adjustPosition();
+
+    Rectangle getWidgetAreaAbsolute();
+
+    Rectangle getWidgetAreaRelative();
+
+    Rectangle getWidgetVisibleAreaAbsolute();
+
+    Rectangle getWidgetVisibleAreaRelative();
 
 }

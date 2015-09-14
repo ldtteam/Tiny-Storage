@@ -1,6 +1,6 @@
 package com.timthebrick.tinystorage.util.client.colour;
 
-import com.timthebrick.tinystorage.common.reference.Colours;
+import com.timthebrick.tinystorage.util.client.Colours;
 import com.timthebrick.tinystorage.common.reference.Names;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

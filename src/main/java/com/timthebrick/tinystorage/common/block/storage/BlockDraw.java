@@ -76,7 +76,7 @@ public class BlockDraw extends BlockContainer {
             if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
                 TileEntityDraw tileEntityDraw = (TileEntityDraw) world.getTileEntity(x, y, z);
                 if (tileEntityDraw.hasUniqueOwner()) {
-                    if (!tileEntityDraw.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                    if (!tileEntityDraw.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                         PlayerHelper.sendChatMessage(player, new ChatComponentTranslation(Messages.Chat.CHEST_NOT_OWNED));
                         return true;
                     }
@@ -245,7 +245,7 @@ public class BlockDraw extends BlockContainer {
         if (world.getTileEntity(x, y, z) instanceof TileEntityDraw) {
             TileEntityDraw tileEntity = (TileEntityDraw) world.getTileEntity(x, y, z);
             if (tileEntity.hasUniqueOwner()) {
-                if (tileEntity.getUniqueOwner().equals(player.getUniqueID().toString() + player.getDisplayName())) {
+                if (tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName())) {
                     return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
                 } else {
                     return -1F;

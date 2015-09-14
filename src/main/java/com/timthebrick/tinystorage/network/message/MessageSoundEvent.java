@@ -26,8 +26,8 @@ public class MessageSoundEvent implements IMessage, IMessageHandler<MessageSound
 	}
 
 	public MessageSoundEvent(EntityPlayer entityPlayer, String soundName, float volume, float pitch) {
-		this.mostSigUUID = entityPlayer.getUniqueID().getMostSignificantBits();
-		this.leastSigUUID = entityPlayer.getUniqueID().getLeastSignificantBits();
+		this.mostSigUUID = entityPlayer.getGameProfile().getId().getMostSignificantBits();
+		this.leastSigUUID = entityPlayer.getGameProfile().getId().getLeastSignificantBits();
 		this.soundName = soundName;
 		this.xCoord = (float) entityPlayer.posX;
 		this.yCoord = (float) entityPlayer.posY;
@@ -79,7 +79,7 @@ public class MessageSoundEvent implements IMessage, IMessageHandler<MessageSound
 		if (Settings.Sounds.soundMode.equalsIgnoreCase("All")) {
 			TinyStorage.proxy.playSound(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
 		} else if (Settings.Sounds.soundMode.equalsIgnoreCase("Self")) {
-			if (FMLClientHandler.instance().getClient().thePlayer.getUniqueID().equals(originUUID)) {
+			if (FMLClientHandler.instance().getClient().thePlayer.getGameProfile().getId().equals(originUUID)) {
 				TinyStorage.proxy.playSound(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
 			}
 		}
