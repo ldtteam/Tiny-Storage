@@ -66,9 +66,15 @@ public class TinyStorageInitaliser {
         HashMap<UUID, String> playerUUIDMap = new HashMap<UUID, String>();
         if (file.isDirectory()) {
             for (File search : file.listFiles()) {
-                TinyStorageLog.info("Adding player UUID to list");
-                playerUUIDList.add(search.getName().replaceFirst("[.][^.]+$", ""));
-                playerUUIDMap.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
+                if (search.getName().contains(".dat")) {
+                    try {
+                        TinyStorageLog.info("Adding player UUID to list");
+                        playerUUIDList.add(search.getName().replaceFirst("[.][^.]+$", ""));
+                        playerUUIDMap.put(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", "")), UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
+                    } catch (Exception e) {
+                        TinyStorageLog.error(e.getStackTrace());
+                    }
+                }
             }
         }
         TinyStorage.instance.playerUUIDList = playerUUIDList;
