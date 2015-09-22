@@ -11,7 +11,9 @@ public enum ButtonSettings {
 	ADD(EnumSet.allOf(EnableMode.class)),
 	DELETE(EnumSet.allOf(EnableMode.class)),
 	UP(EnumSet.allOf(EnableMode.class)),
-    DOWN(EnumSet.allOf(EnableMode.class));
+    DOWN(EnumSet.allOf(EnableMode.class)),
+	CIRCLE(EnumSet.allOf(EnableMode.class)),
+    SQUARE(EnumSet.allOf(EnableMode.class));
 
 	private final EnumSet<? extends Enum<?>> values;
 

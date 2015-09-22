@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.BooleanMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.EnableMode;
+import com.timthebrick.tinystorage.client.gui.widgets.settings.*;
 import com.timthebrick.tinystorage.common.reference.Messages;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -14,8 +13,6 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
-import com.timthebrick.tinystorage.client.gui.widgets.settings.ButtonSettings;
 import com.timthebrick.tinystorage.common.reference.References;
 
 public class GuiImageButton extends GuiButton implements IButtonTooltip {
@@ -107,7 +104,7 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
                 this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
                 int uv_y = (int) Math.floor(iconIndex / 16);
                 int uv_x = iconIndex - uv_y * 16;
-                this.drawTexturedModalRect(0, 0, 256 - 16, 256 - 16, 16, 16);
+                //this.drawTexturedModalRect(0, 0, 256 - 16, 256 - 16, 16, 16);
                 this.drawTexturedModalRect(0, 0, uv_x * 16, uv_y * 16, 16, 16);
                 this.mouseDragged(minecraft, par2, par3);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -121,7 +118,7 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
                 this.field_146123_n = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
                 int uv_y = (int) Math.floor(iconIndex / 16);
                 int uv_x = iconIndex - uv_y * 16;
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 256 - 16, 256 - 16, 16, 16);
+                //this.drawTexturedModalRect(this.xPosition, this.yPosition, 256 - 16, 256 - 16, 16, 16);
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, uv_x * 16, uv_y * 16, 16, 16);
                 this.mouseDragged(minecraft, par2, par3);
             }
@@ -224,36 +221,4 @@ public class GuiImageButton extends GuiButton implements IButtonTooltip {
         }
     }
 
-    static class EnumPair {
-        final Enum setting;
-        final Enum value;
-
-        EnumPair(Enum a, Enum b) {
-            this.setting = a;
-            this.value = b;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.setting.hashCode() ^ this.value.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-            if (this.getClass() != obj.getClass()) {
-                return false;
-            }
-            EnumPair other = (EnumPair) obj;
-            return other.setting == this.setting && other.value == this.value;
-        }
-    }
-
-    private static class ButtonAppearance {
-        public int index;
-        public String displayName;
-        public String displayValue;
-    }
 }

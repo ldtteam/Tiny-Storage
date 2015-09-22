@@ -18,4 +18,5 @@ public class RenderIDs {
 	public static int quarryChest;
 	public static int bookCase;
 	public static int impossibleChest;
+	public static int personalSafe;
 }
