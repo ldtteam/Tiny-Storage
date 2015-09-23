@@ -33,6 +33,7 @@ public class ContainerPeacefulChest extends ContainerTinyStorage {
 
 	public ContainerPeacefulChest(InventoryPlayer inventoryPlayer, TileEntityPeacefulChest tileEntity) {
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 
 		if (this.tileEntity.getState() == 0) {

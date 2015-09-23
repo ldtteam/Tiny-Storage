@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.common.inventory;
 
+import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,6 +15,7 @@ public class ContainerTinyStorage extends Container {
 
 	protected final int PLAYER_INVENTORY_ROWS = 3;
 	protected final int PLAYER_INVENTORY_COLUMNS = 9;
+	public TileEntityTinyStorage tileEntityTinyStorage;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityPlayer) {

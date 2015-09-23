@@ -36,8 +36,8 @@ public class ContainerFilterChest extends ContainerTinyStorage {
 	private int chestInventoryColumns;
 
 	public ContainerFilterChest(InventoryPlayer inventoryPlayer, TileEntityFilterChest tileEntity) {
-
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 
 		if (this.tileEntity.getState() == 0) {

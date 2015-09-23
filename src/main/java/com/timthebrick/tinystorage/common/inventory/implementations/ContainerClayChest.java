@@ -31,6 +31,7 @@ public class ContainerClayChest extends ContainerTinyStorage {
 
 	public ContainerClayChest(InventoryPlayer inventoryPlayer, TileEntityClayChest tileEntity) {
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 
 		if (this.tileEntity.getState() == 0) {

@@ -22,6 +22,7 @@ public class ContainerDraw extends ContainerTinyStorage {
 
 	public ContainerDraw(InventoryPlayer inventoryPlayer, TileEntityDraw tileEntity) {
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 
 		chestInventoryRows = INVENTORY_ROWS;

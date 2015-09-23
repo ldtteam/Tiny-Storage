@@ -18,6 +18,7 @@ public class ContainerTrashChest extends ContainerTinyStorage {
 
 	public ContainerTrashChest(InventoryPlayer inventoryPlayer, TileEntityTrashChest tileEntity) {
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 		chestInventoryRows = 1;
 		chestInventoryColumns = 1;
