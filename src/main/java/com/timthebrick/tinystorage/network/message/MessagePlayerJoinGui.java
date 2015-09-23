@@ -54,7 +54,7 @@ public class MessagePlayerJoinGui implements IMessage, IMessageHandler<MessagePl
     @Override
     public IMessage onMessage(MessagePlayerJoinGui event, MessageContext ctx) {
         Container container = ctx.getServerHandler().playerEntity.openContainer;
-        if(container instanceof ContainerTinyStorage){
+        if (container instanceof ContainerTinyStorage) {
             TileEntity entity = ((ContainerTinyStorage) container).tileEntityTinyStorage;
             if (entity != null && entity instanceof TileEntityTinyStorage) {
                 TileEntityTinyStorage te = (TileEntityTinyStorage) entity;
