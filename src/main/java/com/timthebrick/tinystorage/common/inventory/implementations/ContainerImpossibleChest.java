@@ -25,6 +25,7 @@ public class ContainerImpossibleChest extends ContainerTinyStorage implements IW
 
     public ContainerImpossibleChest(InventoryPlayer inventoryPlayer, TileEntityImpossibleChest tileEntity) {
         this.tileEntity = tileEntity;
+        this.tileEntityTinyStorage = tileEntity;
         this.inventoryPlayer = inventoryPlayer;
         tileEntity.openInventory();
         chestInventoryRows = INVENTORY_ROWS;

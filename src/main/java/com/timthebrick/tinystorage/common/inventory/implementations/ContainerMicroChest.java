@@ -22,6 +22,7 @@ public class ContainerMicroChest extends ContainerTinyStorage {
 
 	public ContainerMicroChest(InventoryPlayer inventoryPlayer, TileEntityMicroChest tileEntity) {
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 
 		chestInventoryRows = CHEST_INVENTORY_ROWS;

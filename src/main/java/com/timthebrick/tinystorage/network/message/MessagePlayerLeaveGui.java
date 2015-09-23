@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.network.message;
 
+import com.timthebrick.tinystorage.common.inventory.ContainerTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -8,6 +9,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -50,9 +52,9 @@ public class MessagePlayerLeaveGui implements IMessage, IMessageHandler<MessageP
 
     @Override
     public IMessage onMessage(MessagePlayerLeaveGui event, MessageContext ctx) {
-        if (!FMLClientHandler.instance().getServer().getEntityWorld().isRemote) {
-            World world = FMLClientHandler.instance().getServer().getEntityWorld();
-            TileEntity entity = world.getTileEntity((int) event.x, (int) event.y, (int) event.z);
+        Container container = ctx.getServerHandler().playerEntity.openContainer;
+        if(container instanceof ContainerTinyStorage){
+            TileEntity entity = ((ContainerTinyStorage) container).tileEntityTinyStorage;
             if (entity != null && entity instanceof TileEntityTinyStorage) {
                 TileEntityTinyStorage te = (TileEntityTinyStorage) entity;
                 te.playerClosedGui(event.playerID);

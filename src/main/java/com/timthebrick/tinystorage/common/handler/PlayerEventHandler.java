@@ -12,6 +12,7 @@ import com.timthebrick.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import cpw.mods.fml.common.network.FMLNetworkEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -96,10 +97,12 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void playerLoggedOut(PlayerLoggedOutEvent event) {
-        if (event.player.getGameProfile().getId().equals(Minecraft.getMinecraft().thePlayer.getUniqueID())) {
-            TinyStorageLog.info("Clearing player UUID list");
-            TinyStorage.instance.playerUUIDList.clear();
-            TinyStorage.instance.playerUUIDMap.clear();
-        }
+    }
+
+    @SubscribeEvent
+    public void clientLeaveServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+        TinyStorageLog.info("Clearing player UUID list");
+        TinyStorage.instance.playerUUIDList.clear();
+        TinyStorage.instance.playerUUIDMap.clear();
     }
 }

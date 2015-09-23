@@ -31,6 +31,7 @@ public class ContainerVacuumChest extends ContainerTinyStorage {
 
 	public ContainerVacuumChest(InventoryPlayer inventoryPlayer, TileEntityVacuumChest tileEntity) {
 		this.tileEntity = tileEntity;
+		this.tileEntityTinyStorage = tileEntity;
 		tileEntity.openInventory();
 
 		if (this.tileEntity.getState() == 0) {

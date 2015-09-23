@@ -30,6 +30,7 @@ public class ContainerQuarryChest extends ContainerTinyStorage {
 
     public ContainerQuarryChest (InventoryPlayer inventoryPlayer, TileEntityQuarryChest tileEntity) {
         this.tileEntity = tileEntity;
+        this.tileEntityTinyStorage = tileEntity;
         tileEntity.openInventory();
 
         if (this.tileEntity.getState() == 0) {

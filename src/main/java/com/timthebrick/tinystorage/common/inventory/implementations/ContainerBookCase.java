@@ -21,6 +21,7 @@ public class ContainerBookCase extends ContainerTinyStorage {
 
     public ContainerBookCase (InventoryPlayer inventoryPlayer, TileEntityBookCase tileEntity) {
         this.tileEntity = tileEntity;
+        this.tileEntityTinyStorage = tileEntity;
         tileEntity.openInventory();
         chestInventoryRows = INVENTORY_ROWS;
         chestInventoryColumns = INVENTORY_COLUMNS;
