@@ -3,6 +3,7 @@ package com.timthebrick.tinystorage.common.tileentity.implementations;
 import com.timthebrick.tinystorage.client.gui.widgets.settings.AccessMode;
 import com.timthebrick.tinystorage.common.inventory.implementations.ContainerFilterChest;
 import com.timthebrick.tinystorage.common.reference.Names;
+import com.timthebrick.tinystorage.common.reference.Sounds;
 import com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.timthebrick.tinystorage.util.common.StackHelper;
 import com.timthebrick.tinystorage.util.common.math.ArrayHelper;
@@ -173,6 +174,7 @@ public class TileEntityFilterChest extends TileEntityTinyStorage implements ISid
         if (numPlayersUsing > 0 && lidAngle == 0.0F) {
             adjustedXCoord = xCoord + 0.5D;
             adjustedZCoord = zCoord + 0.5D;
+            worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, Sounds.CHEST_OPEN, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
 
         if (numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
