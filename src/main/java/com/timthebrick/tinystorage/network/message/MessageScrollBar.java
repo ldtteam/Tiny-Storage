@@ -1,5 +1,6 @@
 package com.timthebrick.tinystorage.network.message;
 
+import com.timthebrick.tinystorage.common.inventory.ContainerTinyStorage;
 import com.timthebrick.tinystorage.common.tileentity.implementations.TileEntityImpossibleChest;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -7,6 +8,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -42,10 +44,10 @@ public class MessageScrollBar implements IMessage, IMessageHandler<MessageScroll
     }
 
     @Override
-    public IMessage onMessage(MessageScrollBar event, MessageContext context) {
-        if (!FMLClientHandler.instance().getServer().getEntityWorld().isRemote) {
-            World world = FMLClientHandler.instance().getServer().getEntityWorld();
-            TileEntity entity = world.getTileEntity((int) event.xCoord, (int) event.yCoord, (int) event.zCoord);
+    public IMessage onMessage(MessageScrollBar event, MessageContext ctx) {
+        Container container = ctx.getServerHandler().playerEntity.openContainer;
+        if (container instanceof ContainerTinyStorage) {
+            TileEntity entity = ((ContainerTinyStorage) container).tileEntityTinyStorage;
             if (entity != null && entity instanceof TileEntityImpossibleChest) {
                 ((TileEntityImpossibleChest) entity).handleWidgetInteraction(event.scrollPos);
             }
