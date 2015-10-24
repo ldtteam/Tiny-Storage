@@ -1,0 +1,31 @@
+package com.smithsmodding.tinystorage.client.gui.widgets.settings;
+
+import java.util.EnumSet;
+
+import javax.annotation.Nonnull;
+
+public enum ButtonSettings {
+
+	AUTOMATED_SIDE_ACCESS(EnumSet.allOf(AccessMode.class)),
+	DELETE_LAST_STACK(EnumSet.allOf(BooleanMode.class)),
+	ADD(EnumSet.allOf(EnableMode.class)),
+	DELETE(EnumSet.allOf(EnableMode.class)),
+	UP(EnumSet.allOf(EnableMode.class)),
+    DOWN(EnumSet.allOf(EnableMode.class)),
+	CIRCLE(EnumSet.allOf(EnableMode.class)),
+    SQUARE(EnumSet.allOf(EnableMode.class));
+
+	private final EnumSet<? extends Enum<?>> values;
+
+	ButtonSettings(@Nonnull EnumSet<? extends Enum<?>> possibleOptions) {
+		if (possibleOptions.isEmpty()) {
+			throw new IllegalArgumentException("Tried to instantiate an empty setting.");
+		}
+
+		this.values = possibleOptions;
+	}
+
+	public EnumSet<? extends Enum<?>> getPossibleValues() {
+		return this.values;
+	}
+}
