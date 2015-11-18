@@ -42,6 +42,8 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     protected Container container;
     private GuiImageButton accessMode;
     private GuiTabbedPane friendsPanel;
+    private GuiTabbedPane friendsPanelGlobal;
+    private GuiTabbedPane currentOpenPane;
     private GuiCharButton test;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
@@ -204,6 +206,9 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
         if (this.friendsPanel != null) {
             this.friendsPanel.setVisibility(true);
         }
+        if (this.friendsPanelGlobal != null) {
+            this.friendsPanelGlobal.setVisibility(true);
+        }
     }
 
     @Override
@@ -237,6 +242,16 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
             }
         } else {
             this.friendsPanel.adjustPosition();
+        }
+        if (this.friendsPanelGlobal == null) {
+            if (tileEntity.hasUniqueOwner()) {
+                if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
+                    this.friendsPanelGlobal = new GuiTabbedPane(this, new TabHandlerFriendsListGlobal(), getXSize() + 2, this.friendsPanel.getYOrigin() + this.friendsPanel.getButtonHeight() + 2, 112, 170, 12, 12, 0, 0, 64, 0);
+                    this.addWidget(friendsPanelGlobal);
+                }
+            }
+        } else {
+            this.friendsPanelGlobal.adjustPosition();
         }
     }
 
@@ -314,6 +329,12 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
             for (IGuiWidgetAdvanced widget : widgets) {
+                if (widget instanceof GuiTabbedPane && ((GuiTabbedPane) widget).getMouseCaptured()) {
+                    if (currentOpenPane != null) {
+                        currentOpenPane.toggleAnimation();
+                        currentOpenPane = (GuiTabbedPane) widget;
+                    }
+                }
                 widget.onMouseClick(xCoord, yCoord, btn);
             }
         }

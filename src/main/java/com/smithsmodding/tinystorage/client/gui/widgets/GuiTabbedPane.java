@@ -111,12 +111,14 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     private List<GuiButton> containedButtons = new ArrayList<GuiButton>();
 
     private boolean keyCaptured = false;
+    private boolean mouseCaptured = false;
     private GuiButton selectedButton;
 
     /**
      * @param widgetProvider    The provider that adds this object to it
-     * @param x                 The X Position of  the scroll bar (relative to GUI)
-     * @param y                 The Y Position of the scroll bar (relative to GUI)
+     * @param handler           The specific widget handler for the tab object
+     * @param x                 The X Position of  the tab (relative to GUI)
+     * @param y                 The Y Position of the tab (relative to GUI)
      * @param width             The width of the entire tab
      * @param height            The height of the entire tab
      * @param buttonWidth       The width of the display button
@@ -130,6 +132,21 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         this(widgetProvider, handler, false, x, y, width, height, buttonWidth, buttonHeight, backgroundX, backgroundY, buttonBackgroundX, buttonBackgroundY);
     }
 
+    /**
+     * @param widgetProvider    The provider that adds this object to it
+     * @param handler           The specific widget handler for the tab object
+     * @param forceOpen         Whether to force the panel open or not
+     * @param x                 The X Position of  the tab (relative to GUI)
+     * @param y                 The Y Position of the tab (relative to GUI)
+     * @param width             The width of the entire tab
+     * @param height            The height of the entire tab
+     * @param buttonWidth       The width of the display button
+     * @param buttonHeight      The height of the display button
+     * @param backgroundX       The X Position of the background texture for the tab
+     * @param backgroundY       The Y Position of the background texture for the tab
+     * @param buttonBackgroundX The X Position of the background texture for the button
+     * @param buttonBackgroundY The Y Position of the background texture for the button
+     */
     public GuiTabbedPane(IScreenWidgetProvider widgetProvider, IGuiTabHandler handler, boolean forceOpen, int x, int y, int width, int height, int buttonWidth, int buttonHeight, int backgroundX, int backgroundY, int buttonBackgroundX, int buttonBackgroundY) {
         this.widgetProvider = widgetProvider;
         this.tabHandler = handler;
@@ -367,6 +384,9 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
 
     @Override
     public boolean onMouseClick(int xPos, int yPos, int btn) {
+        if (this.isEnabled() && this.getWidgetVisibleAreaAbsolute().contains(xPos, yPos)) {
+            mouseCaptured = true;
+        }
         if (this.isEnabled() && !forceOpen && expandButton.contains(xPos, yPos) && !shouldAnimate) {
             shouldAnimate = true;
         }
@@ -589,6 +609,18 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
     @Override
     public boolean getKeyCaptured() {
         return keyCaptured;
+    }
+
+    public boolean getMouseCaptured() {
+        return mouseCaptured;
+    }
+
+    public void toggleAnimation() {
+        shouldAnimate = !shouldAnimate;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
     }
 
     /*
