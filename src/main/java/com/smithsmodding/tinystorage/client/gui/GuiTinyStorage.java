@@ -246,7 +246,7 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
         if (this.friendsPanelGlobal == null) {
             if (tileEntity.hasUniqueOwner()) {
                 if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
-                    this.friendsPanelGlobal = new GuiTabbedPane(this, new TabHandlerFriendsListGlobal(), getXSize() + 2, this.friendsPanel.getYOrigin() + this.friendsPanel.getButtonHeight() + 2, 112, 170, 12, 12, 0, 0, 64, 0);
+                    this.friendsPanelGlobal = new GuiTabbedPane(this, new TabHandlerFriendsListGlobal(), this.friendsPanel.getXOrigin() + this.friendsPanel.getButtonWidth() + 2, this.friendsPanel.getYOrigin(), 112, 170, 12, 12, 0, 0, 64, 0);
                     this.addWidget(friendsPanelGlobal);
                 }
             }
@@ -329,13 +329,18 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
             for (IGuiWidgetAdvanced widget : widgets) {
-                if (widget instanceof GuiTabbedPane && ((GuiTabbedPane) widget).getMouseCaptured()) {
-                    if (currentOpenPane != null) {
+                if (widget instanceof GuiTabbedPane && ((GuiTabbedPane) widget).expandButtonContains(xCoord, yCoord)) {
+                    if (currentOpenPane == null) {
+                        currentOpenPane = (GuiTabbedPane) widget;
+                    } else if (currentOpenPane == widget) {
+                        currentOpenPane = null;
+                    } else if (currentOpenPane != null && currentOpenPane.isExpanded()) {
                         currentOpenPane.toggleAnimation();
                         currentOpenPane = (GuiTabbedPane) widget;
                     }
                 }
                 widget.onMouseClick(xCoord, yCoord, btn);
+                TinyStorageLog.info(currentOpenPane == null);
             }
         }
         if (btn == 1) {

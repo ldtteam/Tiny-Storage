@@ -195,7 +195,6 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (this.isEnabled()) {
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiPanes.png"));
-            this.drawTexturedModalRect(xOrigin, yOrigin, backgroundTextureX, backgroundTextureY, getButtonWidth(), getButtonHeight());
             if (expanded && !shouldAnimate) {
                 for (IGuiWidgetAdvanced widget : containedWidgets) {
                     widget.setVisibility(true);
@@ -230,6 +229,8 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
             for (GuiButton button : containedButtons) {
                 button.drawButton(guiScreen.mc, xScreenSize, yScreenSize);
             }
+            guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
+            this.drawTexturedModalRect(xOrigin, yOrigin, buttonTextureX, buttonTextureY, getButtonWidth(), getButtonHeight());
         } else {
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
             this.drawTexturedModalRect(xOrigin, yOrigin, buttonTextureX + getButtonWidth(), buttonTextureY, getButtonWidth(), getButtonHeight());
@@ -537,6 +538,10 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         } else {
             return new Rectangle(getXOrigin(), getYOrigin(), getButtonWidth(), getButtonHeight());
         }
+    }
+
+    public boolean expandButtonContains(int xPos, int yPos){
+        return expandButton.contains(xPos, yPos);
     }
 
     @Override
