@@ -26,5 +26,6 @@ public class PacketHandler {
         INSTANCE.registerMessage(MessagePlayerLeaveGui.class, MessagePlayerLeaveGui.class, 9, Side.SERVER);
 		INSTANCE.registerMessage(MessageAddFriendPaper.class, MessageAddFriendPaper.class, 10, Side.SERVER);
 		INSTANCE.registerMessage(MessageRemoveFriendPaper.class, MessageRemoveFriendPaper.class, 11, Side.SERVER);
+		INSTANCE.registerMessage(MessageSyncPlayerProperties.class, MessageSyncPlayerProperties.class, 12, Side.CLIENT);
 	}
 }

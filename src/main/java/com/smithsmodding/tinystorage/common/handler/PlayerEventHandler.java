@@ -4,10 +4,12 @@ import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.common.block.storage.chests.BlockClayChest;
 import com.smithsmodding.tinystorage.common.block.storage.chests.BlockWoolChest;
 import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
+import com.smithsmodding.tinystorage.common.core.VersionChecker;
+import com.smithsmodding.tinystorage.common.entity.ExtendedPropertyGlobalFriends;
+import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
 import com.smithsmodding.tinystorage.common.reference.Messages;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.util.common.PlayerHelper;
-import com.smithsmodding.tinystorage.common.core.VersionChecker;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
@@ -15,10 +17,14 @@ import cpw.mods.fml.common.network.FMLNetworkEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.UsernameCache;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class PlayerEventHandler {
@@ -39,7 +45,6 @@ public class PlayerEventHandler {
                     TileEntity te = world.getTileEntity(x, y, z);
                     if (te instanceof TileEntityTinyStorage) {
                         TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
-
                         if (block instanceof BlockWoolChest) {
                             if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()))) {
                                 if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
@@ -100,5 +105,26 @@ public class PlayerEventHandler {
         TinyStorageLog.info("Clearing player UUID list");
         TinyStorage.instance.playerUUIDList.clear();
         TinyStorage.instance.playerUUIDMap.clear();
+    }
+
+    @SubscribeEvent
+    public void onEntityConstructing(EntityEvent.EntityConstructing event) {
+        if (event.entity instanceof EntityPlayer && ExtendedPropertyGlobalFriends.get((EntityPlayer) event.entity) == null) {
+            ExtendedPropertyGlobalFriends.register((EntityPlayer) event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingDeathEvent(LivingDeathEvent event) {
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
+            ExtendedPropertyGlobalFriends.saveProxyData((EntityPlayer) event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
+            ExtendedPropertyGlobalFriends.loadProxyData((EntityPlayer) event.entity);
+        }
     }
 }

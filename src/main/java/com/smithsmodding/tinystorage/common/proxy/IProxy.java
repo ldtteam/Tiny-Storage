@@ -4,6 +4,8 @@ public interface IProxy {
 
     ClientProxy getClientProxy ();
 
+    CommonProxy getCommonProxy();
+
     void initRenderingAndTextures ();
 
     void registerEventHandlers ();
