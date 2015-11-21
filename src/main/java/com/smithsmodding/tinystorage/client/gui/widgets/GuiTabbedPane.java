@@ -617,6 +617,11 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         return keyCaptured;
     }
 
+    @Override
+    public boolean isActive() {
+        return isEnabled() && isExpanded();
+    }
+
     public boolean getMouseCaptured() {
         return mouseCaptured;
     }

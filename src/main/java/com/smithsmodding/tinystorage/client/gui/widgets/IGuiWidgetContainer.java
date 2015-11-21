@@ -8,4 +8,8 @@ public interface IGuiWidgetContainer {
 
     boolean getKeyCaptured();
 
+    boolean isActive();
+
+    boolean getMouseCaptured();
+
 }

@@ -103,7 +103,7 @@ public class GuiFriendSetter extends GuiTinyStorageSimple {
             search.adjustPosition();
         }
         if (playerList == null) {
-            playerList = new GuiSetterFriendsList(this, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, xSize - 18, 3 + (fontRendererObj.FONT_HEIGHT * 15), UUIDHelper.getStringFromMap(TinyStorage.instance.playerUUIDMap), search);
+            playerList = new GuiSetterFriendsList(this, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, xSize - 18, 3 + (fontRendererObj.FONT_HEIGHT * 15), UUIDHelper.getStringListFromMap(TinyStorage.instance.playerUUIDMap), search);
             this.addWidget(playerList);
         } else {
             playerList.adjustPosition();

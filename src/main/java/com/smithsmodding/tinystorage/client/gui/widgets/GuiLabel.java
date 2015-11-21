@@ -67,6 +67,7 @@ public class GuiLabel extends Gui implements IGuiLabel {
             String localised = StatCollector.translateToLocal(message);
             String displayString = renderer.trimStringToWidth(localised, getWidth());
             renderer.drawString(displayString, xPosition, yPosition, colour.getColour());
+            Colour.resetGLColour();
         }
     }
 

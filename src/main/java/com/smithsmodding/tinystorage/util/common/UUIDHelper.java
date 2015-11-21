@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class UUIDHelper {
 
-    public static List<String> getStringFromMap(HashMap<UUID, String> map) {
+    public static List<String> getStringListFromMap(HashMap<UUID, String> map) {
         List<String> values = new ArrayList<String>();
         for (UUID id : map.keySet()) {
             values.add(map.get(id));

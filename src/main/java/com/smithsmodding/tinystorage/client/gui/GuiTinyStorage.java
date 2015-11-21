@@ -226,7 +226,7 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
                     friendsPanel.addContainedWidget(searchLabel);
                     GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanel, this.fontRendererObj, 3, friendsPanel.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanel.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
                     friendsPanel.addContainedWidget(search);
-                    GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringFromMap(TinyStorage.instance.playerUUIDMap), search);
+                    GuiTextList playerList = new GuiFriendsList(this, friendsPanel, this.fontRendererObj, GuiFriendsList.Type.LOCAL, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanel.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringListFromMap(TinyStorage.instance.playerUUIDMap), search);
                     friendsPanel.addContainedWidget(playerList);
                     GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
                     prev.visible = false;
@@ -244,6 +244,18 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
                 if (tileEntity.getUniqueOwner().equals(Minecraft.getMinecraft().thePlayer.getGameProfile().getId().toString() + Minecraft.getMinecraft().thePlayer.getDisplayName())) {
                     this.friendsPanelGlobal = new GuiTabbedPane(this, new TabHandlerFriendsListGlobal(), this.friendsPanel.getXOrigin() + this.friendsPanel.getButtonWidth() + 2, this.friendsPanel.getYOrigin(), 112, 170, 12, 12, 0, 0, 64, 0);
                     this.addWidget(friendsPanelGlobal);
+                    GuiLabel searchLabel = new GuiLabel.GuiLabelTabbed(this, friendsPanelGlobal, fontRendererObj, 2, friendsPanelGlobal.getButtonHeight() + 1, friendsPanelGlobal.getWidth() - 1, fontRendererObj.FONT_HEIGHT + 1, Messages.GuiLabels.FRIENDS_LIST, new Colour(Colours.INV_GRAY));
+                    friendsPanelGlobal.addContainedWidget(searchLabel);
+                    GuiTextInput search = new GuiTextInput.GuiTextInputTabbed(this, friendsPanelGlobal, this.fontRendererObj, 3, friendsPanelGlobal.getButtonHeight() + searchLabel.getHeight() + 1, friendsPanelGlobal.getWidth() - 6, 10, CharFilters.FILTER_ALPHANUMERIC);
+                    friendsPanelGlobal.addContainedWidget(search);
+                    GuiTextList playerList = new GuiFriendsList(this, friendsPanelGlobal, this.fontRendererObj, GuiFriendsList.Type.GLOBAL, search.getXOrigin(), search.getYOrigin() + search.getHeight() + 4, friendsPanelGlobal.getWidth() - 15, 3 + (fontRendererObj.FONT_HEIGHT * 14), UUIDHelper.getStringListFromMap(TinyStorage.instance.playerUUIDMap), search);
+                    friendsPanelGlobal.addContainedWidget(playerList);
+                    GuiImageButton prev = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() - 1, ButtonSettings.UP, EnableMode.ENABLED, true);
+                    prev.visible = false;
+                    friendsPanelGlobal.addContainedButton(prev);
+                    GuiImageButton next = new GuiImageButton(playerList.xPos() + playerList.getWidth() + 2, playerList.yPos() + playerList.getHeight() - 7, ButtonSettings.DOWN, EnableMode.ENABLED, true);
+                    next.visible = false;
+                    friendsPanelGlobal.addContainedButton(next);
                 }
             }
         } else {
@@ -371,12 +383,16 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
         boolean keyCaptured = false;
         GuiTextInput guiTextInput = null;
         for (IGuiWidgetAdvanced widget : widgets) {
-            widget.keyTyped(c, key);
             if (widget instanceof IGuiWidgetContainer) {
-                keyCaptured = ((IGuiWidgetContainer) widget).getKeyCaptured();
-                if (keyCaptured) {
-                    return;
+                if (((IGuiWidgetContainer) widget).isActive()) {
+                    widget.keyTyped(c, key);
+                    keyCaptured = ((IGuiWidgetContainer) widget).getKeyCaptured();
+                    if (keyCaptured) {
+                        return;
+                    }
                 }
+            } else {
+                widget.keyTyped(c, key);
             }
         }
         for (IGuiWidgetAdvanced widget : widgets) {

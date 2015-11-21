@@ -4,9 +4,11 @@ import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.reference.References;
 import com.smithsmodding.tinystorage.network.message.*;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.common.MinecraftForge;
 
 public class PacketHandler {
 
@@ -27,5 +29,5 @@ public class PacketHandler {
 		INSTANCE.registerMessage(MessageAddFriendPaper.class, MessageAddFriendPaper.class, 10, Side.SERVER);
 		INSTANCE.registerMessage(MessageRemoveFriendPaper.class, MessageRemoveFriendPaper.class, 11, Side.SERVER);
 		INSTANCE.registerMessage(MessageSyncPlayerProperties.class, MessageSyncPlayerProperties.class, 12, Side.CLIENT);
-	}
+    }
 }
