@@ -1,5 +1,6 @@
 package com.smithsmodding.tinystorage.client.gui.widgets;
 
+import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.reference.Messages;
 import com.smithsmodding.tinystorage.common.reference.References;
 import com.smithsmodding.tinystorage.util.client.colour.Colour;
@@ -540,7 +541,7 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
         }
     }
 
-    public boolean expandButtonContains(int xPos, int yPos){
+    public boolean expandButtonContains(int xPos, int yPos) {
         return expandButton.contains(xPos, yPos);
     }
 
@@ -626,6 +627,11 @@ public class GuiTabbedPane extends Gui implements IGuiWidgetAdvanced, IWidgetToo
 
     public boolean isExpanded() {
         return expanded;
+    }
+
+    public boolean isMoving() {
+        TinyStorageLog.info(progressX + ", " + progressY);
+        return (progressX > getButtonWidth() && progressX < getWidth()) || (progressY > getButtonHeight() && progressY < getHeight());
     }
 
     /*

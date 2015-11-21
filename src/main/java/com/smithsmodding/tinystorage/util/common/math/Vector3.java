@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 /**
- * Implmentation of Vec3 taken from Botania made by Vazkii
+ * Implementation of Vec3 taken from Botania made by Vazkii
  *
  * @author Vazkii
  */

@@ -44,7 +44,6 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     private GuiTabbedPane friendsPanel;
     private GuiTabbedPane friendsPanelGlobal;
     private GuiTabbedPane currentOpenPane;
-    private GuiCharButton test;
     private TileEntityTinyStorage tileEntity;
     protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
     protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
@@ -196,9 +195,6 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
         if (this.accessMode != null) {
             this.accessMode.setVisibility(true);
         }
-        if (this.test != null) {
-            this.test.setVisibility(true);
-        }
     }
 
     @Override
@@ -263,9 +259,6 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
                 this.buttonList.add(accessMode);
             }
         }
-        this.buttonList.remove(test);
-        this.test = new GuiCharButton(this.guiLeft - 50, this.guiTop + 50, ButtonSettings.CIRCLE, EnableMode.ENABLED, '0');
-        this.buttonList.add(test);
     }
 
     @Override
@@ -284,9 +277,6 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
     protected void drawFG(int ox, int oy, int x, int y) {
         if (this.accessMode != null) {
             this.accessMode.set(this.tileEntity.accessMode);
-        }
-        if (this.test != null) {
-            this.test.set(EnableMode.ENABLED);
         }
         for (IGuiWidgetAdvanced widget : this.widgets) {
             if (widget instanceof IGuiWidgetBackground) {
@@ -332,15 +322,18 @@ public class GuiTinyStorage extends GuiContainer implements IContainerWidgetProv
                 if (widget instanceof GuiTabbedPane && ((GuiTabbedPane) widget).expandButtonContains(xCoord, yCoord)) {
                     if (currentOpenPane == null) {
                         currentOpenPane = (GuiTabbedPane) widget;
-                    } else if (currentOpenPane == widget) {
+                        widget.onMouseClick(xCoord, yCoord, btn);
+                    } else if (currentOpenPane == widget && currentOpenPane.isExpanded()) {
                         currentOpenPane = null;
+                        widget.onMouseClick(xCoord, yCoord, btn);
                     } else if (currentOpenPane != null && currentOpenPane.isExpanded()) {
                         currentOpenPane.toggleAnimation();
                         currentOpenPane = (GuiTabbedPane) widget;
+                        widget.onMouseClick(xCoord, yCoord, btn);
                     }
+                } else {
+                    widget.onMouseClick(xCoord, yCoord, btn);
                 }
-                widget.onMouseClick(xCoord, yCoord, btn);
-                TinyStorageLog.info(currentOpenPane == null);
             }
         }
         if (btn == 1) {

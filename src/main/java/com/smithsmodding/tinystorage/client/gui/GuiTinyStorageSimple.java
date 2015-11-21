@@ -27,6 +27,7 @@ public class GuiTinyStorageSimple extends GuiScreen implements IScreenWidgetProv
 
     protected List<IGuiWidgetAdvanced> widgets = new ArrayList<IGuiWidgetAdvanced>();
     protected List<IGuiAnimation> animations = new ArrayList<IGuiAnimation>();
+    private GuiTabbedPane currentOpenPane;
     protected int xSize = 176;
     protected int ySize = 166;
     private int guiLeft;
@@ -260,7 +261,21 @@ public class GuiTinyStorageSimple extends GuiScreen implements IScreenWidgetProv
     protected void mouseClicked(int xCoord, int yCoord, int btn) {
         if (!widgets.isEmpty()) {
             for (IGuiWidgetAdvanced widget : widgets) {
-                widget.onMouseClick(xCoord, yCoord, btn);
+                if (widget instanceof GuiTabbedPane && ((GuiTabbedPane) widget).expandButtonContains(xCoord, yCoord)) {
+                    if (currentOpenPane == null) {
+                        currentOpenPane = (GuiTabbedPane) widget;
+                        widget.onMouseClick(xCoord, yCoord, btn);
+                    } else if (currentOpenPane == widget && currentOpenPane.isExpanded()) {
+                        currentOpenPane = null;
+                        widget.onMouseClick(xCoord, yCoord, btn);
+                    } else if (currentOpenPane != null && currentOpenPane.isExpanded()) {
+                        currentOpenPane.toggleAnimation();
+                        currentOpenPane = (GuiTabbedPane) widget;
+                        widget.onMouseClick(xCoord, yCoord, btn);
+                    }
+                } else {
+                    widget.onMouseClick(xCoord, yCoord, btn);
+                }
             }
         }
         if (btn == 1) {
