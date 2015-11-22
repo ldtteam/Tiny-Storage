@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.References;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.implementations.TileEntityClayChest;
@@ -33,7 +34,7 @@ import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.GUIs;
 import com.smithsmodding.tinystorage.util.common.PlayerHelper;
 
-public abstract class BlockClayChest extends BlockContainer implements ITileEntityProvider {
+public abstract class BlockClayChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	boolean isLockable;
 

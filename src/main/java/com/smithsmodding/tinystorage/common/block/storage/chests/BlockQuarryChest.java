@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.block.storage.chests;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
@@ -35,7 +36,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.List;
 import java.util.Random;
 
-public class BlockQuarryChest extends BlockContainer implements ITileEntityProvider {
+public class BlockQuarryChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	public BlockQuarryChest() {
 		super(Material.rock);

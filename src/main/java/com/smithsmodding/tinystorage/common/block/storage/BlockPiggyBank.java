@@ -3,6 +3,7 @@ package com.smithsmodding.tinystorage.common.block.storage;
 import java.util.List;
 import java.util.Random;
 
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.implementations.sub.TileEntityPiggyBankMedium;
 import com.smithsmodding.tinystorage.util.common.PlayerHelper;
@@ -36,7 +37,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockPiggyBank extends BlockContainer implements ITileEntityProvider {
+public class BlockPiggyBank extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	public BlockPiggyBank() {
 		super(Material.rock);

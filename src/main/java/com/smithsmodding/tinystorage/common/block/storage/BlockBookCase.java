@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.block.storage;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.GUIs;
@@ -31,7 +32,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BlockBookCase extends BlockContainer implements ITileEntityProvider {
+public class BlockBookCase extends BlockContainerTinyStorage implements ITileEntityProvider {
 
     private String textureName;
 
