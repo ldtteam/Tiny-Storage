@@ -1,8 +1,12 @@
 package com.smithsmodding.tinystorage.client.gui.widgets;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
+import com.smithsmodding.tinystorage.common.entity.ExtendedPropertyGlobalFriends;
 import com.smithsmodding.tinystorage.common.reference.References;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
+import com.smithsmodding.tinystorage.network.message.MessageAddFriendGlobal;
+import com.smithsmodding.tinystorage.network.message.MessageRemoveFriendGlobal;
 import com.smithsmodding.tinystorage.util.client.Colours;
 import com.smithsmodding.tinystorage.network.PacketHandler;
 import com.smithsmodding.tinystorage.network.message.MessageAddFriend;
@@ -13,6 +17,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.List;
 import java.util.UUID;
@@ -59,7 +65,18 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                     }
                                 }
                             } else if (type == Type.GLOBAL) {
-
+                                ExtendedPropertyGlobalFriends playerData = ExtendedPropertyGlobalFriends.get(Minecraft.getMinecraft().thePlayer);
+                                for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                    if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
+                                        if (playerData.isFriend(id.toString(), displayedText.get(rowSelect))) {
+                                            TinyStorageLog.info("Remove global friend");
+                                            playerData.removeFriend(id, displayedText.get(rowSelect));
+                                        } else {
+                                            TinyStorageLog.info("Add global friend");
+                                            playerData.addFriend(id, displayedText.get(rowSelect));
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -136,44 +153,19 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
             guiScreen.mc.getTextureManager().bindTexture(new ResourceLocation(References.MOD_ID + ":textures/gui/guiWidgets.png"));
             i = 0;
             j = 0;
-            for (String name : textList) {
-                if (j >= displayIndex) {
-                    String dispName = renderer.trimStringToWidth(name, getWidth() - 11);
-                    if (filter != null) {
-                        if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                            if (filter.getText().isEmpty()) {
-                                this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
-                                if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
-                                    TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
-                                    for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
-                                        if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
-                                            if(type == Type.LOCAL) {
-                                                Colours.General.RED.performGLColour3f();
-                                            }else if(type == Type.GLOBAL){
-                                                Colours.General.GREEN.performGLColour3f();
-                                            }
-                                            this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
-                                            Colour.resetGLColour();
-                                        } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
-                                            Colours.General.YELLOW.performGLColour3f();
-                                            this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
-                                            Colour.resetGLColour();
-                                        }
-                                    }
-                                }
-                                i++;
-                            } else {
-                                if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
+            if (this.type == Type.LOCAL) {
+                for (String name : textList) {
+                    if (j >= displayIndex) {
+                        String dispName = renderer.trimStringToWidth(name, getWidth() - 11);
+                        if (filter != null) {
+                            if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
+                                if (filter.getText().isEmpty()) {
                                     this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                                     if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
                                         TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
                                         for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                             if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
-                                                if(type == Type.LOCAL) {
-                                                    Colours.General.RED.performGLColour3f();
-                                                }else if(type == Type.GLOBAL){
-                                                    Colours.General.GREEN.performGLColour3f();
-                                                }
+                                                Colours.General.RED.performGLColour3f();
                                                 this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                                 Colour.resetGLColour();
                                             } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
@@ -184,38 +176,100 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                         }
                                     }
                                     i++;
+                                } else {
+                                    if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
+                                        this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
+                                        if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
+                                            TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
+                                            for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                                if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                                    Colours.General.RED.performGLColour3f();
+                                                    this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                                    Colour.resetGLColour();
+                                                } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                                    Colours.General.YELLOW.performGLColour3f();
+                                                    this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                                    Colour.resetGLColour();
+                                                }
+                                            }
+                                        }
+                                        i++;
+                                    }
                                 }
                             }
-                        }
-                    } else {
-                        if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
-                            this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
-                            if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
-                                TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
-                                for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
-                                    if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
-                                        if(type == Type.LOCAL) {
+                        } else {
+                            if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
+                                this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
+                                if (widgetProvider.getTileEntity() instanceof TileEntityTinyStorage) {
+                                    TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) widgetProvider.getTileEntity();
+                                    for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                        if (tileEntity.friendsList.contains(id.toString() + TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
                                             Colours.General.RED.performGLColour3f();
-                                        }else if(type == Type.GLOBAL){
-                                            Colours.General.GREEN.performGLColour3f();
+                                            this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                            Colour.resetGLColour();
+                                        } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                            Colours.General.YELLOW.performGLColour3f();
+                                            this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                            Colour.resetGLColour();
                                         }
-                                        this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
-                                        Colour.resetGLColour();
-                                    } else if (SessionVars.getRecentFriends().contains(id) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
-                                        Colours.General.YELLOW.performGLColour3f();
+                                    }
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    j++;
+                    Colour.resetGLColour();
+                }
+            } else if (type == Type.GLOBAL) {
+                ExtendedPropertyGlobalFriends playerData = ExtendedPropertyGlobalFriends.get(Minecraft.getMinecraft().thePlayer);
+                for (String name : textList) {
+                    if (j >= displayIndex) {
+                        String dispName = renderer.trimStringToWidth(name, getWidth() - 11);
+                        if (filter != null) {
+                            if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
+                                if (filter.getText().isEmpty()) {
+                                    this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
+                                    for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                        if (playerData.isFriend(id.toString(), TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                            Colours.General.GREEN.performGLColour3f();
+                                            this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                            Colour.resetGLColour();
+                                        }
+                                    }
+                                    i++;
+                                } else {
+                                    if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
+                                        this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
+                                        for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                            if (playerData.isFriend(id.toString(), TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                                Colours.General.GREEN.performGLColour3f();
+                                                this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
+                                                Colour.resetGLColour();
+                                            }
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }
+                        } else {
+                            if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
+                                this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
+                                for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
+                                    if (playerData.isFriend(id.toString(), TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                        Colours.General.GREEN.performGLColour3f();
                                         this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                         Colour.resetGLColour();
                                     }
                                 }
+                                i++;
                             }
-                            i++;
                         }
                     }
+                    j++;
+                    Colour.resetGLColour();
                 }
-                j++;
-                Colour.resetGLColour();
             }
-            Colour.resetGLColour();
         }
     }
 }

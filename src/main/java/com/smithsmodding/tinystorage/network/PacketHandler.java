@@ -29,5 +29,7 @@ public class PacketHandler {
 		INSTANCE.registerMessage(MessageAddFriendPaper.class, MessageAddFriendPaper.class, 10, Side.SERVER);
 		INSTANCE.registerMessage(MessageRemoveFriendPaper.class, MessageRemoveFriendPaper.class, 11, Side.SERVER);
 		INSTANCE.registerMessage(MessageSyncPlayerProperties.class, MessageSyncPlayerProperties.class, 12, Side.CLIENT);
+        INSTANCE.registerMessage(MessageAddFriendGlobal.class, MessageAddFriendGlobal.class, 13, Side.SERVER);
+        INSTANCE.registerMessage(MessageRemoveFriendGlobal.class, MessageRemoveFriendGlobal.class, 14, Side.SERVER);
     }
 }

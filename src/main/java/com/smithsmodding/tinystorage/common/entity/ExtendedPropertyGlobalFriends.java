@@ -2,6 +2,8 @@ package com.smithsmodding.tinystorage.common.entity;
 
 import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
 import com.smithsmodding.tinystorage.network.PacketHandler;
+import com.smithsmodding.tinystorage.network.message.MessageAddFriendGlobal;
+import com.smithsmodding.tinystorage.network.message.MessageRemoveFriendGlobal;
 import com.smithsmodding.tinystorage.network.message.MessageSyncPlayerProperties;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -94,14 +96,19 @@ public class ExtendedPropertyGlobalFriends implements IExtendedEntityProperties 
 
     public void addFriend(UUID uuid, String playerName) {
         friendsList.add(uuid.toString() + playerName);
+        PacketHandler.INSTANCE.sendToServer(new MessageAddFriendGlobal(player.getUniqueID().toString() + player.getDisplayName(), uuid, playerName));
     }
 
     public void removeFriend(UUID uuid, String playerName) {
         friendsList.remove(uuid.toString() + playerName);
-        //TODO: Send an event/packet to all locking TEs to check whether this player is looking at any GUIs they should no longer be able to access
+        PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriendGlobal(player.getUniqueID().toString() + player.getDisplayName(), uuid, playerName));
     }
 
     public boolean isFriend(EntityPlayer player) {
         return friendsList.contains(player.getGameProfile().getId().toString() + player.getDisplayName());
+    }
+
+    public boolean isFriend(String uuid, String playerName) {
+        return friendsList.contains(uuid + playerName);
     }
 }

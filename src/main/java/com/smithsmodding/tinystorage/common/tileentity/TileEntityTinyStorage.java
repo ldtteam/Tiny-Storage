@@ -2,10 +2,15 @@ package com.smithsmodding.tinystorage.common.tileentity;
 
 import java.util.*;
 
+import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
+import com.smithsmodding.tinystorage.common.event.GlobalFriendAddedEvent;
+import com.smithsmodding.tinystorage.common.event.GlobalFriendRemovedEvent;
 import com.smithsmodding.tinystorage.common.reference.Messages;
 import com.smithsmodding.tinystorage.util.common.IOwnable;
 import com.smithsmodding.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,6 +19,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.smithsmodding.tinystorage.client.gui.widgets.settings.AccessMode;
@@ -32,9 +38,11 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     private String textureName;
     public AccessMode accessMode;
     public List<String> friendsList = new ArrayList<String>();
+    public List<String> friendsListGlobal = new ArrayList<String>();
     protected HashMap<UUID, String> accessedPlayers = new HashMap<UUID, String>();
 
     public TileEntityTinyStorage() {
+        MinecraftForge.EVENT_BUS.register(this);
         orientation = ForgeDirection.SOUTH;
         state = 0;
         customName = "";
@@ -378,6 +386,32 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
             for (int i = 0; i < tagList.tagCount(); i++) {
                 NBTTagCompound tagC = tagList.getCompoundTagAt(i);
                 friendsList.add(tagC.getString("friend"));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onGlobalFriendAdded(GlobalFriendAddedEvent event) {
+        if (this.hasUniqueOwner() && event.ownerIDSting.equals(getUniqueOwner())) {
+            this.friendsListGlobal.add(event.playerUUID.toString() + event.playerName);
+        }
+    }
+
+    @SubscribeEvent
+    public void onGlobalFriendRemoved(GlobalFriendRemovedEvent event) {
+        if (this.hasUniqueOwner() && event.ownerIDSting.equals(getUniqueOwner())) {
+            this.friendsListGlobal.remove(event.playerUUID.toString() + event.playerName);
+            if (accessedPlayers.containsKey(event.playerUUID)) {
+                for (Object o : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
+                    if (o instanceof EntityPlayer) {
+                        EntityPlayer player = (EntityPlayer) o;
+                        if (player.getGameProfile().getId().equals(event.playerUUID)) {
+                            player.closeScreen();
+                            PlayerHelper.sendChatMessage(player, StatCollector.translateToLocal(Messages.Chat.UNFRIENDED));
+                            return;
+                        }
+                    }
+                }
             }
         }
     }

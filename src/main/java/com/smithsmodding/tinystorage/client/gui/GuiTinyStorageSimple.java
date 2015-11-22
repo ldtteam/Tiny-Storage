@@ -313,12 +313,16 @@ public class GuiTinyStorageSimple extends GuiScreen implements IScreenWidgetProv
         boolean keyCaptured = false;
         GuiTextInput guiTextInput = null;
         for (IGuiWidgetAdvanced widget : widgets) {
-            widget.keyTyped(c, key);
             if (widget instanceof IGuiWidgetContainer) {
-                keyCaptured = ((IGuiWidgetContainer) widget).getKeyCaptured();
-                if (keyCaptured) {
-                    return;
+                if (((IGuiWidgetContainer) widget).isActive()) {
+                    widget.keyTyped(c, key);
+                    keyCaptured = ((IGuiWidgetContainer) widget).getKeyCaptured();
+                    if (keyCaptured) {
+                        return;
+                    }
                 }
+            } else {
+                widget.keyTyped(c, key);
             }
         }
         for (IGuiWidgetAdvanced widget : widgets) {

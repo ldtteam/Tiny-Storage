@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage.common.proxy;
 
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.common.handler.CraftingEventHandler;
+import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
