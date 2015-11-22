@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -41,7 +42,7 @@ import com.smithsmodding.tinystorage.util.common.PlayerHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockVacuumChest extends BlockContainer implements ITileEntityProvider {
+public class BlockVacuumChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	protected String textureName;
 	private boolean isLockable;

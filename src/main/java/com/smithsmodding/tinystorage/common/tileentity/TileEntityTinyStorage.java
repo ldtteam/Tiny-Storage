@@ -52,6 +52,10 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
         accessMode = AccessMode.INPUT_OUTPUT;
     }
 
+    public void onTileEntityDestroyed() {
+        MinecraftForge.EVENT_BUS.unregister(this);
+    }
+
     public void setFriendsList(NBTTagList tagList) {
         friendsList = new ArrayList<String>();
         for (int k = 0; k < tagList.tagCount(); k++) {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.GUIs;
 import com.smithsmodding.tinystorage.common.reference.Names;
@@ -34,7 +35,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockTrashChest extends BlockContainer implements ITileEntityProvider {
+public class BlockTrashChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	public BlockTrashChest() {
 		super(Material.rock);

@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage.common.block.storage.chests;
 
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.implementations.TileEntityImpossibleChest;
@@ -31,7 +32,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BlockImpossibleChest extends BlockContainer implements ITileEntityProvider {
+public class BlockImpossibleChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
     private boolean isLockable;
 

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.client.gui.widgets.settings.AccessMode;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.GUIs;
@@ -33,7 +34,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class BlockWoolChest extends BlockContainer implements ITileEntityProvider {
+public abstract class BlockWoolChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
     boolean isLockable;
 

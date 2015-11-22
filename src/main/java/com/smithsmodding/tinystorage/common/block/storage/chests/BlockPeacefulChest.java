@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
@@ -38,7 +39,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockPeacefulChest extends BlockContainer implements ITileEntityProvider {
+public class BlockPeacefulChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	public BlockPeacefulChest() {
 		super(Material.rock);

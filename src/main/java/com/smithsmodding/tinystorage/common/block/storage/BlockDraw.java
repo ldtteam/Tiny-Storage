@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.block.storage;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.util.common.PlayerHelper;
@@ -30,7 +31,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BlockDraw extends BlockContainer {
+public class BlockDraw extends BlockContainerTinyStorage {
 
     protected String textureName;
     private boolean isLockable;

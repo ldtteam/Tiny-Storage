@@ -3,6 +3,7 @@ package com.smithsmodding.tinystorage.common.block.storage.chests;
 import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.client.gui.widgets.settings.AccessMode;
@@ -32,7 +33,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockMicroChest extends BlockContainer implements ITileEntityProvider {
+public class BlockMicroChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
 	protected String textureName;
 	private boolean isLockable;

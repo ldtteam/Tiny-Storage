@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.reference.*;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.implementations.sub.TileEntityTinyChestLarge;
@@ -37,7 +38,7 @@ import com.smithsmodding.tinystorage.common.tileentity.implementations.sub.TileE
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockTinyChest extends BlockContainer implements ITileEntityProvider {
+public class BlockTinyChest extends BlockContainerTinyStorage implements ITileEntityProvider {
 
     protected String textureName;
     private boolean isLockable;
