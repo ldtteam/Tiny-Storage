@@ -3,11 +3,13 @@ package com.smithsmodding.tinystorage.common.init;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.core.UnlocalizedNameDump;
+import com.smithsmodding.tinystorage.common.entity.GlobalFriendsListRegistry;
 import com.smithsmodding.tinystorage.common.handler.ConfigurationHandler;
 import com.smithsmodding.tinystorage.common.handler.CraftingEventHandler;
 import com.smithsmodding.tinystorage.common.handler.GuiHandler;
 import com.smithsmodding.tinystorage.common.reference.References;
 import com.smithsmodding.tinystorage.network.PacketHandler;
+import com.smithsmodding.tinystorage.util.common.SerializationHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -52,10 +54,13 @@ public class TinyStorageInitaliser {
     }
 
     public static void serverStarting(FMLServerStartingEvent event) {
+        SerializationHelper.initModDataDirectories();
+        GlobalFriendsListRegistry.getInstance().loadAll();
         refreshPlayerUUIDList();
     }
 
     public static void serverStopping(FMLServerStoppingEvent event) {
+        GlobalFriendsListRegistry.getInstance().clear();
         TinyStorage.instance.playerUUIDList.clear();
         TinyStorage.instance.playerUUIDMap.clear();
     }

@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage;
 
 import com.google.common.base.Stopwatch;
 import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
+import com.smithsmodding.tinystorage.common.entity.GlobalFriendsListRegistry;
 import com.smithsmodding.tinystorage.common.init.TinyStorageInitaliser;
 import com.smithsmodding.tinystorage.common.proxy.IProxy;
 import com.smithsmodding.tinystorage.common.reference.References;
@@ -24,6 +25,7 @@ public class TinyStorage {
     public boolean developmentEnvironment;
     public List<String> playerUUIDList = new ArrayList<String>();
     public HashMap<UUID, String> playerUUIDMap = new HashMap<UUID, String>();
+    public HashMap<UUID, String> playerGlobalFriends = new HashMap<UUID, String>();
 
     @Instance(References.MOD_ID)
     public static TinyStorage instance;
@@ -83,5 +85,9 @@ public class TinyStorage {
         TinyStorageLog.info("Finished post init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms - Finally finished storing all the things!");
         TinyStorageLog.info("Loaded Tiny Storage");
         watch.stop();
+    }
+
+    public GlobalFriendsListRegistry getGlobalFriendsListRegistry() {
+        return GlobalFriendsListRegistry.getInstance();
     }
 }

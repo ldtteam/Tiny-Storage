@@ -5,8 +5,7 @@ import com.smithsmodding.tinystorage.common.block.storage.chests.BlockClayChest;
 import com.smithsmodding.tinystorage.common.block.storage.chests.BlockWoolChest;
 import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.core.VersionChecker;
-import com.smithsmodding.tinystorage.common.entity.ExtendedPropertyGlobalFriends;
-import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
+import com.smithsmodding.tinystorage.common.entity.GlobalFriendsListRegistry;
 import com.smithsmodding.tinystorage.common.reference.Messages;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.util.common.PlayerHelper;
@@ -17,7 +16,6 @@ import cpw.mods.fml.common.network.FMLNetworkEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
@@ -45,19 +43,10 @@ public class PlayerEventHandler {
                     TileEntity te = world.getTileEntity(x, y, z);
                     if (te instanceof TileEntityTinyStorage) {
                         TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) te;
-                        if (block instanceof BlockWoolChest) {
-                            if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()))) {
-                                if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
-                                    if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
-                                        world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
-                                        player.getHeldItem().stackSize--;
-                                    }
-                                }
-                            }
-                        } else if (block instanceof BlockClayChest) {
-                            if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()))) {
-                                if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
-                                    if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
+                        if (!tileEntity.hasUniqueOwner() || (tileEntity.hasUniqueOwner() && tileEntity.getUniqueOwner().equals(player.getGameProfile().getId().toString() + player.getDisplayName()))) {
+                            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemDye) {
+                                if (player.getHeldItem().getItemDamage() != world.getBlockMetadata(x, y, z)) {
+                                    if (block instanceof BlockWoolChest || block instanceof BlockClayChest) {
                                         world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
                                         player.getHeldItem().stackSize--;
                                     }
@@ -74,6 +63,20 @@ public class PlayerEventHandler {
     }
 
     @SubscribeEvent
+    public void onPlayerLoadFromFile(net.minecraftforge.event.entity.player.PlayerEvent.LoadFromFile event) {
+        if (!event.entityPlayer.worldObj.isRemote) {
+            GlobalFriendsListRegistry.getInstance().loadPlayerFromDiskIfNeeded(event.entityPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerSaveToFile(net.minecraftforge.event.entity.player.PlayerEvent.SaveToFile event) {
+        if (!event.entityPlayer.worldObj.isRemote) {
+            GlobalFriendsListRegistry.getInstance().savePlayerFriendsListToDisk(event.entityPlayer);
+        }
+    }
+
+    @SubscribeEvent
     public void playerLoggedIn(PlayerLoggedInEvent event) {
         TinyStorageLog.info("Updating player UUID list");
         EntityPlayer player = event.player;
@@ -81,6 +84,10 @@ public class PlayerEventHandler {
         if (!TinyStorage.instance.playerUUIDMap.containsKey(player.getGameProfile().getId())) {
             TinyStorage.instance.playerUUIDMap.put(player.getGameProfile().getId(), UsernameCache.getLastKnownUsername(player.getGameProfile().getId()));
             TinyStorage.instance.playerUUIDList.add(player.getGameProfile().getId().toString());
+        }
+
+        if (player != null) {
+            GlobalFriendsListRegistry.getInstance().loadPlayerFromDiskIfNeeded(player);
         }
 
         if (nagged) {
@@ -98,6 +105,9 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void playerLoggedOut(PlayerLoggedOutEvent event) {
+        if (!event.player.worldObj.isRemote) {
+            GlobalFriendsListRegistry.getInstance().unloadPlayer(event.player);
+        }
     }
 
     @SubscribeEvent
@@ -109,22 +119,13 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void onEntityConstructing(EntityEvent.EntityConstructing event) {
-        if (event.entity instanceof EntityPlayer && ExtendedPropertyGlobalFriends.get((EntityPlayer) event.entity) == null) {
-            ExtendedPropertyGlobalFriends.register((EntityPlayer) event.entity);
-        }
     }
 
     @SubscribeEvent
     public void onLivingDeathEvent(LivingDeathEvent event) {
-        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
-            ExtendedPropertyGlobalFriends.saveProxyData((EntityPlayer) event.entity);
-        }
     }
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
-            ExtendedPropertyGlobalFriends.loadProxyData((EntityPlayer) event.entity);
-        }
     }
 }
