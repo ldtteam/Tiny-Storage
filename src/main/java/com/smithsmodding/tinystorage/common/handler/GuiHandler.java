@@ -5,7 +5,7 @@ import com.smithsmodding.tinystorage.client.gui.inventory.implementations.*;
 import com.smithsmodding.tinystorage.common.inventory.implementations.*;
 import com.smithsmodding.tinystorage.common.reference.GUIs;
 import com.smithsmodding.tinystorage.common.tileentity.implementations.*;
-import com.smithsmodding.tinystorage.network.message.MessageConnectedPlayerNames;
+import com.smithsmodding.tinystorage.network.message.MessageSyncPlayerData;
 import com.smithsmodding.tinystorage.client.gui.misc.GuiFriendSetter;
 import com.smithsmodding.tinystorage.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +17,7 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement(int id, EntityPlayer entityPlayer, World world, int x, int y, int z) {
-        PacketHandler.INSTANCE.sendToAll(new MessageConnectedPlayerNames(TinyStorage.instance));
+        PacketHandler.INSTANCE.sendToAll(new MessageSyncPlayerData(TinyStorage.instance, entityPlayer.getUniqueID()));
         if (id == GUIs.TINY_CHEST.ordinal()) {
             TileEntityTinyChest tileEntityTinyChest = (TileEntityTinyChest) world.getTileEntity(x, y, z);
             return new ContainerTinyChest(entityPlayer.inventory, tileEntityTinyChest);

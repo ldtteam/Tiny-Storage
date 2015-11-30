@@ -36,5 +36,5 @@ Nightly builds (may not be stable!):
   4. Inside IDEA:
       1. Open the module settings and go to Module Dependencies
       2. Remove the extract options from all of ChickenBones mod: (CCC, CCL, NEI)
-      3. Set the Scope off al of ChickenBones mods to provided.
+      3. Set the Scope of all of ChickenBones mods to provided.
 

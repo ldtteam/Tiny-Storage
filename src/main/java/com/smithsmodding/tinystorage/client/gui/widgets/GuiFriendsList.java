@@ -1,8 +1,6 @@
 package com.smithsmodding.tinystorage.client.gui.widgets;
 
 import com.smithsmodding.tinystorage.TinyStorage;
-import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
-import com.smithsmodding.tinystorage.common.entity.ExtendedPropertyGlobalFriends;
 import com.smithsmodding.tinystorage.common.reference.References;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import com.smithsmodding.tinystorage.network.message.MessageAddFriendGlobal;
@@ -17,8 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.List;
 import java.util.UUID;
@@ -65,15 +61,14 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                     }
                                 }
                             } else if (type == Type.GLOBAL) {
-                                ExtendedPropertyGlobalFriends playerData = ExtendedPropertyGlobalFriends.get(Minecraft.getMinecraft().thePlayer);
                                 for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
                                     if (TinyStorage.instance.playerUUIDMap.get(id).equals(displayedText.get(rowSelect))) {
-                                        if (playerData.isFriend(id.toString(), displayedText.get(rowSelect))) {
-                                            TinyStorageLog.info("Remove global friend");
-                                            playerData.removeFriend(id, displayedText.get(rowSelect));
+                                        if (TinyStorage.instance.playerGlobalFriends.containsKey(id) && TinyStorage.instance.playerGlobalFriends.containsValue(displayedText.get(rowSelect))) {
+                                            //TinyStorageLog.info("Remove global friend");
+                                            PacketHandler.INSTANCE.sendToServer(new MessageRemoveFriendGlobal(Minecraft.getMinecraft().thePlayer.getUniqueID(), id));
                                         } else {
-                                            TinyStorageLog.info("Add global friend");
-                                            playerData.addFriend(id, displayedText.get(rowSelect));
+                                            //TinyStorageLog.info("Add global friend");
+                                            PacketHandler.INSTANCE.sendToServer(new MessageAddFriendGlobal(Minecraft.getMinecraft().thePlayer.getUniqueID(), id, displayedText.get(rowSelect)));
                                         }
                                     }
                                 }
@@ -222,7 +217,6 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                     Colour.resetGLColour();
                 }
             } else if (type == Type.GLOBAL) {
-                ExtendedPropertyGlobalFriends playerData = ExtendedPropertyGlobalFriends.get(Minecraft.getMinecraft().thePlayer);
                 for (String name : textList) {
                     if (j >= displayIndex) {
                         String dispName = renderer.trimStringToWidth(name, getWidth() - 11);
@@ -231,7 +225,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                 if (filter.getText().isEmpty()) {
                                     this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                                     for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
-                                        if (playerData.isFriend(id.toString(), TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                        if (TinyStorage.instance.playerGlobalFriends.containsKey(id) && name.equals(TinyStorage.instance.playerGlobalFriends.get(id))) {
                                             Colours.General.GREEN.performGLColour3f();
                                             this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                             Colour.resetGLColour();
@@ -242,7 +236,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                                     if (name.toLowerCase().contains(filter.getText().toLowerCase())) {
                                         this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                                         for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
-                                            if (playerData.isFriend(id.toString(), TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                            if (TinyStorage.instance.playerGlobalFriends.containsKey(id) && name.equals(TinyStorage.instance.playerGlobalFriends.get(id))) {
                                                 Colours.General.GREEN.performGLColour3f();
                                                 this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                                 Colour.resetGLColour();
@@ -256,7 +250,7 @@ public class GuiFriendsList extends GuiTextList.GuiTextListTabbed {
                             if ((this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1 + renderer.FONT_HEIGHT < this.height + this.yPosition) {
                                 this.drawTexturedModalRect(xPosition + getWidth() - 11, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT), 48, 0, 9, 9);
                                 for (UUID id : TinyStorage.instance.playerUUIDMap.keySet()) {
-                                    if (playerData.isFriend(id.toString(), TinyStorage.instance.playerUUIDMap.get(id)) && name.equals(TinyStorage.instance.playerUUIDMap.get(id))) {
+                                    if (TinyStorage.instance.playerGlobalFriends.containsKey(id) && name.equals(TinyStorage.instance.playerGlobalFriends.get(id))) {
                                         Colours.General.GREEN.performGLColour3f();
                                         this.drawTexturedModalRect(xPosition + getWidth() - 10, (this.yPosition + 1) + (i * renderer.FONT_HEIGHT) + 1, 57, 1, 7, 7);
                                         Colour.resetGLColour();
