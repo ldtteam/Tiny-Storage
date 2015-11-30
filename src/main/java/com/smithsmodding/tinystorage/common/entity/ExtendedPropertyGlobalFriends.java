@@ -60,10 +60,6 @@ public class ExtendedPropertyGlobalFriends implements IExtendedEntityProperties 
         PacketHandler.INSTANCE.sendTo(new MessageSyncPlayerProperties(player), (EntityPlayerMP) player);
     }
 
-    private void syncProperties() {
-
-    }
-
     @Override
     public void saveNBTData(NBTTagCompound compound) {
         if (friendsList.size() > 0) {
@@ -91,7 +87,6 @@ public class ExtendedPropertyGlobalFriends implements IExtendedEntityProperties 
 
     @Override
     public void init(Entity entity, World world) {
-
     }
 
     public void addFriend(UUID uuid, String playerName) {
