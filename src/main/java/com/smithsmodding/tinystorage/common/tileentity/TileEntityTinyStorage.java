@@ -297,7 +297,7 @@ public class TileEntityTinyStorage extends TileEntity implements IOwnable {
     }
 
     /**
-     * Used for syncning data between the client and sever
+     * Used for syncing data between the client and sever
      */
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
