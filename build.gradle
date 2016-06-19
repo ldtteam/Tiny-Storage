@@ -1,82 +1,239 @@
-
 // For those who want the bleeding edge
-buildscript {
-    repositories {
-        jcenter()
+buildscript{ 
+	repositories { 
+		jcenter()
+		maven {
+			name = "forge" 
+			url = "http://files.minecraftforge.net/maven"
+		}
         maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-    }
-}
-apply plugin: 'net.minecraftforge.gradle.forge'
+ 	} 
+	dependencies { 
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT' 
+	} 
+} 
 
-/*
-// for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+//Buildscript: Armory
+// Load the properties of this project.
+ext.configFile = file "build.properties"
+
+//Reference the properties inside the project:
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
 }
-*/
-version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+
+//Date formatting helper function
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('dd-MM-yyyy : hh:mm:ss')
+    return formattedDate
+}
+
+def build_mode = config.build_mode
+
+//These configurations are needed for uploading to a MavenRepo:
+configurations {
+    deployerJars
+}
+
+//Initializing the mod environment
+version = config.mod_version.toString() + "-" + System.getenv().TRAVIS_BUILD_NUMBER.toString()
+def apiversion = config.api_version.toString() + "-" + System.getenv().TRAVIS_BUILD_NUMBER.toString()
+
+if(System.getenv().TRAVIS_BRANCH.toString().contains("Development"))
+{
+    version = version + "-SNAPSHOT"
+    apiversion = apiversion + "-SNAPSHOT"
+}
+if(System.getenv().TRAVIS_BRANCH.toString().toLowerCase().contains("master") && config.build_mode.toString().trim().equals("RELEASE"))
+{
+	version = version + "-RC"
+    apiversion = apiversion + "-RC"
+}
+
+group = "com.smithsmodding.tinystorage"
+archivesBaseName = "tinystorage"
 
 minecraft {
-    version = "1.9.4-12.17.0.1968"
+    version = config.minecraft_version+ "-" + config.forge_version
     runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not allways work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20160518"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    mappings = "snapshot_20160312"
+
+    //Replacing stuff inside the code:
+    replace "@VERSION@", project.version
+    replace "@MCVERSION@", config.minecraft_version
+    replace "@APIVERSION@", apiversion
 }
 
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+	//Mod dependencies
 
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    //Maven uploader
+    deployerJars 'org.apache.maven.wagon:wagon-ftp:2.8'
 }
 
+sourceSets {
+    main {
+        java { 
+            srcDir 'src' 
+        }
+        resources {
+            srcDir 'resources'
+        }
+    }
+}
+
+//This will process all the resources used during build, and needed for running the project
 processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+        {
+            //Replaces stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+                // replace version and mcversion
+                expand 'version':project.version, 'mcversion':project.minecraft.version
+            }
+
+            //Copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+            exclude '**/Thumbs.db'
+        }
+
+jar {
+    manifest {
+        attributes 'FMLAT': 'SmithsCore_at.cfg'
     }
 }
+
+task devJar(type: Jar, dependsOn: 'classes') {
+    from(sourceSets.main.output) {
+        include '**'
+    }
+
+    extension = 'jar'
+    classifier "dev"
+}
+
+task javadocJar(type: Jar, dependsOn: 'javadoc') {
+    from "build/docs/javadoc"
+    classifier "javadoc"
+}
+
+artifacts {
+    archives devJar
+    archives javadocJar
+}
+
+//Function to upload completed project to the maven repo.
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployerJars
+        if (System.getenv().TRAVIS_BRANCH.toString().contains("Development")) {
+            snapshotRepository(url: "ftp://mavenrepo.tinystorage.orionminecraft.com") {
+                authentication(userName: "mavenrepo.tinystorage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+            }
+        } else {
+            repository(url: "ftp://mavenrepo.tinystorage.orionminecraft.com") {
+                authentication(userName: "mavenrepo.tinystorage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+            }
+        }
+
+        pom {
+            groupId = project.group
+            version = project.version
+            artifactId = project.archivesBaseName
+        }
+
+        pom.project {
+            name project.archivesBaseName
+            packaging 'jar'
+            description 'smithscore'
+            url 'https://github.com/smithsmodding/tiny-storage'
+
+            scm {
+                url 'https://github.com/smithsmodding/tiny-storage'
+                connection 'scm:git:git://github.com/smithsmodding/tiny-storage.git'
+                developerConnection 'scm:git:git@github.com/smithsmodding/tiny-storage.git'
+            }
+
+            issueManagement {
+                system 'github'
+                url 'https://github.com/smithsmodding/tiny-storage/issues'
+            }
+
+            developers {
+                developer {
+                    id 'OrionDevelopment'
+                    name 'Orion'
+                    roles {
+                        role 'developer'
+                    }
+                }
+			developer {
+                    id 'TimtheBrick'
+                    name 'Tim'
+                    roles {
+                        role 'developer'
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+//Task to synchronise two github branches.
+task('createGithubBranches') << {
+
+    if ((System.getenv().TRAVIS_BRANCH.toString().contains("Development")) && (build_mode.toString().trim().equals("RELEASE"))) {
+        logger.lifecycle("Uploading code to the corresponding Minecraft version branch. Creating branch if needed.")
+        logger.lifecycle("Creating local branch.")
+        //Creates/Or checks out the new local branch.
+        def createLocalBranchCMD = "git checkout -b Minecraft-" + config.minecraft_version.toString()
+        def createLocalProg = createLocalBranchCMD.execute();
+        createLocalProg.waitFor()
+
+        //Adds a tag to the minecraft version specific branch for the version number.
+        logger.lifecycle("Adding version tag.")
+        def addTagCMD = "git -a Version[" + version + "] -m 'Autobuild by Travis CI. Build on: " + getDate() + ".'"
+        def addTagProg = addTagCMD.execute()
+        addTagProg.waitFor()
+
+        logger.lifecycle("Uploading force push to repo.")
+        def setUrlCMD = "git config remote.origin.url https://" + System.getenv().GitUsername.toString() + ":" + System.getenv().GitPassword.toString() + "@github.com/smithsmodding/smithscore"
+        def setURLProg = setUrlCMD.execute()
+        setURLProg.waitFor()
+
+        def cmd = "git push origin -f Minecraft-" + config.minecraft_version.toString()
+        def prog = cmd.execute()
+        prog.waitFor()
+
+        logger.lifecycle("Mirrored the code the corresponding minecraft version branch. Current MC Version: " + config.minecraft_version.toString() + ". Branch name: Minecraft-" + config.minecraft_version.toString() + ".")
+    } else {
+        logger.lifecycle("The sync of the branches is not being executed, because we are not releasing a new version.")
+    }
+
+}
+
+//The external task that executes the uploadAtchives function.
+task('uploadJars', dependsOn: uploadArchives) {
+    description = "uploads JARs"
+}
+
+
