@@ -1,7 +1,6 @@
 package com.smithsmodding.tinystorage.common.tileentity;
 
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
-import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
@@ -25,11 +24,6 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     }
 
     @Override
-    public Coordinate3D getLocation() {
-        return null;
-    }
-
-    @Override
     public LinkedHashMap<String, IModule> getInstalledModules() {
         return getState().getInstalledModules();
     }
@@ -37,7 +31,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     @Override
     public void installModule(IModule module) {
         if (!getState().getInstalledModules().containsKey(module.getUniqueID())
-                && getModuleCount() + 1 <= getModuleCount() && module.canInstall(this)) {
+                && getModuleCount() + 1 <= getModuleLimit() && module.canInstall(this)) {
             getState().getInstalledModules().put(module.getUniqueID(), module);
             module.onInstalled();
         }
