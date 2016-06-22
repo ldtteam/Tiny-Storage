@@ -26,7 +26,7 @@ public interface IModularChest extends IItemStorage {
     Coordinate3D getLocation();
 
     /**
-     * Method to get the installed TileEntities on the Chest.
+     * Method to get the installed modules on the Chest.
      *
      * @return The installed modules
      */
@@ -38,4 +38,14 @@ public interface IModularChest extends IItemStorage {
      * @param module The new module you want to install.
      */
     void installModule(IModule module);
+
+    /**
+     * @return The number of modules that can be installed in a given chest
+     */
+    int getModuleLimit();
+
+    /**
+     * @return The number of modules installed in the chest
+     */
+    int getModuleCount();
 }
