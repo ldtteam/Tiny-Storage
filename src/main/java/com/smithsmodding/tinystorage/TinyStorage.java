@@ -3,10 +3,11 @@ package com.smithsmodding.tinystorage;
 import com.google.common.base.Stopwatch;
 import com.smithsmodding.tinystorage.common.init.TinyStorageInitialiser;
 import com.smithsmodding.tinystorage.common.proxy.IProxy;
-import com.smithsmodding.tinystorage.common.reference.References;
+import com.smithsmodding.tinystorage.api.reference.References;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,5 +84,10 @@ public class TinyStorage {
         logger.info("Finished post init after: " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms");
         logger.info("Loaded Tiny Storage");
         watch.stop();
+    }
+
+    @SubscribeEvent
+    public void loadComplete(FMLLoadCompleteEvent event) {
+
     }
 }

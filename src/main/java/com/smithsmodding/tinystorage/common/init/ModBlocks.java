@@ -1,6 +1,6 @@
 package com.smithsmodding.tinystorage.common.init;
 
-import com.smithsmodding.tinystorage.common.reference.References;
+import com.smithsmodding.tinystorage.api.reference.References;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
