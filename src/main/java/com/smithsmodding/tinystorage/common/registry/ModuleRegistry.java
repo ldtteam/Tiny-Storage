@@ -38,7 +38,12 @@ public class ModuleRegistry implements IModuleRegistry {
             builders.put(moduleID, factory);
 
             try {
-                baseModuleList.add(factory.buildModule(moduleID));
+                IModule module = factory.buildModule(moduleID);
+
+                if (!module.getUniqueID().equals(moduleID))
+                    throw new ModuleRegistrationException("Pre-Build Module for ID: " + moduleID + " does not have to correct ID", factory, module, moduleID);
+
+                baseModuleList.add(module);
             } catch (ModuleConstructionException moduleOnknownException) {
                 throw new ModuleRegistrationException("The given factory did not know a module it was supposed to be able to build: " + moduleID, moduleOnknownException, factory, null, moduleID);
             } catch (Exception ex) {
