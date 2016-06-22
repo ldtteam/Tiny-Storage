@@ -1,6 +1,8 @@
 package com.smithsmodding.tinystorage.common.tileentity;
 
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
+import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
@@ -17,6 +19,18 @@ import java.util.LinkedHashMap;
 public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModularChest, ITickable {
 
     private HashMap<String, IModule> installedModules = new LinkedHashMap<>();
+
+    /**
+     * Constructor to create a new tileentity for a smithscore Mod.
+     * <p>
+     * Handles the setting of the core system values like the state, and the GUIManager.
+     *
+     * @param initialState The TE state that gets set on default when a new Instance is created.
+     * @param manager      The GUIManager that handles interactins with events comming from UI's
+     */
+    protected TileEntityTinyStorage(ITileEntityState initialState, IGUIManager manager) {
+        super(initialState, manager);
+    }
 
     @Override
     public Coordinate3D getLocation() {
