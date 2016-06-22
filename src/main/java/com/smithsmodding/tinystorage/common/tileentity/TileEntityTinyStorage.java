@@ -18,16 +18,6 @@ import java.util.LinkedHashMap;
  */
 public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModularChest, ITickable {
 
-    private HashMap<String, IModule> installedModules = new LinkedHashMap<>();
-
-    /**
-     * Constructor to create a new tileentity for a smithscore Mod.
-     * <p>
-     * Handles the setting of the core system values like the state, and the GUIManager.
-     *
-     * @param initialState The TE state that gets set on default when a new Instance is created.
-     * @param manager      The GUIManager that handles interactins with events comming from UI's
-     */
     protected TileEntityTinyStorage(ITileEntityState initialState, IGUIManager manager) {
         super(initialState, manager);
     }
@@ -39,7 +29,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public LinkedHashMap<String, IModule> getInstalledModules() {
-        return (LinkedHashMap) installedModules;
+        return ((TileEntityTinyStorageState) getState()).getInstalledModules();
     }
 
     @Override
@@ -53,7 +43,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public int getModuleCount() {
-        return installedModules.size();
+        return ((TileEntityTinyStorageState) getState()).getInstalledModules().size();
     }
 
     @Override
