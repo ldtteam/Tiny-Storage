@@ -225,7 +225,7 @@ uploadArchives {
 //Task to synchronise two github branches.
 task('createGithubBranches') << {
 
-    if ((System.getenv().TRAVIS_BRANCH.toString().contains("Development")) && (build_mode.toString().trim().equals("RELEASE"))) {
+    if ((System.getenv().TRAVIS_BRANCH.toString().contains("Dev")) && (build_mode.toString().trim().equals("RELEASE"))) {
         logger.lifecycle("Uploading code to the corresponding Minecraft version branch. Creating branch if needed.")
         logger.lifecycle("Creating local branch.")
         //Creates/Or checks out the new local branch.
