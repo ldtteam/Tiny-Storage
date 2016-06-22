@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModularChest, ITickable {
 
-    protected TileEntityTinyStorage(IGUIManager manager) {
+    public TileEntityTinyStorage(IGUIManager manager) {
         super(new TileEntityTinyStorageState(), manager);
     }
 
