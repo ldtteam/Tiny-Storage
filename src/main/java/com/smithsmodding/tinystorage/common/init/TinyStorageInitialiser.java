@@ -1,8 +1,10 @@
 package com.smithsmodding.tinystorage.common.init;
 
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.common.handler.GuiHandler;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 /**
  * Created by Tim on 22/06/2016.
@@ -28,6 +30,7 @@ public class TinyStorageInitialiser {
     }
 
     public static void init(FMLInitializationEvent event) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(TinyStorage.instance, new GuiHandler());
         TinyStorage.instance.proxy.initRenderingAndTextures();
     }
 
