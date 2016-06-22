@@ -4,6 +4,7 @@ import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.LinkedHashMap;
 
@@ -13,25 +14,25 @@ import java.util.LinkedHashMap;
 public class TileEntityTinyStorageState implements ITileEntityState {
 
     private LinkedHashMap<String, IModule> installedModules;
+    private int moduleLimit;
 
     @Override
     public void onStateCreated(TileEntitySmithsCore tileEntitySmithsCore) {
         installedModules = new LinkedHashMap<>();
+        moduleLimit = 0;
     }
 
     @Override
     public void onStateUpdated() {
-
     }
 
     @Override
     public void onStateDestroyed() {
-
     }
 
     @Override
     public boolean requiresNBTStorage() {
-        return false;
+        return true;
     }
 
     @Override
@@ -41,12 +42,14 @@ public class TileEntityTinyStorageState implements ITileEntityState {
 
     @Override
     public NBTBase writeToNBTTagCompound() {
-        return null;
+        NBTTagCompound tagCompound = new NBTTagCompound();
+        tagCompound.setInteger("moduleLimit", moduleLimit);
+        return tagCompound;
     }
 
     @Override
     public boolean requiresSynchronization() {
-        return false;
+        return true;
     }
 
     @Override
@@ -61,5 +64,9 @@ public class TileEntityTinyStorageState implements ITileEntityState {
 
     public LinkedHashMap<String, IModule> getInstalledModules() {
         return installedModules;
+    }
+
+    public int getModuleLimit() {
+        return moduleLimit;
     }
 }

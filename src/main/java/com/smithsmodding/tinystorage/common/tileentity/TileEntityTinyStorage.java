@@ -12,6 +12,8 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Tim on 22/06/2016.
@@ -34,7 +36,8 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public void installModule(IModule module) {
-        if (!((TileEntityTinyStorageState) getState()).getInstalledModules().containsKey(module.getUniqueID()) && getModuleCount() + 1 <= getModuleCount()) {
+        if (!((TileEntityTinyStorageState) getState()).getInstalledModules().containsKey(module.getUniqueID())
+                && getModuleCount() + 1 <= getModuleCount() && module.canInstall(this)) {
             ((TileEntityTinyStorageState) getState()).getInstalledModules().put(module.getUniqueID(), module);
             module.onInstalled();
         }
@@ -85,6 +88,9 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public void update() {
+        for (Map.Entry<String, IModule> moduleSet : ((TileEntityTinyStorageState) getState()).getInstalledModules().entrySet()) {
+            moduleSet.getValue().onTileEntityUpdate(this);
+        }
     }
 
     @Override
