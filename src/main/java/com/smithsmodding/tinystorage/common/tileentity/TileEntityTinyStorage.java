@@ -1,10 +1,10 @@
 package com.smithsmodding.tinystorage.common.tileentity;
 
+import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 
@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by Tim on 22/06/2016.
  */
-public class TileEntityTinyStorage extends TileEntity implements IModularChest, ITickable {
+public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModularChest, ITickable {
 
     private HashMap<String, IModule> installedModules = new LinkedHashMap<>();
 
@@ -91,6 +91,11 @@ public class TileEntityTinyStorage extends TileEntity implements IModularChest, 
 
     @Override
     public ITextComponent getDisplayName() {
+        return null;
+    }
+
+    @Override
+    public String getContainerID() {
         return null;
     }
 }
