@@ -5,7 +5,6 @@ import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import net.minecraft.nbt.NBTBase;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
