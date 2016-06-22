@@ -27,25 +27,24 @@ public class ModuleRegistry implements IModuleRegistry {
     LinkedHashMap<String, IModuleFactory> builders = new LinkedHashMap<>();
     ArrayList<IModule> baseModuleList = new ArrayList<>();
 
-    private ModuleRegistry () {}
+    private ModuleRegistry() {
+    }
 
     @Override
     public void registerModuleFactory(IModuleFactory factory) throws ModuleRegistrationException {
-        for(String moduleID : factory.getBuildableModules()) {
-            if (builders.containsKey(moduleID))
+        for (String moduleID : factory.getBuildableModules()) {
+            if (builders.containsKey(moduleID)) {
                 throw new ModuleRegistrationException("Failed to register a new ModuleFactory for module: " + moduleID + " it is already Registered.", builders.get(moduleID), builders.get(moduleID).buildModule(moduleID), moduleID);
-
+            }
             builders.put(moduleID, factory);
-
             try {
                 IModule module = factory.buildModule(moduleID);
-
-                if (!module.getUniqueID().equals(moduleID))
+                if (!module.getUniqueID().equals(moduleID)) {
                     throw new ModuleRegistrationException("Pre-Build Module for ID: " + moduleID + " does not have to correct ID", factory, module, moduleID);
-
+                }
                 baseModuleList.add(module);
-            } catch (ModuleConstructionException moduleOnknownException) {
-                throw new ModuleRegistrationException("The given factory did not know a module it was supposed to be able to build: " + moduleID, moduleOnknownException, factory, null, moduleID);
+            } catch (ModuleConstructionException moduleUnknownException) {
+                throw new ModuleRegistrationException("The given factory did not know a module it was supposed to be able to build: " + moduleID, moduleUnknownException, factory, null, moduleID);
             } catch (Exception ex) {
                 throw new ModuleRegistrationException("Failed to pre-build a Module for ID: " + moduleID, ex, factory, null, moduleID);
             }
@@ -59,7 +58,6 @@ public class ModuleRegistry implements IModuleRegistry {
         } catch (Exception ex) {
             TinyStorage.getLogger().error(new Exception("Failed to build a Module for a given ID", ex));
         }
-
         return null;
     }
 
