@@ -1,5 +1,8 @@
 package com.smithsmodding.tinystorage.api.common.registries;
 
+import com.google.common.collect.ImmutableList;
+import com.smithsmodding.tinystorage.api.common.exception.ModuleRegistrationException;
+import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 
 import java.util.LinkedHashMap;
@@ -9,10 +12,26 @@ import java.util.LinkedHashMap;
  */
 public interface IModuleRegistry {
 
-    void registerNewModule(IModule module);
+    /**
+     * Method to register a new module Factory.
+     *
+     * @param factory The new module Factory.
+     * @throws ModuleRegistrationException Thrown when there is an IModuleFactory that already can build a specific Module.
+     */
+    void registerModuleFactory(IModuleFactory factory) throws ModuleRegistrationException;
 
-    IModule getModule(String uniqueID);
+    /**
+     * Method to get a new instance for a given ModuleId;
+     *
+     * @param Id The id of the module requested.
+     * @return A new instance of a IModule that corresponds to the given ID.
+     */
+    IModule getModule(String Id);
 
-    LinkedHashMap<String, IModule> getAllRegisteredModules();
-
+    /**
+     * Method to get all buildable Modules registered to this Factory.
+     *
+     * @return A list of all the buildable Modules.
+     */
+    ImmutableList<IModule> getAllBuildableModules();
 }

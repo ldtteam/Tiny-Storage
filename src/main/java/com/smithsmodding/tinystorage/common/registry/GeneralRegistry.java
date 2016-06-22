@@ -13,7 +13,7 @@ public class GeneralRegistry implements ITinyStorageAPI {
     private static GeneralRegistry instance = new GeneralRegistry();
 
     public LinkedHashMap<String, String> IMCRequests = new LinkedHashMap<>();
-    private IModuleRegistry moduleRegistry = new ModuleRegistry();
+    private IModuleRegistry moduleRegistry = ModuleRegistry.getInstance();
 
     public static GeneralRegistry instance() {
         if (GeneralRegistry.instance == null)
