@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage;
 
 import com.google.common.base.Stopwatch;
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.common.core.TinyStorageLog;
 import com.smithsmodding.tinystorage.common.init.TinyStorageInitialiser;
 import com.smithsmodding.tinystorage.common.proxy.IProxy;
 import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Tim on 19/06/2016.
  */
-@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION)
+@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, dependencies = "required-after:SmithsCore;")
 public class TinyStorage {
 
     //Instance of the mod used for internal things
@@ -29,11 +30,11 @@ public class TinyStorage {
     //Current loaded side
     public static Side side;
     //Logger
-    private static Logger logger = LogManager.getLogger(References.MOD_ID);
+    private static TinyStorageLog logger = new TinyStorageLog();
     //Are we in a development environment?
     public boolean developmentEnvironment;
 
-    public static Logger getLogger() {
+    public static TinyStorageLog getLogger() {
         return logger;
     }
 
@@ -88,6 +89,7 @@ public class TinyStorage {
 
     @Mod.EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {
+        logger.info("FML Load Complete");
         proxy.registerIMCs();
     }
 

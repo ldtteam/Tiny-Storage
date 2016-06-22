@@ -28,10 +28,6 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void registerIMCs() {
-    }
-
-    @Override
     public void registerEventHandlers() {
     }
 
