@@ -34,6 +34,10 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public void installModule(IModule module) {
+        if (!((TileEntityTinyStorageState) getState()).getInstalledModules().containsKey(module.getUniqueID())) {
+            ((TileEntityTinyStorageState) getState()).getInstalledModules().put(module.getUniqueID(), module);
+            module.onInstalled();
+        }
     }
 
     @Override
