@@ -169,12 +169,12 @@ uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
         if (System.getenv().TRAVIS_BRANCH.toString().contains("Development")) {
-            snapshotRepository(url: "ftp://mavenrepo.tinystorage.orionminecraft.com") {
-                authentication(userName: "mavenrepo.tinystorage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+            snapshotRepository(url: "ftp://mavenrepo.tiny-storage.orionminecraft.com") {
+                authentication(userName: "mavenrepo.tiny-storage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
             }
         } else {
-            repository(url: "ftp://mavenrepo.tinystorage.orionminecraft.com") {
-                authentication(userName: "mavenrepo.tinystorage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
+            repository(url: "ftp://mavenrepo.tiny-storage.orionminecraft.com") {
+                authentication(userName: "mavenrepo.tiny-storage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
             }
         }
 
