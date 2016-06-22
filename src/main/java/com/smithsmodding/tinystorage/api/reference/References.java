@@ -11,4 +11,6 @@ public class References {
     public static final String API_VERSION = "@APIVERSION@";
     public static final String SERVER_PROXY_CLASS = "com.smithsmodding.tinystorage.common.proxy.ServerProxy";
     public static final String CLIENT_PROXY_CLASS = "com.smithsmodding.tinystorage.common.proxy.ClientProxy";
+
+    public static final String TE = "TinyStorage.TE.General";
 }

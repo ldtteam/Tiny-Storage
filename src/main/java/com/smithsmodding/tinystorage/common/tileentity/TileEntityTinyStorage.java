@@ -1,10 +1,12 @@
 package com.smithsmodding.tinystorage.common.tileentity;
 
+import com.smithsmodding.smithscore.common.inventory.IItemStorage;
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
+import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.tileentity.guimanager.GuiManagerTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.state.TileEntityTinyStorageState;
 import net.minecraft.item.ItemStack;
@@ -65,34 +67,90 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public ItemStack getStackInSlot(int index) {
+        for(IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+
+                if (index < storageModule.getSizeInventory())
+                    return storageModule.getStackInSlot(index);
+
+                index -= storageModule.getSizeInventory();
+            }
+        }
+
         return null;
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
+        for(IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+
+                if (index < storageModule.getSizeInventory())
+                    return storageModule.decrStackSize(index, count);
+
+                index -= storageModule.getSizeInventory();
+            }
+        }
+
         return null;
     }
 
     @Override
     public void clearInventory() {
-        for (Map.Entry<String, IModule> moduleSet : getState().getInstalledModules().entrySet()) {
-            if (moduleSet.getValue() instanceof IStorageModule) {
-                ((IStorageModule) moduleSet.getValue()).clearInventory();
+        for(IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+
+                storageModule.clearInventory();
             }
         }
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
+        for(IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+
+                if (index < storageModule.getSizeInventory())
+                    storageModule.setInventorySlotContents(index, stack);
+
+                index -= storageModule.getSizeInventory();
+            }
+        }
     }
 
     @Override
     public int getInventoryStackLimit() {
-        return 64;
+        int sum = 0;
+
+        for(IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+
+                sum += storageModule.getInventoryStackLimit();
+            }
+        }
+
+        return sum;
     }
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
+        for(IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+
+                if (index < storageModule.getSizeInventory())
+                    return storageModule.isItemValidForSlot(index, stack);
+
+                index -= storageModule.getSizeInventory();
+            }
+        }
+
+
         return false;
     }
 
@@ -120,6 +178,6 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public String getContainerID() {
-        return null;
+        return References.TE + "-" + getLocation().toString();
     }
 }
