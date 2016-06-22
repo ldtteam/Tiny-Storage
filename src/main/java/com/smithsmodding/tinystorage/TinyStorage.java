@@ -1,13 +1,13 @@
 package com.smithsmodding.tinystorage;
 
 import com.google.common.base.Stopwatch;
+import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.init.TinyStorageInitialiser;
 import com.smithsmodding.tinystorage.common.proxy.IProxy;
-import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,8 +86,21 @@ public class TinyStorage {
         watch.stop();
     }
 
-    @SubscribeEvent
+    @Mod.EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {
+        proxy.registerIMCs();
+    }
 
+    @Mod.EventHandler
+    public void IMCEvent(FMLInterModComms.IMCEvent event) {
+        for (FMLInterModComms.IMCMessage imcMessage : event.getMessages()) {
+            if (!imcMessage.isStringMessage()) {
+                continue;
+            }
+            if (imcMessage.key.equalsIgnoreCase("register")) {
+                logger.info(String.format("Receiving registration request from [ %s ] for method %s", imcMessage.getSender(), imcMessage.getStringValue()));
+                GeneralRegistry.instance().addIMCRequest(imcMessage.getStringValue(), imcMessage.getSender());
+            }
+        }
     }
 }
