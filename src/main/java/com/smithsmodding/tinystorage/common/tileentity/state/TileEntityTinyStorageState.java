@@ -3,6 +3,7 @@ package com.smithsmodding.tinystorage.common.tileentity.state;
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
+import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -44,7 +45,9 @@ public class TileEntityTinyStorageState implements ITileEntityState {
             moduleLimit = tagCompound.getInteger("moduleLimit");
             for (int i = 0; i < tagCompound.getInteger("moduleCount"); i++) {
                 NBTTagCompound moduleTag = tagCompound.getCompoundTag("module-" + i);
-                //TODO: Construct blank module from module registry and load this from NBT
+                IModule module = GeneralRegistry.instance().getModuleRegistry().getModule(moduleTag.getString("moduleID"));
+                module.loadFromNBT(moduleTag.getCompoundTag("moduleData"));
+                installedModules.put(module.getUniqueID(), module);
             }
         } else {
             moduleLimit = 0;
