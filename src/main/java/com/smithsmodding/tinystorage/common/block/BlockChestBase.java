@@ -23,6 +23,6 @@ public class BlockChestBase extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityTinyStorage(null);
+        return new TileEntityTinyStorage();
     }
 }

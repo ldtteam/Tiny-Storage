@@ -1,27 +1,26 @@
 package com.smithsmodding.tinystorage.common.tileentity;
 
-import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
-import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
+import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
+import com.smithsmodding.tinystorage.common.tileentity.guimanager.GuiManagerTinyStorage;
+import com.smithsmodding.tinystorage.common.tileentity.state.TileEntityTinyStorageState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Tim on 22/06/2016.
  */
-public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModularChest, ITickable {
+public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinyStorageState, GuiManagerTinyStorage> implements IModularChest, ITickable {
 
-    public TileEntityTinyStorage(IGUIManager manager) {
-        super(new TileEntityTinyStorageState(), manager);
+    public TileEntityTinyStorage() {
+        super(new TileEntityTinyStorageState(), new GuiManagerTinyStorage());
     }
 
     @Override
@@ -31,31 +30,37 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public LinkedHashMap<String, IModule> getInstalledModules() {
-        return ((TileEntityTinyStorageState) getState()).getInstalledModules();
+        return getState().getInstalledModules();
     }
 
     @Override
     public void installModule(IModule module) {
-        if (!((TileEntityTinyStorageState) getState()).getInstalledModules().containsKey(module.getUniqueID())
+        if (!getState().getInstalledModules().containsKey(module.getUniqueID())
                 && getModuleCount() + 1 <= getModuleCount() && module.canInstall(this)) {
-            ((TileEntityTinyStorageState) getState()).getInstalledModules().put(module.getUniqueID(), module);
+            getState().getInstalledModules().put(module.getUniqueID(), module);
             module.onInstalled();
         }
     }
 
     @Override
     public int getModuleLimit() {
-        return 0;
+        return getState().getModuleLimit();
     }
 
     @Override
     public int getModuleCount() {
-        return ((TileEntityTinyStorageState) getState()).getInstalledModules().size();
+        return getState().getInstalledModules().size();
     }
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        int invSize = 0;
+        for (Map.Entry<String, IModule> moduleSet : getState().getInstalledModules().entrySet()) {
+            if (moduleSet.getValue() instanceof IStorageModule) {
+                invSize += ((IStorageModule) moduleSet.getValue()).getSizeInventory();
+            }
+        }
+        return invSize;
     }
 
     @Override
@@ -70,6 +75,11 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public void clearInventory() {
+        for (Map.Entry<String, IModule> moduleSet : getState().getInstalledModules().entrySet()) {
+            if (moduleSet.getValue() instanceof IStorageModule) {
+                ((IStorageModule) moduleSet.getValue()).clearInventory();
+            }
+        }
     }
 
     @Override
@@ -78,7 +88,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public int getInventoryStackLimit() {
-        return 0;
+        return 64;
     }
 
     @Override
@@ -88,7 +98,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModu
 
     @Override
     public void update() {
-        for (Map.Entry<String, IModule> moduleSet : ((TileEntityTinyStorageState) getState()).getInstalledModules().entrySet()) {
+        for (Map.Entry<String, IModule> moduleSet : getState().getInstalledModules().entrySet()) {
             moduleSet.getValue().onTileEntityUpdate(this);
         }
     }

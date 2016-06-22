@@ -1,4 +1,4 @@
-package com.smithsmodding.tinystorage.common.tileentity;
+package com.smithsmodding.tinystorage.common.tileentity.state;
 
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
