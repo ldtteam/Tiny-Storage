@@ -18,8 +18,8 @@ import java.util.LinkedHashMap;
  */
 public class TileEntityTinyStorage extends TileEntitySmithsCore implements IModularChest, ITickable {
 
-    protected TileEntityTinyStorage(ITileEntityState initialState, IGUIManager manager) {
-        super(initialState, manager);
+    protected TileEntityTinyStorage(IGUIManager manager) {
+        super(new TileEntityTinyStorageState(), manager);
     }
 
     @Override
