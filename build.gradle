@@ -168,7 +168,7 @@ artifacts {
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
-        if (System.getenv().TRAVIS_BRANCH.toString().contains("Development")) {
+        if (System.getenv().TRAVIS_BRANCH.toString().contains("Dev")) {
             snapshotRepository(url: "ftp://mavenrepo.tiny-storage.orionminecraft.com") {
                 authentication(userName: "mavenrepo.tiny-storage.orionminecraft.com|" + System.getenv().FTPUserName.toString(), password: System.getenv().FTPPassword.toString())
             }
