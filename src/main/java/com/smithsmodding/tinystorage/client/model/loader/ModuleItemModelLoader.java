@@ -40,12 +40,13 @@ public class ModuleItemModelLoader implements ICustomModelLoader {
 
     @Override
     public boolean accepts(ResourceLocation modelLocation) {
-        if (!modelLocation.getResourcePath().endsWith(EXTENSION)) return false;
-
+        if (!modelLocation.getResourcePath().endsWith(EXTENSION)) {
+            return false;
+        }
         for (String domain : acceptedDomains)
-            if (modelLocation.getResourceDomain().toLowerCase().equals(domain))
+            if (modelLocation.getResourceDomain().toLowerCase().equals(domain)) {
                 return true;
-
+            }
         return false;
     }
 
@@ -54,7 +55,6 @@ public class ModuleItemModelLoader implements ICustomModelLoader {
         if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
             return DummyModel.INSTANCE;
         }
-
         modelLocation = ModelHelper.getModelLocation(modelLocation);
 
         MultiComponentModelDefinition definition = MultiComponentModelDeserializer.instance.deserialize(modelLocation);
@@ -68,7 +68,7 @@ public class ModuleItemModelLoader implements ICustomModelLoader {
         texureBuilder.putAll(definition.getTextureLocations());
         transformationBuilder.putAll(definition.getTransforms());
 
-        for(MultiComponentModelDefinition additionDefinition : event.getAdditionalDefinitions()) {
+        for (MultiComponentModelDefinition additionDefinition : event.getAdditionalDefinitions()) {
             texureBuilder.putAll(additionDefinition.getTextureLocations());
             transformationBuilder.putAll(additionDefinition.getTransforms());
         }

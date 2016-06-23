@@ -1,9 +1,9 @@
 {
   "parent": "item/generated",
   "components": {
-    "default": "minecraft:items/egg",
-    "tinystorage:storage:small": "minecraft:missing",
-    "tinystorage:storage:medium": "minecraft:missing",
-    "tinystorage:storage:large": "minecraft:missing"
+    "default": "tinystorage:items/storageComponentSmall",
+    "tinystorage:storage:small": "tinystorage:items/storageComponentSmall",
+    "tinystorage:storage:medium": "tinystorage:items/storageComponentMedium",
+    "tinystorage:storage:large": "tinystorage:items/storageComponentLarge"
   }
 }

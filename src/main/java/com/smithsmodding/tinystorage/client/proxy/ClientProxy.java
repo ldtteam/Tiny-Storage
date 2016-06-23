@@ -9,7 +9,6 @@ import com.smithsmodding.tinystorage.client.model.loader.ModuleItemModelLoader;
 import com.smithsmodding.tinystorage.common.init.ModItems;
 import com.smithsmodding.tinystorage.common.item.ItemModule;
 import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
-import com.sun.org.apache.xml.internal.security.Init;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -32,9 +31,7 @@ public class ClientProxy extends CommonProxy {
         if (itemLocation == null) {
             return null;
         }
-
         String path = "module/" + itemLocation.getResourcePath() + "." + moduleItemModelLoader.EXTENSION;
-
         return registerModuleItemModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
     }
 
@@ -44,7 +41,6 @@ public class ClientProxy extends CommonProxy {
                     + MultiComponentModelLoader.EXTENSION
                     + "' and will therefore not be loaded by the custom model loader!");
         }
-
         return registerItemModelDefinition(item, location, moduleItemModelLoader.EXTENSION);
     }
 
@@ -54,19 +50,15 @@ public class ClientProxy extends CommonProxy {
                     + requiredExtension
                     + "' and will therefore not be loaded by the custom model loader!");
         }
-
         ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return new ModelResourceLocation(location, "inventory");
             }
         });
-
         // We have to read the default variant if we have custom variants, since it wont be added otherwise and therefore not loaded
         ModelBakery.registerItemVariants(item, location);
-
         TinyStorage.getLogger().info("Added model definition for: " + item.getUnlocalizedName() + " add: " + location.getResourcePath() + " in the Domain: " + location.getResourceDomain());
-
         return location;
     }
     
@@ -74,7 +66,6 @@ public class ClientProxy extends CommonProxy {
     public void initRenderingAndTextures() {
         moduleItemModelLoader.registerDomain(References.MOD_ID);
         ModelLoaderRegistry.registerLoader(moduleItemModelLoader);
-
         registerModuleItemModel(ModItems.itemModule);
     }
 

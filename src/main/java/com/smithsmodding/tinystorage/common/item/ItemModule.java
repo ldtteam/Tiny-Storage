@@ -8,6 +8,7 @@ import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,6 +43,11 @@ public class ItemModule extends Item implements IModuleProvider {
             stack.setTagCompound(data);
             subItems.add(stack);
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        tooltip.add(getModule(stack).getDisplayText());
     }
 
     @Override

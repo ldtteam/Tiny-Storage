@@ -10,6 +10,8 @@ public interface IModule {
 
     String getUniqueID();
 
+    String getDisplayText();
+
     void onTileEntityUpdate(IModularChest tileEntityModularChest);
 
     void onInstalled(IModularChest tileEntityModularChest);

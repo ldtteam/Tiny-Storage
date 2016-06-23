@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage.common.modules;
 
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -81,6 +82,11 @@ public class ModuleStorage implements IStorageModule {
     @Override
     public String getUniqueID() {
         return uniqueId;
+    }
+
+    @Override
+    public String getDisplayText() {
+        return "Storage Component | Capacity: " + inventory.length;
     }
 
     @Override
