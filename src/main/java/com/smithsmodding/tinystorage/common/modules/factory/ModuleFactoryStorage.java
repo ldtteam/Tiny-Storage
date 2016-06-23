@@ -22,11 +22,11 @@ public class ModuleFactoryStorage implements IModuleFactory {
     public IModule buildModule(String uniqueId) throws ModuleConstructionException {
         switch(uniqueId) {
             case ModuleNames.smallStorageModule:
-                return new ModuleStorage(References.Modules.Storage.SMALLSIZE);
+                return new ModuleStorage(uniqueId, References.Modules.Storage.SMALLSIZE);
             case ModuleNames.mediumStorageModule:
-                return new ModuleStorage(References.Modules.Storage.MEDIUMSIZE);
+                return new ModuleStorage(uniqueId, References.Modules.Storage.MEDIUMSIZE);
             case ModuleNames.largeStorageModule:
-                return new ModuleStorage(References.Modules.Storage.LARGESIZE);
+                return new ModuleStorage(uniqueId, References.Modules.Storage.LARGESIZE);
             default:
                 throw new ModuleConstructionException("The given module is unknown to this Factory.");
         }

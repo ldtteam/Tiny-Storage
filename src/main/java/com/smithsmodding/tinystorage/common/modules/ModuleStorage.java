@@ -13,11 +13,13 @@ import net.minecraft.util.text.ITextComponent;
  */
 public class ModuleStorage implements IStorageModule {
 
+    private final String uniqueId;
     private final int size;
     private ItemStack[] inventory;
     private IModularChest hostChest;
 
-    public ModuleStorage(int size) {
+    public ModuleStorage(String uniqueId, int size) {
+        this.uniqueId = uniqueId;
         this.size = size;
         this.inventory = new ItemStack[size];
     }
@@ -79,7 +81,7 @@ public class ModuleStorage implements IStorageModule {
 
     @Override
     public String getUniqueID() {
-        return ModuleNames.smallStorageModule;
+        return uniqueId;
     }
 
     @Override
