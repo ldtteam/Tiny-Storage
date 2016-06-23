@@ -7,6 +7,7 @@ import com.smithsmodding.tinystorage.api.common.exception.ModuleRegistrationExce
 import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.registries.IModuleRegistry;
+import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryStorage;
 import scala.reflect.internal.Trees;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ModuleRegistry implements IModuleRegistry {
     ArrayList<IModule> baseModuleList = new ArrayList<>();
 
     private ModuleRegistry() {
+        registerModuleFactory(new ModuleFactoryStorage());
     }
 
     @Override

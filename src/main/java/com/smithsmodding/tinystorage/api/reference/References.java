@@ -16,10 +16,20 @@ public class References {
 
     public static class Modules {
 
-        public static class Storage {
-            public static final int SMALLSIZE = 7;
-            public static final int MEDIUMSIZE = 14;
-            public static final int LARGESIZE = 21;
+        public class ModuleNames {
+            public static final String SMALL_STORAGE_MODULE = "tinystorage:storage:small";
+            public static final String MEDIUM_STORAGE_MODULE = "tinystorage:storage:medium";
+            public static final String LARGE_STORAGE_MODULE = "tinystorage:storage:large";
         }
+
+        public static class Storage {
+            public static final int SMALL_SIZE = 7;
+            public static final int MEDIUM_SIZE = 14;
+            public static final int LARGE_SIZE = 21;
+        }
+    }
+
+    public class Items {
+        public static final String ItemModule = "tinystorage.items.module";
     }
 }

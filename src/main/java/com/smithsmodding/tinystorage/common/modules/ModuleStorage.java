@@ -2,7 +2,6 @@ package com.smithsmodding.tinystorage.common.modules;
 
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
-import com.smithsmodding.tinystorage.api.reference.ModuleNames;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
