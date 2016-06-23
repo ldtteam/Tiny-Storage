@@ -27,11 +27,11 @@ public class TinyStorageInitialiser {
         ModBlocks.init();
         ModItems.init();
         TileEntities.init();
+        TinyStorage.instance.proxy.initRenderingAndTextures();
     }
 
     public static void init(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(TinyStorage.instance, new GuiHandler());
-        TinyStorage.instance.proxy.initRenderingAndTextures();
     }
 
     public static void postInit(FMLPostInitializationEvent event) {
