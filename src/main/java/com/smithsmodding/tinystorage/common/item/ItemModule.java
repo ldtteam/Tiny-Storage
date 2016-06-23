@@ -20,7 +20,7 @@ public class ItemModule extends Item implements IModuleProvider {
     public ItemModule() {
         this.setCreativeTab(TabTinyStorage.creativeTab);
         this.setUnlocalizedName(References.Items.ItemModule);
-        this.setRegistryName(References.MOD_ID, References.Items.ItemModule);
+        this.setRegistryName(References.MOD_ID.toLowerCase(), References.Items.ItemModule);
     }
 
     @Override
@@ -36,15 +36,7 @@ public class ItemModule extends Item implements IModuleProvider {
 
     @Override
     public IModule getModule(ItemStack stack) {
-        if (stack.getItem() instanceof ItemModule) {
-            if (stack.hasTagCompound()) {
-                NBTTagCompound tag = stack.getTagCompound();
-                if (tag.hasKey("moduleID")) {
-                    return GeneralRegistry.instance().getModuleRegistry().getModule(tag.getString("moduleID"));
-                }
-            }
-        }
-        return null;
+        return GeneralRegistry.instance().getModuleRegistry().getModule(getModuleID(stack));
     }
 
     @Override

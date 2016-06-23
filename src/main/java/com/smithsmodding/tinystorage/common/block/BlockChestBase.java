@@ -18,7 +18,7 @@ public class BlockChestBase extends BlockContainer {
         this.setUnlocalizedName(blockName);
         this.setHardness(2.5F);
         this.setCreativeTab(TabTinyStorage.creativeTab);
-        this.setRegistryName(References.MOD_ID, blockName);
+        this.setRegistryName(References.MOD_ID.toLowerCase(), blockName);
     }
 
     @Override
