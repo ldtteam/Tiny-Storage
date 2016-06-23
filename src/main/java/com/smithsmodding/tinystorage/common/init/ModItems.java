@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.init;
 
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.common.item.ItemModule;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -9,6 +10,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(References.MOD_ID)
 public class ModItems {
 
+    public static ItemModule itemModule = new ItemModule();
+
     public static void init() {
+        GameRegistry.register(itemModule);
     }
 }
