@@ -6,5 +6,7 @@ package com.smithsmodding.tinystorage.api.reference;
 public class ModuleNames {
 
     public static final String smallStorageModule = "tinystorage:storage:small";
+    public static final String mediumStorageModule = "tinystorage:storage:medium";
+    public static final String largeStorageModule = "tinystorage:storage:large";
 
 }

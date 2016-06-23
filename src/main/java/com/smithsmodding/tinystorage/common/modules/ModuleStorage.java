@@ -11,14 +11,20 @@ import net.minecraft.util.text.ITextComponent;
 /**
  * Created by Tim on 23/06/2016.
  */
-public class ModuleSmallStorage implements IStorageModule {
+public class ModuleStorage implements IStorageModule {
 
-    private ItemStack[] inventory = new ItemStack[7];
+    private final int size;
+    private ItemStack[] inventory;
     private IModularChest hostChest;
+
+    public ModuleStorage(int size) {
+        this.size = size;
+        this.inventory = new ItemStack[size];
+    }
 
     @Override
     public int getSizeInventory() {
-        return inventory.length;
+        return size;
     }
 
     @Override
@@ -44,7 +50,7 @@ public class ModuleSmallStorage implements IStorageModule {
 
     @Override
     public void clearInventory() {
-        inventory = new ItemStack[7];
+        inventory = new ItemStack[size];
     }
 
     @Override
