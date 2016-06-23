@@ -12,7 +12,7 @@ public interface IModule {
 
     void onTileEntityUpdate(IModularChest tileEntityModularChest);
 
-    void onInstalled();
+    void onInstalled(IModularChest tileEntityModularChest);
 
     boolean canInstall(IModularChest tileEntityModularChest);
 
