@@ -5,6 +5,7 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -48,4 +49,8 @@ public interface IModularChest extends IItemStorage {
      * @return The number of modules installed in the chest
      */
     int getModuleCount();
+
+    boolean containsModule(String uniqueID);
+
+    boolean containsModuleType(Class<? extends IModule> module);
 }

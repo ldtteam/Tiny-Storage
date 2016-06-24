@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage.common.tileentity;
 
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
+import com.smithsmodding.tinystorage.api.common.modules.ICustomFilterModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
 import com.smithsmodding.tinystorage.api.reference.References;
@@ -20,7 +21,16 @@ import java.util.Map;
 public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinyStorageState, GuiManagerTinyStorage> implements IModularChest, ITickable {
 
     public TileEntityTinyStorage() {
-        super(new TileEntityTinyStorageState(), new GuiManagerTinyStorage());
+    }
+
+    @Override
+    protected GuiManagerTinyStorage getInitialGuiManager() {
+        return new GuiManagerTinyStorage();
+    }
+
+    @Override
+    protected TileEntityTinyStorageState getInitialState() {
+        return new TileEntityTinyStorageState();
     }
 
     @Override
@@ -48,11 +58,26 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     }
 
     @Override
+    public boolean containsModule(String uniqueID) {
+        return getInstalledModules().containsKey(uniqueID);
+    }
+
+    @Override
+    public boolean containsModuleType(Class<? extends IModule> module) {
+        for (IModule installedModule : getState().getInstalledModules().values()) {
+            if (installedModule.getClass().isAssignableFrom(module)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public int getSizeInventory() {
         int invSize = 0;
-        for (Map.Entry<String, IModule> moduleSet : getState().getInstalledModules().entrySet()) {
-            if (moduleSet.getValue() instanceof IStorageModule) {
-                invSize += ((IStorageModule) moduleSet.getValue()).getSizeInventory();
+        for (IModule moudle : getState().getInstalledModules().values()) {
+            if (moudle instanceof IStorageModule) {
+                invSize += ((IStorageModule) moudle).getSizeInventory();
             }
         }
         return invSize;
@@ -123,6 +148,20 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if (this.containsModuleType(ICustomFilterModule.class)) {
+            boolean matchesFilter = false;
+            for (IModule module : getState().getInstalledModules().values()) {
+                if (module instanceof ICustomFilterModule) {
+                    ICustomFilterModule filterModule = (ICustomFilterModule) module;
+                    if (filterModule.allowItemStack(-1, stack)) {
+                        matchesFilter = true;
+                    }
+                }
+            }
+            if (!matchesFilter) {
+                return false;
+            }
+        }
         for (IModule module : getState().getInstalledModules().values()) {
             if (module instanceof IStorageModule) {
                 IStorageModule storageModule = (IStorageModule) module;
