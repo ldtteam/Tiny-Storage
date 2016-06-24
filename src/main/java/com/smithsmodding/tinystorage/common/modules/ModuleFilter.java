@@ -1,10 +1,9 @@
 package com.smithsmodding.tinystorage.common.modules;
 
-import com.smithsmodding.smithscore.common.inventory.IItemStorage;
 import com.smithsmodding.smithscore.util.common.ItemStackHelper;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.ICustomFilterModule;
-import mezz.jei.util.StackHelper;
+import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
@@ -12,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 /**
  * Created by Tim on 24/06/2016.
  */
-public class ModuleFilter implements ICustomFilterModule, IItemStorage {
+public class ModuleFilter implements ICustomFilterModule, IStorageModule {
 
     private String uniqueID;
     private int size;
@@ -42,12 +41,10 @@ public class ModuleFilter implements ICustomFilterModule, IItemStorage {
 
     @Override
     public void clearInventory() {
-
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-
     }
 
     @Override
@@ -57,7 +54,6 @@ public class ModuleFilter implements ICustomFilterModule, IItemStorage {
 
     @Override
     public void markDirty() {
-
     }
 
     @Override
@@ -102,12 +98,10 @@ public class ModuleFilter implements ICustomFilterModule, IItemStorage {
 
     @Override
     public void onTileEntityUpdate(IModularChest tileEntityModularChest) {
-
     }
 
     @Override
     public void onInstalled(IModularChest tileEntityModularChest) {
-
     }
 
     @Override
