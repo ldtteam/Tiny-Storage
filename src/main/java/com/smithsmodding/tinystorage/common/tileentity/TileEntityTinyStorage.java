@@ -176,8 +176,8 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public void update() {
-        for (Map.Entry<String, IModule> moduleSet : getState().getInstalledModules().entrySet()) {
-            moduleSet.getValue().onTileEntityUpdate(this);
+        for (IModule module : getState().getInstalledModules().values()) {
+            module.onTileEntityUpdate(this);
         }
     }
 

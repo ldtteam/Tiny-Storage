@@ -20,12 +20,21 @@ public class References {
             public static final String SMALL_STORAGE_MODULE = "tinystorage:storage:small";
             public static final String MEDIUM_STORAGE_MODULE = "tinystorage:storage:medium";
             public static final String LARGE_STORAGE_MODULE = "tinystorage:storage:large";
+            public static final String SMALL_FILTER_MODULE = "tinystorage:filter:small";
+            public static final String MEDIUM_FILTER_MODULE = "tinystorage:filter:medium";
+            public static final String LARGE_FILTER_MODULE = "tinystorage:filter:large";
         }
 
         public static class Storage {
             public static final int SMALL_SIZE = 7;
             public static final int MEDIUM_SIZE = 14;
             public static final int LARGE_SIZE = 21;
+        }
+
+        public static class Filter {
+            public static final int SMALL_SIZE = 3;
+            public static final int MEDIUM_SIZE = 6;
+            public static final int LARGE_SIZE = 9;
         }
     }
 

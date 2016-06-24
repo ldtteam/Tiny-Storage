@@ -93,7 +93,7 @@ public class ModuleFilter implements ICustomFilterModule, IStorageModule {
 
     @Override
     public String getDisplayText() {
-        return null;
+        return "Filter Component | Capacity: " + filterItems.length;
     }
 
     @Override

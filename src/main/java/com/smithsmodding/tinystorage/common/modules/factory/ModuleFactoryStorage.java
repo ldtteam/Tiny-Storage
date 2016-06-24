@@ -14,7 +14,9 @@ public class ModuleFactoryStorage implements IModuleFactory {
 
     @Override
     public ImmutableList<String> getBuildableModules() {
-        return ImmutableList.of(References.Modules.ModuleNames.SMALL_STORAGE_MODULE, References.Modules.ModuleNames.MEDIUM_STORAGE_MODULE, References.Modules.ModuleNames.LARGE_STORAGE_MODULE);
+        return ImmutableList.of(References.Modules.ModuleNames.SMALL_STORAGE_MODULE,
+                References.Modules.ModuleNames.MEDIUM_STORAGE_MODULE,
+                References.Modules.ModuleNames.LARGE_STORAGE_MODULE);
     }
 
     @Override
