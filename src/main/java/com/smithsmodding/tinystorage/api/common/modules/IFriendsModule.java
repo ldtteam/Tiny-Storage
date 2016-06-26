@@ -9,8 +9,18 @@ import java.util.UUID;
  */
 public interface IFriendsModule extends IModule, IAccessModule {
 
+    /**
+     * Method to get the list of "friends" for this chest
+     *
+     * @return The list of friends associated with this chest
+     */
     List<String> getFriendsList();
 
+    /**
+     * Method to get a list of players accessing the chest at a given time
+     *
+     * @return The Map of players accessing the chest
+     */
     HashMap<UUID, String> getAccessedPlayers();
 
 }

@@ -2,10 +2,12 @@ package com.smithsmodding.tinystorage.common.modules.factory;
 
 import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
+import com.smithsmodding.tinystorage.api.common.exception.ModuleStackContructionException;
 import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.modules.ModuleStorage;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by Tim on 23/06/2016.
@@ -31,5 +33,10 @@ public class ModuleFactoryStorage implements IModuleFactory {
             default:
                 throw new ModuleConstructionException("The given module is unknown to this Factory.");
         }
+    }
+
+    @Override
+    public ItemStack buildItemStack(IModule module) throws ModuleStackContructionException {
+        return null;
     }
 }

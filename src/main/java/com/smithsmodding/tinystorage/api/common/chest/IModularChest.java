@@ -41,16 +41,32 @@ public interface IModularChest extends IItemStorage {
     void installModule(IModule module);
 
     /**
+     * Method to check the max number of modules that can be installed in a chest
+     *
      * @return The number of modules that can be installed in a given chest
      */
     int getModuleLimit();
 
     /**
+     * Method to check the number of modules installed in the chest
+     *
      * @return The number of modules installed in the chest
      */
     int getModuleCount();
 
+    /**
+     * Method to check if the chest contains a module with the given ID
+     *
+     * @param uniqueID The unique ID to check for
+     * @return Whether there is a module with the unique ID installed in this chest
+     */
     boolean containsModule(String uniqueID);
 
+    /**
+     * Method to check if the chest contains a module of a given type
+     *
+     * @param module The class of module to check for, example ModuleFilter.class
+     * @return Whether there is a module type present
+     */
     boolean containsModuleType(Class<? extends IModule> module);
 }

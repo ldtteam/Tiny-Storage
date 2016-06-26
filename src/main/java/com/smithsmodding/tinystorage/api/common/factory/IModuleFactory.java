@@ -28,5 +28,12 @@ public interface IModuleFactory {
      */
     IModule buildModule(String uniqueId) throws ModuleConstructionException;
 
+    /**
+     * Method to get the ItemStack representation of a given module
+     *
+     * @param module The module to create an ItemStack for
+     * @return The ItemStack representation of the module
+     * @throws ModuleStackContructionException Thrown when the given module is not registered to this Factory
+     */
     ItemStack buildItemStack(IModule module) throws ModuleStackContructionException;
 }
