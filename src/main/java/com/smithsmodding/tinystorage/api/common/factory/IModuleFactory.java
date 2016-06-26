@@ -2,10 +2,9 @@ package com.smithsmodding.tinystorage.api.common.factory;
 
 import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
-import com.smithsmodding.tinystorage.api.common.exception.ModuleStackContructionException;
+import com.smithsmodding.tinystorage.api.common.exception.ModuleStackConstructionException;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.reference.ModItems;
-import com.smithsmodding.tinystorage.common.modules.ModuleStorage;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -35,12 +34,12 @@ public interface IModuleFactory {
      *
      * @param module The module to create an ItemStack for
      * @return The ItemStack representation of the module
-     * @throws ModuleStackContructionException Thrown when the given module is not registered to this Factory
+     * @throws ModuleStackConstructionException Thrown when the given module is not registered to this Factory
      */
-    default ItemStack buildItemStack(IModule module) throws ModuleStackContructionException {
-        if (!getBuildableModules().contains(module.getUniqueID()))
-            throw new ModuleStackContructionException("This Module if unknown to Factory: " + this.getClass().getName());
-
+    default ItemStack buildItemStack(IModule module) throws ModuleStackConstructionException {
+        if (!getBuildableModules().contains(module.getUniqueID())) {
+            throw new ModuleStackConstructionException("This Module if unknown to Factory: " + this.getClass().getName());
+        }
         try {
             ItemStack stack = new ItemStack(ModItems.itemModule);
             NBTTagCompound data = new NBTTagCompound();
@@ -49,7 +48,7 @@ public interface IModuleFactory {
 
             return stack;
         } catch (Exception ex) {
-            throw new ModuleStackContructionException("Failed to create a Stack for module: " + module.getUniqueID() + " in factory: " + this.getClass().getName());
+            throw new ModuleStackConstructionException("Failed to create a Stack for module: " + module.getUniqueID() + " in factory: " + this.getClass().getName());
         }
     }
 }

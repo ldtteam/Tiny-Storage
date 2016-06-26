@@ -40,12 +40,12 @@ public class ItemModule extends Item implements IModuleProvider {
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (IModule module : GeneralRegistry.instance().getModuleRegistry().getAllBuildableModules()) {
             ItemStack stack = ModuleRegistry.getInstance().getStackForModule(module);
-            if (stack == null)
+            if (stack == null) {
                 continue;
-
-            if (!(stack.getItem() instanceof ItemModule))
+            }
+            if (!(stack.getItem() instanceof ItemModule)) {
                 continue;
-
+            }
             subItems.add(stack);
         }
     }

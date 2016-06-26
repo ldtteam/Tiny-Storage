@@ -2,12 +2,10 @@ package com.smithsmodding.tinystorage.common.modules.factory;
 
 import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
-import com.smithsmodding.tinystorage.api.common.exception.ModuleStackContructionException;
 import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.modules.ModuleStorage;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created by Tim on 23/06/2016.
