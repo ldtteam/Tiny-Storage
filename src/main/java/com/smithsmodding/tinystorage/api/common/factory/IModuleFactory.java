@@ -2,7 +2,10 @@ package com.smithsmodding.tinystorage.api.common.factory;
 
 import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
+import com.smithsmodding.tinystorage.api.common.exception.ModuleStackContructionException;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
+import com.smithsmodding.tinystorage.common.modules.ModuleStorage;
+import net.minecraft.item.ItemStack;
 
 /**
  * Author Orion (Created on: 22.06.2016)
@@ -24,4 +27,6 @@ public interface IModuleFactory {
      * @throws ModuleConstructionException Thrown when the given ID is not registered to this Factory.
      */
     IModule buildModule(String uniqueId) throws ModuleConstructionException;
+
+    ItemStack buildItemStack(IModule module) throws ModuleStackContructionException;
 }
