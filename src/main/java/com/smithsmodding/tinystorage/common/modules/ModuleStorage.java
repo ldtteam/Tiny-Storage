@@ -34,22 +34,6 @@ public class ModuleStorage implements IStorageModule {
     }
 
     @Override
-    public ItemStack decrStackSize(int slotIndex, int decrementAmount) {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null) {
-            if (itemStack.stackSize <= decrementAmount) {
-                setInventorySlotContents(slotIndex, null);
-            } else {
-                itemStack = itemStack.splitStack(decrementAmount);
-                if (itemStack.stackSize == 0) {
-                    setInventorySlotContents(slotIndex, null);
-                }
-            }
-        }
-        return itemStack;
-    }
-
-    @Override
     public void clearInventory() {
         inventory = new ItemStack[size];
     }

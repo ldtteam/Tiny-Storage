@@ -6,6 +6,7 @@ import com.smithsmodding.tinystorage.api.common.modules.ICustomFilterModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.ITextComponent;
 
 /**
@@ -26,34 +27,36 @@ public class ModuleFilter implements ICustomFilterModule, IStorageModule {
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        return size;
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return null;
-    }
-
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return null;
+        return filterItems[index];
     }
 
     @Override
     public void clearInventory() {
+        filterItems = new ItemStack[size];
     }
 
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
+        filterItems[slotIndex] = itemStack;
+        if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit()) {
+            itemStack.stackSize = this.getInventoryStackLimit();
+        }
+        this.markDirty();
     }
 
     @Override
     public int getInventoryStackLimit() {
-        return 0;
+        return 1;
     }
 
     @Override
     public void markDirty() {
+        hostChest.markDirty();
     }
 
     @Override
@@ -102,19 +105,40 @@ public class ModuleFilter implements ICustomFilterModule, IStorageModule {
 
     @Override
     public void onInstalled(IModularChest tileEntityModularChest) {
+        this.hostChest = tileEntityModularChest;
     }
 
     @Override
     public boolean canInstall(IModularChest tileEntityModularChest) {
-        return false;
+        return true;
     }
 
     @Override
     public NBTTagCompound writeToNBT() {
-        return null;
+        NBTTagCompound tagCompound = new NBTTagCompound();
+        NBTTagList itemList = new NBTTagList();
+        for (int i = 0; i < filterItems.length; i++) {
+            ItemStack stack = filterItems[i];
+            if (stack != null) {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setByte("Slot", (byte) i);
+                stack.writeToNBT(tag);
+                itemList.appendTag(tag);
+            }
+        }
+        tagCompound.setTag("Inventory", itemList);
+        return tagCompound;
     }
 
     @Override
-    public void loadFromNBT(NBTTagCompound tag) {
+    public void loadFromNBT(NBTTagCompound tagCompound) {
+        NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
+            byte slot = tag.getByte("Slot");
+            if (slot >= 0 && slot < filterItems.length) {
+                filterItems[slot] = ItemStack.loadItemStackFromNBT(tag);
+            }
+        }
     }
 }
