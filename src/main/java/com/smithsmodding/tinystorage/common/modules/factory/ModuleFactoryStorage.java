@@ -34,9 +34,4 @@ public class ModuleFactoryStorage implements IModuleFactory {
                 throw new ModuleConstructionException("The given module is unknown to this Factory.");
         }
     }
-
-    @Override
-    public ItemStack buildItemStack(IModule module) throws ModuleStackContructionException {
-        return null;
-    }
 }

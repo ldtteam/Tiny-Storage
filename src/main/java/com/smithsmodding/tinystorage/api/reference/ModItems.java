@@ -1,14 +1,15 @@
-package com.smithsmodding.tinystorage.common.init;
+package com.smithsmodding.tinystorage.api.reference;
 
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.common.item.ItemModule;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by Tim on 22/06/2016.
  */
 @GameRegistry.ObjectHolder(References.MOD_ID)
-public class ModBlocks {
+public class ModItems {
 
-    public static void init() {
-    }
+    public static Item itemModule;
 }

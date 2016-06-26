@@ -6,8 +6,10 @@ import com.smithsmodding.tinystorage.api.common.exception.ModuleStackContruction
 import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.api.reference.ModItems;
 import com.smithsmodding.tinystorage.common.modules.ModuleFilter;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Created by Tim on 24/06/2016.
@@ -33,10 +35,5 @@ public class ModuleFactoryFilter implements IModuleFactory {
             default:
                 throw new ModuleConstructionException("The given module is unknown to this Factory.");
         }
-    }
-
-    @Override
-    public ItemStack buildItemStack(IModule module) throws ModuleStackContructionException {
-        return null;
     }
 }

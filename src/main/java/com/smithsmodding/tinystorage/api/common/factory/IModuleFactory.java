@@ -4,8 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleStackContructionException;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
+import com.smithsmodding.tinystorage.api.reference.ModItems;
 import com.smithsmodding.tinystorage.common.modules.ModuleStorage;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Author Orion (Created on: 22.06.2016)
@@ -35,5 +37,19 @@ public interface IModuleFactory {
      * @return The ItemStack representation of the module
      * @throws ModuleStackContructionException Thrown when the given module is not registered to this Factory
      */
-    ItemStack buildItemStack(IModule module) throws ModuleStackContructionException;
+    default ItemStack buildItemStack(IModule module) throws ModuleStackContructionException {
+        if (!getBuildableModules().contains(module.getUniqueID()))
+            throw new ModuleStackContructionException("This Module if unknown to Factory: " + this.getClass().getName());
+
+        try {
+            ItemStack stack = new ItemStack(ModItems.itemModule);
+            NBTTagCompound data = new NBTTagCompound();
+            data.setString("moduleID", module.getUniqueID());
+            stack.setTagCompound(data);
+
+            return stack;
+        } catch (Exception ex) {
+            throw new ModuleStackContructionException("Failed to create a Stack for module: " + module.getUniqueID() + " in factory: " + this.getClass().getName());
+        }
+    }
 }

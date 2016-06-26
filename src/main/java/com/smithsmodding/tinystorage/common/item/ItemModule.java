@@ -1,11 +1,13 @@
 package com.smithsmodding.tinystorage.common.item;
 
 import com.smithsmodding.smithscore.util.CoreReferences;
+import com.smithsmodding.tinystorage.api.common.exception.ModuleRegistrationException;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModuleProvider;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
+import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,10 +39,13 @@ public class ItemModule extends Item implements IModuleProvider {
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (IModule module : GeneralRegistry.instance().getModuleRegistry().getAllBuildableModules()) {
-            ItemStack stack = new ItemStack(itemIn);
-            NBTTagCompound data = new NBTTagCompound();
-            data.setString("moduleID", module.getUniqueID());
-            stack.setTagCompound(data);
+            ItemStack stack = ModuleRegistry.getInstance().getStackForModule(module);
+            if (stack == null)
+                continue;
+
+            if (!(stack.getItem() instanceof ItemModule))
+                continue;
+
             subItems.add(stack);
         }
     }

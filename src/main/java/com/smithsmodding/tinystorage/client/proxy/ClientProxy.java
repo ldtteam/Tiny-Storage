@@ -6,7 +6,7 @@ import com.smithsmodding.smithscore.util.client.ResourceHelper;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.client.model.loader.ModuleItemModelLoader;
-import com.smithsmodding.tinystorage.common.init.ModItems;
+import com.smithsmodding.tinystorage.api.reference.ModItems;
 import com.smithsmodding.tinystorage.common.item.ItemModule;
 import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -26,7 +26,7 @@ public class ClientProxy extends CommonProxy {
 
     private static ModuleItemModelLoader moduleItemModelLoader = ModuleItemModelLoader.instance;
 
-    public static ResourceLocation registerModuleItemModel(ItemModule item) {
+    public static ResourceLocation registerModuleItemModel(Item item) {
         ResourceLocation itemLocation = ResourceHelper.getItemLocation(item);
         if (itemLocation == null) {
             return null;
@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy {
         return registerModuleItemModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
     }
 
-    public static ResourceLocation registerModuleItemModel(ItemModule item, final ResourceLocation location) {
+    public static ResourceLocation registerModuleItemModel(Item item, final ResourceLocation location) {
         if (!location.getResourcePath().endsWith(moduleItemModelLoader.EXTENSION)) {
             SmithsCore.getLogger().error("The ModuleItem-model " + location.toString() + " does not end with '"
                     + MultiComponentModelLoader.EXTENSION
