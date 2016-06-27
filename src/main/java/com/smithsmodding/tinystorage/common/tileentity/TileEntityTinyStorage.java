@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinyStorageState, GuiManagerTinyStorage> implements IModularChest, ITickable {
 
     public TileEntityTinyStorage() {
+        getState().setModuleLimit(References.Modules.Limits.SMALL_SIZE + 1);
         installModule(new ModuleTinyStorageCore());
     }
 

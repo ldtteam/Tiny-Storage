@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.api.client.modules;
 
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
+import com.smithsmodding.tinystorage.client.renderer.tileentity.TileEntityRendererTinyStorage;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,5 +18,5 @@ public interface IInWorldRenderingModule extends IModule {
     boolean shouldRender(ModelChest chest, RenderEntityItem itemRenderer, Random random);
 
     @SideOnly(Side.CLIENT)
-    void doRender(ModelChest chest, RenderEntityItem itemRenderer, Random random);
+    void doRender(ModelChest chest, RenderEntityItem itemRenderer, Random random, TileEntityRendererTinyStorage renderer);
 }

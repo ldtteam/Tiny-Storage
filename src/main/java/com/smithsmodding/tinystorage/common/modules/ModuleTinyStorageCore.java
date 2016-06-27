@@ -1,11 +1,11 @@
 package com.smithsmodding.tinystorage.common.modules;
 
-import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
 import com.smithsmodding.tinystorage.api.client.modules.IInWorldRenderingModule;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.client.renderer.tileentity.TileEntityRendererTinyStorage;
 import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
@@ -38,8 +38,8 @@ public final class ModuleTinyStorageCore implements IInWorldRenderingModule, ISt
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void doRender(ModelChest chest, RenderEntityItem itemRenderer, Random random) {
-        GuiHelper.bindTexture(TEXTURE_NORMAL);
+    public void doRender(ModelChest chest, RenderEntityItem itemRenderer, Random random, TileEntityRendererTinyStorage renderer) {
+        renderer.bindTexture(TEXTURE_NORMAL);
         chest.renderAll();
     }
 

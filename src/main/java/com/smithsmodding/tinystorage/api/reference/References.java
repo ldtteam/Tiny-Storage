@@ -16,6 +16,12 @@ public class References {
 
     public static class Modules {
 
+        public static class Limits {
+            public static final int SMALL_SIZE = 3;
+            public static final int MEDIUM_SIZE = 6;
+            public static final int LARGE_SIZE = 9;
+        }
+
         public static class Storage {
             public static final int SMALL_SIZE = 7;
             public static final int MEDIUM_SIZE = 14;

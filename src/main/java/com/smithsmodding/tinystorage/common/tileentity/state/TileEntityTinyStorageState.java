@@ -99,6 +99,10 @@ public class TileEntityTinyStorageState implements ITileEntityState {
         return moduleLimit;
     }
 
+    public void setModuleLimit(int moduleLimit) {
+        this.moduleLimit = moduleLimit;
+    }
+
     public float getPrevLidAngle() {
         return prevLidAngle;
     }

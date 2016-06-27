@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.Random;
 
@@ -83,13 +84,14 @@ public class TileEntityRendererTinyStorage extends TileEntitySpecialRenderer<Til
         lidangle = 1.0F - lidangle * lidangle * lidangle;
         model.chestLid.rotateAngleX = -((lidangle * 3.141593F) / 2.0F);
 
-        tile.getInstalledModules().values().stream().filter(module -> module instanceof IInWorldRenderingModule && ((IInWorldRenderingModule) module).shouldRender(model, itemRenderer, random)).forEach(module -> ((IInWorldRenderingModule) module).doRender(model, itemRenderer, random));
+        tile.getInstalledModules().values().stream().filter(module -> module instanceof IInWorldRenderingModule && ((IInWorldRenderingModule) module).shouldRender(model, itemRenderer, random)).forEach(module -> ((IInWorldRenderingModule) module).doRender(model, itemRenderer, random, this));
 
         if (breakStage >= 0) {
             GlStateManager.matrixMode(5890);
             GlStateManager.popMatrix();
             GlStateManager.matrixMode(5888);
         }
+
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -99,4 +101,7 @@ public class TileEntityRendererTinyStorage extends TileEntitySpecialRenderer<Til
         render(tileentity, x, y, z, partialTick, breakStage);
     }
 
+    public void bindTexture(ResourceLocation location) {
+        super.bindTexture(location);
+    }
 }

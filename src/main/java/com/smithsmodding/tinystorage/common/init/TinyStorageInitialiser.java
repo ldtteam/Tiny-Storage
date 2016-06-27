@@ -40,7 +40,7 @@ public class TinyStorageInitialiser {
     }
 
     public static void init(FMLInitializationEvent event) {
-
+        TinyStorage.proxy.initIileRendering();
     }
 
     public static void postInit(FMLPostInitializationEvent event) {

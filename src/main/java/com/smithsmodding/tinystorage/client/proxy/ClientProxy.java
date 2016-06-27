@@ -76,6 +76,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void initIileRendering() {
+        TinyStorage.getLogger().info("Registering TESR's to GameRegistry.");
+
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getBlockModelShapes().registerBuiltInBlocks(ModBlocks.blockChest);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyStorage.class, new TileEntityRendererTinyStorage());

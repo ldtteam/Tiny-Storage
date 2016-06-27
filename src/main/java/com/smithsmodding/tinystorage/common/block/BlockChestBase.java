@@ -9,8 +9,10 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -34,14 +36,23 @@ public class BlockChestBase extends BlockContainer {
         return new TileEntityTinyStorage();
     }
 
-    @Override
-    public boolean isFullyOpaque(IBlockState state) {
+    /**
+     * Used to determine ambient occlusion and culling when rebuilding chunks for render
+     */
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
-    @Override
-    public boolean isFullBlock(IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
+    }
+
+    /**
+     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+     * IBlockstate
+     */
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
     /**
