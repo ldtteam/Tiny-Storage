@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.registry;
 
 import com.google.common.collect.ImmutableList;
+import com.smithsmodding.smithscore.util.common.ItemStackHelper;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleRegistrationException;
@@ -11,6 +12,8 @@ import com.smithsmodding.tinystorage.api.common.modules.IModuleProvider;
 import com.smithsmodding.tinystorage.api.common.registries.IModuleRegistry;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryFilter;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryStorage;
+import gnu.trove.map.hash.TCustomHashMap;
+import gnu.trove.strategy.HashingStrategy;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -22,18 +25,17 @@ import java.util.LinkedHashMap;
 public class ModuleRegistry implements IModuleRegistry {
 
     private static ModuleRegistry INSTANCE = new ModuleRegistry();
-
-    public static ModuleRegistry getInstance() {
-        return INSTANCE;
-    }
-
     LinkedHashMap<String, IModuleFactory> builders = new LinkedHashMap<>();
     LinkedHashMap<IModule, ItemStack> stacks = new LinkedHashMap<>();
+    TCustomHashMap<ItemStack, IModule> reverseStackMap = new TCustomHashMap<>(new ItemStackHashingStrategy());
     ArrayList<IModule> baseModuleList = new ArrayList<>();
-
     private ModuleRegistry() {
         registerModuleFactory(new ModuleFactoryStorage());
         registerModuleFactory(new ModuleFactoryFilter());
+    }
+
+    public static ModuleRegistry getInstance() {
+        return INSTANCE;
     }
 
     @Override
@@ -53,6 +55,7 @@ public class ModuleRegistry implements IModuleRegistry {
                     throw new ModuleRegistrationException("Item for Module: " + moduleID + " is not an instance of IModuleProvider", factory, module, moduleID);
                 }
                 stacks.put(module, stack);
+                reverseStackMap.put(stacks.get(module).copy(), module);
                 baseModuleList.add(module);
             } catch (ModuleConstructionException moduleUnknownException) {
                 throw new ModuleRegistrationException("The given factory did not know a module it was supposed to be able to build: " + moduleID, moduleUnknownException, factory, null, moduleID);
@@ -81,8 +84,32 @@ public class ModuleRegistry implements IModuleRegistry {
         return stacks.get(module).copy();
     }
 
+    public IModule getModuleFromStack(ItemStack stack) {
+        if (!reverseStackMap.containsKey(stack))
+            return null;
+
+        return reverseStackMap.get(stack);
+    }
+
     @Override
     public ImmutableList<IModule> getAllBuildableModules() {
         return ImmutableList.copyOf(baseModuleList);
+    }
+
+    private class ItemStackHashingStrategy implements HashingStrategy<ItemStack> {
+        @Override
+        public int computeHashCode(ItemStack object) {
+            int hash = object.getItem().hashCode() ^ object.getMetadata();
+
+            if (object.getTagCompound() != null)
+                hash ^= object.getTagCompound().hashCode();
+
+            return hash;
+        }
+
+        @Override
+        public boolean equals(ItemStack o1, ItemStack o2) {
+            return ItemStackHelper.equalsIgnoreStackSize(o1, o2);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.smithsmodding.tinystorage.api.reference;
 
-import com.smithsmodding.tinystorage.api.reference.References;
+import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -9,4 +9,5 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(References.MOD_ID)
 public class ModBlocks {
 
+    public static Block blockChest;
 }

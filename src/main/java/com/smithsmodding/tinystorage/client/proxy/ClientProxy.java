@@ -4,11 +4,14 @@ import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.model.loader.MultiComponentModelLoader;
 import com.smithsmodding.smithscore.util.client.ResourceHelper;
 import com.smithsmodding.tinystorage.TinyStorage;
+import com.smithsmodding.tinystorage.api.reference.ModBlocks;
+import com.smithsmodding.tinystorage.api.reference.ModItems;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.client.model.loader.ModuleItemModelLoader;
-import com.smithsmodding.tinystorage.api.reference.ModItems;
-import com.smithsmodding.tinystorage.common.item.ItemModule;
+import com.smithsmodding.tinystorage.client.renderer.tileentity.TileEntityRendererTinyStorage;
 import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
+import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -17,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 /**
@@ -63,10 +67,24 @@ public class ClientProxy extends CommonProxy {
     }
     
     @Override
-    public void initRenderingAndTextures() {
+    public void initItemRendering() {
         moduleItemModelLoader.registerDomain(References.MOD_ID);
         ModelLoaderRegistry.registerLoader(moduleItemModelLoader);
         registerModuleItemModel(ModItems.itemModule);
+    }
+
+    @Override
+    public void initIileRendering() {
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getBlockModelShapes().registerBuiltInBlocks(ModBlocks.blockChest);
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyStorage.class, new TileEntityRendererTinyStorage());
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(ModBlocks.blockChest), new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return new ModelResourceLocation(References.MOD_ID.toLowerCase() + ":chests/" + References.Blocks.BLOCKCHESTBASE, "inventory");
+            }
+        });
+        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.blockChest), new ResourceLocation(References.MOD_ID.toLowerCase() + ":chests/" + References.Blocks.BLOCKCHESTBASE));
     }
 
     @Override

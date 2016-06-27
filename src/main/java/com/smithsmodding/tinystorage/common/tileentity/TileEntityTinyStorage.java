@@ -6,14 +6,15 @@ import com.smithsmodding.tinystorage.api.common.modules.ICustomFilterModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.common.modules.ModuleTinyStorageCore;
 import com.smithsmodding.tinystorage.common.tileentity.guimanager.GuiManagerTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.state.TileEntityTinyStorageState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Created by Tim on 22/06/2016.
@@ -21,6 +22,7 @@ import java.util.Map;
 public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinyStorageState, GuiManagerTinyStorage> implements IModularChest, ITickable {
 
     public TileEntityTinyStorage() {
+        installModule(new ModuleTinyStorageCore());
     }
 
     @Override
@@ -48,6 +50,14 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     }
 
     @Override
+    public void removeModule(IModule module) {
+        if (!getInstalledModules().containsKey(module.getUniqueID()))
+            return;
+
+        getInstalledModules().remove(module.getUniqueID());
+    }
+
+    @Override
     public int getModuleLimit() {
         return getState().getModuleLimit();
     }
@@ -55,6 +65,11 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     @Override
     public int getModuleCount() {
         return getState().getInstalledModules().size();
+    }
+
+    @Override
+    public IModule getModuleOnPosition(int index) {
+        return this.getInstalledModules().get(new ArrayList<>(this.getInstalledModules().keySet()).get(index + 1));
     }
 
     @Override

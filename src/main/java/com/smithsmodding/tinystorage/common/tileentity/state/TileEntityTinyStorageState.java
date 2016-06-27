@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public class TileEntityTinyStorageState implements ITileEntityState {
 
+    public float prevLidAngle;
+    public float lidAngle;
     private LinkedHashMap<String, IModule> installedModules;
     private int moduleLimit;
 
@@ -43,6 +45,8 @@ public class TileEntityTinyStorageState implements ITileEntityState {
             installedModules = new LinkedHashMap<>();
             NBTTagCompound tagCompound = (NBTTagCompound) stateData;
             moduleLimit = tagCompound.getInteger("moduleLimit");
+            prevLidAngle = tagCompound.getFloat("prevLidAngle");
+            lidAngle = tagCompound.getFloat("lidAngle");
             for (int i = 0; i < tagCompound.getInteger("moduleCount"); i++) {
                 NBTTagCompound moduleTag = tagCompound.getCompoundTag("module-" + i);
                 IModule module = GeneralRegistry.instance().getModuleRegistry().getModule(moduleTag.getString("moduleID"));
@@ -60,6 +64,8 @@ public class TileEntityTinyStorageState implements ITileEntityState {
         NBTTagCompound tagCompound = new NBTTagCompound();
         tagCompound.setInteger("moduleLimit", moduleLimit);
         tagCompound.setInteger("moduleCount", installedModules.size());
+        tagCompound.setFloat("lidAngle", lidAngle);
+        tagCompound.setFloat("prevLidAngle", prevLidAngle);
         int i = 0;
         for (Map.Entry<String, IModule> moduleSet : installedModules.entrySet()) {
             NBTTagCompound moduleTag = new NBTTagCompound();
@@ -91,5 +97,21 @@ public class TileEntityTinyStorageState implements ITileEntityState {
 
     public int getModuleLimit() {
         return moduleLimit;
+    }
+
+    public float getPrevLidAngle() {
+        return prevLidAngle;
+    }
+
+    public void setPrevLidAngle(float prevLidAngle) {
+        this.prevLidAngle = prevLidAngle;
+    }
+
+    public float getLidAngle() {
+        return lidAngle;
+    }
+
+    public void setLidAngle(float lidAngle) {
+        this.lidAngle = lidAngle;
     }
 }

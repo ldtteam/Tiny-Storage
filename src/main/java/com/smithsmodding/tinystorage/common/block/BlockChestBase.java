@@ -5,7 +5,9 @@ import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 /**
@@ -13,12 +15,15 @@ import net.minecraft.world.World;
  */
 public class BlockChestBase extends BlockContainer {
 
-    public BlockChestBase(Material mat, String blockName) {
-        super(mat);
-        this.setUnlocalizedName(blockName);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+
+    public BlockChestBase() {
+        super(Material.WOOD);
+        this.setUnlocalizedName(References.Blocks.BLOCKCHESTBASE);
         this.setHardness(2.5F);
         this.setCreativeTab(TabTinyStorage.creativeTab);
-        this.setRegistryName(References.MOD_ID.toLowerCase(), blockName);
+        this.setRegistryName(References.MOD_ID.toLowerCase(), References.Blocks.BLOCKCHESTBASE);
+        //this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     @Override
