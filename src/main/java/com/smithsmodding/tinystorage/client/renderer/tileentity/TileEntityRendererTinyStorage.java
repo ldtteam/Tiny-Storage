@@ -2,12 +2,15 @@ package com.smithsmodding.tinystorage.client.renderer.tileentity;
 
 import com.smithsmodding.tinystorage.api.client.modules.IInWorldRenderingModule;
 import com.smithsmodding.tinystorage.api.reference.ModBlocks;
+import com.smithsmodding.tinystorage.common.block.BlockChestBase;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.EnumFacing;
 
 import java.util.Random;
 
@@ -40,17 +43,13 @@ public class TileEntityRendererTinyStorage extends TileEntitySpecialRenderer<Til
     }
 
     public void render(TileEntityTinyStorage tile, double x, double y, double z, float partialTick, int breakStage) {
-        if (tile == null) {
-            return;
-        }
-        int facing = 3;
+        EnumFacing facing = EnumFacing.NORTH;
 
         if (tile != null && tile.hasWorldObj() && tile.getWorld().getBlockState(tile.getPos()).getBlock() == ModBlocks.blockChest) {
             //TODO: PULL DIRECTION FROM BLOCKSTATE
 
-            //facing = tile.getFacing();
-            //IBlockState state = tile.getWorld().getBlockState(tile.getPos());
-            //type = (IronChestType)state.getValue(BlockIronChest.VARIANT_PROP);
+            IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+            facing = state.getValue(BlockChestBase.FACING);
         }
 
         if (breakStage >= 0) {
@@ -68,16 +67,13 @@ public class TileEntityRendererTinyStorage extends TileEntitySpecialRenderer<Til
         GlStateManager.scale(1.0F, -1F, -1F);
         GlStateManager.translate(0.5F, 0.5F, 0.5F);
         int k = 0;
-        if (facing == 2) {
+        if (facing == EnumFacing.SOUTH) {
             k = 180;
         }
-        if (facing == 3) {
-            k = 0;
-        }
-        if (facing == 4) {
+        if (facing == EnumFacing.WEST) {
             k = 90;
         }
-        if (facing == 5) {
+        if (facing == EnumFacing.EAST) {
             k = -90;
         }
         GlStateManager.rotate(k, 0.0F, 1.0F, 0.0F);

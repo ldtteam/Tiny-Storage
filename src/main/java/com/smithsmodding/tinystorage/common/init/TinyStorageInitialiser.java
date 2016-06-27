@@ -51,7 +51,7 @@ public class TinyStorageInitialiser {
     }
 
     public static void initBlocks() {
-        ModBlocks.blockChest = GameRegistry.register(new BlockChestBase());
+        ModBlocks.blockChest = GameRegistry.registerBlock(new BlockChestBase());
     }
 
     public static void initTileEntities () {

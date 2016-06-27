@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -78,13 +79,7 @@ public class ClientProxy extends CommonProxy {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getBlockModelShapes().registerBuiltInBlocks(ModBlocks.blockChest);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyStorage.class, new TileEntityRendererTinyStorage());
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(ModBlocks.blockChest), new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return new ModelResourceLocation(References.MOD_ID.toLowerCase() + ":chests/" + References.Blocks.BLOCKCHESTBASE, "inventory");
-            }
-        });
-        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.blockChest), new ResourceLocation(References.MOD_ID.toLowerCase() + ":chests/" + References.Blocks.BLOCKCHESTBASE));
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.blockChest), 0, TileEntityTinyStorage.class);
     }
 
     @Override
