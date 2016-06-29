@@ -1,7 +1,12 @@
 package com.smithsmodding.tinystorage.common.block;
 
+import com.smithsmodding.tinystorage.api.client.modules.IBlockStateDependingModelProvidingModule;
+import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
+import com.smithsmodding.tinystorage.api.common.modules.IModule;
+import com.smithsmodding.tinystorage.api.common.properties.PropertyInstalledModules;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
+import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -13,7 +18,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Created by Tim on 22/06/2016.
@@ -21,6 +33,9 @@ import net.minecraft.world.World;
 public class BlockChestBase extends BlockContainer {
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyInstalledModules INSTALLED_MODULES = new PropertyInstalledModules();
+
+    private final ExtendedBlockState extendedState;
 
     public BlockChestBase() {
         super(Material.WOOD);
@@ -29,6 +44,20 @@ public class BlockChestBase extends BlockContainer {
         this.setCreativeTab(TabTinyStorage.creativeTab);
         this.setRegistryName(References.MOD_ID.toLowerCase(), References.Blocks.BLOCKCHESTBASE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+
+        HashSet<IUnlistedProperty> requiredUnlistedProperties = new HashSet<>();
+        requiredUnlistedProperties.add(INSTALLED_MODULES);
+
+        for (IModule module : ModuleRegistry.getInstance().getAllBuildableModules()) {
+            if (!(module instanceof IBlockStateDependingModelProvidingModule))
+                continue;
+
+            IBlockStateDependingModelProvidingModule blockstateModule = (IBlockStateDependingModelProvidingModule) module;
+
+            requiredUnlistedProperties.addAll(blockstateModule.getRequiredProperties());
+        }
+
+        extendedState = new ExtendedBlockState(this, new IProperty[]{FACING}, requiredUnlistedProperties.toArray(new IUnlistedProperty[requiredUnlistedProperties.size()]));
     }
 
     @Override
@@ -76,6 +105,42 @@ public class BlockChestBase extends BlockContainer {
     }
 
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{FACING});
+        return new ExtendedBlockState(this, new IProperty[]{FACING}, new IUnlistedProperty[]{INSTALLED_MODULES});
+    }
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        TileEntity entity = world.getTileEntity(pos);
+
+        if (!(entity instanceof TileEntityTinyStorage))
+            return state;
+
+        TileEntityTinyStorage chestTe = (TileEntityTinyStorage) entity;
+        HashSet<IModule> installedModules = new HashSet<>(chestTe.getInstalledModules().values());
+        Iterator<IModule> moduleIterator = installedModules.iterator();
+
+        state = ((IExtendedBlockState) extendedState.getBaseState().withProperty(FACING, state.getValue(FACING))).withProperty(INSTALLED_MODULES, installedModules);
+
+        while (moduleIterator.hasNext()) {
+            IModule module = moduleIterator.next();
+
+            if (!(module instanceof IModelProvidingModule)) {
+                moduleIterator.remove();
+                continue;
+            }
+
+            if (module instanceof IBlockStateDependingModelProvidingModule) {
+                IBlockStateDependingModelProvidingModule blockstateModule = (IBlockStateDependingModelProvidingModule) module;
+
+                if (!blockstateModule.shouldRender(state, world, pos)) {
+                    moduleIterator.remove();
+                    continue;
+                }
+
+                state = blockstateModule.onGetExtendedState(state, world, pos);
+            }
+        }
+
+        return state;
     }
 }

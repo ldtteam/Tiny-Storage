@@ -51,5 +51,9 @@ public class References {
 
     public class Blocks {
         public static final String BLOCKCHESTBASE = "tinystorage.blocks.base";
+
+        public class Properties {
+            public static final String MODULES = "tinystorage.blocks.propeties.modules";
+        }
     }
 }

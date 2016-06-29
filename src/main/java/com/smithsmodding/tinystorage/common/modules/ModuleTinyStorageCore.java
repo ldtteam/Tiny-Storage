@@ -1,6 +1,6 @@
 package com.smithsmodding.tinystorage.common.modules;
 
-import com.smithsmodding.tinystorage.api.client.modules.IInWorldRenderingModule;
+import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
@@ -21,12 +21,12 @@ import java.util.Random;
 /**
  * Author Orion (Created on: 26.06.2016)
  */
-public final class ModuleTinyStorageCore implements IInWorldRenderingModule, IStorageModule {
+public final class ModuleTinyStorageCore implements IModelProvidingModule, IStorageModule {
 
     //chest.getInstalledModules().get(new ArrayList<>(chest.getInstalledModules().keySet()).get(index + 1))
 
     //TEMPORARY:
-    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("textures/entity/chest/normal.png");
+    public static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("textures/entity/chest/normal.png");
 
     private IModularChest chest;
 

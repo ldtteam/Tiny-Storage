@@ -10,7 +10,8 @@
     ],
     "inventory": [
       {
-        "transform": "forge:default-block"
+        "transform": "forge:default-block",
+        "model": "tinystorage:chest/tinystorage.blocks.base"
       }
     ],
     "facing": {
