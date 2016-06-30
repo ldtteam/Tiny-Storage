@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * Author Orion (Created on: 30.06.2016)
  */
 public class ItemBlockChestBase extends ItemBlock {
+
     public ItemBlockChestBase(Block block) {
         super(block);
         this.setRegistryName(block.getRegistryName());
@@ -24,7 +25,6 @@ public class ItemBlockChestBase extends ItemBlock {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         super.addInformation(stack, playerIn, tooltip, advanced);
-
         if (GuiScreen.isShiftKeyDown()) {
             tooltip.add("");
             tooltip.add(I18n.format(ModTranslationKeys.StackDetails.Blocks.INSTALLEDMODULES) + ": ");

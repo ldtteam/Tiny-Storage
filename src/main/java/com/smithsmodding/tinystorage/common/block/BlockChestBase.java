@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -31,6 +32,7 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -90,22 +92,25 @@ public class BlockChestBase extends BlockContainer {
         return this.getDefaultState().withProperty(ModBlocks.ListedProperties.FACING, placer.getHorizontalFacing().getOpposite());
     }
 
-    /**
-     * Called by ItemBlocks after a block is set in the world, to allow post-place logic
-     *
-     * @param worldIn
-     * @param pos
-     * @param state
-     * @param placer
-     * @param stack
-     */
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (heldItem != null) {
+            return false;
+        }
+        TileEntity entity = worldIn.getTileEntity(pos);
+        if (!(entity instanceof TileEntityTinyStorage)) {
+            return false;
+        }
+        TileEntityTinyStorage chest = (TileEntityTinyStorage) entity;
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+    }
+
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity entity = worldIn.getTileEntity(pos);
-
-        if (!(entity instanceof TileEntityTinyStorage))
+        if (!(entity instanceof TileEntityTinyStorage)) {
             return;
-
+        }
         TileEntityTinyStorage chest = (TileEntityTinyStorage) entity;
         ItemStackHelper.getChestModulesFromStack(stack).forEach(chest::installModule);
     }

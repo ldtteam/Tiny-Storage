@@ -18,11 +18,6 @@ import net.minecraft.util.text.ITextComponent;
  */
 public final class ModuleTinyStorageCore implements IModelProvidingModule, IStorageModule {
 
-    //chest.getInstalledModules().get(new ArrayList<>(chest.getInstalledModules().keySet()).get(index + 1))
-
-    //TEMPORARY:
-    public static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("textures/entity/chest/normal.png");
-
     private IModularChest chest;
 
     @Override
@@ -42,7 +37,6 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public void onTileEntityUpdate(IModularChest tileEntityModularChest) {
-        //NOOP
     }
 
     @Override
@@ -52,7 +46,7 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public boolean canInstall(IModularChest tileEntityModularChest) {
-        return !tileEntityModularChest.getInstalledModules().containsKey(getUniqueID());
+        return true;
     }
 
     @Override
@@ -62,7 +56,6 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public void loadFromNBT(NBTTagCompound tag) {
-        //NOOP
     }
 
     @Override
@@ -72,30 +65,29 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        if (index >= chest.getInstalledModules().size() - 1)
+        if (index >= chest.getInstalledModules().size() - 1) {
             return null;
-
+        }
         return ModuleRegistry.getInstance().getStackForModule(chest.getModuleOnPosition(index));
     }
 
     @Override
     public void clearInventory() {
-        //NOOP Dynamic genererated inventory from installed Modules. Gets synced automatically.
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        if (index >= chest.getInstalledModules().size() - 1)
+        if (index >= chest.getInstalledModules().size() - 1) {
             return;
-
+        }
         if (stack != null) {
             IModule module = ModuleRegistry.getInstance().getModuleFromStack(stack);
-            if (module == null)
+            if (module == null) {
                 return;
-
-            if (module.getUniqueID().equals(chest.getModuleOnPosition(index).getUniqueID()))
+            }
+            if (module.getUniqueID().equals(chest.getModuleOnPosition(index).getUniqueID())) {
                 return;
-
+            }
             chest.installModule(module);
         } else {
             chest.removeModule(chest.getModuleOnPosition(index));
