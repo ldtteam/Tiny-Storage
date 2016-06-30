@@ -1,8 +1,8 @@
 # Module names
 ###########################
 tinystorage.module.names.core=Core module framework.
-tinystorage.module.names.filter=Filter Component | Capacity: %1$
-tinystorage.module.names.storage=Storage Component | Capacity: %1$
+tinystorage.module.names.filter=Filter Component | Capacity: %s
+tinystorage.module.names.storage=Storage Component | Capacity: %s
 #
 # Block
 ###########################
