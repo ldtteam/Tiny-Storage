@@ -5,6 +5,7 @@ import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModuleProvider;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.creativetab.TabTinyStorage;
+import com.smithsmodding.tinystorage.common.modules.ModuleTinyStorageCore;
 import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
 import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
 import net.minecraft.creativetab.CreativeTabs;
@@ -38,6 +39,9 @@ public class ItemModule extends Item implements IModuleProvider {
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (IModule module : GeneralRegistry.instance().getModuleRegistry().getAllBuildableModules()) {
+            if (module instanceof ModuleTinyStorageCore)
+                continue;
+
             ItemStack stack = ModuleRegistry.getInstance().getStackForModule(module);
             if (stack == null) {
                 continue;

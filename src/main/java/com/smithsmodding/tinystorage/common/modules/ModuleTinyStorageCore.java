@@ -4,19 +4,14 @@ import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IStorageModule;
+import com.smithsmodding.tinystorage.api.reference.ModTranslationKeys;
 import com.smithsmodding.tinystorage.api.reference.References;
-import com.smithsmodding.tinystorage.client.renderer.tileentity.TileEntityRendererTinyStorage;
 import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
-import net.minecraft.client.model.ModelChest;
-import net.minecraft.client.renderer.entity.RenderEntityItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
 
 /**
  * Author Orion (Created on: 26.06.2016)
@@ -31,16 +26,8 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
     private IModularChest chest;
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldRender(ModelChest chest, RenderEntityItem itemRenderer, Random random) {
-        return true;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void doRender(ModelChest chest, RenderEntityItem itemRenderer, Random random, TileEntityRendererTinyStorage renderer) {
-        renderer.bindTexture(TEXTURE_NORMAL);
-        chest.renderAll();
+    public String getRegisteringModId() {
+        return References.MOD_ID;
     }
 
     @Override
@@ -50,7 +37,7 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public String getDisplayText() {
-        return "Module Chest System.";
+        return I18n.format(ModTranslationKeys.Modules.CORE);
     }
 
     @Override

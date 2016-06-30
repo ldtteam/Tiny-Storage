@@ -7,21 +7,19 @@ import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.reference.ModBlocks;
 import com.smithsmodding.tinystorage.api.reference.ModItems;
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.client.model.loader.ChestModelLoader;
 import com.smithsmodding.tinystorage.client.model.loader.ModuleItemModelLoader;
-import com.smithsmodding.tinystorage.client.renderer.tileentity.TileEntityRendererTinyStorage;
+import com.smithsmodding.tinystorage.common.block.BlockChestBase;
 import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
-import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 /**
@@ -30,6 +28,12 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ClientProxy extends CommonProxy {
 
     private static ModuleItemModelLoader moduleItemModelLoader = ModuleItemModelLoader.instance;
+    private static ChestModelLoader chestModelLoader = ChestModelLoader.instance;
+
+    public static void registerBlockModel(Block block) {
+        Item blockItem = Item.getItemFromBlock(block);
+        ModelLoader.setCustomModelResourceLocation(blockItem, 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+    }
 
     public static ResourceLocation registerModuleItemModel(Item item) {
         ResourceLocation itemLocation = ResourceHelper.getItemLocation(item);
@@ -70,18 +74,16 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void initItemRendering() {
         moduleItemModelLoader.registerDomain(References.MOD_ID);
+
         ModelLoaderRegistry.registerLoader(moduleItemModelLoader);
+        ModelLoaderRegistry.registerLoader(chestModelLoader);
+
         registerModuleItemModel(ModItems.itemModule);
     }
 
     @Override
     public void initIileRendering() {
-        TinyStorage.getLogger().info("Registering TESR's to GameRegistry.");
-
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getBlockModelShapes().registerBuiltInBlocks(ModBlocks.blockChest);
-
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyStorage.class, new TileEntityRendererTinyStorage());
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.blockChest), 0, TileEntityTinyStorage.class);
+        registerBlockModel(ModBlocks.blockChest);
     }
 
     @Override
@@ -97,6 +99,11 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit() {
         TinyStorage.side = Side.CLIENT;
+    }
+
+    @Override
+    public void onLoadComplete() {
+        ((BlockChestBase) ModBlocks.blockChest).updateExtendedStateDefinition();
     }
 
     @Override

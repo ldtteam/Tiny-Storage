@@ -9,6 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.IModelState;
 
+import java.util.Collection;
+
 /**
  * Author Orion (Created on: 30.06.2016)
  */
@@ -21,6 +23,8 @@ public interface IModuleModelRegistry {
     IModel getModelForModule(String moduleId);
 
     IModel getModelForModule(IModelProvidingModule module);
+
+    Collection<ResourceLocation> getTextures();
 
     void registerModuleBakedModel(IModelProvidingModule module, IBakedModel bakedModel);
 

@@ -27,5 +27,7 @@ public interface IProxy {
 
     void postInit();
 
+    void onLoadComplete();
+
     void registerIMCs();
 }

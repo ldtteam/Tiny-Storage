@@ -7,6 +7,7 @@ import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.block.BlockChestBase;
 import com.smithsmodding.tinystorage.common.handler.GuiHandler;
 import com.smithsmodding.tinystorage.common.item.ItemModule;
+import com.smithsmodding.tinystorage.common.item.block.ItemBlockChestBase;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.event.*;
@@ -37,10 +38,10 @@ public class TinyStorageInitialiser {
         initItems();
         initTileEntities();
         TinyStorage.instance.proxy.initItemRendering();
+        TinyStorage.instance.proxy.initIileRendering();
     }
 
     public static void init(FMLInitializationEvent event) {
-        TinyStorage.proxy.initIileRendering();
     }
 
     public static void postInit(FMLPostInitializationEvent event) {
@@ -51,7 +52,8 @@ public class TinyStorageInitialiser {
     }
 
     public static void initBlocks() {
-        ModBlocks.blockChest = GameRegistry.registerBlock(new BlockChestBase());
+        ModBlocks.blockChest = GameRegistry.register(new BlockChestBase());
+        ModItems.Blocks.blockChest = GameRegistry.register(new ItemBlockChestBase(ModBlocks.blockChest));
     }
 
     public static void initTileEntities () {

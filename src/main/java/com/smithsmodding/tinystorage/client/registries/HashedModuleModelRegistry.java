@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.client.registries;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
 import com.smithsmodding.tinystorage.api.client.registries.IModuleModelRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -10,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.IModelState;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +41,17 @@ public class HashedModuleModelRegistry implements IModuleModelRegistry {
     @Override
     public IModel getModelForModule(IModelProvidingModule module) {
         return getModelForModule(module.getUniqueID());
+    }
+
+    @Override
+    public Collection<ResourceLocation> getTextures() {
+        ImmutableList.Builder<ResourceLocation> builder = new ImmutableList.Builder<>();
+
+        for (IModel model : unbakedModels.values()) {
+            builder.addAll(model.getTextures());
+        }
+
+        return builder.build();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
+import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -19,11 +20,13 @@ public class TileEntityTinyStorageState implements ITileEntityState {
     public float lidAngle;
     private LinkedHashMap<String, IModule> installedModules;
     private int moduleLimit;
+    private TileEntitySmithsCore tileEntitySmithsCore;
 
     @Override
     public void onStateCreated(TileEntitySmithsCore tileEntitySmithsCore) {
         installedModules = new LinkedHashMap<>();
         moduleLimit = 0;
+        this.tileEntitySmithsCore = tileEntitySmithsCore;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class TileEntityTinyStorageState implements ITileEntityState {
                 NBTTagCompound moduleTag = tagCompound.getCompoundTag("module-" + i);
                 IModule module = GeneralRegistry.instance().getModuleRegistry().getModule(moduleTag.getString("moduleID"));
                 module.loadFromNBT(moduleTag.getCompoundTag("moduleData"));
-                installedModules.put(module.getUniqueID(), module);
+                ((TileEntityTinyStorage) tileEntitySmithsCore).installModule(module);
             }
         } else {
             moduleLimit = 0;
@@ -84,11 +87,12 @@ public class TileEntityTinyStorageState implements ITileEntityState {
 
     @Override
     public void readFromSynchronizationCompound(NBTBase stateData) {
+        readFromNBTTagCompound(stateData);
     }
 
     @Override
     public NBTBase writeToSynchronizationCompound() {
-        return null;
+        return writeToNBTTagCompound();
     }
 
     public LinkedHashMap<String, IModule> getInstalledModules() {

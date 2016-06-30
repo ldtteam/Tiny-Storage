@@ -11,5 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public interface IModelProvidingModule extends IModule {
 
     @SideOnly(Side.CLIENT)
-    ResourceLocation getModelLocation();
+    default ResourceLocation getModelLocation() {
+        return new ResourceLocation(getRegisteringModId().toLowerCase(), "block/chest/" + getUniqueID());
+    }
 }

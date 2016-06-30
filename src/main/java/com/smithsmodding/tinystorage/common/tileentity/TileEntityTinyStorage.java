@@ -91,9 +91,9 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     @Override
     public int getSizeInventory() {
         int invSize = 0;
-        for (IModule moudle : getState().getInstalledModules().values()) {
-            if (moudle instanceof IStorageModule) {
-                invSize += ((IStorageModule) moudle).getSizeInventory();
+        for (IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                invSize += ((IStorageModule) module).getSizeInventory();
             }
         }
         return invSize;

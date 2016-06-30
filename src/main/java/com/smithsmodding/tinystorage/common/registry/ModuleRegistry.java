@@ -10,6 +10,7 @@ import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModuleProvider;
 import com.smithsmodding.tinystorage.api.common.registries.IModuleRegistry;
+import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryCore;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryFilter;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryStorage;
 import gnu.trove.map.hash.TCustomHashMap;
@@ -30,6 +31,7 @@ public class ModuleRegistry implements IModuleRegistry {
     TCustomHashMap<ItemStack, IModule> reverseStackMap = new TCustomHashMap<>(new ItemStackHashingStrategy());
     ArrayList<IModule> baseModuleList = new ArrayList<>();
     private ModuleRegistry() {
+        registerModuleFactory(new ModuleFactoryCore());
         registerModuleFactory(new ModuleFactoryStorage());
         registerModuleFactory(new ModuleFactoryFilter());
     }
@@ -72,7 +74,7 @@ public class ModuleRegistry implements IModuleRegistry {
         try {
             return builders.get(Id).buildModule(Id);
         } catch (Exception ex) {
-            TinyStorage.getLogger().error(new Exception("Failed to build a Module for a given ID", ex));
+            TinyStorage.getLogger().error(new Exception("Failed to build a Module for a given ID: " + Id, ex));
         }
         return null;
     }

@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {},
-    "model": "tinystorage:chest/tinystorage.blocks.base"
+    "model": "tinystorage:chest/tinystorage.blocks.base.CM-TinyStorage"
   },
   "variants": {
     "normal": [
@@ -10,15 +10,20 @@
     ],
     "inventory": [
       {
-        "transform": "forge:default-block",
-        "model": "tinystorage:chest/tinystorage.blocks.base"
+        "transform": "forge:default-block"
       }
     ],
     "facing": {
-      "east": {},
-      "west": {},
+      "east": {
+        "y": 90
+      },
+      "west": {
+        "y": 270
+      },
       "north": {},
-      "south": {},
+      "south": {
+        "y": 180
+      },
       "up": {},
       "down": {}
     }

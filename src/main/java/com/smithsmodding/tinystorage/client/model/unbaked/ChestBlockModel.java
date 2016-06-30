@@ -2,16 +2,15 @@ package com.smithsmodding.tinystorage.client.model.unbaked;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
+import com.smithsmodding.smithscore.util.client.ModelHelper;
 import com.smithsmodding.tinystorage.api.client.registries.IModuleModelRegistry;
-import com.smithsmodding.tinystorage.api.common.modules.IModule;
-import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
+import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.client.model.baked.BakedChestBlockModel;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.IModelState;
 
 import java.util.Collection;
@@ -29,40 +28,22 @@ public class ChestBlockModel implements IModel {
 
     @Override
     public Collection<ResourceLocation> getDependencies() {
-        ImmutableList.Builder<ResourceLocation> builder = new ImmutableList.Builder<>();
-
-        for (IModule module : ModuleRegistry.getInstance().getAllBuildableModules()) {
-            IModel model = modelRegistry.getModelForModule(module.getUniqueID());
-
-            if (model != null)
-                builder.add(((IModelProvidingModule) module).getModelLocation());
-        }
-
-        return builder.build();
+        return ImmutableList.of();
     }
 
     @Override
     public Collection<ResourceLocation> getTextures() {
-        ImmutableList.Builder<ResourceLocation> builder = new ImmutableList.Builder<>();
-
-        for (IModule module : ModuleRegistry.getInstance().getAllBuildableModules()) {
-            if (!(module instanceof IModelProvidingModule))
-                continue;
-
-            IModel subModel = ModelLoaderRegistry.getModelOrMissing(((IModelProvidingModule) module).getModelLocation());
-            builder.addAll(subModel.getTextures());
-        }
-
-        return builder.build();
+        return modelRegistry.getTextures();
     }
 
     @Override
     public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        return null;
+        modelRegistry.bakeAll(state, format, bakedTextureGetter);
+        return new BakedChestBlockModel(modelRegistry.getBakedModelForModule(References.Modules.ModuleNames.CORE), modelRegistry);
     }
 
     @Override
     public IModelState getDefaultState() {
-        return null;
+        return ModelHelper.DEFAULT_BLOCK_STATE;
     }
 }
