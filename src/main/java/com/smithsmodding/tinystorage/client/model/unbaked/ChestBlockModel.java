@@ -3,6 +3,7 @@ package com.smithsmodding.tinystorage.client.model.unbaked;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
+import com.smithsmodding.tinystorage.api.client.registries.IModuleModelRegistry;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -20,15 +21,21 @@ import java.util.Collection;
  */
 public class ChestBlockModel implements IModel {
 
+    private final IModuleModelRegistry modelRegistry;
+
+    public ChestBlockModel(IModuleModelRegistry modelRegistry) {
+        this.modelRegistry = modelRegistry;
+    }
+
     @Override
     public Collection<ResourceLocation> getDependencies() {
         ImmutableList.Builder<ResourceLocation> builder = new ImmutableList.Builder<>();
 
         for (IModule module : ModuleRegistry.getInstance().getAllBuildableModules()) {
-            if (!(module instanceof IModelProvidingModule))
-                continue;
+            IModel model = modelRegistry.getModelForModule(module.getUniqueID());
 
-            builder.add(((IModelProvidingModule) module).getModelLocation());
+            if (model != null)
+                builder.add(((IModelProvidingModule) module).getModelLocation());
         }
 
         return builder.build();
