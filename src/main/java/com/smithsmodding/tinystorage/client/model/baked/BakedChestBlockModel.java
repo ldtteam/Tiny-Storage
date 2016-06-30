@@ -5,14 +5,9 @@ import com.smithsmodding.smithscore.util.client.ModelHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
 import java.util.List;
 
 /**
@@ -20,47 +15,13 @@ import java.util.List;
  */
 public class BakedChestBlockModel extends BakedWrappedModel.PerspectiveAware {
 
-    public BakedChestBlockModel(IBakedModel parentModel) {
-        super(parentModel, ModelHelper.DEFAULT_ITEM_TRANSFORMS);
-    }
 
-    @Override
-    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-        return null;
+    public BakedChestBlockModel(IBakedModel parentModel) {
+        super(parentModel, ModelHelper.DEFAULT_BLOCK_TRANSFORMS);
     }
 
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-        return null;
-    }
-
-    @Override
-    public boolean isAmbientOcclusion() {
-        return false;
-    }
-
-    @Override
-    public boolean isGui3d() {
-        return false;
-    }
-
-    @Override
-    public boolean isBuiltInRenderer() {
-        return false;
-    }
-
-    @Override
-    public TextureAtlasSprite getParticleTexture() {
-        return null;
-    }
-
-    @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
-        return null;
-    }
-
-    @Override
-    public ItemOverrideList getOverrides() {
         return null;
     }
 }
