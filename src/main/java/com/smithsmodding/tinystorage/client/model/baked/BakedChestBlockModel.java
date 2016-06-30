@@ -1,11 +1,11 @@
 package com.smithsmodding.tinystorage.client.model.baked;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.smithscore.client.model.baked.BakedWrappedModel;
 import com.smithsmodding.smithscore.util.client.ModelHelper;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
-import com.smithsmodding.tinystorage.api.client.registries.IModuleModelRegistry;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.reference.ModBlocks;
 import com.smithsmodding.tinystorage.api.util.ItemStackHelper;
@@ -30,10 +30,10 @@ import java.util.Random;
  */
 public class BakedChestBlockModel extends BakedWrappedModel.PerspectiveAware {
 
-    private final IModuleModelRegistry modelRegistry;
+    private final ImmutableMap<String, IBakedModel> modelRegistry;
     private final BakedChestModelOverrides overrides = new BakedChestModelOverrides(this);
 
-    public BakedChestBlockModel(IBakedModel parentModel, IModuleModelRegistry modelRegistry) {
+    public BakedChestBlockModel(IBakedModel parentModel, ImmutableMap<String, IBakedModel> modelRegistry) {
         super(parentModel, ModelHelper.DEFAULT_BLOCK_TRANSFORMS);
         this.modelRegistry = modelRegistry;
     }
@@ -58,7 +58,7 @@ public class BakedChestBlockModel extends BakedWrappedModel.PerspectiveAware {
 
         installedModules.stream().filter(module -> module instanceof IModelProvidingModule).forEach(module -> {
             IModelProvidingModule modelProvidingModule = (IModelProvidingModule) module;
-            IBakedModel model = modelRegistry.getBakedModelForModule(modelProvidingModule);
+            IBakedModel model = modelRegistry.get(modelProvidingModule.getUniqueID());
 
             if (model != null)
                 builder.add(model);

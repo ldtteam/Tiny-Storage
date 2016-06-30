@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage.client.model.unbaked;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.smithscore.util.client.ModelHelper;
 import com.smithsmodding.tinystorage.api.client.registries.IModuleModelRegistry;
 import com.smithsmodding.tinystorage.api.reference.References;
@@ -38,8 +39,9 @@ public class ChestBlockModel implements IModel {
 
     @Override
     public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        modelRegistry.bakeAll(state, format, bakedTextureGetter);
-        return new BakedChestBlockModel(modelRegistry.getBakedModelForModule(References.Modules.ModuleNames.CORE), modelRegistry);
+        ImmutableMap<String, IBakedModel> modelMap = modelRegistry.bakeAll(state, format, bakedTextureGetter);
+
+        return new BakedChestBlockModel(modelMap.get(References.Modules.ModuleNames.CORE), modelMap);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.smithsmodding.tinystorage.client.registries;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
 import com.smithsmodding.tinystorage.api.client.registries.IModuleModelRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -55,31 +56,13 @@ public class HashedModuleModelRegistry implements IModuleModelRegistry {
     }
 
     @Override
-    public void registerModuleBakedModel(IModelProvidingModule module, IBakedModel bakedModel) {
-        registerModuleBakedModel(module.getUniqueID(), bakedModel);
-    }
-
-    @Override
-    public void registerModuleBakedModel(String Id, IBakedModel bakedModel) {
-        bakedModels.put(Id, bakedModel);
-    }
-
-    @Override
-    public IBakedModel getBakedModelForModule(String moduleId) {
-        return bakedModels.get(moduleId);
-    }
-
-    @Override
-    public IBakedModel getBakedModelForModule(IModelProvidingModule module) {
-        return getBakedModelForModule(module.getUniqueID());
-    }
-
-    @Override
-    public void bakeAll(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        bakedModels.clear();
+    public ImmutableMap<String, IBakedModel> bakeAll(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+        ImmutableMap.Builder<String, IBakedModel> builder = new ImmutableMap.Builder<>();
 
         for (Map.Entry<String, IModel> entry : unbakedModels.entrySet()) {
-            registerModuleBakedModel(entry.getKey(), entry.getValue().bake(state, format, bakedTextureGetter));
+            builder.put(entry.getKey(), entry.getValue().bake(state, format, bakedTextureGetter));
         }
+
+        return builder.build();
     }
 }
