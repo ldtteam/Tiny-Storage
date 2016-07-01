@@ -57,6 +57,10 @@ public class References {
         }
     }
 
+    public enum GUIs {
+        TINY_CHEST;
+    }
+
     public class NBT {
         public class Blocks {
             public class Chests {

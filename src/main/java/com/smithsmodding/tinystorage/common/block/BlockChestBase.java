@@ -1,5 +1,6 @@
 package com.smithsmodding.tinystorage.common.block;
 
+import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.client.modules.IBlockStateDependingModelProvidingModule;
 import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
@@ -93,16 +94,19 @@ public class BlockChestBase extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (heldItem != null) {
-            return false;
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if ((player.isSneaking() && heldItem != null) || world.isSideSolid(pos, side)) {
+            return true;
         }
-        TileEntity entity = worldIn.getTileEntity(pos);
-        if (!(entity instanceof TileEntityTinyStorage)) {
-            return false;
+        if (world.isRemote) {
+            return true;
+        } else {
+            if (world.getTileEntity(pos) instanceof TileEntityTinyStorage) {
+                TileEntityTinyStorage tileEntity = (TileEntityTinyStorage) world.getTileEntity(pos);
+                player.openGui(TinyStorage.instance, References.GUIs.TINY_CHEST.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+            }
+            return true;
         }
-        TileEntityTinyStorage chest = (TileEntityTinyStorage) entity;
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
     @Override
