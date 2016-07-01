@@ -1,7 +1,7 @@
 package com.smithsmodding.tinystorage.common.handler;
 
 import com.smithsmodding.tinystorage.api.reference.References;
-import com.smithsmodding.tinystorage.client.gui.GuiTinyStorage;
+import com.smithsmodding.tinystorage.client.gui.modularchest.GuiTinyStorage;
 import com.smithsmodding.tinystorage.common.inventory.ContainerTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.entity.player.EntityPlayer;

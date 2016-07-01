@@ -23,11 +23,11 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
     private void generatePlayerInventory() {
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
-                this.addSlotToContainer(new Slot(getPlayerInventory(), inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 112 + inventoryRowIndex * 18));
+                this.addSlotToContainer(new Slot(getPlayerInventory(), inventoryColumnIndex + inventoryRowIndex * 9 + 9, 33 + inventoryColumnIndex * 18, 155 + inventoryRowIndex * 18));
             }
         }
         for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
-            this.addSlotToContainer(new Slot(getPlayerInventory(), actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 171));
+            this.addSlotToContainer(new Slot(getPlayerInventory(), actionBarSlotIndex, 33 + actionBarSlotIndex * 18, 214));
         }
     }
 
@@ -45,5 +45,6 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
         super.onTabChanged(newActiveTabID);
         inventorySlots.clear();
         inventoryItemStacks.clear();
+        generatePlayerInventory();
     }
 }

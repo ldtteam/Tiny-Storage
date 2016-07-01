@@ -60,9 +60,15 @@ public class References {
     public enum GUIs {
         TINY_CHEST;
 
+        public class Tabs {
+            public static final String CORE_MODULE = "tinystorage.gui.tabs.coremodule";
+        }
+
         public class Components {
+            public static final String PLAYER_INVENTORY = "tinystorage.gui.playerinventory";
+
             public class TinyChest {
-                public static final String BACKGROUND = "tinystorage.gui.tinychest.background";
+                public static final String BACKGROUND = "tinystorage.gui.modularchest.background";
             }
         }
     }
