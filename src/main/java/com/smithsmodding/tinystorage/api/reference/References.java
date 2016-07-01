@@ -59,6 +59,12 @@ public class References {
 
     public enum GUIs {
         TINY_CHEST;
+
+        public class Components {
+            public class TinyChest {
+                public static final String BACKGROUND = "tinystorage.gui.tinychest.background";
+            }
+        }
     }
 
     public class NBT {
