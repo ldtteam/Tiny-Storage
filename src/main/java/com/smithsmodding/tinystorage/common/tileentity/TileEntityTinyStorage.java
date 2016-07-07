@@ -52,9 +52,9 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public void removeModule(IModule module) {
-        if (!getInstalledModules().containsKey(module.getUniqueID()))
+        if (!getInstalledModules().containsKey(module.getUniqueID())) {
             return;
-
+        }
         getInstalledModules().remove(module.getUniqueID());
     }
 
