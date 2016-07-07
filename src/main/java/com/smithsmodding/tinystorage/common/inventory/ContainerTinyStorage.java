@@ -18,10 +18,9 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
         super(References.TE, tileEntity, tileEntity, playerMP);
         this.tileEntity = tileEntity;
         generatePlayerInventory();
-        generateStandardInventory();
     }
 
-    public TileEntityTinyStorage getTileEntity(){
+    public TileEntityTinyStorage getTileEntity() {
         return tileEntity;
     }
 
@@ -34,10 +33,6 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
         for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
             this.addSlotToContainer(new Slot(getPlayerInventory(), actionBarSlotIndex, 33 + actionBarSlotIndex * 18, 214));
         }
-    }
-
-    private void generateStandardInventory() {
-
     }
 
     private void generateCoreInventory() {
@@ -56,9 +51,9 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
         super.onTabChanged(newActiveTabID);
         inventorySlots.clear();
         inventoryItemStacks.clear();
-        generatePlayerInventory();
         if (newActiveTabID.equals(References.GUIs.Tabs.CORE_MODULE)) {
             generateCoreInventory();
         }
+        generatePlayerInventory();
     }
 }
