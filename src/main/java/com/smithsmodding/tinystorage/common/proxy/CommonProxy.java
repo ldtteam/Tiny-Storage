@@ -1,8 +1,12 @@
 package com.smithsmodding.tinystorage.common.proxy;
 
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.ITinyStorageAPI;
 import com.smithsmodding.tinystorage.common.registry.GeneralRegistry;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.animation.ITimeValue;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -73,4 +77,8 @@ public abstract class CommonProxy implements IProxy{
         return this;
     }
 
+    @Override
+    public IAnimationStateMachine loadAnimationStateMachine(ResourceLocation animationLocation, ImmutableMap<String, ITimeValue> parameters) {
+        return null;
+    }
 }

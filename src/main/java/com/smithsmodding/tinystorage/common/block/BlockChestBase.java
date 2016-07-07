@@ -1,5 +1,6 @@
 package com.smithsmodding.tinystorage.common.block;
 
+import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.client.modules.IBlockStateDependingModelProvidingModule;
 import com.smithsmodding.tinystorage.api.client.modules.IModelProvidingModule;
@@ -32,6 +33,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.common.property.Properties;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -53,7 +55,7 @@ public class BlockChestBase extends BlockContainer {
         this.setRegistryName(References.MOD_ID.toLowerCase(), References.Blocks.BLOCKCHESTBASE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(ModBlocks.ListedProperties.FACING, EnumFacing.NORTH));
 
-        this.extendedState = new ExtendedBlockState(this, new IProperty[]{ModBlocks.ListedProperties.FACING}, new IUnlistedProperty[]{ModBlocks.UnlistedProperties.INSTALLED_MODULES});
+        this.extendedState = new ExtendedBlockState(this, new IProperty[]{ModBlocks.ListedProperties.FACING, Properties.StaticProperty}, new IUnlistedProperty[]{ModBlocks.UnlistedProperties.INSTALLED_MODULES, Properties.AnimationProperty});
     }
 
     @Override
@@ -99,6 +101,12 @@ public class BlockChestBase extends BlockContainer {
             return true;
         }
         if (world.isRemote) {
+            TileEntity te = world.getTileEntity(pos);
+            if(te instanceof TileEntitySmithsCore)
+            {
+                ((TileEntityTinyStorage)te).click(player.isSneaking());
+            }
+
             return true;
         } else {
             if (world.getTileEntity(pos) instanceof TileEntityTinyStorage) {
@@ -146,7 +154,12 @@ public class BlockChestBase extends BlockContainer {
     }
 
     protected BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(this, new IProperty[]{ModBlocks.ListedProperties.FACING}, new IUnlistedProperty[]{ModBlocks.UnlistedProperties.INSTALLED_MODULES});
+        return new ExtendedBlockState(this, new IProperty[]{ModBlocks.ListedProperties.FACING, Properties.StaticProperty}, new IUnlistedProperty[]{ModBlocks.UnlistedProperties.INSTALLED_MODULES, Properties.AnimationProperty});
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return state.withProperty(Properties.StaticProperty, true);
     }
 
     @Override

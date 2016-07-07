@@ -1,6 +1,8 @@
 package com.smithsmodding.tinystorage.common.tileentity;
 
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
+import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.common.chest.IModularChest;
 import com.smithsmodding.tinystorage.api.common.modules.ICustomFilterModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
@@ -10,8 +12,17 @@ import com.smithsmodding.tinystorage.common.modules.ModuleTinyStorageCore;
 import com.smithsmodding.tinystorage.common.tileentity.guimanager.GuiManagerTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.state.TileEntityTinyStorageState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.client.model.animation.Animation;
+import net.minecraftforge.common.animation.Event;
+import net.minecraftforge.common.animation.ITimeValue;
+import net.minecraftforge.common.animation.TimeValues;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.model.animation.CapabilityAnimation;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,9 +32,32 @@ import java.util.LinkedHashMap;
  */
 public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinyStorageState, GuiManagerTinyStorage> implements IModularChest, ITickable {
 
+    private final IAnimationStateMachine asm;
+    private final TimeValues.VariableValue cycleLength = new TimeValues.VariableValue(4);
+    private final TimeValues.VariableValue clickTime = new TimeValues.VariableValue(Float.NEGATIVE_INFINITY);
+
     public TileEntityTinyStorage() {
         getState().setModuleLimit(References.Modules.Limits.SMALL_SIZE + 1);
         installModule(new ModuleTinyStorageCore());
+
+        asm = TinyStorage.instance.proxy.loadAnimationStateMachine(new ResourceLocation(References.MOD_ID.toLowerCase(), "animations/blocks/tinystorage.blocks.base.json"), ImmutableMap.of(
+                "cycle_length", cycleLength,
+                "click_time", clickTime
+        ));
+    }
+
+    public void handleEvents(float time, Iterable<Event> pastEvents)
+    {
+        for(Event event : pastEvents)
+        {
+            System.out.println("Event: " + event.event() + " " + event.offset() + " " + getPos() + " " + time);
+        }
+    }
+
+    @Override
+    public boolean hasFastRenderer()
+    {
+        return true;
     }
 
     @Override
@@ -65,7 +99,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public int getModuleCount() {
-        return getState().getInstalledModules().size();
+        return getState().getInstalledModules().size() - 1;
     }
 
     @Override
@@ -200,6 +234,49 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
             module.onTileEntityUpdate(this);
         }
     }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing side)
+    {
+        if(capability == CapabilityAnimation.ANIMATION_CAPABILITY)
+        {
+            return true;
+        }
+        return super.hasCapability(capability, side);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing side)
+    {
+        if(capability == CapabilityAnimation.ANIMATION_CAPABILITY)
+        {
+            return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
+        }
+        return super.getCapability(capability, side);
+    }
+
+
+    public void click(boolean sneaking)
+    {
+        if(asm != null)
+        {
+            if(sneaking)
+            {
+                cycleLength.setValue(6 - cycleLength.apply(0));
+            }
+            else if(asm.currentState().equals("closed"))
+            {
+                clickTime.setValue(Animation.getWorldTime(getWorld()));
+                asm.transition("opening");
+            }
+            else if(asm.currentState().equals("open"))
+            {
+                clickTime.setValue(Animation.getWorldTime(getWorld()));
+                asm.transition("closing");
+            }
+        }
+    }
+
 
     @Override
     public String getName() {

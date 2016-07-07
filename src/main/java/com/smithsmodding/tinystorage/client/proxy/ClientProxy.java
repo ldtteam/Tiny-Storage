@@ -1,5 +1,6 @@
 package com.smithsmodding.tinystorage.client.proxy;
 
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.model.loader.MultiComponentModelLoader;
 import com.smithsmodding.smithscore.util.client.ResourceHelper;
@@ -11,6 +12,7 @@ import com.smithsmodding.tinystorage.client.model.loader.ChestModelLoader;
 import com.smithsmodding.tinystorage.client.model.loader.ModuleItemModelLoader;
 import com.smithsmodding.tinystorage.common.block.BlockChestBase;
 import com.smithsmodding.tinystorage.common.proxy.CommonProxy;
+import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -20,6 +22,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.animation.AnimationTESR;
+import net.minecraftforge.common.animation.Event;
+import net.minecraftforge.common.animation.ITimeValue;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 /**
@@ -84,6 +91,14 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void initIileRendering() {
         registerBlockModel(ModBlocks.blockChest);
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinyStorage.class, new AnimationTESR<TileEntityTinyStorage>()
+        {
+            @Override
+            public void handleEvents(TileEntityTinyStorage chest, float time, Iterable<Event> pastEvents)
+            {
+                chest.handleEvents(time, pastEvents);
+            }
+        });
     }
 
     @Override
@@ -119,4 +134,8 @@ public class ClientProxy extends CommonProxy {
         return this;
     }
 
+    @Override
+    public IAnimationStateMachine loadAnimationStateMachine(ResourceLocation animationLocation, ImmutableMap<String, ITimeValue> parameters) {
+        return ModelLoaderRegistry.loadASM(animationLocation, parameters);
+    }
 }

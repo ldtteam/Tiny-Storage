@@ -1,6 +1,10 @@
 package com.smithsmodding.tinystorage.common.proxy;
 
+import com.google.common.collect.ImmutableMap;
 import com.smithsmodding.tinystorage.client.proxy.ClientProxy;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.animation.ITimeValue;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 
 /**
  * Created by Tim on 19/06/2016.
@@ -30,4 +34,6 @@ public interface IProxy {
     void onLoadComplete();
 
     void registerIMCs();
+
+    IAnimationStateMachine loadAnimationStateMachine(ResourceLocation animationLocation, ImmutableMap<String, ITimeValue> parameters);
 }
