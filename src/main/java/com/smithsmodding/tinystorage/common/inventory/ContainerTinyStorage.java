@@ -42,7 +42,12 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
 
     private void generateCoreInventory() {
         for (int i = 0; i < tileEntity.getCoreModule().getSizeInventory(); i++) {
-            this.addSlotToContainer(new SlotSmithsCore(tileEntity.getCoreModule(), i, (((ComponentPlayerInventory.WIDTH + 50) / 2) - (18 * tileEntity.getCoreModule().getSizeInventory() / 2)) + i * 18, 10));
+            this.addSlotToContainer(new SlotSmithsCore(tileEntity.getCoreModule(), i, (((ComponentPlayerInventory.WIDTH + 50) / 2) - (18 * tileEntity.getCoreModule().getSizeInventory() / 2)) + i * 18, 10) {
+                @Override
+                public boolean isItemValid(@Nullable ItemStack stack) {
+                    return inventory.isItemValidForSlot(getSlotIndex(), stack);
+                }
+            });
         }
     }
 
