@@ -74,7 +74,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     }
 
     public ModuleTinyStorageCore getCoreModule() {
-        return (ModuleTinyStorageCore) getModuleAtPosition(0);
+        return (ModuleTinyStorageCore) this.getInstalledModules().get(new ArrayList<>(this.getInstalledModules().keySet()).get(0));
     }
 
     @Override
