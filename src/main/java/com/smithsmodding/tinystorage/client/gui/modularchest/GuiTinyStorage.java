@@ -17,8 +17,11 @@ import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
  */
 public class GuiTinyStorage extends GuiContainerSmithsCore {
 
+    protected ContainerSmithsCore container;
+
     public GuiTinyStorage(ContainerSmithsCore container) {
         super(container);
+        this.container = container;
     }
 
     @Override

@@ -55,7 +55,7 @@ public interface IModularChest extends IItemStorage {
      */
     int getModuleCount();
 
-    IModule getModuleOnPosition(int index);
+    IModule getModuleAtPosition(int index);
 
     /**
      * Method to check if the chest contains a module with the given ID

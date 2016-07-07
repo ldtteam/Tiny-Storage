@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
  */
 public class TabCoreModule extends CoreTab {
 
-    GuiTinyStorage guiTinyStorage;
+    private GuiTinyStorage guiTinyStorage;
 
     public TabCoreModule(String uniqueID, IGUIBasedTabHost root, IGUIComponentState state, ItemStack displayStack, MinecraftColor tabColor, String toolTipString) {
         super(uniqueID, root, state, displayStack, tabColor, toolTipString);
@@ -28,7 +28,8 @@ public class TabCoreModule extends CoreTab {
 
     @Override
     public void registerComponents(IGUIBasedComponentHost host) {
-        host.registerNewComponent(new ComponentBorder(References.GUIs.Components.TinyChest.BACKGROUND, host, new Coordinate2D(0, 0), ComponentPlayerInventory.WIDTH + 50, 150, Colors.DEFAULT, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts));
+        host.registerNewComponent(new ComponentBorder(References.GUIs.Components.TinyChest.BACKGROUND, host, new Coordinate2D(0, 0), ComponentPlayerInventory.WIDTH + 50, 150, Colors.DEFAULT, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards));
+        //TODO: add slot components here!
         host.registerNewComponent(new ComponentPlayerInventory(References.GUIs.Components.PLAYER_INVENTORY, host, new Coordinate2D(25, 147), Colors.DEFAULT, ((ContainerSmithsCore) (guiTinyStorage.inventorySlots)).getPlayerInventory(), ComponentConnectionType.BELOWSMALLER));
     }
 }

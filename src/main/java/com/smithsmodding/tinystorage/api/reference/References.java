@@ -66,6 +66,7 @@ public class References {
 
         public class Components {
             public static final String PLAYER_INVENTORY = "tinystorage.gui.playerinventory";
+            public static final String SLOT_CORE = "tinystorage.gui.coreslot";
 
             public class TinyChest {
                 public static final String BACKGROUND = "tinystorage.gui.modularchest.background";

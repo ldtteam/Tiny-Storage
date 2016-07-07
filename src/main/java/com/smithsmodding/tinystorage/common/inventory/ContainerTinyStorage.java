@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.inventory;
 
 import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
+import com.smithsmodding.smithscore.common.inventory.slot.SlotSmithsCore;
 import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,10 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
         generateStandardInventory();
     }
 
+    public TileEntityTinyStorage getTileEntity(){
+        return tileEntity;
+    }
+
     private void generatePlayerInventory() {
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
@@ -35,6 +40,12 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
 
     }
 
+    private void generateCoreInventory() {
+        for (int i = 0; i < tileEntity.getCoreModule().getSizeInventory(); i++) {
+            this.addSlotToContainer(new SlotSmithsCore(tileEntity.getCoreModule(), i, 33 + i * 18, 10));
+        }
+    }
+
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return true;
@@ -46,5 +57,8 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
         inventorySlots.clear();
         inventoryItemStacks.clear();
         generatePlayerInventory();
+        if (newActiveTabID.equals(References.GUIs.Tabs.CORE_MODULE)) {
+            generateCoreInventory();
+        }
     }
 }

@@ -10,7 +10,6 @@ import com.smithsmodding.tinystorage.common.registry.ModuleRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 /**
@@ -68,7 +67,7 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
         if (index >= chest.getInstalledModules().size() - 1) {
             return null;
         }
-        return ModuleRegistry.getInstance().getStackForModule(chest.getModuleOnPosition(index));
+        return ModuleRegistry.getInstance().getStackForModule(chest.getModuleAtPosition(index));
     }
 
     @Override
@@ -85,12 +84,12 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
             if (module == null) {
                 return;
             }
-            if (module.getUniqueID().equals(chest.getModuleOnPosition(index).getUniqueID())) {
+            if (module.getUniqueID().equals(chest.getModuleAtPosition(index).getUniqueID())) {
                 return;
             }
             chest.installModule(module);
         } else {
-            chest.removeModule(chest.getModuleOnPosition(index));
+            chest.removeModule(chest.getModuleAtPosition(index));
         }
     }
 

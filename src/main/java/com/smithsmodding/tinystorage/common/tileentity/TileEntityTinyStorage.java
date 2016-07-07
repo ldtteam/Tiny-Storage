@@ -69,8 +69,12 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
     }
 
     @Override
-    public IModule getModuleOnPosition(int index) {
+    public IModule getModuleAtPosition(int index) {
         return this.getInstalledModules().get(new ArrayList<>(this.getInstalledModules().keySet()).get(index + 1));
+    }
+
+    public ModuleTinyStorageCore getCoreModule() {
+        return (ModuleTinyStorageCore) getModuleAtPosition(0);
     }
 
     @Override
