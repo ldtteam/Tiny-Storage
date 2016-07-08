@@ -4,6 +4,7 @@ import com.smithsmodding.smithscore.client.gui.components.implementations.Compon
 import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
 import com.smithsmodding.smithscore.common.inventory.slot.SlotSmithsCore;
 import com.smithsmodding.tinystorage.api.reference.References;
+import com.smithsmodding.tinystorage.common.inventory.slots.SlotTinyStorage;
 import com.smithsmodding.tinystorage.common.tileentity.TileEntityTinyStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
@@ -22,7 +23,6 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
     public ContainerTinyStorage(TileEntityTinyStorage tileEntity, EntityPlayer playerMP) {
         super(References.TE, tileEntity, tileEntity, playerMP);
         this.tileEntity = tileEntity;
-        generatePlayerInventory();
     }
 
     public TileEntityTinyStorage getTileEntity() {
@@ -42,12 +42,7 @@ public class ContainerTinyStorage extends ContainerSmithsCore {
 
     private void generateCoreInventory() {
         for (int i = 0; i < tileEntity.getCoreModule().getSizeInventory(); i++) {
-            this.addSlotToContainer(new SlotSmithsCore(tileEntity.getCoreModule(), i, (((ComponentPlayerInventory.WIDTH + 50) / 2) - (18 * tileEntity.getCoreModule().getSizeInventory() / 2)) + i * 18, 10) {
-                @Override
-                public boolean isItemValid(@Nullable ItemStack stack) {
-                    return inventory.isItemValidForSlot(getSlotIndex(), stack);
-                }
-            });
+            this.addSlotToContainer(new SlotTinyStorage(tileEntity.getCoreModule(), i, (((ComponentPlayerInventory.WIDTH + 50) / 2) - (18 * tileEntity.getCoreModule().getSizeInventory() / 2)) + i * 18, 10));
         }
     }
 
