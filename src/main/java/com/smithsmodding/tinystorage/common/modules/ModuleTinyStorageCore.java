@@ -76,7 +76,7 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        if (index >= chest.getInstalledModules().size() - 1) {
+        if (index >= chest.getModuleLimit() - 1) {
             return;
         }
         if (stack != null) {
@@ -84,12 +84,17 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
             if (module == null) {
                 return;
             }
-            if (module.getUniqueID().equals(chest.getModuleAtPosition(index).getUniqueID())) {
-                return;
+            if (chest.getModuleAtPosition(index) != null) {
+                if (module.getUniqueID().equals(chest.getModuleAtPosition(index).getUniqueID())) {
+                    return;
+                }
             }
             chest.installModule(module);
+            stack.stackSize--;
         } else {
-            chest.removeModule(chest.getModuleAtPosition(index));
+            if (chest.getModuleAtPosition(index) != null) {
+                chest.removeModule(chest.getModuleAtPosition(index));
+            }
         }
     }
 
@@ -105,7 +110,8 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return ModuleRegistry.getInstance().getModuleFromStack(stack) != null;
+        IModule module = ModuleRegistry.getInstance().getModuleFromStack(stack);
+        return module != null;
     }
 
     @Override

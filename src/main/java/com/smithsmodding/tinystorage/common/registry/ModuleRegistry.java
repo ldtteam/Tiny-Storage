@@ -1,6 +1,7 @@
 package com.smithsmodding.tinystorage.common.registry;
 
 import com.google.common.collect.ImmutableList;
+import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.ItemStackHelper;
 import com.smithsmodding.tinystorage.TinyStorage;
 import com.smithsmodding.tinystorage.api.common.exception.ModuleConstructionException;
@@ -10,6 +11,7 @@ import com.smithsmodding.tinystorage.api.common.factory.IModuleFactory;
 import com.smithsmodding.tinystorage.api.common.modules.IModule;
 import com.smithsmodding.tinystorage.api.common.modules.IModuleProvider;
 import com.smithsmodding.tinystorage.api.common.registries.IModuleRegistry;
+import com.smithsmodding.tinystorage.api.reference.References;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryCore;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryFilter;
 import com.smithsmodding.tinystorage.common.modules.factory.ModuleFactoryStorage;
@@ -30,6 +32,7 @@ public class ModuleRegistry implements IModuleRegistry {
     LinkedHashMap<IModule, ItemStack> stacks = new LinkedHashMap<>();
     TCustomHashMap<ItemStack, IModule> reverseStackMap = new TCustomHashMap<>(new ItemStackHashingStrategy());
     ArrayList<IModule> baseModuleList = new ArrayList<>();
+
     private ModuleRegistry() {
         registerModuleFactory(new ModuleFactoryCore());
         registerModuleFactory(new ModuleFactoryStorage());
@@ -80,17 +83,22 @@ public class ModuleRegistry implements IModuleRegistry {
     }
 
     public ItemStack getStackForModule(IModule module) {
-        if (!stacks.containsKey(module))
+        if (!stacks.containsKey(module)) {
             return null;
-
+        }
         return stacks.get(module).copy();
     }
 
     public IModule getModuleFromStack(ItemStack stack) {
-        if (!reverseStackMap.containsKey(stack))
+        //TODO: This is not API safe, adding NBT tags after the fact may cause IModuleProviders not to be recognised. This should probably check for a moduleID rather than an item stack
+        ItemStack hackStack = stack.copy();
+        if (hackStack.getTagCompound() != null && hackStack.getTagCompound().hasKey(CoreReferences.NBT.IItemProperties.TARGET)) {
+            hackStack.getTagCompound().removeTag(CoreReferences.NBT.IItemProperties.TARGET);
+        }
+        if (!reverseStackMap.containsKey(hackStack)) {
             return null;
-
-        return reverseStackMap.get(stack);
+        }
+        return reverseStackMap.get(hackStack);
     }
 
     @Override
@@ -102,10 +110,9 @@ public class ModuleRegistry implements IModuleRegistry {
         @Override
         public int computeHashCode(ItemStack object) {
             int hash = object.getItem().hashCode() ^ object.getMetadata();
-
-            if (object.getTagCompound() != null)
+            if (object.getTagCompound() != null) {
                 hash ^= object.getTagCompound().hashCode();
-
+            }
             return hash;
         }
 
