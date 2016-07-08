@@ -43,8 +43,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public void installModule(IModule module) {
-        if (!getState().getInstalledModules().containsKey(module.getUniqueID())
-                && getModuleCount() + 1 <= getModuleLimit() && module.canInstall(this)) {
+        if (!getState().getInstalledModules().containsKey(module.getUniqueID()) && getModuleCount() + 1 <= getModuleLimit() && module.canInstall(this)) {
             getState().getInstalledModules().put(module.getUniqueID(), module);
             module.onInstalled(this);
         }
@@ -70,6 +69,9 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
 
     @Override
     public IModule getModuleAtPosition(int index) {
+        if (index + 1 >= getInstalledModules().size()) {
+            return null;
+        }
         return this.getInstalledModules().get(new ArrayList<>(this.getInstalledModules().keySet()).get(index + 1));
     }
 
@@ -110,11 +112,26 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
                 IStorageModule storageModule = (IStorageModule) module;
                 if (index < storageModule.getSizeInventory()) {
                     return storageModule.getStackInSlot(index);
+                } else {
+                    index -= storageModule.getSizeInventory();
                 }
-                index -= storageModule.getSizeInventory();
             }
         }
         return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        for (IModule module : getState().getInstalledModules().values()) {
+            if (module instanceof IStorageModule) {
+                IStorageModule storageModule = (IStorageModule) module;
+                if (index < storageModule.getSizeInventory()) {
+                    storageModule.setInventorySlotContents(index, stack);
+                } else {
+                    index -= storageModule.getSizeInventory();
+                }
+            }
+        }
     }
 
     @Override
@@ -124,8 +141,9 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
                 IStorageModule storageModule = (IStorageModule) module;
                 if (index < storageModule.getSizeInventory()) {
                     return storageModule.decrStackSize(index, count);
+                } else {
+                    index -= storageModule.getSizeInventory();
                 }
-                index -= storageModule.getSizeInventory();
             }
         }
         return null;
@@ -137,19 +155,6 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
             if (module instanceof IStorageModule) {
                 IStorageModule storageModule = (IStorageModule) module;
                 storageModule.clearInventory();
-            }
-        }
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        for (IModule module : getState().getInstalledModules().values()) {
-            if (module instanceof IStorageModule) {
-                IStorageModule storageModule = (IStorageModule) module;
-                if (index < storageModule.getSizeInventory()) {
-                    storageModule.setInventorySlotContents(index, stack);
-                }
-                index -= storageModule.getSizeInventory();
             }
         }
     }
@@ -187,8 +192,9 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
                 IStorageModule storageModule = (IStorageModule) module;
                 if (index < storageModule.getSizeInventory()) {
                     return storageModule.isItemValidForSlot(index, stack);
+                } else {
+                    index -= storageModule.getSizeInventory();
                 }
-                index -= storageModule.getSizeInventory();
             }
         }
         return false;
