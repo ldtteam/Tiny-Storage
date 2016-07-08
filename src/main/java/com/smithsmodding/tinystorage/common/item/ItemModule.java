@@ -39,9 +39,9 @@ public class ItemModule extends Item implements IModuleProvider {
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (IModule module : GeneralRegistry.instance().getModuleRegistry().getAllBuildableModules()) {
-            if (module instanceof ModuleTinyStorageCore)
+            if (module instanceof ModuleTinyStorageCore) {
                 continue;
-
+            }
             ItemStack stack = ModuleRegistry.getInstance().getStackForModule(module);
             if (stack == null) {
                 continue;
