@@ -81,21 +81,18 @@ public final class ModuleTinyStorageCore implements IModelProvidingModule, IStor
         }
         if (stack != null) {
             IModule module = ModuleRegistry.getInstance().getModuleFromStack(stack);
-            if (module == null) {
-                return;
-            }
-            if (chest.getModuleAtPosition(index) != null) {
+            if (module != null && chest.getModuleAtPosition(index) != null) {
                 if (module.getUniqueID().equals(chest.getModuleAtPosition(index).getUniqueID())) {
                     return;
                 }
             }
             chest.installModule(module);
-            stack.stackSize--;
         } else {
             if (chest.getModuleAtPosition(index) != null) {
                 chest.removeModule(chest.getModuleAtPosition(index));
             }
         }
+        this.markDirty();
     }
 
     @Override

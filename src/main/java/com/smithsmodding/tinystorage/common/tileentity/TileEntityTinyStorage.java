@@ -46,6 +46,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
         if (!getState().getInstalledModules().containsKey(module.getUniqueID()) && getModuleCount() + 1 <= getModuleLimit() && module.canInstall(this)) {
             getState().getInstalledModules().put(module.getUniqueID(), module);
             module.onInstalled(this);
+            this.markDirty();
         }
     }
 
@@ -55,6 +56,7 @@ public class TileEntityTinyStorage extends TileEntitySmithsCore<TileEntityTinySt
             return;
         }
         getInstalledModules().remove(module.getUniqueID());
+        this.markDirty();
     }
 
     @Override
