@@ -107,7 +107,7 @@ dependencies {
 	deobfCompile "mezz.jei:jei_" + config.minecraft_version + ":" + config.jei_version
 
     //Maven uploader
-    deployerJars 'org.apache.maven.wagon:wagon-ftp:3.4.2'
+    deployerJars 'org.apache.maven.wagon:wagon-ftp:2.8'
 }
 
 sourceSets {
